@@ -10,9 +10,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const App = () => {
+    let colors = ['red', 'blue', 'green'];
+    let items = colors.map(item =>
+        <div key={item.toString()} style={{backgroundColor: item}}>
+            <>Test {item}</>
+        </div>
+    );
     return(
         <div>
-            <h2>Hello from people</h2>
+            <h2>Hello from: </h2>
+            {items}
         </div>
     )
 }
