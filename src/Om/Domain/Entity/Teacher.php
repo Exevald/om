@@ -20,12 +20,18 @@ class Teacher
         string $password,
     )
     {
-        $this->id = $id;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->patronymic = $patronymic;
-        $this->email = $email;
-        $this->password = $password;
+        if (
+            DataValidator::checkName($firstName, $lastName, $patronymic) &&
+            DataValidator::checkPassword($password) &&
+            DataValidator::checkEmail($email)
+        ) {
+            $this->id = $id;
+            $this->firstName = $firstName;
+            $this->lastName = $lastName;
+            $this->patronymic = $patronymic;
+            $this->email = $email;
+            $this->password = $password;
+        }
     }
 
     public function getId(): int
@@ -65,18 +71,24 @@ class Teacher
 
     public function setName(string $firstName, string $lastName, string $patronymic): void
     {
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->patronymic = $patronymic;
+        if (DataValidator::checkName($firstName, $lastName, $patronymic)) {
+            $this->firstName = $firstName;
+            $this->lastName = $lastName;
+            $this->patronymic = $patronymic;
+        }
     }
 
     public function setEmail(string $email): void
     {
-        $this->email = $email;
+        if (DataValidator::checkEmail($email)) {
+            $this->email = $email;
+        }
     }
 
     public function setPassword(string $password): void
     {
-        $this->password = $password;
+        if (DataValidator::checkPassword($password)) {
+            $this->password = $password;
+        }
     }
 }

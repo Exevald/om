@@ -13,7 +13,7 @@ class TeacherRepository implements TeacherRepositoryInterface
 
     public function get(int $id): Teacher
     {
-        if (isset($this->teachers[$id]))
+        if (!isset($this->teachers[$id]))
         {
             throw new Exception("Element with current index does not exist");
         }
@@ -27,7 +27,7 @@ class TeacherRepository implements TeacherRepositoryInterface
 
     public function delete(int $id): void
     {
-        if (isset($this->teachers[$id]))
+        if (!isset($this->teachers[$id]))
         {
             throw new Exception("Element with current index does not exist");
         }
