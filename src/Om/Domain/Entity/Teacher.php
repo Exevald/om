@@ -10,7 +10,6 @@ class Teacher
     private string $patronymic;
     private string $email;
     private string $password;
-    private Gender $gender;
 
     public function __construct(
         int    $id,
@@ -19,7 +18,6 @@ class Teacher
         string $patronymic,
         string $email,
         string $password,
-        Gender $gender
     )
     {
         $this->id = $id;
@@ -28,7 +26,6 @@ class Teacher
         $this->patronymic = $patronymic;
         $this->email = $email;
         $this->password = $password;
-        $this->gender = $gender;
     }
 
     public function getId(): int
@@ -61,11 +58,6 @@ class Teacher
         return $this->password;
     }
 
-    public function getGender(): Gender
-    {
-        return $this->gender;
-    }
-
     public function setId(int $id): void
     {
         $this->id = $id;
@@ -86,10 +78,5 @@ class Teacher
     public function setPassword(string $password): void
     {
         $this->password = $password;
-    }
-
-    public function setGender(Gender $gender): void
-    {
-        $this->gender = $gender;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Om\Domain\Service;
 
-use App\Om\Domain\Entity\Gender;
 use App\Om\Domain\Entity\Teacher;
 use App\Om\Domain\Entity\TeacherRepositoryInterface;
 
@@ -18,11 +17,10 @@ class TeacherService
         string $patronymic,
         string $email,
         string $password,
-        Gender $gender
     ): Teacher
     {
         $teacherId = $this->teacherRepository->takeNewId();
-        $teacher = new Teacher($teacherId, $firstName, $lastName, $patronymic, $email, $password, $gender);
+        $teacher = new Teacher($teacherId, $firstName, $lastName, $patronymic, $email, $password);
         $this->teacherRepository->store($teacher);
 
         return $teacher;
@@ -44,11 +42,5 @@ class TeacherService
     {
         $teacher = $this->teacherRepository->get($teacherId);
         $teacher->setPassword($password);
-    }
-
-    public function changeTeacherGender(int $teacherId, Gender $gender): void
-    {
-        $teacher = $this->teacherRepository->get($teacherId);
-        $teacher->setGender($gender);
     }
 }

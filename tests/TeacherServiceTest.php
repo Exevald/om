@@ -15,7 +15,6 @@ class TeacherServiceTest extends TestCase
     private const DEFAULT_TEACHER_PATRONYMIC = "Ivanovich";
     private const DEFAULT_TEACHER_EMAIL = "ivaiva@gmail.com";
     private const DEFAULT_TEACHER_PASSWORD = "LxilKD9Pbe";
-    private const DEFAULT_TEACHER_GENDER = Gender::Male;
 
     public function testCreateTeacher(): void
     {
@@ -27,7 +26,6 @@ class TeacherServiceTest extends TestCase
             self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
-            self::DEFAULT_TEACHER_GENDER
         );
         $this->assertTrue($teacher !== null);
         dump("Test 1 passed");
