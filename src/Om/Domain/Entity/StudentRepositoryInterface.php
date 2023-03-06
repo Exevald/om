@@ -6,7 +6,7 @@ interface StudentRepositoryInterface
 {
     public function get(int $id): Student;
 
-    public function store(Student $teacher): void;
+    public function store(Student $student): void;
 
     public function delete(int $id): void;
 

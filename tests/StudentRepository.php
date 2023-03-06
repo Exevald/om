@@ -19,9 +19,9 @@ class StudentRepository implements StudentRepositoryInterface
         return $this->students[$id];
     }
 
-    public function store(Student $teacher): void
+    public function store(Student $student): void
     {
-        $this->students[] = $teacher;
+        $this->students[] = $student;
     }
 
     public function delete(int $id): void
