@@ -2,6 +2,8 @@
 
 namespace App\Om\Domain\Entity;
 
+use Exception;
+
 class Group
 {
     private int $id;
@@ -58,9 +60,19 @@ class Group
         $this->subject = $subject;
     }
 
-    public function setStudentsIdList(array $studentsIdList): void
+    public function addStudent(int $id): void
     {
-        $this->studentsIdList = $studentsIdList;
+        $this->studentsIdList[] = $id;
+    }
+
+    public function deleteStudents(array $studentsIdListToDelete): void
+    {
+        foreach ($studentsIdListToDelete as $studentId) {
+            if (!in_array($studentId, $this->studentsIdList)) {
+                throw new Exception("Element with current id does not exist");
+            }
+        }
+        $this->studentsIdList = array_values(array_diff($this->studentsIdList, $studentsIdListToDelete));
     }
 
 }
