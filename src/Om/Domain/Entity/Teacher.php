@@ -7,7 +7,6 @@ class Teacher
     private int $id;
     private string $firstName;
     private string $lastName;
-    private string $patronymic;
     private string $email;
     private string $password;
 
@@ -15,23 +14,20 @@ class Teacher
         int    $id,
         string $firstName,
         string $lastName,
-        string $patronymic,
         string $email,
         string $password,
     )
     {
-        if (
-            DataValidator::checkName($firstName, $lastName, $patronymic) &&
-            DataValidator::checkPassword($password) &&
-            DataValidator::checkEmail($email)
-        ) {
-            $this->id = $id;
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->patronymic = $patronymic;
-            $this->email = $email;
-            $this->password = $password;
-        }
+        $userDataValidator = new UserDataValidator();
+        $userDataValidator->checkName($firstName, $lastName);
+        $userDataValidator->checkEmail($email);
+        $userDataValidator->checkPassword($password);
+
+        $this->id = $id;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->email = $email;
+        $this->password = $password;
     }
 
     public function getId(): int
@@ -49,11 +45,6 @@ class Teacher
         return $this->lastName;
     }
 
-    public function getPatronymic(): string
-    {
-        return $this->patronymic;
-    }
-
     public function getEmail(): string
     {
         return $this->email;
@@ -64,31 +55,28 @@ class Teacher
         return $this->password;
     }
 
-    public function setId(int $id): void
+    public function setName(string $firstName, string $lastName): void
     {
-        $this->id = $id;
-    }
+        $userDataValidator = new UserDataValidator();
+        $userDataValidator->checkName($firstName, $lastName);
 
-    public function setName(string $firstName, string $lastName, string $patronymic): void
-    {
-        if (DataValidator::checkName($firstName, $lastName, $patronymic)) {
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->patronymic = $patronymic;
-        }
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
     }
 
     public function setEmail(string $email): void
     {
-        if (DataValidator::checkEmail($email)) {
-            $this->email = $email;
-        }
+        $userDataValidator = new UserDataValidator();
+        $userDataValidator->checkEmail($email);
+
+        $this->email = $email;
     }
 
     public function setPassword(string $password): void
     {
-        if (DataValidator::checkPassword($password)) {
-            $this->password = $password;
-        }
+        $userDataValidator = new UserDataValidator();
+        $userDataValidator->checkPassword($password);
+
+        $this->password = $password;
     }
 }

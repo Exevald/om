@@ -45,11 +45,6 @@ class Group
         return $this->studentsIdList;
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
     public function setTitle(string $title): void
     {
         $this->title = $title;
@@ -60,19 +55,22 @@ class Group
         $this->subject = $subject;
     }
 
-    public function addStudent(int $id): void
+    public function addStudent(int $studentId): void
     {
-        $this->studentsIdList[] = $id;
+        if (in_array($studentId, $this->studentsIdList)) {
+            throw new Exception("Student with id" . $studentId . " is already in a group!", 420);
+        }
+        $this->studentsIdList[] = $studentId;
     }
 
     public function deleteStudents(array $studentsIdListToDelete): void
     {
         foreach ($studentsIdListToDelete as $studentId) {
             if (!in_array($studentId, $this->studentsIdList)) {
-                throw new Exception("Element with current id does not exist");
+                throw new Exception("Element with current id" . $studentId . "does not exist!", 420);
             }
         }
-        $this->studentsIdList = array_values(array_diff($this->studentsIdList, $studentsIdListToDelete));
+        $this->studentsIdList = array_diff($this->studentsIdList, $studentsIdListToDelete);
     }
 
 }

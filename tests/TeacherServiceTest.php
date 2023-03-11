@@ -12,17 +12,14 @@ class TeacherServiceTest extends TestCase
     private const DEFAULT_TEACHER_ID = 0;
     private const DEFAULT_TEACHER_FIRST_NAME = "Ivan";
     private const DEFAULT_TEACHER_LAST_NAME = "Ivanov";
-    private const DEFAULT_TEACHER_PATRONYMIC = "Ivanovich";
     private const DEFAULT_TEACHER_EMAIL = "ivaiva@gmail.com";
     private const DEFAULT_TEACHER_PASSWORD = "LxilKD9Pbe";
     private const CHANGED_TEACHER_FIRST_NAME = "Daria";
     private const CHANGED_TEACHER_LAST_NAME = "Shikhanova";
-    private const CHANGED_TEACHER_PATRONYMIC = "Sergeevna";
     private const CHANGED_TEACHER_EMAIL = "real.dora@gmail.com";
     private const CHANGED_TEACHER_PASSWORD = "Jfej2323J@";
     private const ERROR_TEACHER_FIRST_NAME = "D0ra";
     private const ERROR_TEACHER_LAST_NAME = "Sh1khanova";
-    private const ERROR_TEACHER_PATRONYMIC = "S3rgeenva";
     private const ERROR_TEACHER_EMAIL = "1234dora";
     private const ERROR_TEACHER_PASSWORD = "123456";
 
@@ -33,7 +30,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -47,7 +43,6 @@ class TeacherServiceTest extends TestCase
         $this->expectException(Exception::class);
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
-            self::ERROR_TEACHER_FIRST_NAME,
             self::ERROR_TEACHER_LAST_NAME,
             self::ERROR_TEACHER_EMAIL,
             self::ERROR_TEACHER_PASSWORD,
@@ -61,7 +56,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -69,15 +63,12 @@ class TeacherServiceTest extends TestCase
             self::DEFAULT_TEACHER_ID,
             self::CHANGED_TEACHER_FIRST_NAME,
             self::CHANGED_TEACHER_LAST_NAME,
-            self::CHANGED_TEACHER_PATRONYMIC
         );
         $teacherFirstName = $teacher->getFirstName();
         $teacherLastName = $teacher->getLastName();
-        $teacherPatronymic = $teacher->getPatronymic();
         $this->assertTrue(
             $teacherFirstName == self::CHANGED_TEACHER_FIRST_NAME &&
-            $teacherLastName == self::CHANGED_TEACHER_LAST_NAME &&
-            $teacherPatronymic == self::CHANGED_TEACHER_PATRONYMIC
+            $teacherLastName == self::CHANGED_TEACHER_LAST_NAME
         );
     }
 
@@ -88,7 +79,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -96,15 +86,12 @@ class TeacherServiceTest extends TestCase
             self::DEFAULT_TEACHER_ID,
             self::CHANGED_TEACHER_FIRST_NAME,
             self::CHANGED_TEACHER_LAST_NAME,
-            self::CHANGED_TEACHER_PATRONYMIC
         );
         $teacherFirstName = $teacher->getFirstName();
         $teacherLastName = $teacher->getLastName();
-        $teacherPatronymic = $teacher->getPatronymic();
         $this->assertFalse(
             $teacherFirstName == self::DEFAULT_TEACHER_FIRST_NAME &&
-            $teacherLastName == self::DEFAULT_TEACHER_LAST_NAME &&
-            $teacherPatronymic == self::DEFAULT_TEACHER_PATRONYMIC
+            $teacherLastName == self::DEFAULT_TEACHER_LAST_NAME
         );
     }
 
@@ -115,7 +102,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -124,7 +110,6 @@ class TeacherServiceTest extends TestCase
             self::DEFAULT_TEACHER_ID,
             self::ERROR_TEACHER_FIRST_NAME,
             self::ERROR_TEACHER_LAST_NAME,
-            self::ERROR_TEACHER_PATRONYMIC
         );
     }
 
@@ -135,7 +120,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -151,7 +135,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -167,7 +150,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -182,7 +164,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -198,7 +179,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );
@@ -214,7 +194,6 @@ class TeacherServiceTest extends TestCase
         $teacher = $teacherService->createTeacher(
             self::DEFAULT_TEACHER_FIRST_NAME,
             self::DEFAULT_TEACHER_LAST_NAME,
-            self::DEFAULT_TEACHER_PATRONYMIC,
             self::DEFAULT_TEACHER_EMAIL,
             self::DEFAULT_TEACHER_PASSWORD,
         );

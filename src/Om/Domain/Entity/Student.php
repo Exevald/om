@@ -7,21 +7,19 @@ class Student
     private int $id;
     private string $firstName;
     private string $lastName;
-    private string $patronymic;
 
     public function __construct(
         int    $id,
         string $firstName,
         string $lastName,
-        string $patronymic,
     )
     {
-        if (DataValidator::checkName($firstName, $lastName, $patronymic)) {
-            $this->id = $id;
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->patronymic = $patronymic;
-        }
+        $userDataValidator = new UserDataValidator();
+        $userDataValidator->checkName($firstName, $lastName);
+
+        $this->id = $id;
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
     }
 
     public function getId(): int
@@ -39,23 +37,13 @@ class Student
         return $this->lastName;
     }
 
-    public function getPatronymic(): string
+    public function setName(string $firstName, string $lastName): void
     {
-        return $this->patronymic;
-    }
+        $userDataValidator = new UserDataValidator();
+        $userDataValidator->checkName($firstName, $lastName);
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function setName(string $firstName, string $lastName, string $patronymic): void
-    {
-        if (DataValidator::checkName($firstName, $lastName, $patronymic)) {
-            $this->firstName = $firstName;
-            $this->lastName = $lastName;
-            $this->patronymic = $patronymic;
-        }
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
     }
 
 }

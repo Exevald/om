@@ -14,22 +14,21 @@ class TeacherService
     public function createTeacher(
         string $firstName,
         string $lastName,
-        string $patronymic,
         string $email,
         string $password,
     ): Teacher
     {
         $teacherId = $this->teacherRepository->takeNewId();
-        $teacher = new Teacher($teacherId, $firstName, $lastName, $patronymic, $email, $password);
+        $teacher = new Teacher($teacherId, $firstName, $lastName, $email, $password);
         $this->teacherRepository->store($teacher);
 
         return $teacher;
     }
 
-    public function changeTeacherName(int $teacherId, string $firstName, string $lastName, string $patronymic): void
+    public function changeTeacherName(int $teacherId, string $firstName, string $lastName): void
     {
         $teacher = $this->teacherRepository->get($teacherId);
-        $teacher->setName($firstName, $lastName, $patronymic);
+        $teacher->setName($firstName, $lastName);
     }
 
     public function changeTeacherEmail(int $teacherId, string $email): void

@@ -11,13 +11,10 @@ class StudentServiceTest extends TestCase
     private const DEFAULT_STUDENT_ID = 0;
     private const DEFAULT_STUDENT_FIRST_NAME = "Ivan";
     private const DEFAULT_STUDENT_LAST_NAME = "Ivanov";
-    private const DEFAULT_STUDENT_PATRONYMIC = "Ivanovich";
     private const CHANGED_STUDENT_FIRST_NAME = "Vyacheslav";
     private const CHANGED_STUDENT_LAST_NAME = "Butusov";
-    private const CHANGED_STUDENT_PATRONYMIC = "Gennadyevich";
     private const ERROR_STUDENT_FIRST_NAME = "R0man";
     private const ERROR_STUDENT_LAST_NAME = "H0snull1n";
-    private const ERROR_STUDENT_PATRONYMIC = "Al3ksand0vich";
 
     public function testCreateStudent(): void
     {
@@ -26,7 +23,6 @@ class StudentServiceTest extends TestCase
         $student = $studentService->createStudent(
             self::DEFAULT_STUDENT_FIRST_NAME,
             self::DEFAULT_STUDENT_LAST_NAME,
-            self::DEFAULT_STUDENT_PATRONYMIC
         );
         $this->assertTrue($student != null);
     }
@@ -39,7 +35,6 @@ class StudentServiceTest extends TestCase
         $student = $studentService->createStudent(
             self::ERROR_STUDENT_FIRST_NAME,
             self::ERROR_STUDENT_LAST_NAME,
-            self::ERROR_STUDENT_PATRONYMIC
         );
     }
 
@@ -50,21 +45,17 @@ class StudentServiceTest extends TestCase
         $student = $studentService->createStudent(
             self::DEFAULT_STUDENT_FIRST_NAME,
             self::DEFAULT_STUDENT_LAST_NAME,
-            self::DEFAULT_STUDENT_PATRONYMIC
         );
         $studentService->changeStudentName(
             self::DEFAULT_STUDENT_ID,
             self::CHANGED_STUDENT_FIRST_NAME,
             self::CHANGED_STUDENT_LAST_NAME,
-            self::CHANGED_STUDENT_PATRONYMIC
         );
         $studentFirstName = $student->getFirstName();
         $studentLastName = $student->getLastName();
-        $studentPatronymic = $student->getPatronymic();
         $this->assertTrue(
             $studentFirstName == self::CHANGED_STUDENT_FIRST_NAME &&
-            $studentLastName == self::CHANGED_STUDENT_LAST_NAME &&
-            $studentPatronymic == self::CHANGED_STUDENT_PATRONYMIC
+            $studentLastName == self::CHANGED_STUDENT_LAST_NAME
         );
     }
 
@@ -75,21 +66,17 @@ class StudentServiceTest extends TestCase
         $student = $studentService->createStudent(
             self::DEFAULT_STUDENT_FIRST_NAME,
             self::DEFAULT_STUDENT_LAST_NAME,
-            self::DEFAULT_STUDENT_PATRONYMIC
         );
         $studentService->changeStudentName(
             self::DEFAULT_STUDENT_ID,
             self::CHANGED_STUDENT_FIRST_NAME,
             self::CHANGED_STUDENT_LAST_NAME,
-            self::CHANGED_STUDENT_PATRONYMIC
         );
         $studentFirstName = $student->getFirstName();
         $studentLastName = $student->getLastName();
-        $studentPatronymic = $student->getPatronymic();
         $this->assertFalse(
             $studentFirstName == self::DEFAULT_STUDENT_FIRST_NAME &&
-            $studentLastName == self::DEFAULT_STUDENT_LAST_NAME &&
-            $studentPatronymic == self::DEFAULT_STUDENT_PATRONYMIC
+            $studentLastName == self::DEFAULT_STUDENT_LAST_NAME
         );
     }
 
@@ -100,14 +87,12 @@ class StudentServiceTest extends TestCase
         $student = $studentService->createStudent(
             self::DEFAULT_STUDENT_FIRST_NAME,
             self::DEFAULT_STUDENT_LAST_NAME,
-            self::DEFAULT_STUDENT_PATRONYMIC
         );
         $this->expectException(Exception::class);
         $studentService->changeStudentName(
             self::DEFAULT_STUDENT_ID,
             self::ERROR_STUDENT_FIRST_NAME,
             self::ERROR_STUDENT_LAST_NAME,
-            self::ERROR_STUDENT_PATRONYMIC
         );
     }
 

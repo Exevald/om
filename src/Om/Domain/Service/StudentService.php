@@ -14,20 +14,19 @@ class StudentService
     public function createStudent(
         string $firstName,
         string $lastName,
-        string $patronymic
     ): Student
     {
         $studentId = $this->studentRepository->takeNewId();
-        $student = new Student($studentId, $firstName, $lastName, $patronymic);
+        $student = new Student($studentId, $firstName, $lastName);
         $this->studentRepository->store($student);
 
         return $student;
     }
 
-    public function changeStudentName(int $id, string $firstName, string $lastName, string $patronymic): void
+    public function changeStudentName(int $id, string $firstName, string $lastName): void
     {
         $student = $this->studentRepository->get($id);
-        $student->setName($firstName, $lastName, $patronymic);
+        $student->setName($firstName, $lastName);
     }
 
 }
