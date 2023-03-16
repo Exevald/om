@@ -10,6 +10,7 @@ class Group
     private string $title;
     private string $subject;
     private array $studentsIdList = [];
+    private array $tasksIdList = [];
 
     public function __construct
     (
@@ -17,12 +18,14 @@ class Group
         string $title,
         string $subject,
         array  $studentsIdList,
+        array  $tasksIdList
     )
     {
         $this->id = $id;
         $this->title = $title;
         $this->subject = $subject;
         $this->studentsIdList = $studentsIdList;
+        $this->tasksIdList = $tasksIdList;
     }
 
     public function getId(): int
@@ -43,6 +46,11 @@ class Group
     public function getStudentsIdList(): array
     {
         return $this->studentsIdList;
+    }
+
+    public function getTasksIdList(): array
+    {
+        return $this->tasksIdList;
     }
 
     public function setTitle(string $title): void
@@ -71,6 +79,24 @@ class Group
             }
         }
         $this->studentsIdList = array_diff($this->studentsIdList, $studentsIdListToDelete);
+    }
+
+    public function addTask(int $taskId): void
+    {
+        if (in_array($taskId, $this->tasksIdList)) {
+            throw new Exception("Task with id" . $taskId . " is already in a group!");
+        }
+        $this->tasksIdList[] = $taskId;
+    }
+
+    public function deleteTasks(array $tasksIdListToDelete): void
+    {
+        foreach ($tasksIdListToDelete as $taskId) {
+            if (!in_array($taskId, $this->tasksIdList)) {
+                throw new Exception("Element with current id" . $taskId . "does not exist!", 420);
+            }
+        }
+        $this->tasksIdList = array_diff($this->tasksIdList, $tasksIdListToDelete);
     }
 
 }
