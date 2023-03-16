@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+:root {
+
+    /* старые */
+
+    --shinji: rgba(255, 255, 255, 1);
+    --gendo-default: rgba(66, 72, 78, 1);
+    --ayanami-default: rgba(141, 190, 220, 1);
+    --ayanami-dark: rgba(64, 138, 182, 1);
+    --ayanami-20: rgba(48, 107, 141, 0.2);
+    --kaoru-default: rgba(141, 152, 162, 1);
+    --kaoru-80: rgba(141, 152, 162, 0.8);
+    --kaoru-60: rgba(141, 152, 162, 0.6);
+    --kaoru-20: rgba(141, 152, 162, 0.2);
+    --asuka-default: rgba(225, 63, 42, 1);
+    --asuka-dark: rgba(168, 37, 20, 1);
+    --grey-shark: rgba(217, 217, 217, 1);
+    --misato-default: rgba(172, 135, 210, 1);
+    --misato-dark: rgba(130, 82, 180, 1);
+    --misato-60: rgba(172, 135, 210, 0.6);
+
+    /* новые */
+
+    --ash-lighter:      #E3E3E3;
+    --ash-ligth:        #7E7E7E;
+    --ash-default:      #262626;
+
+    --electric-light:   #6697FF;
+    --electric-default: #3A72E8;
+    --electric-dar:     #0038AC;
+
+    
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
