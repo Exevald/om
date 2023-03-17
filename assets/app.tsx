@@ -8,6 +8,7 @@
 import './styles/app.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Test} from "./components/TestComp/Test";
 
 const App = () => {
     let colors = ['red', 'blue', 'green'];
@@ -19,7 +20,7 @@ const App = () => {
     return(
         <div>
             <h2>Hello from: </h2>
-            {items}
+            <Test></Test>
         </div>
     )
 }
