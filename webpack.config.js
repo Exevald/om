@@ -57,8 +57,26 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
+    // TODO: Неудачная попытка сделать css модуль
+    //.configureCssLoader(options => { options.modules = true }) 
+    //.enablePostCssLoader()
+
+    // работа с картинками через копирование
+    .copyFiles({
+        from: './assets/view/*/*',
+
+        // optional target path, relative to the output dir
+        to: 'images/[path][name].[ext]',
+
+        // if versioning is enabled, add the file hash too
+        //to: 'images/[path][name].[hash:8].[ext]',
+
+        // only copy files matching this pattern
+        pattern: /\.(png|jpg|jpeg|svg)$/
+    })
+        
     // uncomment if you use TypeScript
     .enableTypeScriptLoader()
 
