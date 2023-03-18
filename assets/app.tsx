@@ -10,4 +10,4 @@ const App = () => {
     )
 }
 
-ReactDOMClient.createRoot(document.getElementById('root')).render(<App/>);
+ReactDOMClient.createRoot(document.getElementById('root') as Element).render(<App/>);
