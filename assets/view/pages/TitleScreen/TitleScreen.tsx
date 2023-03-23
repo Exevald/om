@@ -1,36 +1,24 @@
 import React from 'react';
 import './TitleScreen.scss'
 
+import Button from './../../components/Button/Button'
 
-const LoginButton = () => {
-    return (
-        <div className='titleScreen__loginButton titleScreen__button'>
-            <h4>Войти</h4>
-        </div>
-    )
-}
-const RegisterButton = () => {
-    return (
-        <div className='titleScreen__registerButton titleScreen__button'>
-            <h4>Зарегестрироваться</h4>
-        </div>
-    )
-}
+
 
 const TitleScreen = () => {
     return (
         <div className='titleScreen__main-wrapper'>
 
             <div className='titleScreen__logoBlock'>
-                <img src='./OmMainLogo.svg'
+                <img src='./images/OmMainLogo.svg'
                     className='title__main-logo'
                     alt='Om main logo'
                 />
                 <h1>Электронный журнал</h1>
             </div>
             <div className='titleScreen__buttons'>
-                <LoginButton/>
-                <RegisterButton/>
+                <Button type='login' data='Войти'/>
+                <Button type='register' data='Зарегистрироваться'/>
             </div>
 
         </div>
