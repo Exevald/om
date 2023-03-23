@@ -1,0 +1,26 @@
+.buttons__ {
+    &default {
+        height: 50px;
+        border-radius: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1.22616px solid white;
+    }
+    &login {
+        width: 109px; 
+        margin-right: 28px;
+        background-color: white;
+        color: black;
+        
+    }
+    &register {
+        width: 229px; 
+        border-radius: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        
+    }
+}
