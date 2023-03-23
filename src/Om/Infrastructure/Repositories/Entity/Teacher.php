@@ -29,6 +29,11 @@ class Teacher
         return $this->id;
     }
 
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
     public function getFirstName(): ?string
     {
         return $this->first_name;

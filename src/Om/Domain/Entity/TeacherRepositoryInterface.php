@@ -4,11 +4,13 @@ namespace App\Om\Domain\Entity;
 
 interface TeacherRepositoryInterface
 {
+    public function checkExitedEmail(string $email): bool;
+
     public function get(int $id): Teacher;
 
     public function store(Teacher $teacher): void;
 
-    public function delete(int $id): void;
+    public function update(Teacher $teacher): void;
 
     public function takeNewId(): int;
 }

@@ -4,6 +4,7 @@ namespace App\Om\Domain\Service;
 
 use App\Om\Domain\Entity\Teacher;
 use App\Om\Domain\Entity\TeacherRepositoryInterface;
+use Exception;
 
 class TeacherService
 {
@@ -18,6 +19,10 @@ class TeacherService
         string $password,
     ): Teacher
     {
+        if ($this->teacherRepository->checkExitedEmail($email))
+        {
+            throw new Exception("This teacher is already exists", );
+        }
         $teacherId = $this->teacherRepository->takeNewId();
         $teacher = new Teacher($teacherId, $firstName, $lastName, $email, $password);
         $this->teacherRepository->store($teacher);
