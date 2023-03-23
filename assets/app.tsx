@@ -5,13 +5,13 @@ import './index.scss';
 
 
 import TitleScreen from './view/pages/TitleScreen/TitleScreen'
-import Authefication from './view/pages/Authefication/Authefication'
+import Authentication from './view/pages/Authentication/Authentication'
 
 
 const App = () => {
     return (
-        <TitleScreen/>
+        <Authentication/>
     )
 }
 
-ReactDOMClient.createRoot(document.getElementById('root') as Element).render(<Authefication/>);
+ReactDOMClient.createRoot(document.getElementById('root') as Element).render(<App/>);
