@@ -17,7 +17,7 @@
         display: flex;
         justify-content: center;
         align-items: end;
-        margin-right: calc(362px);
+        margin-right: 19vw;
     }
     &logoBlock h1 {
         font-size: 35px;
@@ -29,28 +29,5 @@
         display: flex;
         justify-content: center;
         margin-bottom: 26px;
-    }
-    &button {
-        height: 50px;
-        border-radius: 120px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1.22616px solid white;
-    }
-    &loginButton {
-        width: 109px; 
-        margin-right: 28px;
-        background-color: white;
-        color: black;
-        
-    }
-    &registerButton {
-        width: 229px; 
-        border-radius: 120px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
     }
 }
