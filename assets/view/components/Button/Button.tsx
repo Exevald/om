@@ -13,8 +13,8 @@ const Button = (props: ButtonProps) => {
 
     switch (buttonType) {
         case 'register':
-            // что и в login 
-            // TODO: поменять на норальный case
+        // что и в login
+        // TODO: поменять на норальный case
         case 'login':
             return (
                 <a href='auth'>
@@ -23,13 +23,14 @@ const Button = (props: ButtonProps) => {
                     </div>
                 </a>
             )
-            break;
         default:
-            <div className={buttonStyle}>
-                <h4>{props.data}</h4>
-            </div>
+            return (
+                <div className={buttonStyle}>
+                    <h4>{props.data}</h4>
+                </div>
+            )
     }
-    
+
 }
 
 export default Button;

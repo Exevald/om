@@ -5,8 +5,9 @@ namespace App\Om\Infrastructure\Repositories\Repository;
 use App\Common\ErrorType;
 use App\Om\Domain\Entity\Teacher;
 use App\Om\Domain\Entity\TeacherRepositoryInterface;
+use App\Om\Infrastructure\Generator\AccessKeyGenerator;
 use App\Om\Infrastructure\Repositories\Entity\Teacher as ORMTeacher;
-use App\SurveyPlatform\Infrastructure\Hydrator\Hydrator;
+use App\Om\Infrastructure\Hydrator\Hydrator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -24,6 +25,20 @@ class TeacherRepository extends ServiceEntityRepository implements TeacherReposi
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ORMTeacher::class);
+    }
+
+    public function createEmailToken(int $teacherId): string
+    {
+        $entityManager = $this->getEntityManager();
+        $ORMTeacher = $this->find($teacherId);
+        if (empty($ORMTeacher)) {
+            throw new Exception("Element with index " . $teacherId . " is not exists", 500);
+        }
+        $generator = new AccessKeyGenerator();
+        $token = $generator->generateAccessKey();
+        $entityManager->flush();
+
+        return $token;
     }
 
     public function checkExitedEmail(string $email): bool

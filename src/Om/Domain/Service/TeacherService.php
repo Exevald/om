@@ -2,6 +2,7 @@
 
 namespace App\Om\Domain\Service;
 
+use App\Common\ErrorType;
 use App\Om\Domain\Entity\Teacher;
 use App\Om\Domain\Entity\TeacherRepositoryInterface;
 use Exception;
@@ -21,7 +22,7 @@ class TeacherService
     {
         if ($this->teacherRepository->checkExitedEmail($email))
         {
-            throw new Exception("This teacher is already exists", );
+            throw new Exception("This teacher is already exists", ErrorType::DUPLICATED_EMAIL_ERROR->value);
         }
         $teacherId = $this->teacherRepository->takeNewId();
         $teacher = new Teacher($teacherId, $firstName, $lastName, $email, $password);
@@ -38,6 +39,10 @@ class TeacherService
 
     public function changeTeacherEmail(int $teacherId, string $email): void
     {
+        if ($this->teacherRepository->checkExitedEmail($email))
+        {
+            throw new Exception("This teacher is already exists", ErrorType::DUPLICATED_EMAIL_ERROR->value);
+        }
         $teacher = $this->teacherRepository->get($teacherId);
         $teacher->setEmail($email);
     }

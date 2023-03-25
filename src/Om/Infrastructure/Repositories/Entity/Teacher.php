@@ -2,7 +2,7 @@
 
 namespace App\Om\Infrastructure\Repositories\Entity;
 
-use App\Repository\TeacherRepository;
+use App\Om\Infrastructure\Repositories\Repository\TeacherRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TeacherRepository::class)]
@@ -15,6 +15,7 @@ class Teacher
 
     #[ORM\Column(length: 255)]
     private ?string $first_name = null;
+
     #[ORM\Column(length: 255)]
     private ?string $last_name = null;
 
@@ -24,12 +25,15 @@ class Teacher
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $login_key = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setId($id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -78,6 +82,18 @@ class Teacher
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getLoginKey(): ?string
+    {
+        return $this->login_key;
+    }
+
+    public function setLoginKey(?string $login_key): self
+    {
+        $this->login_key = $login_key;
 
         return $this;
     }
