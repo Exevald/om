@@ -1,10 +1,21 @@
 .inputArea__{
+    &wrapper {
+        margin-bottom: 22px;
+    }
     &header {
         position: relative;
         margin: 0 0 -10px 23px;
+        background-color: white;
+        width: fit-content;
+        padding: 0 6px 0 6px;
+        color: var(--ash-default);
     }
     &input {
-        width: 446px;
+        width: 423px;
         height: 81px;
+        border-radius: 6px;
+        box-shadow: none;
+        border-color: var(--ash-default);
+        padding-left: 23px;
     }
 }
