@@ -9,7 +9,7 @@ interface InputAreaProps {
 
 const InputArea = (props: InputAreaProps) => {
     return (
-        <div>
+        <div className="inputArea__wrapper">
             <div className="inputArea__header">
                 <p>{props.header}</p>
             </div>
