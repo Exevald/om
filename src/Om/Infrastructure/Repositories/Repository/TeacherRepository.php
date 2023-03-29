@@ -2,65 +2,90 @@
 
 namespace App\Om\Infrastructure\Repositories\Repository;
 
-use App\Entity\Teacher;
+use App\Common\ErrorType;
+use App\Om\Domain\Entity\Teacher;
+use App\Om\Domain\Entity\TeacherRepositoryInterface;
+use App\Om\Infrastructure\Repositories\Entity\Teacher as ORMTeacher;
+use App\SurveyPlatform\Infrastructure\Hydrator\Hydrator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 /**
- * @extends ServiceEntityRepository<Teacher>
+ * @extends ServiceEntityRepository<ORMTeacher>
  *
- * @method Teacher|null find($id, $lockMode = null, $lockVersion = null)
- * @method Teacher|null findOneBy(array $criteria, array $orderBy = null)
- * @method Teacher[]    findAll()
- * @method Teacher[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ORMTeacher|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ORMTeacher|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ORMTeacher[]    findAll()
+ * @method ORMTeacher[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TeacherRepository extends ServiceEntityRepository
+class TeacherRepository extends ServiceEntityRepository implements TeacherRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Teacher::class);
+        parent::__construct($registry, ORMTeacher::class);
     }
 
-    public function save(Teacher $entity, bool $flush = false): void
+    public function checkExitedEmail(string $email): bool
     {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $ORMTeacher = $this->findBy(['email' => $email]);
+        return isset($ORMTeacher[0]);
     }
 
-    public function remove(Teacher $entity, bool $flush = false): void
+    public function get(int $id): Teacher
     {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
+        $ORMTeacher = $this->find($id);
+        if (empty($ORMTeacher)) {
+            throw new Exception("Element with current index " . $id . " does not exist", ErrorType::NOT_FOUND->value);
         }
+        $hydrator = new Hydrator();
+        return $hydrator->hydrate(Teacher::class, [
+                "firstName" => $ORMTeacher->getFirstName(),
+                "lastName" => $ORMTeacher->getLastName(),
+                "email" => $ORMTeacher->getEmail(),
+                "password" => $ORMTeacher->getPassword(),
+                "id" => $ORMTeacher->getId(),
+            ]
+        );
     }
 
-//    /**
-//     * @return Teacher[] Returns an array of Teacher objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('t.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function store(Teacher $teacher): void
+    {
+        $ORMTeacher = new ORMTeacher();
+        $entityManager = $this->getEntityManager();
 
-//    public function findOneBySomeField($value): ?Teacher
-//    {
-//        return $this->createQueryBuilder('t')
-//            ->andWhere('t.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $ORMTeacher->setId($teacher->getId());
+        $ORMTeacher->setFirstName($teacher->getFirstName());
+        $ORMTeacher->setLastName($teacher->getLastName());
+        $ORMTeacher->setEmail($teacher->getEmail());
+        $ORMTeacher->setPassword($teacher->getPassword());
+
+        $entityManager->persist($ORMTeacher);
+        $entityManager->flush();
+    }
+
+    public function update(Teacher $teacher): void
+    {
+        $entityManager = $this->getEntityManager();
+        $ORMTeacher = $this->find($teacher->getId());
+
+        $ORMTeacher->setFirstName($teacher->getFirstName());
+        $ORMTeacher->setLastName($teacher->getLastName());
+        $ORMTeacher->setEmail($teacher->getEmail());
+        $ORMTeacher->setPassword($teacher->getPassword());
+
+        $entityManager->flush();
+    }
+
+    public function takeNewId(): int
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery('SELECT max(a.id)
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\Teacher a'
+        );
+
+        return $query->getResult()[0][1] + 1;
+    }
+
 }

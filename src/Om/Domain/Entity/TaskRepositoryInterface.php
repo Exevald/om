@@ -8,7 +8,7 @@ interface TaskRepositoryInterface
 
     public function store(Task $task): void;
 
-    public function delete(int $id): void;
+    public function update(Task $task): void;
 
     public function takeNewId(): int;
 }
