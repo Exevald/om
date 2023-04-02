@@ -3,6 +3,7 @@ import './Button.scss';
 
 
 interface ButtonProps {
+    id?: string,
     type: 'login' | 'register' | 'submit';
     submitFor?: string;
     data: string;
@@ -20,23 +21,17 @@ const Button = (props: ButtonProps) => {
             return (
                 <a href='auth'>
                     <div className={buttonStyle}>
-                        <p>{props.data}</p>
+                        {props.data}
                     </div>
                 </a>
             )
-            break;
-
         case 'submit':
-            if (props.submitFor) {
-                const submit = 'buttons__submit-' + props.submitFor;
+                const submit = 'buttons_default buttons__submit-' + props.submitFor;
                 return (
-                    <button form={submit} type='submit' className={submit}>
+                    <button id={props.id} type='submit' className={submit}>
                         {props.data}
                     </button>
                 )
-            } else return <>Error</>
-            break;
-
         default:
             <div className={buttonStyle}>
                 <p>{props.data}</p>
