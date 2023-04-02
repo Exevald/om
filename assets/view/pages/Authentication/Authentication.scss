@@ -6,9 +6,10 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        font: var(--text-text-normal-regular)
     }
     &header {
-        font-size: 60px;
+        font: var(--text-header-normal);
         color: var(--electric-default);
         margin-bottom: 55px
     }
@@ -18,7 +19,9 @@
         justify-content: space-between;
         margin-bottom: 30px
     }
-    &registerArea a {
+    &registerArea p:last-child {
         text-decoration: underline;
+        cursor: pointer;
+        font: var(--text-text-normal-medium);
     }
 }

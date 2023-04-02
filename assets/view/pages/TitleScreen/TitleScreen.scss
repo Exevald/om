@@ -20,7 +20,7 @@
         margin-right: 19vw;
     }
     &logoBlock h1 {
-        font-size: 35px;
+        font: var(--text-header-small);
         width: 227px;
         margin: 0 0 18px 42px;
     }
@@ -29,5 +29,11 @@
         display: flex;
         justify-content: center;
         margin-bottom: 26px;
+    }
+    &buttons a:first-child {
+        margin-right: 28px;
+    }
+    &buttons a {
+        border-radius: 85px
     }
 }
