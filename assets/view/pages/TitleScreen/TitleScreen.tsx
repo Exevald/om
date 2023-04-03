@@ -4,16 +4,21 @@ import './TitleScreen.scss'
 import Button from './../../components/Button/Button'
 
 
+const MainLogo = () => {
+    return (
+        <img src='./images/OmMainLogo.svg'
+            className='title__main-logo'
+            alt='Om main logo'
+        />
+    )
+}
 
 const TitleScreen = () => {
     return (
         <div className='titleScreen__main-wrapper'>
 
             <div className='titleScreen__logoBlock'>
-                <img src='./images/OmMainLogo.svg'
-                    className='title__main-logo'
-                    alt='Om main logo'
-                />
+                <MainLogo/>
                 <h1>Электронный журнал</h1>
             </div>
             <div className='titleScreen__buttons'>
