@@ -1,0 +1,42 @@
+.intro__ {
+    &wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        padding: 0 calc( (100vw - 615px) / 2 ) 0 calc( (100vw - 615px) / 2 )
+    }
+    &images {
+        width: 264px; height: 255px;
+    }
+    &arrows {
+        width: 76px; height: 76px;
+    }
+    &wrapper h1 {
+        font: var(--text-header-small);
+        color: var(--electric-default);
+        margin: 59px 0 19px 0
+    }
+    &textarea {
+        display: flex;
+        justify-content: space-between;
+    }
+    &textarea p {
+        width: fit-content;
+        text-align: center;
+        margin: 0 52px 0 52px
+    }
+    &dots {
+        display: flex;
+        flex-direction: row;
+    }
+    &dots div {
+        width: 11px; height: 11px;
+        border-radius: 11px;
+        background-color: var(--ash-lighter);
+        margin: 41px 0 32px 0;
+    }
+    &dot-active {
+        background-color: var(--electric-default);
+    }
+}

@@ -6,11 +6,12 @@ import './index.scss';
 
 import TitleScreen from './view/pages/TitleScreen/TitleScreen'
 import Authentication from './view/pages/Authentication/Authentication'
+import Onboarding from './view/pages/Onboarding/Onboarding';
 
 
 const App = () => {
     return (
-        <Authentication/>
+        <Onboarding/>
     )
 }
 
