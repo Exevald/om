@@ -9,8 +9,8 @@ class Group
     private int $id;
     private string $title;
     private string $subject;
-    private array $studentsIdList = [];
-    private array $tasksIdList = [];
+    private array $studentsIdList;
+    private array $tasksIdList;
 
     public function __construct
     (

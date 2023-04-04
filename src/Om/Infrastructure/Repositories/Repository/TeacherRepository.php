@@ -95,11 +95,9 @@ class TeacherRepository extends ServiceEntityRepository implements TeacherReposi
     public function takeNewId(): int
     {
         $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery('SELECT max(a.id)
-                                                  FROM App\Om\Infrastructure\Repositories\Entity\Teacher a'
+        $query = $entityManager->createQuery('SELECT max(t.id)
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\Teacher t'
         );
-
         return $query->getResult()[0][1] + 1;
     }
 

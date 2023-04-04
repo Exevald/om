@@ -11,7 +11,7 @@ class Task
     private string $description;
     private DateTime $date;
     private int $maxMark;
-    private array $marksList = [];
+    private array $marksList;
 
     public function __construct(
         int      $id,
