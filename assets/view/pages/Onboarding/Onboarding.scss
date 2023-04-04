@@ -11,7 +11,7 @@
     }
     &arrows {
         width: 76px; height: 76px;
-        сursor: pointer;
+        cursor: pointer;
     }
     &wrapper h1 {
         font: var(--text-header-small);
@@ -21,11 +21,14 @@
     &textarea {
         display: flex;
         justify-content: space-between;
+        width: 649px;
     }
     &textarea p {
-        width: fit-content;
         text-align: center;
-        margin: 0 52px 0 52px
+        width: 359px;
+    }
+    &secondText {
+        width: 393px!important;
     }
     &dots {
         display: flex;
