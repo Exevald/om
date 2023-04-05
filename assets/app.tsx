@@ -12,7 +12,7 @@ import Onboarding from './view/pages/Onboarding/Onboarding';
 const App = () => {
     return (
         <StrictMode>
-            <Onboarding/>
+            <TitleScreen/>
         </StrictMode>
     )
 }

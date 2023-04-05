@@ -11,18 +11,25 @@ interface ButtonProps {
 
 const Button = (props: ButtonProps) => {
     const buttonType = props.type;
-    const buttonStyle = `buttons__default buttons__${buttonType}`;
+    let buttonStyle = `buttons__default buttons__${buttonType}`;
 
     switch (buttonType) {
         case 'register':
-            // что и в login 
-            // TODO: поменять на норальный case
-        case 'login':
+            buttonStyle += ` buttons__transparentNoColor`
             return (
                 <a href='auth'>
-                    <div className={buttonStyle}>
+                    <button className={buttonStyle}>
                         {props.data}
-                    </div>
+                    </button>
+                </a>
+            )
+        case 'login':
+            buttonStyle += ` buttons__filledNoColor`
+            return (
+                <a href='auth'>
+                    <button className={buttonStyle}>
+                        {props.data}
+                    </button>
                 </a>
             )
         case 'submit':
