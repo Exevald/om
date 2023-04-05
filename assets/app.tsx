@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOMClient from 'react-dom/client';
 
 import './index.scss';
@@ -11,7 +11,9 @@ import Onboarding from './view/pages/Onboarding/Onboarding';
 
 const App = () => {
     return (
-        <Onboarding/>
+        <StrictMode>
+            <Onboarding/>
+        </StrictMode>
     )
 }
 

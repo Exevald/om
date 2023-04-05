@@ -3,8 +3,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        height: 100vh;
-        padding: 0 calc( (100vw - 615px) / 2 ) 0 calc( (100vw - 615px) / 2 )
+        padding: 191px calc( (100vw - 615px) / 2 ) 0 calc( (100vw - 615px) / 2 )
     }
     &images {
         width: 264px; height: 255px;
@@ -40,7 +39,11 @@
         background-color: var(--ash-lighter);
         margin: 41px 0 32px 0;
     }
+    &dots div:first-child {
+        margin-right: 5px
+    }
     &dot-active {
-        background-color: var(--electric-default);
+        background-color: var(--electric-default)!important;
+        cursor: pointer
     }
 }

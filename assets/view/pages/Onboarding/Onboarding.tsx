@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../../components/Button/Button";
 
 import './Onboarding.scss'
 
@@ -7,7 +8,7 @@ const FirstImage = () => {
     return (
         <img className="intro__images"
             src="./images/FirstAbstract.svg"
-            alt="Векторная абстракция"
+            alt="Первая векторная абстракция"
         />
     )
 }
@@ -15,7 +16,7 @@ const SecondImage = () => {
     return (
         <img className="intro__images"
             src="./images/SecondAbstract.svg"
-            alt="Векторная абстракция"
+            alt="Вторая векторная абстракция"
         />
     )
 }
@@ -46,6 +47,32 @@ const Plug = () => {
         <div className="intro__arrows"></div>
     )
 }
+
+interface dotsProps {
+    step: number,
+    setStep: React.Dispatch<React.SetStateAction<number>>
+}
+const Dots = (props: dotsProps) => {
+    return (
+        <div className="intro__dots">
+                {
+                    props.step === 1 && 
+                    <>
+                        <div></div>
+                        <div className="intro__dot-active" onClick={() => props.setStep(2)}></div>
+                    </>
+                }
+                {
+                    props.step === 2 && 
+                    <>
+                        <div className="intro__dot-active" onClick={() => props.setStep(1)}></div>
+                        <div></div>
+                    </>
+                }
+            </div>
+    )
+}
+
 const Onboarding = () => {
     const [step, setStep] = useState(1);
     return (
@@ -78,6 +105,13 @@ const Onboarding = () => {
                         <Plug/>
                     </div>
                 </>
+            }
+            <Dots step={step} setStep={setStep}/>
+            {
+                step === 1 && <Button type="transparent" data="Пропутить"/>
+            }
+            {
+                step === 2 && <Button type="filled" data="К группам"/>
             }
         </div>
     )
