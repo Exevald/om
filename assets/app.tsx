@@ -7,12 +7,13 @@ import './index.scss';
 import TitleScreen from './view/pages/TitleScreen/TitleScreen'
 import Authentication from './view/pages/Authentication/Authentication'
 import Onboarding from './view/pages/Onboarding/Onboarding';
+import GroupsPage from './view/pages/Groups/Groups';
 
 
 const App = () => {
     return (
         <StrictMode>
-            <TitleScreen/>
+            <GroupsPage/>
         </StrictMode>
     )
 }
