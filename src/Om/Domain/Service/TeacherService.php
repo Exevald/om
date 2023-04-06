@@ -51,4 +51,22 @@ class TeacherService
         $teacher = $this->teacherRepository->get($teacherId);
         $teacher->setPassword($password);
     }
+
+    public function appendGroup(int $teacherId, int $groupId): void
+    {
+        $teacher = $this->teacherRepository->get($teacherId);
+        $teacher->addGroup($groupId);
+    }
+
+    public function deleteTeacherGroups(int $teacherId, array $groupsIdList): void
+    {
+        foreach ($groupsIdList as $groupId) {
+            if (!is_int($groupId)) {
+                throw new Exception("The groups list is not correct!");
+            }
+        }
+        $teacher = $this->teacherRepository->get($teacherId);
+        $teacher->deleteGroupsList($groupsIdList);
+    }
+
 }
