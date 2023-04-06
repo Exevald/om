@@ -15,7 +15,7 @@
     &wrapper h1 {
         font: var(--text-header-small);
         color: var(--electric-default);
-        margin: 59px 0 19px 0
+        margin: 59px 0 19px 0 
     }
     &textarea {
         display: flex;
@@ -27,7 +27,7 @@
         width: 359px;
     }
     &secondText {
-        width: 393px!important;
+        width: 393px !important;
     }
     &dots {
         display: flex;
@@ -36,14 +36,14 @@
     &dots div {
         width: 11px; height: 11px;
         border-radius: 11px;
-        background-color: var(--ash-lighter);
+        background-color: var(--electric-default);
         margin: 41px 0 32px 0;
     }
     &dots div:first-child {
         margin-right: 5px
     }
     &dot-active {
-        background-color: var(--electric-default)!important;
+        background-color: var(--ash-lighter)!important;
         cursor: pointer
     }
 }
