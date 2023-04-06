@@ -1,25 +1,28 @@
 <?php
 
-namespace App\Om\Domain\Entity;
+namespace App\Om\App\Query\Data;
 
-class Student
+class Teacher
 {
     private int $id;
     private string $firstName;
     private string $lastName;
+    private string $email;
+    private string $password;
 
     public function __construct(
-        int    $id,
+        int    $teacherId,
         string $firstName,
-        string $lastName
+        string $lastName,
+        string $email,
+        string $password
     )
     {
-        $userDataValidator = new UserDataValidator();
-        $userDataValidator->checkName($firstName, $lastName);
-
-        $this->id = $id;
+        $this->id = $teacherId;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
+        $this->email = $email;
+        $this->password = $password;
     }
 
     public function getId(): int
@@ -37,13 +40,14 @@ class Student
         return $this->lastName;
     }
 
-    public function setName(string $firstName, string $lastName): void
+    public function getEmail(): string
     {
-        $userDataValidator = new UserDataValidator();
-        $userDataValidator->checkName($firstName, $lastName);
+        return $this->email;
+    }
 
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
+    public function getPassword(): string
+    {
+        return $this->password;
     }
 
 }

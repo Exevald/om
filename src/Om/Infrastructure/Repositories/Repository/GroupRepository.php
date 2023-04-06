@@ -72,8 +72,8 @@ class GroupRepository extends ServiceEntityRepository implements GroupRepository
         return $hydrator->hydrate(Group::class, [
                 "title" => $ORMGroup->getTitle(),
                 "subject" => $ORMGroup->getSubject(),
-                "studentsList" => $studentsList,
-                "tasksList" => $tasksList,
+                "studentsIdList" => $studentsList,
+                "tasksIdList" => $tasksList,
             ]
         );
     }

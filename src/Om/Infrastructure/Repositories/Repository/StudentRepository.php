@@ -34,8 +34,8 @@ class StudentRepository extends ServiceEntityRepository implements StudentReposi
         }
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Student::class, [
-                "first_name" => $ORMStudent->getFirstName(),
-                "last_name" => $ORMStudent->getLastName(),
+                "firstName" => $ORMStudent->getFirstName(),
+                "lastName" => $ORMStudent->getLastName(),
                 "id" => $ORMStudent->getId(),
             ]
         );

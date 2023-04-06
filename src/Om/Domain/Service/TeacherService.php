@@ -18,14 +18,14 @@ class TeacherService
         string $lastName,
         string $email,
         string $password,
+        array  $groupsIdList
     ): Teacher
     {
-        if ($this->teacherRepository->checkExitedEmail($email))
-        {
+        if ($this->teacherRepository->checkExitedEmail($email)) {
             throw new Exception("This teacher is already exists", ErrorType::DUPLICATED_EMAIL_ERROR->value);
         }
         $teacherId = $this->teacherRepository->takeNewId();
-        $teacher = new Teacher($teacherId, $firstName, $lastName, $email, $password);
+        $teacher = new Teacher($teacherId, $firstName, $lastName, $email, $password, $groupsIdList);
         $this->teacherRepository->store($teacher);
 
         return $teacher;
@@ -39,8 +39,7 @@ class TeacherService
 
     public function changeTeacherEmail(int $teacherId, string $email): void
     {
-        if ($this->teacherRepository->checkExitedEmail($email))
-        {
+        if ($this->teacherRepository->checkExitedEmail($email)) {
             throw new Exception("This teacher is already exists", ErrorType::DUPLICATED_EMAIL_ERROR->value);
         }
         $teacher = $this->teacherRepository->get($teacherId);

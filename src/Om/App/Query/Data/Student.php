@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Om\Domain\Entity;
+namespace App\Om\App\Query\Data;
 
 class Student
 {
@@ -9,15 +9,12 @@ class Student
     private string $lastName;
 
     public function __construct(
-        int    $id,
+        int    $studentId,
         string $firstName,
         string $lastName
     )
     {
-        $userDataValidator = new UserDataValidator();
-        $userDataValidator->checkName($firstName, $lastName);
-
-        $this->id = $id;
+        $this->id = $studentId;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
     }
@@ -35,15 +32,6 @@ class Student
     public function getLastName(): string
     {
         return $this->lastName;
-    }
-
-    public function setName(string $firstName, string $lastName): void
-    {
-        $userDataValidator = new UserDataValidator();
-        $userDataValidator->checkName($firstName, $lastName);
-
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
     }
 
 }
