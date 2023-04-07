@@ -1,7 +1,4 @@
-.inputArea__{
-    &wrapper {
-        margin-bottom: 22px;
-    }
+.inputArea__ {
     &header {
         position: relative;
         margin: 0 0 -10px 23px;
@@ -17,5 +14,13 @@
         box-shadow: none;
         border-color: var(--ash-default);
         padding-left: 23px;
+    }
+    &group {
+        font: var(--text-header-small);
+        color: var(--ash-light);
+    }
+    &subject {
+        font: var(--text-header-large);
+        color: var(--ash)
     }
 }
