@@ -5,6 +5,7 @@ namespace App\Om\Infrastructure\Query;
 use App\Common\ErrorType;
 use App\Om\App\Query\Data\Teacher;
 use App\Om\App\Query\TeacherQueryServiceInterface;
+use App\Om\Infrastructure\Repositories\Entity\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use App\Om\Infrastructure\Hydrator\Hydrator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -30,13 +31,23 @@ class TeacherQueryService extends ServiceEntityRepository implements TeacherQuer
             throw new Exception("Teacher has been not found by session token", ErrorType::UNAUTHORIZED->value);
         }
         $ORMTeacher = $ORMTeachers[0];
+        $teacherId = $ORMTeacher->getId();
+        $entityManager = $this->getEntityManager()->getRepository(Group::class)->getEntityManager();
+        $query = $entityManager->createQuery('SELECT g
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\Group g INNER JOIN App\Om\Infrastructure\Repositories\Entity\TeacherGroup teacher_group
+                                                  WHERE teacher_group.teacher_id = :id AND teacher_group.group_id = g.id
+                                                  ORDER BY g.id ASC'
+        )->setParameter('id', $teacherId);
+        $groupsList = $query->getResult();
+
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Teacher::class, [
-            'id' => $ORMTeacher->getId(),
+            'id' => $teacherId,
             'firstName' => $ORMTeacher->getFirstName(),
             'lastName' => $ORMTeacher->getLastName(),
             'email' => $ORMTeacher->getEmail(),
             'password' => $ORMTeacher->getPassword(),
+            'groupIdList' => $groupsList,
         ]);
     }
 
@@ -52,6 +63,14 @@ class TeacherQueryService extends ServiceEntityRepository implements TeacherQuer
         if (empty($ORMTeacher)) {
             throw new Exception('', ErrorType::NOT_FOUND->value);
         }
+        $entityManager = $this->getEntityManager()->getRepository(Group::class)->getEntityManager();
+        $query = $entityManager->createQuery('SELECT g
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\Group g INNER JOIN App\Om\Infrastructure\Repositories\Entity\TeacherGroup teacher_group
+                                                  WHERE teacher_group.teacher_id = :id AND teacher_group.group_id = g.id
+                                                  ORDER BY g.id ASC'
+        )->setParameter('id', $teacherId);
+        $groupsList = $query->getResult();
+
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Teacher::class, [
             'id' => $ORMTeacher->getId(),
@@ -59,6 +78,7 @@ class TeacherQueryService extends ServiceEntityRepository implements TeacherQuer
             'lastName' => $ORMTeacher->getLastName(),
             'email' => $ORMTeacher->getEmail(),
             'password' => $ORMTeacher->getPassword(),
+            'groupIdList' => $groupsList,
         ]);
     }
 
@@ -74,13 +94,23 @@ class TeacherQueryService extends ServiceEntityRepository implements TeacherQuer
         if (empty($ORMTeacher)) {
             throw new Exception('', ErrorType::NOT_FOUND->value);
         }
+        $teacherId = $ORMTeacher->getId();
+        $entityManager = $this->getEntityManager()->getRepository(Group::class)->getEntityManager();
+        $query = $entityManager->createQuery('SELECT g
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\Group g INNER JOIN App\Om\Infrastructure\Repositories\Entity\TeacherGroup teacher_group
+                                                  WHERE teacher_group.teacher_id = :id AND teacher_group.group_id = g.id
+                                                  ORDER BY g.id ASC'
+        )->setParameter('id', $teacherId);
+        $groupsList = $query->getResult();
+
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Teacher::class, [
-            'id' => $ORMTeacher->getId(),
+            'id' => $teacherId,
             'firstName' => $ORMTeacher->getFirstName(),
             'lastName' => $ORMTeacher->getLastName(),
             'email' => $ORMTeacher->getEmail(),
             'password' => $ORMTeacher->getPassword(),
+            'groupIdList' => $groupsList,
         ]);
     }
 
@@ -94,13 +124,23 @@ class TeacherQueryService extends ServiceEntityRepository implements TeacherQuer
         $ORMTeachers = $query->getResult();
         $teachers = [];
         foreach ($ORMTeachers as $ORMTeacher) {
+            $teacherId = $ORMTeacher->getId();
+            $entityManager = $this->getEntityManager()->getRepository(Group::class)->getEntityManager();
+            $query = $entityManager->createQuery('SELECT g
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\Group g INNER JOIN App\Om\Infrastructure\Repositories\Entity\TeacherGroup teacher_group
+                                                  WHERE teacher_group.teacher_id = :id AND teacher_group.group_id = g.id
+                                                  ORDER BY g.id ASC'
+            )->setParameter('id', $teacherId);
+            $groupsList = $query->getResult();
+
             $hydrator = new Hydrator();
             $teachers[] = $hydrator->hydrate(Teacher::class, [
-                'id' => $ORMTeacher->getId(),
+                'id' => $teacherId,
                 'firstName' => $ORMTeacher->getFirstName(),
                 'lastName' => $ORMTeacher->getLastName(),
                 'email' => $ORMTeacher->getEmail(),
                 'password' => $ORMTeacher->getPassword(),
+                'groupIdList' => $groupsList,
             ]);
         }
         return $teachers;
