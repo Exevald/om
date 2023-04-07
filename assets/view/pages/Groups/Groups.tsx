@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./Groups.scss";
+import InputArea from "../../components/InputArea/InputArea";
+import Button from "../../components/Button/Button";
 
 
 interface Group {
@@ -30,7 +32,7 @@ const PersonArea = (props: PersonAreaProps) => {
             }
             {
                 // Проверка на правильность аватара
-                //isUserAvatarValid &&
+                // isUserAvatarValid &&
             }
         </div>
     )
@@ -45,10 +47,36 @@ const Header = () => {
     )
 }
 
+const Group = () => {
+    const [isOnChange, setIsOnChange] = useState(false);
+    return (
+        <div className="groups__group-wrapper">
+            {
+                !isOnChange &&
+                <div>
+                    <div className="groups__groupHeader">
+                        <h1 className="groups__group">Название</h1>
+                        <h2 className="groups__subject">Предмет</h2>
+                    </div>
+                    <Button type="transparent" iconType="more" data="Изменить" onClick={setIsOnChange} />
+                </div>
+            }
+            {
+                isOnChange &&
+                <div className="groups__groupHeader">
+                    <InputArea id="group" type="group" />
+                    <InputArea id="subject" type="subject" />
+                </div>
+            }
+        </div>
+    )
+}
+
 const GroupsPage = () => {
     return (
         <div className="groups__wrapper">
             <Header/>
+            <Group/>
         </div>
     )
 }
