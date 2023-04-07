@@ -3,50 +3,34 @@ import './Button.scss';
 
 
 interface ButtonProps {
-    id?: string,
-    type?: 'login' | 'register' | 'submit' | 'filled' | 'transparent' | 'filledNoColor' | 'transparentNoColor';
-    submitFor?: string;
+    type: 'login' | 'register';
     data: string;
 }
 
 const Button = (props: ButtonProps) => {
     const buttonType = props.type;
-    let buttonStyle = `buttons__default buttons__${buttonType}`;
+    const buttonStyle = `buttons__default buttons__${buttonType}`;
 
     switch (buttonType) {
         case 'register':
-            buttonStyle += ` buttons__transparentNoColor`
-            return (
-                <a href='auth'>
-                    <button className={buttonStyle}>
-                        {props.data}
-                    </button>
-                </a>
-            )
+        // что и в login
+        // TODO: поменять на норальный case
         case 'login':
-            buttonStyle += ` buttons__filledNoColor`
             return (
                 <a href='auth'>
-                    <button className={buttonStyle}>
-                        {props.data}
-                    </button>
+                    <div className={buttonStyle}>
+                        <h4>{props.data}</h4>
+                    </div>
                 </a>
-            )
-        case 'submit':
-            const submit = 'buttons_default buttons__submit-' + props.submitFor;
-            return (
-                <button id={props.id} type='submit' className={submit}>
-                    {props.data}
-                </button>
             )
         default:
             return (
-                <button id={props.id} className={buttonStyle}>
-                    {props.data}
-                </button>
+                <div className={buttonStyle}>
+                    <h4>{props.data}</h4>
+                </div>
             )
     }
-    
+
 }
 
 export default Button;

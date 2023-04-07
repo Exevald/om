@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Om\Domain\Entity;
+namespace App\Om\App\Query\Data;
 
 use DateTime;
 
@@ -14,11 +14,11 @@ class Task
     private array $marksList;
 
     public function __construct(
-        int      $id,
-        string   $topic,
-        string   $description,
-        int      $maxMark,
-        array    $marksList
+        int    $id,
+        string $topic,
+        string $description,
+        int    $maxMark,
+        array  $marksList
     )
     {
         $this->id = $id;
@@ -57,26 +57,6 @@ class Task
     public function getMarksList(): array
     {
         return $this->marksList;
-    }
-
-    public function setTopic(string $topic): void
-    {
-        $this->topic = $topic;
-    }
-
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    public function setDate(DateTime $date): void
-    {
-        $this->date = $date;
-    }
-
-    public function setMaxMark(int $maxMark): void
-    {
-        $this->maxMark = $maxMark;
     }
 
 }
