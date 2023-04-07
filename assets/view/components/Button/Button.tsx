@@ -7,8 +7,8 @@ interface ButtonProps {
     id?: string,
     type?:  'login' | 'register' | 'submit' | 'filled' | 'transparent' | 
             'filledNoColor' | 'transparentNoColor',
-    iconType?: 'more'
-    onClick?: React.Dispatch<React.SetStateAction<boolean>>,
+    iconType?: 'add' | 'minus' | 'more',
+    onClick?: () => void,
     data: string;
 }
 
@@ -45,7 +45,7 @@ const Button = (props: ButtonProps) => {
         default:
             props.iconType ? buttonStyle += ' buttons__hasIcon' : null;
             return (
-                <button id={props.id} className={buttonStyle} onClick={() => props.onClick}>
+                <button id={props.id} className={buttonStyle} onClick={props.onClick}>
                     {
                         props.iconType &&
                         <ButtonIcon type={props.iconType}/>
