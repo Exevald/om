@@ -20,9 +20,9 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-    }
-    &personArea p {
-        margin-right: 13px;
+        & p {
+            margin-right: 13px;
+        }
     }
 
     &photo {
@@ -31,7 +31,14 @@
     }
     &groupHeader {
         display: flex;
-        align-items: baseline; 
+        align-items: center; 
+    }
+    &groupHeader__buttons {
+        display: flex;
+        flex-direction: row;
+        & button {
+            margin-right: 20px;
+        }
     }
     &group-wrapper {
         width: 100%;
@@ -41,6 +48,7 @@
     &subject {
         font: var(--text-header-small);
         color: var(--ash-light);
+        margin-top: 35px
     }
     &group {
         font: var(--text-header-large);
