@@ -5,7 +5,7 @@ import './Button.scss';
 interface ButtonProps {
     id?: string,
     type?: 'login' | 'register' | 'submit' | 'filled' | 'transparent' | 'filledNoColor' | 'transparentNoColor';
-    submitFor?: string;
+    onClick?: React.Dispatch<React.SetStateAction<boolean>>,
     data: string;
 }
 
@@ -15,7 +15,7 @@ const Button = (props: ButtonProps) => {
 
     switch (buttonType) {
         case 'register':
-            buttonStyle += ` buttons__transparentNoColor`
+            buttonStyle += ` buttons__transparentNoColor`;
             return (
                 <a href='auth'>
                     <button className={buttonStyle}>
@@ -24,7 +24,7 @@ const Button = (props: ButtonProps) => {
                 </a>
             )
         case 'login':
-            buttonStyle += ` buttons__filledNoColor`
+            buttonStyle += ` buttons__filledNoColor`;
             return (
                 <a href='auth'>
                     <button className={buttonStyle}>
@@ -33,15 +33,15 @@ const Button = (props: ButtonProps) => {
                 </a>
             )
         case 'submit':
-            const submit = 'buttons_default buttons__submit-' + props.submitFor;
+            buttonStyle += ' buttons__filled';
             return (
-                <button id={props.id} type='submit' className={submit}>
+                <button id={props.id} className={buttonStyle}>
                     {props.data}
                 </button>
             )
         default:
             return (
-                <button id={props.id} className={buttonStyle}>
+                <button id={props.id} className={buttonStyle} onClick={() => props.onClick}>
                     {props.data}
                 </button>
             )
