@@ -7,7 +7,13 @@
         font: var(--text-button-large);
         overflow: visible;
     }
-
+    &hasIcon {
+        display: flex;
+        align-items: center;
+    }
+    &hasIcon img {
+        margin-right: 11px;
+    }
 
     &filled {
         padding: 0 24px 0 24px;

@@ -1,16 +1,19 @@
 import React from "react";
 import './Button.scss';
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 
 interface ButtonProps {
     id?: string,
-    type?: 'login' | 'register' | 'submit' | 'filled' | 'transparent' | 'filledNoColor' | 'transparentNoColor';
+    type?:  'login' | 'register' | 'submit' | 'filled' | 'transparent' | 
+            'filledNoColor' | 'transparentNoColor',
+    iconType?: 'more'
     onClick?: React.Dispatch<React.SetStateAction<boolean>>,
     data: string;
 }
 
 const Button = (props: ButtonProps) => {
-    const buttonType = props.type;
+    let buttonType = props.type;
     let buttonStyle = `buttons__default buttons__${buttonType}`;
 
     switch (buttonType) {
@@ -40,8 +43,13 @@ const Button = (props: ButtonProps) => {
                 </button>
             )
         default:
+            props.iconType ? buttonStyle += ' buttons__hasIcon' : null;
             return (
                 <button id={props.id} className={buttonStyle} onClick={() => props.onClick}>
+                    {
+                        props.iconType &&
+                        <ButtonIcon type={props.iconType}/>
+                    }
                     {props.data}
                 </button>
             )
