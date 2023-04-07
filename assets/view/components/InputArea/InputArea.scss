@@ -11,16 +11,21 @@
         width: 423px;
         height: 81px;
         border-radius: 6px;
-        box-shadow: none;
         border-color: var(--ash-default);
         padding-left: 23px;
     }
     &group {
+        border: none;
+        border-radius: 0px;
+        border-bottom: 2px solid black;
         font: var(--text-header-small);
         color: var(--ash-light);
     }
     &subject {
+        border: none;
+        border-radius: 0px;
+        border-bottom: 2px solid black;
         font: var(--text-header-large);
-        color: var(--ash)
+        color: var(--ash-light)
     }
 }
