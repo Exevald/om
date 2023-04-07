@@ -58,15 +58,15 @@ class TeacherService
         $teacher->addGroup($groupId);
     }
 
-    public function deleteTeacherGroups(int $teacherId, array $groupsIdList): void
+    public function deleteTeacherGroups(int $teacherId, array $groupIdList): void
     {
-        foreach ($groupsIdList as $groupId) {
+        foreach ($groupIdList as $groupId) {
             if (!is_int($groupId)) {
                 throw new Exception("The groups list is not correct!");
             }
         }
         $teacher = $this->teacherRepository->get($teacherId);
-        $teacher->deleteGroupsList($groupsIdList);
+        $teacher->deleteGroupsList($groupIdList);
     }
 
 }

@@ -6,7 +6,9 @@ use App\Common\ErrorType;
 use App\Om\Domain\Entity\Teacher;
 use App\Om\Domain\Entity\TeacherRepositoryInterface;
 use App\Om\Infrastructure\Generator\AccessKeyGenerator;
+use App\Om\Infrastructure\Repositories\Entity\Group;
 use App\Om\Infrastructure\Repositories\Entity\Teacher as ORMTeacher;
+use App\Om\Infrastructure\Repositories\Entity\TeacherGroup as ORMTeacherGroup;
 use App\Om\Infrastructure\Hydrator\Hydrator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -53,12 +55,30 @@ class TeacherRepository extends ServiceEntityRepository implements TeacherReposi
         if (empty($ORMTeacher)) {
             throw new Exception("Element with current index " . $id . " does not exist", ErrorType::NOT_FOUND->value);
         }
+        $entityManager = $this->getEntityManager()->getRepository(Group::class)->getEntityManager();
+        $query = $entityManager->createQuery('SELECT group.id
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\Group group INNER JOIN App\Om\Infrastructure\Repositories\Entity\TeacherGroup teacher_group
+                                                  WHERE teacher_group.teacher_id = :id AND group.id = teacher_group.group_id
+                                                  ORDER BY group.id ASC'
+        )->setParameter('id', $id);
+        $groupResult = $query->getResult();
+        $groupsList = [];
+        if (!empty($groupResult)) {
+            for ($i = 0; $i < count($groupResult); $i++) {
+                $groupId = $groupResult[$i]["id"];
+                if (!is_int($groupId)) {
+                    throw new Exception("groupId is not integer", 420);
+                }
+                $groupsList[] = $groupId;
+            }
+        }
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Teacher::class, [
                 "firstName" => $ORMTeacher->getFirstName(),
                 "lastName" => $ORMTeacher->getLastName(),
                 "email" => $ORMTeacher->getEmail(),
                 "password" => $ORMTeacher->getPassword(),
+                "groupIdList" => $groupsList,
                 "id" => $ORMTeacher->getId(),
             ]
         );
@@ -77,6 +97,7 @@ class TeacherRepository extends ServiceEntityRepository implements TeacherReposi
 
         $entityManager->persist($ORMTeacher);
         $entityManager->flush();
+        $this->addGroupAffiliation($teacher->getId(), $teacher->getGroupIdList());
     }
 
     public function update(Teacher $teacher): void
@@ -88,8 +109,38 @@ class TeacherRepository extends ServiceEntityRepository implements TeacherReposi
         $ORMTeacher->setLastName($teacher->getLastName());
         $ORMTeacher->setEmail($teacher->getEmail());
         $ORMTeacher->setPassword($teacher->getPassword());
-
+        $this->updateGroupAffiliation($teacher->getId(), $teacher->getGroupIdList());
+        $entityManager->persist($ORMTeacher);
         $entityManager->flush();
+    }
+
+    public function updateGroupAffiliation(int $teacherId, array $groupsList): void
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('DELETE
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\TeacherGroup teacher_group
+                                                  WHERE teacher_group.teacher_id = :id'
+        )->setParameter('id', $teacherId);
+        $query->getResult();
+        foreach ($groupsList as $groupId) {
+            $ORMTeacherGroup = new ORMTeacherGroup();
+            $ORMTeacherGroup->setTeacherId($teacherId);
+            $ORMTeacherGroup->setGroupId($groupId);
+            $entityManager->persist($ORMTeacherGroup);
+            $entityManager->flush();
+        }
+    }
+
+    public function addGroupAffiliation(int $teacherId, array $groupsList): void
+    {
+        $entityManager = $this->getEntityManager()->getRepository(Group::class)->getEntityManager();
+        foreach ($groupsList as $groupId) {
+            $ORMTeacherGroup = new ORMTeacherGroup();
+            $ORMTeacherGroup->setTeacherId($teacherId);
+            $ORMTeacherGroup->setGroupId($groupId);
+            $entityManager->persist($ORMTeacherGroup);
+            $entityManager->flush();
+        }
     }
 
     public function takeNewId(): int
