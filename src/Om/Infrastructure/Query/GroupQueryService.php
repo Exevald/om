@@ -58,21 +58,6 @@ class GroupQueryService extends ServiceEntityRepository implements GroupQuerySer
         ]);
     }
 
-    public function getGroupByName(string $groupTitle): Group
-    {
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery('SELECT g
-                                                  FROM App\Om\Infrastructure\Repositories\Entity\Group g
-                                                  WHERE g.title = :groupTitle
-                                                  ORDER BY g.id ASC'
-        )->setParameter('groupTitle', $groupTitle);
-        $ORMGroups = $query->getResult();
-        if (empty($ORMGroups)) {
-            throw new Exception('', ErrorType::NOT_FOUND->value);
-        }
-        return $ORMGroups[0]["id"];
-    }
-
     public function getGroupsByTeacherId(int $teacherId): array
     {
         $entityManager = $this->getEntityManager();

@@ -35,7 +35,7 @@ class TaskQueryService extends ServiceEntityRepository implements TaskQueryServi
         $entityManager = $this->getEntityManager()->getRepository(Mark::class)->getEntityManager();
         $query = $entityManager->createQuery('SELECT m
                                                   FROM App\Om\Infrastructure\Repositories\Entity\Mark m INNER JOIN App\Om\Infrastructure\Repositories\Entity\TaskMark task_mark
-                                                  WHERE task_mark.mark_id = :id AND task_mark.mark_id = m.id
+                                                  WHERE task_mark.task_id = :id AND task_mark.mark_id = m.id
                                                   ORDER BY m.id ASC'
         )->setParameter('id', $taskId);
         $marksList = $query->getResult();
@@ -68,7 +68,7 @@ class TaskQueryService extends ServiceEntityRepository implements TaskQueryServi
         $entityManager = $this->getEntityManager()->getRepository(Mark::class)->getEntityManager();
         $query = $entityManager->createQuery('SELECT m
                                                   FROM App\Om\Infrastructure\Repositories\Entity\Mark m INNER JOIN App\Om\Infrastructure\Repositories\Entity\TaskMark task_mark
-                                                  WHERE task_mark.mark_id = :id AND task_mark.mark_id = m.id
+                                                  WHERE task_mark.task_id = :id AND task_mark.mark_id = m.id
                                                   ORDER BY m.id ASC'
         )->setParameter('id', $taskId);
         $marksList = $query->getResult();
@@ -99,7 +99,7 @@ class TaskQueryService extends ServiceEntityRepository implements TaskQueryServi
             $entityManager = $this->getEntityManager()->getRepository(Mark::class)->getEntityManager();
             $query = $entityManager->createQuery('SELECT m
                                                   FROM App\Om\Infrastructure\Repositories\Entity\Mark m INNER JOIN App\Om\Infrastructure\Repositories\Entity\TaskMark task_mark
-                                                  WHERE task_mark.mark_id = :id AND task_mark.mark_id = m.id
+                                                  WHERE task_mark.task_id = :id AND task_mark.mark_id = m.id
                                                   ORDER BY m.id ASC'
             )->setParameter('id', $taskId);
             $marksList = $query->getResult();
@@ -130,7 +130,7 @@ class TaskQueryService extends ServiceEntityRepository implements TaskQueryServi
             $entityManager = $this->getEntityManager()->getRepository(Mark::class)->getEntityManager();
             $query = $entityManager->createQuery('SELECT m
                                                   FROM App\Om\Infrastructure\Repositories\Entity\Mark m INNER JOIN App\Om\Infrastructure\Repositories\Entity\TaskMark task_mark
-                                                  WHERE task_mark.mark_id = :id AND task_mark.mark_id = m.id
+                                                  WHERE task_mark.task_id = :id AND task_mark.mark_id = m.id
                                                   ORDER BY m.id ASC'
             )->setParameter('id', $taskId);
             $marksList = $query->getResult();
