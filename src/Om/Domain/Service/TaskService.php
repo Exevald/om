@@ -17,13 +17,13 @@ class TaskService
         string $topic,
         string $description,
         int $maxMark,
-    ): Task
+    ): int
     {
        $taskId = $this->taskRepository->takeNewId();
        $task = new Task($taskId, $topic, $description, $maxMark, []);
        $this->taskRepository->store($task);
 
-       return $task;
+       return $taskId;
     }
 
     public function changeTaskTopic(int $id, string $topic): void

@@ -14,13 +14,13 @@ class MarkService
     public function createMark(
         int $studentId,
         int $studentMark
-    ): Mark
+    ): int
     {
         $markId = $this->markRepository->takeNewId();
         $mark = new Mark($markId, $studentId, $studentMark);
         $this->markRepository->store($mark);
 
-        return $mark;
+        return $markId;
     }
 
     public function changeStudentMark(int $id, int $studentMark): void

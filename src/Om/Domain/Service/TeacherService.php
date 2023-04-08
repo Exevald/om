@@ -19,7 +19,7 @@ class TeacherService
         string $email,
         string $password,
         array  $groupsIdList
-    ): Teacher
+    ): int
     {
         if ($this->teacherRepository->checkExitedEmail($email)) {
             throw new Exception("This teacher is already exists", ErrorType::DUPLICATED_EMAIL_ERROR->value);
@@ -28,7 +28,7 @@ class TeacherService
         $teacher = new Teacher($teacherId, $firstName, $lastName, $email, $password, $groupsIdList);
         $this->teacherRepository->store($teacher);
 
-        return $teacher;
+        return $teacherId;
     }
 
     public function changeTeacherName(int $teacherId, string $firstName, string $lastName): void

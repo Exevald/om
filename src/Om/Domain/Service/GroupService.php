@@ -18,7 +18,7 @@ class GroupService
         string $subject,
         array  $studentsIdList,
         array  $tasksIdList,
-    ): Group
+    ): int
     {
         if ($title === "") {
             throw new Exception("", ErrorType::INVALID_DATA->value);
@@ -37,7 +37,7 @@ class GroupService
         $group = new Group($groupId, $title, $subject, $studentsIdList, $tasksIdList);
         $this->groupRepository->store($group);
 
-        return $group;
+        return $groupId;
     }
 
     public function changeGroupTitle(int $id, string $title): void
