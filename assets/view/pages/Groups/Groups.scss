@@ -20,7 +20,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        & p {
+        p {
             margin-right: 13px;
         }
     }
@@ -30,13 +30,21 @@
         height: 40px;
     }
     &groupHeader {
+        height: 126px;
         display: flex;
-        align-items: center; 
+        align-items: baseline; 
+        margin-bottom: 59px; // поменятб
+        :first-child {
+            margin-right: 26px; // поменятб
+        }
+        input {
+            margin-top: 18px;
+        }
     }
     &groupHeader__buttons {
         display: flex;
         flex-direction: row;
-        & button {
+        button {
             margin-right: 20px;
         }
     }

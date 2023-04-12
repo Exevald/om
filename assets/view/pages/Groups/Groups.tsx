@@ -44,8 +44,14 @@ const Header = () => {
 
 
 
-function saveChanges(setIsOnChange: React.Dispatch<React.SetStateAction<boolean>>) {
+function saveChanges(setIsOnChange: React.Dispatch<React.SetStateAction<boolean>>,
+                     setGroup: React.Dispatch<React.SetStateAction<Group>>
+    ) {
     // сохранение изменений
+    const subj = document.getElementById('subject') as HTMLInputElement;
+    const name = document.getElementById('group') as HTMLInputElement;
+    setGroup({name: name.value, subject: subj.value});
+    setIsOnChange(false);
 }
 
 interface GroupHeaderProps {
@@ -57,35 +63,49 @@ const GroupHeader = (props: GroupHeaderProps) => {
         <>
             {
                 !props.isOnChange &&
-                <div>
-                    <div className="groups__groupHeader">
-                        <GroupContext.Consumer>
-                            {
-                                value => 
-                                <>
-                                    <h1 className="groups__group">{value.name ? value.name : 'Название'}</h1>
-                                    <h2 className="groups__subject">{value.subject ? value.subject : 'Предмет'} </h2>
-                                </>
-                            }
-                        </GroupContext.Consumer>
+                <GroupContext.Consumer>
+                {
+                    value => 
+                    <>
+                        <div className="groups__groupHeader">
+                            <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
+                            <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
+                        </div>
+                        <div className="groups__groupHeader__buttons">
+                            <Button type="transparent" iconType="more" data="Изменить" 
+                                onClick={() => props.setIsOnChange(true)}/>
+                        </div>
+
+                    </>
                         
-                    </div>
-                    <Button type="transparent" iconType="more" data="Изменить" onClick={() => props.setIsOnChange(true)}/>
-                </div>
+                }
+                </GroupContext.Consumer>
             }
             {
                 props.isOnChange &&
-                <div>
-                    <div className="groups__groupHeader">
-                        <InputArea id="group" type="group" />
-                        <InputArea id="subject" type="subject" />
-                    </div>
-                    <div className="groups__groupHeader__buttons">
-                        <Button type="transparent" iconType="add" data="Добавить ученика" />
-                        <Button type="transparent" iconType="minus" data="Удалить ученика"/>
-                        <Button type="filled" data="Сохранить" onClick={() => props.setIsOnChange(false)}/>
-                    </div>
-                </div>
+                <GroupContext.Consumer>
+                {
+                    value => 
+                    <>
+                        <div className="groups__groupHeader"
+                            onKeyDown={(e) => 
+                                e.key === 'Enter' ? saveChanges(props.setIsOnChange, value.setGroup) : null
+                            }
+                        >
+                            <InputArea id="group" type="group" value={value.group.name} />
+                            <InputArea id="subject" type="subject" value={value.group.subject} />
+                        </div>
+                        <div className="groups__groupHeader__buttons">
+                            <Button type="transparent" iconType="add" data="Добавить ученика" />
+                            <Button type="transparent" iconType="minus" data="Удалить ученика"/>
+                            <Button type="filled" data="Сохранить" 
+                                onClick={() => saveChanges(props.setIsOnChange, value.setGroup)}
+                            />
+                        </div>
+                    </>
+                }
+                </GroupContext.Consumer>
+                
             } 
         </>
     )
@@ -93,16 +113,14 @@ const GroupHeader = (props: GroupHeaderProps) => {
 
 
 
-interface Group {
-    subject: string,
-    class: number
+type Group = {
+    name: string,
+    subject: string
 }
 interface GroupsData {
     groups: Array<Group>
 }
 const Group = () => {
-    
-
     const [isOnChange, setIsOnChange] = useState(false);
     return (
         <div className="groups__group-wrapper">
@@ -113,12 +131,13 @@ const Group = () => {
 }
 
 const GroupsPage = () => {
-    const group = {
+    const a: Group = {
         name: '11 класс',
         subject: 'Физика'
-    };
+    }
+    const [group, setGroup] = useState(a);
     return (
-        <GroupContext.Provider value={group}>
+        <GroupContext.Provider value={{group, setGroup}}>
             <div className="groups__wrapper">
                 <Header/>
                 <Group/>
