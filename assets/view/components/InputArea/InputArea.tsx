@@ -6,6 +6,7 @@ interface InputAreaProps {
     header?: string,
     type?: 'email' | 'password' | 'text' | 'group' | 'subject',
     placeholder?: string,
+    value?: string
 }
 
 const InputArea = (props: InputAreaProps) => {
@@ -21,8 +22,14 @@ const InputArea = (props: InputAreaProps) => {
             
             {
                 props.type && 
-                <input id={props.id} className={styles}
-                type={props.type} placeholder={props.placeholder}/>
+                <input id={props.id} className={styles} defaultValue={props.value}
+                type={props.type} placeholder={props.placeholder}  />
+            }
+            
+            {
+                !props.type && 
+                <input id={props.id} className={styles} defaultValue={props.value}
+                type="text" placeholder={props.placeholder}/>
             }
                     
         </div>
