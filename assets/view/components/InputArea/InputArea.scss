@@ -14,18 +14,20 @@
         border-color: var(--ash-default);
         padding-left: 23px;
     }
-    &group {
+    &group, &subject {
         border: none;
         border-radius: 0px;
         border-bottom: 2px solid black;
-        font: var(--text-header-small);
-        color: var(--ash-light);
+    }
+    &group {
+        font: var(--text-header-large);
+        color: var(--ash-default);
+        padding: 4px 0 8px 0 !important;
     }
     &subject {
-        border: none;
-        border-radius: 0px;
-        border-bottom: 2px solid black;
-        font: var(--text-header-large);
-        color: var(--ash-light)
+        height: 48px;
+        font: var(--text-header-small);
+        color: var(--ash-light);
+        padding: 4px 0 7px 0 !important;
     }
 }
