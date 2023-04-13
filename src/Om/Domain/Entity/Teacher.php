@@ -93,7 +93,7 @@ class Teacher
     public function addGroup(int $groupId): void
     {
         if (!in_array($groupId, $this->groupIdList)) {
-            $groupId[] = $groupId;
+            $this->groupIdList[] = $groupId;
         }
     }
 
