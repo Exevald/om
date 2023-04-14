@@ -123,7 +123,7 @@ interface StudentsProps {
 const Students = (props: StudentsProps) => {
 
     const students = props.students.map(item => 
-        <li key={item.surname.toString() + item.name.toString()}
+        <li key={item.surname + item.name}
             className="groups__student">
                 {item.surname} {item.name}
         </li>
