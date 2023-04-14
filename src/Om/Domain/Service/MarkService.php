@@ -27,6 +27,7 @@ class MarkService
     {
         $mark = $this->markRepository->get($id);
         $mark->setStudentMark($studentMark);
+        $this->markRepository->update($mark);
     }
 
 }

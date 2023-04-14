@@ -47,18 +47,21 @@ class GroupService
         }
         $group = $this->groupRepository->get($id);
         $group->setTitle($title);
+        $this->groupRepository->update($group);
     }
 
     public function changeGroupSubject(int $id, string $subject): void
     {
         $group = $this->groupRepository->get($id);
         $group->setSubject($subject);
+        $this->groupRepository->update($group);
     }
 
     public function appendStudentToGroup(int $id, int $studentId): void
     {
         $group = $this->groupRepository->get($id);
         $group->addStudent($studentId);
+        $this->groupRepository->update($group);
     }
 
     public function deleteStudentsFromGroup(int $id, array $studentsIdList): void
@@ -70,12 +73,14 @@ class GroupService
         }
         $group = $this->groupRepository->get($id);
         $group->deleteStudents($studentsIdList);
+        $this->groupRepository->update($group);
     }
 
     public function appendTask(int $id, int $taskId): void
     {
         $group = $this->groupRepository->get($id);
         $group->addTask($taskId);
+        $this->groupRepository->update($group);
     }
 
     public function deleteTasksFromGroup(int $id, array $tasksIdList): void
@@ -87,6 +92,7 @@ class GroupService
         }
         $group = $this->groupRepository->get($id);
         $group->deleteTasks($tasksIdList);
+        $this->groupRepository->update($group);
     }
 
 }

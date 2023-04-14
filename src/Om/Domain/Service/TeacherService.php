@@ -35,6 +35,7 @@ class TeacherService
     {
         $teacher = $this->teacherRepository->get($teacherId);
         $teacher->setName($firstName, $lastName);
+        $this->teacherRepository->update($teacher);
     }
 
     public function changeTeacherEmail(int $teacherId, string $email): void
@@ -44,18 +45,21 @@ class TeacherService
         }
         $teacher = $this->teacherRepository->get($teacherId);
         $teacher->setEmail($email);
+        $this->teacherRepository->update($teacher);
     }
 
     public function changeTeacherPassword(int $teacherId, string $password): void
     {
         $teacher = $this->teacherRepository->get($teacherId);
         $teacher->setPassword($password);
+        $this->teacherRepository->update($teacher);
     }
 
     public function appendGroup(int $teacherId, int $groupId): void
     {
         $teacher = $this->teacherRepository->get($teacherId);
         $teacher->addGroup($groupId);
+        $this->teacherRepository->update($teacher);
     }
 
     public function deleteTeacherGroups(int $teacherId, array $groupIdList): void
@@ -67,6 +71,7 @@ class TeacherService
         }
         $teacher = $this->teacherRepository->get($teacherId);
         $teacher->deleteGroupsList($groupIdList);
+        $this->teacherRepository->update($teacher);
     }
 
 }

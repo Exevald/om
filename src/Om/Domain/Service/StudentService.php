@@ -27,6 +27,7 @@ class StudentService
     {
         $student = $this->studentRepository->get($id);
         $student->setName($firstName, $lastName);
+        $this->studentRepository->update($student);
     }
 
 }

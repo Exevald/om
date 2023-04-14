@@ -80,7 +80,7 @@ class Task
         $this->maxMark = $maxMark;
     }
 
-    public function appendMark(int $markId): void
+    public function addMark(int $markId): void
     {
         if (in_array($markId, $this->marksList)) {
             throw new Exception("Mark with id " . $markId . " is already is a task");

@@ -36,6 +36,8 @@ class AuthorizedCreateMarkCommandHandler
         $studentMark = $command->getStudentMark();
 
         $markId = $this->markService->createMark($studentId, $studentMark);
+        $this->taskService->appendMark($taskId, $markId);
+        return $markId;
     }
 
 }

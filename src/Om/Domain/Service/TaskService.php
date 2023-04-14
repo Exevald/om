@@ -30,24 +30,42 @@ class TaskService
     {
         $task = $this->taskRepository->get($id);
         $task->setTopic($topic);
+        $this->taskRepository->update($task);
     }
 
     public function changeTaskDescription(int $id, string $description): void
     {
         $task = $this->taskRepository->get($id);
         $task->setDescription($description);
+        $this->taskRepository->update($task);
     }
 
     public function changeTaskDate(int $id, DateTime $date): void
     {
         $task = $this->taskRepository->get($id);
         $task->setDate($date);
+        $this->taskRepository->update($task);
     }
 
     public function changeTaskMaxMark(int $id, int $maxMark): void
     {
         $task = $this->taskRepository->get($id);
         $task->setMaxMark($maxMark);
+        $this->taskRepository->update($task);
+    }
+
+    public function appendMark(int $id, int $markId): void
+    {
+        $task = $this->taskRepository->get($id);
+        $task->addMark($markId);
+        $this->taskRepository->update($task);
+    }
+
+    public function deleteMark(int $id, int $markId): void
+    {
+        $task = $this->taskRepository->get($id);
+        $task->deleteMark($markId);
+        $this->taskRepository->update($task);
     }
 
 }
