@@ -1,148 +1,180 @@
 import React, { useContext, useState } from "react";
 
-import "./Groups.scss";
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
+import { GetData, Group, Student } from "../../../utility/types";
 
 
+import "./Groups.scss";
 
-const GroupContext = React.createContext(null);
-
-
-
-interface PersonAreaProps {
-    personName: string,
-    personImgUrl: string
+const GroupContext  = React.createContext(null);
+const UserContext   = React.createContext(null);
+enum GroupState {
+    default,
+    edit,
+    delete
 }
-const PersonArea = (props: PersonAreaProps) => {
+
+const PersonArea = () => {
     // тут будет в будущем проверка на валидность url фотки 
     return (
-        <div className="groups__personArea">
-            <p>{props.personName}</p>
-            {
-                props.personImgUrl === "" &&
-                <img className="groups__photo"
-                     src="./images/Icons/userIcon_default.svg"
-                     alt="default user photo"
-                />
-            }
-            {
-                // Проверка на правильность аватара
-                // isUserAvatarValid &&
-            }
-        </div>
+        <UserContext.Consumer>
+        {
+        value =>
+            <div className="groups__personArea">
+                <p>{value.shortName}</p>
+                {
+                    value.imgUrl === "" &&
+                    <img className="groups__photo"
+                        src="./images/Icons/userIcon_default.svg"
+                        alt="default user photo"
+                    />
+                }
+                {
+                    // Проверка на правильность аватара
+                    // isUserAvatarValid &&
+                }
+            </div>
+        }
+        </UserContext.Consumer>
     )
 }
 const Header = () => {
     return (
         <div className="groups__header">
             <h4>Создание группы</h4>
-            <PersonArea personName="Рамазанова З.Т." personImgUrl=""/>
+            <PersonArea/>
         </div>
     )
 }
 
 
 
-function saveChanges(setIsOnChange: React.Dispatch<React.SetStateAction<boolean>>,
-                     setGroup: React.Dispatch<React.SetStateAction<Group>>
+function saveChanges
+    (
+        setState: React.Dispatch<React.SetStateAction<GroupState>>,
+        setGroup: React.Dispatch<React.SetStateAction<Group>>
     ) {
-    // сохранение изменений
     const subj = document.getElementById('subject') as HTMLInputElement;
     const name = document.getElementById('group') as HTMLInputElement;
     setGroup({name: name.value, subject: subj.value});
-    setIsOnChange(false);
+    setState(GroupState.default);
 }
 
 interface GroupHeaderProps {
-    isOnChange: boolean,
-    setIsOnChange: React.Dispatch<React.SetStateAction<boolean>>
+    state: GroupState,
+    setState: React.Dispatch<React.SetStateAction<GroupState>>
 }
 const GroupHeader = (props: GroupHeaderProps) => {
     return ( 
         <>
+        {
+            props.state === GroupState.default &&
+            <GroupContext.Consumer>
             {
-                !props.isOnChange &&
-                <GroupContext.Consumer>
-                {
-                    value => 
-                    <>
-                        <div className="groups__groupHeader">
-                            <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
-                            <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
-                        </div>
-                        <div className="groups__groupHeader__buttons">
-                            <Button type="transparent" iconType="more" data="Изменить" 
-                                onClick={() => props.setIsOnChange(true)}/>
-                        </div>
-
-                    </>
-                        
-                }
-                </GroupContext.Consumer>
+                value => 
+                <>
+                    <div className="groups__groupHeader">
+                        <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
+                        <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
+                    </div>
+                    <div className="groups__groupHeader__buttons">
+                        <Button type="transparent" iconType="more" data="Изменить" 
+                                onClick={() => props.setState(GroupState.edit)}/>
+                    </div>
+                </>
             }
+            </GroupContext.Consumer>
+        }
+        {
+            props.state === GroupState.edit &&
+            <GroupContext.Consumer>
             {
-                props.isOnChange &&
-                <GroupContext.Consumer>
-                {
-                    value => 
-                    <>
-                        <div className="groups__groupHeader"
-                            onKeyDown={(e) => 
-                                e.key === 'Enter' ? saveChanges(props.setIsOnChange, value.setGroup) : null
-                            }
-                        >
-                            <InputArea id="group" type="group" value={value.group.name} />
-                            <InputArea id="subject" type="subject" value={value.group.subject} />
-                        </div>
-                        <div className="groups__groupHeader__buttons">
-                            <Button type="transparent" iconType="add" data="Добавить ученика" />
-                            <Button type="transparent" iconType="minus" data="Удалить ученика"/>
-                            <Button type="filled" data="Сохранить" 
-                                onClick={() => saveChanges(props.setIsOnChange, value.setGroup)}
-                            />
-                        </div>
-                    </>
-                }
-                </GroupContext.Consumer>
-                
-            } 
+                value => 
+                <>
+                    <div className="groups__groupHeader" onKeyDown={
+                        (e) => e.key === 'Enter' ? saveChanges(props.setState, value.setGroup) : null
+                    }>
+                        <InputArea id="group" type="group" value={value.group.name} />
+                        <InputArea id="subject" type="subject" value={value.group.subject} />
+                    </div>
+                    <div className="groups__groupHeader__buttons">
+                        <Button type="transparent" iconType="add" data="Добавить ученика" />
+                        <Button type="transparent" iconType="minus" data="Удалить ученика"
+                            onClick={() => props.setState(GroupState.delete)}/>
+                        <Button type="filled" data="Сохранить" 
+                            onClick={() => saveChanges(props.setState, value.setGroup)}/>
+                    </div>
+                </>
+            }
+            </GroupContext.Consumer>
+        }
+        {
+            props.state === GroupState.delete &&
+            <h1>delete</h1>
+        }
         </>
     )
 }
 
-
-
-type Group = {
-    name: string,
-    subject: string
+interface StudentsProps {
+    students: Array<Student>
 }
-interface GroupsData {
-    groups: Array<Group>
+const Students = (props: StudentsProps) => {
+
+    const students = props.students.map(item => 
+        <li key={item.surname.toString() + item.name.toString()}
+            className="groups__student">
+                {item.surname} {item.name}
+        </li>
+    )
+    return (
+        <ol>{students}</ol>
+    )
 }
+
+// заглушка для данных по группе
+const data: GetData = {
+    group: {
+        name: '11 класс',
+        subject: 'Физика'
+    },
+    students: [
+        {surname: 'Шиханова',   name: 'Дарья'},
+        {surname: 'Роберт',     name: 'Викторов'}
+    ]
+}
+
 const Group = () => {
-    const [isOnChange, setIsOnChange] = useState(false);
+    const [state, setState] = useState<GroupState>(GroupState.default);
+    const [group, setGroup] = useState(data.group);
+    const [students, setStudents] = useState(data.students);
     return (
         <div className="groups__group-wrapper">
-            <GroupHeader isOnChange={isOnChange} setIsOnChange={setIsOnChange}/>
+            <GroupContext.Provider value={{group, setGroup, setStudents}}>
+                <GroupHeader state={state} setState={setState}/>
+                <Students students={students}/>
+            </GroupContext.Provider>
         </div>
         
     )
 }
 
+
+// заглушка для пользователя
+const user = {
+    shortName: 'Рамазанова З.Т.',
+    imgUrl: ''
+}
+
 const GroupsPage = () => {
-    const a: Group = {
-        name: '11 класс',
-        subject: 'Физика'
-    }
-    const [group, setGroup] = useState(a);
     return (
-        <GroupContext.Provider value={{group, setGroup}}>
-            <div className="groups__wrapper">
+        <div className="groups__wrapper">
+            <UserContext.Provider value={user}>
                 <Header/>
-                <Group/>
-            </div>
-        </GroupContext.Provider>
+            </UserContext.Provider>
+            <Group/>
+        </div>
         
     )
 }
