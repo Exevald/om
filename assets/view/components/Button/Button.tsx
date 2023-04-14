@@ -5,7 +5,7 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 interface ButtonProps {
     id?: string,
-    type?:  'login' | 'register' | 'submit' | 'filled' | 'transparent' | 
+    type:  'login' | 'register' | 'submit' | 'filled' | 'transparent' | 
             'filledNoColor' | 'transparentNoColor',
     iconType?: 'add' | 'minus' | 'more',
     onClick?: () => void,
