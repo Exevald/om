@@ -8,6 +8,8 @@ interface StudentQueryServiceInterface
 {
     public function getStudentById(int $studentId): Student;
 
+    public function getStudentsByGroupId(int $groupId): array;
+
     public function getAllStudents(): array;
 
 }

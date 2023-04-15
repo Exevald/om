@@ -10,5 +10,7 @@ interface TaskQueryServiceInterface
 
     public function getTaskByTopic(string $taskTopic): Task;
 
+    public function getTasksByGroupId(int $groupId): array;
+
     public function getAllTasks(): array;
 }

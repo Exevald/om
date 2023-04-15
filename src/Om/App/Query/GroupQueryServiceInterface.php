@@ -8,8 +8,6 @@ interface GroupQueryServiceInterface
 {
     public function getGroupById(int $groupId): Group;
 
-    public function getGroupByName(string $groupTitle): Group;
-
     public function getGroupsByTeacherId(int $teacherId): array;
 
     public function getAllGroups(): array;
