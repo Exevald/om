@@ -40,6 +40,11 @@ class GroupService
         return $groupId;
     }
 
+    public function deleteGroup(int $id): void
+    {
+        $this->groupRepository->delete($id);
+    }
+
     public function changeGroupTitle(int $id, string $title): void
     {
         if ($title === "") {
