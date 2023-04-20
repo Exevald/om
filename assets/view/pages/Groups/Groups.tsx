@@ -48,10 +48,62 @@ const Header = () => {
     )
 }
 
+function deleteStudents (
+    students: Array<Student>,
+    setStudents: React.Dispatch<React.SetStateAction<Student[]>>
+    ) {
+        let newStudents: Array<Student>;
+        for (let i = 0; i < students.length; i++) {
+            let checkbox = document.getElementById('checkbox' + i) as HTMLInputElement;
+            console.log (checkbox.value)
+        }
+    setStudents(newStudents)
+}
+
+const ButtonTuple = () => {
+    return (
+        <div className="groups__groupHeader__buttons">
+            <GroupContext.Consumer>
+            {
+                value => 
+                <>
+                {
+                    value.state === GroupState.default &&
+                    <>
+                        <Button type="transparent" iconType="more" data="Изменить" 
+                            onClick={() => value.setState(GroupState.edit)}/>
+                        <Button type="filled" data="К журналу"/>
+                    </>
+                }
+                {
+                    value.state === GroupState.edit &&
+                    <>
+                        <Button type="transparent" iconType="add" data="Добавить ученика" />
+                        <Button type="transparent" iconType="minus" data="Удалить ученика"
+                            onClick={() => value.setState(GroupState.delete)}/>
+                        <Button type="filled" data="Сохранить" 
+                            onClick={() => saveGroupChanges(value.setState, value.setGroup)}/>
+                    </>
+                }
+                {
+                    value.state === GroupState.delete &&
+                    <>
+                        <Button type="transparent" iconType="minus" data="Удалить" onClick={
+                            () => deleteStudents(value.students, value.setStudents)}/>
+                        <Button type="transparent" data="Отмена" onClick={
+                            () => value.setState(GroupState.default)
+                        }/>
+                    </>
+                }
+                </>
+            }
+            </GroupContext.Consumer>
+        </div>
+    )
+}
 
 
-function saveChanges
-    (
+function saveGroupChanges (
         setState: React.Dispatch<React.SetStateAction<GroupState>>,
         setGroup: React.Dispatch<React.SetStateAction<Group>>
     ) {
@@ -61,75 +113,69 @@ function saveChanges
     setState(GroupState.default);
 }
 
-interface GroupHeaderProps {
-    state: GroupState,
-    setState: React.Dispatch<React.SetStateAction<GroupState>>
-}
-const GroupHeader = (props: GroupHeaderProps) => {
-    return ( 
-        <>
+
+const GroupHeader = () => {
+    return (
+        <GroupContext.Consumer>
         {
-            props.state === GroupState.default &&
-            <GroupContext.Consumer>
-            {
-                value => 
+            value =>    
+            <>{
+                value.state === GroupState.default &&
                 <>
                     <div className="groups__groupHeader">
                         <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
                         <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
                     </div>
-                    <div className="groups__groupHeader__buttons">
-                        <Button type="transparent" iconType="more" data="Изменить" 
-                                onClick={() => props.setState(GroupState.edit)}/>
-                    </div>
+                    <ButtonTuple/>
                 </>
-            }
-            </GroupContext.Consumer>
-        }
-        {
-            props.state === GroupState.edit &&
-            <GroupContext.Consumer>
-            {
-                value => 
+            }{
+                value.state === GroupState.edit &&
                 <>
                     <div className="groups__groupHeader" onKeyDown={
-                        (e) => e.key === 'Enter' ? saveChanges(props.setState, value.setGroup) : null
+                        (e) => e.key === 'Enter' ? saveGroupChanges(value.setState, value.setGroup) : null
                     }>
                         <InputArea id="group" type="group" value={value.group.name} />
                         <InputArea id="subject" type="subject" value={value.group.subject} />
                     </div>
-                    <div className="groups__groupHeader__buttons">
-                        <Button type="transparent" iconType="add" data="Добавить ученика" />
-                        <Button type="transparent" iconType="minus" data="Удалить ученика"
-                            onClick={() => props.setState(GroupState.delete)}/>
-                        <Button type="filled" data="Сохранить" 
-                            onClick={() => saveChanges(props.setState, value.setGroup)}/>
-                    </div>
+                    <ButtonTuple/>
                 </>
-            }
-            </GroupContext.Consumer>
+            }{
+                value.state === GroupState.delete &&
+                <>
+                    <div className="groups__groupHeader">
+                        <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
+                        <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
+                    </div>
+                    <ButtonTuple/>
+                </>
+            }</>
         }
-        {
-            props.state === GroupState.delete &&
-            <h1>delete</h1>
-        }
-        </>
+        </GroupContext.Consumer> 
     )
 }
 
 interface StudentsProps {
+    state: GroupState
     students: Array<Student>
 }
 const Students = (props: StudentsProps) => {
 
-    const students = props.students.map(item => 
-        <li key={item.surname + item.name}
-            className="groups__student">
-                {item.surname} {item.name}
-        </li>
-    )
+    let students = [], checkboxes = [];
+    for(let i = 0; i < props.students.length; i++) {
+        students.push(
+            <li key={'student' + i} className="groups__student">
+                {props.students[i].surname} {props.students[i].name}
+            </li>
+        )
+        checkboxes.push(<InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>)
+    }
     return (
-        <ol>{students}</ol>
+        <>
+            {
+                props.state === GroupState.delete && <>{checkboxes}</>
+            }
+            <ol>{students}</ol>
+        </>
     )
 }
 
@@ -151,9 +197,11 @@ const Group = () => {
     const [students, setStudents] = useState(data.students);
     return (
         <div className="groups__group-wrapper">
-            <GroupContext.Provider value={{group, setGroup, setStudents}}>
-                <GroupHeader state={state} setState={setState}/>
-                <Students students={students}/>
+            <GroupContext.Provider value={{
+                group, setGroup, students, setStudents, state, setState
+                }}>
+                <GroupHeader/>
+                <Students state={state} students={students}/>
             </GroupContext.Provider>
         </div>
         
