@@ -30,4 +30,9 @@
         color: var(--ash-light);
         padding: 4px 0 7px 0 !important;
     }
+    &checkbox {
+        width: 24px; height: 24px;
+        color: var(--ash-lighter);
+        background-color: var(--ash-default);
+    }
 }

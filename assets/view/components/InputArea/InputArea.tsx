@@ -5,7 +5,7 @@ import { MIN_LABEL_GROUP_SIZE } from "../../../utility/utilities";
 interface InputAreaProps {
     id: string,
     header?: string,
-    type: 'email' | 'password' | 'text' | 'group' | 'subject',
+    type: 'email' | 'password' | 'text' | 'group' | 'subject' | 'checkbox',
     placeholder?: string,
     value?: string
 }
