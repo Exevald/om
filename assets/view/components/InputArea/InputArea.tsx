@@ -9,25 +9,22 @@ interface InputAreaProps {
     placeholder?: string,
     value?: string
 }
-function changeWidth(id: string) {
-    const el = document.getElementById(id) as HTMLInputElement;
-    if (el.value.length < MIN_LABEL_GROUP_SIZE) {
-        el.style.width =  MIN_LABEL_GROUP_SIZE + 'ch';
-    } else {
-        el.style.width = el.value.length + 'ch';
+function changeWidth(id: string, type: InputAreaProps['type']) {
+    if (type === 'group' || type === 'subject') {
+        const el = document.getElementById(id) as HTMLInputElement;
+        if (el.value.length < MIN_LABEL_GROUP_SIZE) {
+            el.style.width =  MIN_LABEL_GROUP_SIZE + 'ch';
+        } else {
+            el.style.width = el.value.length + 'ch';
+        }
     }
 }
 
 const InputArea = (props: InputAreaProps) => {
     const styles = `inputArea__input inputArea__${props.type}`;
 
-    if (props.id in ['name', 'subject']) {
-        const onChange = changeWidth
-    } else {
-        const onChange = ''
-    }
 
-    useEffect(() => changeWidth(props.id))
+    useEffect(() => changeWidth(props.id, props.type))
     return (
         <div>
             {
@@ -40,14 +37,8 @@ const InputArea = (props: InputAreaProps) => {
             {
                 props.type && 
                 <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
-                onChange={() => changeWidth(props.id)} 
+                onChange={() => changeWidth(props.id, props.type)} 
                 placeholder={props.placeholder} />
-            }
-            
-            {
-                !props.type && 
-                <input id={props.id} className={styles} defaultValue={props.value}
-                type="text" placeholder={props.placeholder}/>
             }
                     
         </div>
