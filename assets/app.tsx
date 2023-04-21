@@ -12,9 +12,9 @@ import GroupsPage from './view/pages/Groups/Groups';
 
 const App = () => {
     return (
-        <StrictMode>
+        <React.StrictMode>
             <GroupsPage/>
-        </StrictMode>
+        </React.StrictMode>
     )
 }
 
