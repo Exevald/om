@@ -63,6 +63,15 @@
         color: var(--ash);
         margin-right: 26px;
     }
+    &studentArea {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 72px;
+    }
+    &checkboxArea {
+        margin-right: 30px;
+        width: fit-content;
+    }
     &student {
         list-style-position: inside;
     }

@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
+import "./Groups.scss";
+
 
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import { GetData, Group, Student } from "../../../utility/types";
+import { addStudent, deleteStudents, saveGroupChanges } from "./GroopHooks";
 
-
-import "./Groups.scss";
 
 const GroupContext  = React.createContext(null);
 const UserContext   = React.createContext(null);
@@ -48,17 +49,6 @@ const Header = () => {
     )
 }
 
-function deleteStudents (
-    students: Array<Student>,
-    setStudents: React.Dispatch<React.SetStateAction<Student[]>>
-    ) {
-        let newStudents: Array<Student>;
-        for (let i = 0; i < students.length; i++) {
-            let checkbox = document.getElementById('checkbox' + i) as HTMLInputElement;
-            console.log (checkbox.value)
-        }
-    setStudents(newStudents)
-}
 
 const ButtonTuple = () => {
     return (
@@ -70,29 +60,29 @@ const ButtonTuple = () => {
                 {
                     value.state === GroupState.default &&
                     <>
-                        <Button type="transparent" iconType="more" data="Изменить" 
-                            onClick={() => value.setState(GroupState.edit)}/>
+                        <Button type="transparent" iconType="more" data="Изменить" onClick={
+                            () => value.setState(GroupState.edit)}/>
                         <Button type="filled" data="К журналу"/>
                     </>
                 }
                 {
                     value.state === GroupState.edit &&
                     <>
-                        <Button type="transparent" iconType="add" data="Добавить ученика" />
-                        <Button type="transparent" iconType="minus" data="Удалить ученика"
-                            onClick={() => value.setState(GroupState.delete)}/>
-                        <Button type="filled" data="Сохранить" 
-                            onClick={() => saveGroupChanges(value.setState, value.setGroup)}/>
+                        <Button type="transparent" iconType="add" data="Добавить ученика" onClick={
+                            () => addStudent(value.students, value.setStudents)} />
+                        <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
+                            () => value.setState(GroupState.delete)}/>
+                        <Button type="filled" data="Сохранить" onClick={
+                            () => saveGroupChanges(value.setState, value.setGroup)}/>
                     </>
                 }
                 {
                     value.state === GroupState.delete &&
                     <>
                         <Button type="transparent" iconType="minus" data="Удалить" onClick={
-                            () => deleteStudents(value.students, value.setStudents)}/>
+                            () => deleteStudents(value.students, value.setStudents, value.setState)}/>
                         <Button type="transparent" data="Отмена" onClick={
-                            () => value.setState(GroupState.default)
-                        }/>
+                            () => value.setState(GroupState.default)}/>
                     </>
                 }
                 </>
@@ -100,17 +90,6 @@ const ButtonTuple = () => {
             </GroupContext.Consumer>
         </div>
     )
-}
-
-
-function saveGroupChanges (
-        setState: React.Dispatch<React.SetStateAction<GroupState>>,
-        setGroup: React.Dispatch<React.SetStateAction<Group>>
-    ) {
-    const subj = document.getElementById('subject') as HTMLInputElement;
-    const name = document.getElementById('group') as HTMLInputElement;
-    setGroup({name: name.value, subject: subj.value});
-    setState(GroupState.default);
 }
 
 
@@ -161,21 +140,31 @@ interface StudentsProps {
 const Students = (props: StudentsProps) => {
 
     let students = [], checkboxes = [];
-    for(let i = 0; i < props.students.length; i++) {
-        students.push(
-            <li key={'student' + i} className="groups__student">
-                {props.students[i].surname} {props.students[i].name}
-            </li>
-        )
-        checkboxes.push(<InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>)
+
+    if (props.students.length > 0) {
+        for(let i = 0; i < props.students.length; i++) {
+            students.push(
+                <li key={'student' + i} className="groups__student">
+                    {props.students[i].surname} {props.students[i].name}
+                </li>
+            )
+            checkboxes.push(<InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>)
+        }
     }
+
     return (
-        <>
+        <div className="groups__studentArea">
             {
-                props.state === GroupState.delete && <>{checkboxes}</>
+                props.state === GroupState.delete && 
+                <div className="groups__checkboxArea">{checkboxes}</div>
             }
-            <ol>{students}</ol>
-        </>
+            {
+                students.length && <ol>{students}</ol>
+            }
+            {
+                students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
+            }
+        </div>
     )
 }
 
@@ -187,7 +176,7 @@ const data: GetData = {
     },
     students: [
         {surname: 'Шиханова',   name: 'Дарья'},
-        {surname: 'Роберт',     name: 'Викторов'}
+        {surname: 'Викторов',   name: 'Роберт'}
     ]
 }
 
