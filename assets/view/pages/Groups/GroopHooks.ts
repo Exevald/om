@@ -24,6 +24,22 @@ function addStudent (
 }
 
 
+function setStudentById(
+    students: Array<Student>,
+    setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
+    setActiveStudentId: React.Dispatch<React.SetStateAction<number>>,
+    id: number
+    ) {
+    let newStudents = students;
+    const studentSurname = document.getElementById('surname' + id) as HTMLInputElement;
+    const studentName = document.getElementById('name' + id) as HTMLInputElement;
+    newStudents[id] = {surname: studentSurname.value, name: studentName.value};
+    setActiveStudentId(-1);
+    console.log(-1);
+    setStudents(newStudents);
+}
+
+
 function deleteStudents (
     students: Array<Student>,
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
@@ -51,4 +67,6 @@ function saveGroupChanges (
     setState(GroupState.default);
 }
 
-export { GroupContext, UserContext, GroupState, addStudent, deleteStudents, saveGroupChanges }
+export { GroupContext, UserContext, GroupState, 
+    addStudent, setStudentById, deleteStudents, 
+    saveGroupChanges }

@@ -5,7 +5,7 @@ import "./Groups.scss";
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import { GetData, Group, Student } from "../../../utility/types";
-import { addStudent, deleteStudents, saveGroupChanges } from "./GroopHooks";
+import { addStudent, deleteStudents, saveGroupChanges, setStudentById } from "./GroopHooks";
 
 
 const GroupContext  = React.createContext(null);
@@ -71,7 +71,12 @@ const ButtonList = () => {
                         <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
                             () => value.setState(GroupState.delete)}/>
                         <Button type="filled" data="Сохранить" onClick={
-                            () => saveGroupChanges(value.setState, value.setGroup)}/>
+                            () => {
+                                saveGroupChanges(value.setState, value.setGroup);
+                                setStudentById(
+                                    value.students, value.setStudents, value.setActiveStudentId, value.activeStudentId
+                                    )
+                            }}/>
                     </>
                 }{
                     value.state === GroupState.delete &&
@@ -109,8 +114,8 @@ const GroupHeader = () => {
                     <div className="groups__groupHeader" onKeyDown={
                         (e) => e.key === 'Enter' ? saveGroupChanges(value.setState, value.setGroup) : null
                     }>
-                        <InputArea id="group" type="group" value={value.group.name} />
-                        <InputArea id="subject" type="subject" value={value.group.subject} />
+                        <InputArea id="group" type="group" value={value.group.name} widthChangeable />
+                        <InputArea id="subject" type="subject" value={value.group.subject} widthChangeable />
                     </div>
                     <ButtonList/>
                 </>
@@ -129,24 +134,25 @@ const GroupHeader = () => {
     )
 }
 
-interface StudentAreaProps {
+interface StudentInputAreaProps {
     studentId: number,
     surname: string, 
-    name: string
+    name: string,
 }
-const StudentArea = (props: StudentAreaProps) => {
+const StudentInputArea = (props: StudentInputAreaProps) => {
     return (
         <div className="groups__studentArea">
-            <InputArea id={'surname' + props.studentId} type="text" value={props.surname}/>
-            <InputArea id={'name' + props.studentId} type="text" value={props.name}/>
+            <InputArea id={'surname' + props.studentId} type="studentSurname" value={props.surname} widthChangeable/>
+            <InputArea id={'name' + props.studentId} type="studentName" value={props.name} widthChangeable/>
         </div>
     )
 }
 
 interface StudentsProps {
-    state: GroupState
-    students: Array<Student>
-    activeStudentId: number;
+    state: GroupState,
+    students: Array<Student>,
+    setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
+    activeStudentId: number,
     setActiveStudentId: React.Dispatch<React.SetStateAction<number>>
 }
 const Students = (props: StudentsProps) => {
@@ -154,36 +160,43 @@ const Students = (props: StudentsProps) => {
 
     if (props.students.length > 0) {
         for(let i = 0; i < props.students.length; i++) {
-            console.log(i)
-
             if(i != props.activeStudentId) {
                 students.push(
                     <li key={'student' + i} className="groups__student"
-                        onClick={() => props.setActiveStudentId(i)}
+                        onDoubleClick={
+                            props.state === GroupState.edit ? 
+                            () => props.setActiveStudentId(i) : 
+                            null
+                        }
                     >
                         {props.students[i].surname} {props.students[i].name}
                     </li>
                 )
-                checkboxes.push(<InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>)
+                checkboxes.push(
+                <InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>
+                )
             } else {
                 students.push(
-                    <StudentArea studentId={i} surname={props.students[i].surname} name={props.students[i].name}/>
+                    <li key={'student' + i}>
+                        <StudentInputArea studentId={i} 
+                            surname={props.students[i].surname} 
+                            name={props.students[i].name}/>
+                    </li>
                 )
             }
-            
         }
     }
 
     return (
-        <div className="groups__studentArea">
+        <div className="groups__studentArea" onKeyDown={ (e) => e.key === 'Enter' ? 
+            setStudentById(props.students, props.setStudents, props.setActiveStudentId, props.activeStudentId) : null
+        }>
             {
                 props.state === GroupState.delete && 
                 <div className="groups__checkboxArea">{checkboxes}</div>
-            }
-            {
+            }{
                 students.length && <ol>{students}</ol>
-            }
-            {
+            }{
                 students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
             }
         </div>
@@ -218,6 +231,7 @@ const Group = () => {
                 <GroupHeader/>
             </GroupContext.Provider>
                 <Students state={state} students={students}
+                          setStudents={setStudents}
                           activeStudentId={activeStudentId}
                           setActiveStudentId={setActiveStudentId}/>
         </div>
