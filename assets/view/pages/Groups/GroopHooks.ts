@@ -1,5 +1,6 @@
 import React from "react";
 import { GetData, Group, Student } from "../../../utility/types";
+import { DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME } from "../../../utility/utilities";
 
 
 const GroupContext  = React.createContext(null);
@@ -16,7 +17,9 @@ function addStudent (
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>
     ) {
         let newStudents = students;
-        newStudents.push({surname: 'Фамилия', name: 'Имя'})
+        newStudents.push(
+            {surname: DEFAULT_STUDENT_SURNAME, name: DEFAULT_STUDENT_NAME}
+        )
         setStudents([...newStudents])
 }
 
@@ -36,6 +39,7 @@ function deleteStudents (
         setStudents(newStudents);
         setState(GroupState.default);
 }
+
 
 function saveGroupChanges (
     setState: React.Dispatch<React.SetStateAction<GroupState>>,

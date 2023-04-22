@@ -75,4 +75,10 @@
     &student {
         list-style-position: inside;
     }
+    &studentArea {
+        display: flex;
+        &:first-child {
+            margin-right: 5px;
+        }
+    }
 }
