@@ -33,20 +33,17 @@ const InputArea = (props: InputAreaProps) => {
                     <p>{props.header}</p>
                 </div>
             }
-            
             {
                 props.widthChangeable && 
                 <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
                 onChange={() => changeWidth(props.id)} 
                 placeholder={props.placeholder} />
             }
-
             {
                 !props.widthChangeable && 
                 <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
                 placeholder={props.placeholder} />
-            }
-                    
+            }       
         </div>
     )
 }

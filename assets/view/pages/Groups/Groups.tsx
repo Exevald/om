@@ -5,7 +5,7 @@ import "./Groups.scss";
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import { GetData, Group, Student } from "../../../utility/types";
-import { addStudent, deleteStudents, saveGroupChanges, setStudentById } from "./GroopHooks";
+import { addStudent, deleteStudents, saveAllChanges, saveGroupChanges, setStudentById } from "./GroopHooks";
 
 
 const GroupContext  = React.createContext(null);
@@ -72,10 +72,9 @@ const ButtonList = () => {
                             () => value.setState(GroupState.delete)}/>
                         <Button type="filled" data="Сохранить" onClick={
                             () => {
-                                saveGroupChanges(value.setState, value.setGroup);
-                                setStudentById(
-                                    value.students, value.setStudents, value.setActiveStudentId, value.activeStudentId
-                                    )
+                                saveAllChanges(value.setState, value.students, value.setStudents, value.setGroup, 
+                                    value.activeStudentId, value.setActiveStudentId
+                                )
                             }}/>
                     </>
                 }{
@@ -151,13 +150,11 @@ const StudentInputArea = (props: StudentInputAreaProps) => {
 interface StudentsProps {
     state: GroupState,
     students: Array<Student>,
-    setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
     activeStudentId: number,
     setActiveStudentId: React.Dispatch<React.SetStateAction<number>>
 }
 const Students = (props: StudentsProps) => {
-    let students = [], checkboxes = [];
-
+    let students: Array<JSX.Element> = [], checkboxes: Array<JSX.Element> = [];
     if (props.students.length > 0) {
         for(let i = 0; i < props.students.length; i++) {
             if(i != props.activeStudentId) {
@@ -167,39 +164,43 @@ const Students = (props: StudentsProps) => {
                             props.state === GroupState.edit ? 
                             () => props.setActiveStudentId(i) : 
                             null
-                        }
-                    >
+                        }>
                         {props.students[i].surname} {props.students[i].name}
                     </li>
                 )
                 checkboxes.push(
-                <InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>
+                    <InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>
                 )
             } else {
                 students.push(
                     <li key={'student' + i}>
-                        <StudentInputArea studentId={i} 
-                            surname={props.students[i].surname} 
-                            name={props.students[i].name}/>
+                        <StudentInputArea studentId={i} surname={props.students[i].surname} 
+                        name={props.students[i].name}/>
                     </li>
                 )
             }
         }
     }
-
     return (
-        <div className="groups__studentArea" onKeyDown={ (e) => e.key === 'Enter' ? 
-            setStudentById(props.students, props.setStudents, props.setActiveStudentId, props.activeStudentId) : null
-        }>
-            {
-                props.state === GroupState.delete && 
-                <div className="groups__checkboxArea">{checkboxes}</div>
-            }{
-                students.length && <ol>{students}</ol>
-            }{
-                students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
-            }
-        </div>
+        <GroupContext.Consumer>
+        {
+            value => 
+            <div className="groups__studentArea" onKeyDown={ (e) => e.key === 'Enter' ?
+                saveAllChanges(value.setState, value.students, value.setStudents, value.setGroup, 
+                    value.activeStudentId, value.setActiveStudentId
+                ) : null
+            }>
+                {
+                    props.state === GroupState.delete && 
+                    <div className="groups__checkboxArea">{checkboxes}</div>
+                }{
+                    students.length && <ol>{students}</ol>
+                }{
+                    students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
+                }
+            </div>
+        }
+        </GroupContext.Consumer>
     )
 }
 
@@ -218,7 +219,7 @@ const data: GetData = {
 const Group = () => {
     const [state, setState] = useState<GroupState>(GroupState.default);
     const [group, setGroup] = useState(data.group);
-    const [activeStudentId, setActiveStudentId] = useState(-1)
+    const [activeStudentId, setActiveStudentId] = useState(-1); // id, при котором ни один не будет активным
     const [students, setStudents] = useState(data.students);
     return (
         <div className="groups__group-wrapper">
@@ -229,11 +230,10 @@ const Group = () => {
                 activeStudentId, setActiveStudentId
                 }}>
                 <GroupHeader/>
-            </GroupContext.Provider>
                 <Students state={state} students={students}
-                          setStudents={setStudents}
                           activeStudentId={activeStudentId}
                           setActiveStudentId={setActiveStudentId}/>
+            </GroupContext.Provider>
         </div>
         
     )
