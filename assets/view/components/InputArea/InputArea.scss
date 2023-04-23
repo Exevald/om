@@ -32,7 +32,10 @@
     }
     &checkbox {
         width: 24px; height: 24px;
-        color: var(--ash-lighter);
-        background-color: var(--ash-default);
+        border-color: var(--ash-default);
+        &:checked {
+            color: white;
+            background: var(--ash-default);
+        }
     }
 }
