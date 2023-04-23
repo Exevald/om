@@ -140,7 +140,7 @@ interface StudentInputAreaProps {
 }
 const StudentInputArea = (props: StudentInputAreaProps) => {
     return (
-        <div className="groups__studentArea">
+        <div className="groups__studentInputArea">
             <InputArea id={'surname' + props.studentId} type="studentSurname" value={props.surname} widthChangeable/>
             <InputArea id={'name' + props.studentId} type="studentName" value={props.name} widthChangeable/>
         </div>
