@@ -14,10 +14,16 @@
         border-color: var(--ash-default);
         padding-left: 23px;
     }
-    &group, &subject {
+    &group, &subject,
+    &studentName, &studentSurname {
         border: none;
         border-radius: 0px;
         border-bottom: 2px solid black;
+        overflow: hidden;
+    }
+    &studentName, &studentSurname {
+        height: 24px;
+        padding: 0 !important;
     }
     &group {
         font: var(--text-header-large);
@@ -31,7 +37,7 @@
         padding: 4px 0 7px 0 !important;
     }
     &checkbox {
-        width: 24px; height: 24px;
+        width: 18px; height: 18px;
         border-color: var(--ash-default);
         &:checked {
             color: white;

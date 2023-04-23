@@ -15,7 +15,7 @@ function changeWidth(id: string) {
     if (el.value.length < MIN_LABEL_GROUP_SIZE) {
         el.style.width =  MIN_LABEL_GROUP_SIZE + 'ch';
     } else {
-        el.style.width = el.value.length + 'ch';
+        el.style.width = el.value.length + 1 + 'ch';
     }
 }
 
