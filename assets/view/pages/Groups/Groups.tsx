@@ -5,27 +5,33 @@ import "./Groups.scss";
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import { GetData, Group, Student } from "../../../utility/types";
-import { addStudent, deleteStudents, saveAllChanges, saveGroupChanges, setStudentById } from "./GroopHooks";
+import { addStudent, deleteStudents, saveAllChanges, saveGroupChanges } from "./GroopHooks";
 
 
 const GroupContext  = React.createContext(null);
-const UserContext   = React.createContext(null);
 enum GroupState {
     default,
     edit,
     delete
 }
 
-const PersonArea = () => {
+// заглушка для пользователя
+const user = {
+    shortName: 'Рамазанова З.Т.',
+    imgUrl: ''
+}
+interface PersonAreaProps {
+    shortName: string,
+    imgUrl: string
+}
+const PersonArea = (props: PersonAreaProps) => {
     // тут будет в будущем проверка на валидность url фотки 
     return (
-        <UserContext.Consumer>
-        {
-        value =>
+        
             <div className="groups__personArea">
-                <p>{value.shortName}</p>
+                <p>{props.shortName}</p>
                 {
-                    value.imgUrl === "" &&
+                    props.imgUrl === "" &&
                     <img className="groups__photo"
                         src="./images/Icons/userIcon_default.svg"
                         alt="default user photo"
@@ -36,15 +42,13 @@ const PersonArea = () => {
                     // isUserAvatarValid &&
                 }
             </div>
-        }
-        </UserContext.Consumer>
     )
 }
 const Header = () => {
     return (
         <div className="groups__header">
             <h4>Создание группы</h4>
-            <PersonArea/>
+            <PersonArea shortName={user.shortName} imgUrl={user.imgUrl}/>
         </div>
     )
 }
@@ -240,18 +244,11 @@ const Group = () => {
 }
 
 
-// заглушка для пользователя
-const user = {
-    shortName: 'Рамазанова З.Т.',
-    imgUrl: ''
-}
 
 const GroupsPage = () => {
     return (
         <div className="groups__wrapper">
-            <UserContext.Provider value={user}>
-                <Header/>
-            </UserContext.Provider>
+            <Header/>
             <Group/>
         </div>
         
