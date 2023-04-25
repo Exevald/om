@@ -168,11 +168,11 @@ class Api implements ApiInterface
         return $this->authorizer->login($email, $password);
     }
 
-    public function createTeacher(string $token, string $firstName, string $lastName, string $email, string $password): int
+    public function createTeacher(string $firstName, string $lastName, string $email, string $password): int
     {
         $teacherRepository = new TeacherRepository($this->doctrine);
-        $handler = new AuthorizedCreateTeacherCommandHandler($this->authorizer, $teacherRepository);
-        return $handler->handle(new AuthorizedCreateTeacherCommand($token, $firstName, $lastName, $email, $password));
+        $handler = new AuthorizedCreateTeacherCommandHandler($teacherRepository);
+        return $handler->handle(new AuthorizedCreateTeacherCommand($firstName, $lastName, $email, $password));
     }
 
     public function createStudent(string $token, string $firstName, string $lastName, int $groupId): int

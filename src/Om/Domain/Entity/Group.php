@@ -66,7 +66,7 @@ class Group
     public function addStudent(int $studentId): void
     {
         if (in_array($studentId, $this->studentsIdList)) {
-            throw new Exception("Student with id" . $studentId . " is already in a group!", 420);
+            throw new Exception("StudentController with id" . $studentId . " is already in a group!", 420);
         }
         $this->studentsIdList[] = $studentId;
     }

@@ -47,7 +47,7 @@ interface ApiInterface
 
     public function login(string $email, string $password): bool;
 
-    public function createTeacher(string $token, string $firstName, string $lastName, string $email, string $password): int;
+    public function createTeacher(string $firstName, string $lastName, string $email, string $password): int;
 
     public function createStudent(string $token, string $firstName, string $lastName, int $groupId): int;
 
