@@ -13,9 +13,8 @@ interface InputAreaProps {
 
 
 function changeWidth(id: string, type: InputAreaProps['type'], isWiwidthChangeable: boolean) {
-    const el = document.getElementById(id) as HTMLInputElement;
     if (isWiwidthChangeable) {
-
+        const el = document.getElementById(id) as HTMLInputElement;
         let minSize, maxSize;
         switch(type) {
             case 'studentName':
