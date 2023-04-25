@@ -26,7 +26,7 @@ class AuthorizedCreateStudentCommandHandler
         $this->groupService = new GroupService($groupRepository);
     }
 
-    private function handle(AuthorizedCreateStudentCommand $command): int
+    public function handle(AuthorizedCreateStudentCommand $command): int
     {
         $token = $command->getToken();
         $this->authorizer->validateToken($token);
