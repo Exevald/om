@@ -1,7 +1,4 @@
-.inputArea__{
-    &wrapper {
-        margin-bottom: 22px;
-    }
+.inputArea__ {
     &header {
         position: relative;
         margin: 0 0 -10px 23px;
@@ -14,8 +11,37 @@
         width: 423px;
         height: 81px;
         border-radius: 6px;
-        box-shadow: none;
         border-color: var(--ash-default);
         padding-left: 23px;
+    }
+    &group, &subject,
+    &studentName, &studentSurname {
+        border: none;
+        border-radius: 0px;
+        border-bottom: 2px solid black;
+        overflow: hidden;
+    }
+    &studentName, &studentSurname {
+        height: 24px;
+        padding: 0 !important;
+    }
+    &group {
+        font: var(--text-header-large);
+        color: var(--ash-default);
+        padding: 4px 0 8px 0 !important;
+    }
+    &subject {
+        height: 48px;
+        font: var(--text-header-small);
+        color: var(--ash-light);
+        padding: 4px 0 7px 0 !important;
+    }
+    &checkbox {
+        width: 18px; height: 18px;
+        border-color: var(--ash-default);
+        &:checked {
+            color: white;
+            background: var(--ash-default);
+        }
     }
 }

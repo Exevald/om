@@ -8,6 +8,9 @@
         justify-content: center;
         font: var(--text-text-normal-regular)
     }
+    &main-wrapper > div {
+        margin-bottom: 22px;
+    }
     &header {
         font: var(--text-header-normal);
         color: var(--electric-default);
@@ -17,7 +20,7 @@
         display: flex;
         width: 92%;
         justify-content: space-between;
-        margin-bottom: 30px
+        margin-bottom: 30px !important
     }
     &registerArea p:last-child {
         text-decoration: underline;

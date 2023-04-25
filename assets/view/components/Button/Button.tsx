@@ -1,36 +1,60 @@
 import React from "react";
 import './Button.scss';
+import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 
 interface ButtonProps {
-    type: 'login' | 'register';
+    id?: string,
+    type:  'login' | 'register' | 'submit' | 'filled' | 'transparent' | 
+            'filledNoColor' | 'transparentNoColor',
+    iconType?: 'add' | 'minus' | 'more',
+    onClick?: () => void,
     data: string;
 }
 
 const Button = (props: ButtonProps) => {
-    const buttonType = props.type;
-    const buttonStyle = `buttons__default buttons__${buttonType}`;
+    let buttonType = props.type;
+    let buttonStyle = `buttons__default buttons__${buttonType}`;
 
     switch (buttonType) {
         case 'register':
-        // что и в login
-        // TODO: поменять на норальный case
-        case 'login':
+            buttonStyle += ` buttons__transparentNoColor`;
             return (
                 <a href='auth'>
-                    <div className={buttonStyle}>
-                        <h4>{props.data}</h4>
-                    </div>
+                    <button className={buttonStyle}>
+                        {props.data}
+                    </button>
                 </a>
             )
-        default:
+        case 'login':
+            buttonStyle += ` buttons__filledNoColor`;
             return (
-                <div className={buttonStyle}>
-                    <h4>{props.data}</h4>
-                </div>
+                <a href='auth'>
+                    <button className={buttonStyle}>
+                        {props.data}
+                    </button>
+                </a>
+            )
+        case 'submit':
+            buttonStyle += ' buttons__filled';
+            return (
+                <button id={props.id} className={buttonStyle}>
+                    {props.data}
+                </button>
+            )
+        default:
+            props.iconType ? buttonStyle += ' buttons__hasIcon' : null;
+            return (
+                <button id={props.id} className={buttonStyle} onClick={props.onClick}>
+                    {
+                        props.iconType &&
+                        <ButtonIcon type={props.iconType}/>
+                    }
+                    {props.data}
+                </button>
             )
     }
-
+    
 }
 
 export default Button;

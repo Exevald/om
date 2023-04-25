@@ -50,7 +50,7 @@ const Authentication = () => {
                 <p>Нет аккаунта?</p>
                 <p onClick={() => setRegister(true)}>Зарегестрироваться</p>
             </div>
-            <Button id="loginSubmit" type="submit" data="Войти" submitFor="logination" />
+            <Button id="loginSubmit" type="submit" data="Войти"/>
         </div>
     )
 }
