@@ -8,9 +8,5 @@ type Student = {
     surname: string
 }
 
-type GetData = {
-    group: Group,
-    students: Array<Student>
-}
 
-export {Group, Student, GetData}
+export { Group, Student }
