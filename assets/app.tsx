@@ -13,7 +13,7 @@ import MarksTable from './view/pages/MarksTable/MarksTable';
 
 const App = () => {
     return (
-        <GroupsPage/>
+        <MarksTable/>
     )
 }
 
