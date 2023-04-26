@@ -20,15 +20,19 @@ function changeWidth(id: string, type: InputAreaProps['type'], isWiwidthChangeab
             case 'studentName':
                 minSize = MIN_LABEL_STUDENT_NAME_SIZE;
                 maxSize = MAX_LABEL_STUDENT_NAME_SIZE;
+                break;
             case 'studentSurname':
                 minSize = MIN_LABEL_STUDENT_SURNAME_SIZE;
                 maxSize = MAX_LABEL_STUDENT_SURNAME_SIZE;
+                break;
             case 'group':
                 minSize = MIN_LABEL_GROUP_SIZE;
                 maxSize = MAX_LABEL_GROUP_SIZE;
+                break;
             case 'subject':
                 minSize = MIN_LABEL_SUBJECT_SIZE;
                 maxSize = MAX_LABEL_SUBJECT_SIZE;
+                break;
             default:
                 minSize = MIN_LABEL_DEFAULT_SIZE;
                 maxSize = MAX_LABEL_DEFAULT_SIZE;
