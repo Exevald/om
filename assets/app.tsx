@@ -13,7 +13,7 @@ import GroupsPage from './view/pages/Groups/Groups';
 const App = () => {
     return (
         <React.StrictMode>
-            <GroupsPage/>
+            <Authentication/>
         </React.StrictMode>
     )
 }

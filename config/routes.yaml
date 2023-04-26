@@ -1,3 +1,7 @@
 index:
     path: /
     controller: App\Controller\TestController::get_test_page
+
+loginPage:
+    path: /login
+    controller: App\Controller\TeacherController

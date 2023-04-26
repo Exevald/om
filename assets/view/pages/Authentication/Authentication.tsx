@@ -48,7 +48,7 @@ const Authentication = () => {
             }
             <div className="auth__registerArea">
                 <p>Нет аккаунта?</p>
-                <p onClick={() => setRegister(true)}>Зарегестрироваться</p>
+                <p onClick={() => setRegister(true)}>Зарегистрироваться</p>
             </div>
             <Button id="loginSubmit" type="submit" data="Войти"/>
         </div>

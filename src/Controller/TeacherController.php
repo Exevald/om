@@ -17,6 +17,15 @@ class TeacherController extends AbstractController
     {
     }
 
+    public function loginPage(): Response
+    {
+        return $this->render('pages/login/default_login.twig',
+            [
+
+            ]
+        );
+    }
+
     public function authorizeApi(Request $request): Response
     {
         $response = new Response();
