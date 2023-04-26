@@ -172,9 +172,7 @@ const Students = (props: StudentsProps) => {
                         {props.students[i].surname} {props.students[i].name}
                     </li>
                 )
-                checkboxes.push(
-                    <InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>
-                )
+                checkboxes.push(<InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>)
             } else {
                 students.push(
                     <li key={'student' + i}>
