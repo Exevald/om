@@ -4,8 +4,9 @@ import "./Groups.scss";
 
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
-import { GetData, Group, Student } from "../../../utility/types";
+import { Group, Student } from "../../../utility/types";
 import { addStudent, deleteStudents, saveAllChanges, saveGroupChanges } from "./GroopHooks";
+import Header from "../../components/Header/Header";
 
 
 const GroupContext  = React.createContext(null);
@@ -13,44 +14,6 @@ enum GroupState {
     default,
     edit,
     delete
-}
-
-// заглушка для пользователя
-const user = {
-    shortName: 'Рамазанова З.Т.',
-    imgUrl: ''
-}
-interface PersonAreaProps {
-    shortName: string,
-    imgUrl: string
-}
-const PersonArea = (props: PersonAreaProps) => {
-    // тут будет в будущем проверка на валидность url фотки 
-    return (
-        
-            <div className="groups__personArea">
-                <p>{props.shortName}</p>
-                {
-                    props.imgUrl === "" &&
-                    <img className="groups__photo"
-                        src="./images/Icons/userIcon_default.svg"
-                        alt="default user photo"
-                    />
-                }
-                {
-                    // Проверка на правильность аватара
-                    // isUserAvatarValid &&
-                }
-            </div>
-    )
-}
-const Header = () => {
-    return (
-        <div className="groups__header">
-            <h4>Создание группы</h4>
-            <PersonArea shortName={user.shortName} imgUrl={user.imgUrl}/>
-        </div>
-    )
 }
 
 
@@ -207,14 +170,18 @@ const Students = (props: StudentsProps) => {
 }
 
 // заглушка для данных по группе
-const data: GetData = {
+const data = {
     group: {
         name: '11 класс',
         subject: 'Физика'
     },
     students: [
-        {surname: 'Шиханова',   name: 'Дарья'},
-        {surname: 'Викторов',   name: 'Роберт'}
+        {surname: 'Шиханова',       name: 'Дарья'},
+        {surname: 'Викторов',       name: 'Роберт'},
+        {surname: 'Баянова',        name: 'Наталия'},
+        {surname: 'Грустный',       name: 'Павел'},
+        {surname: 'Зелепупкович',   name: 'Афанасий'},
+        {surname: 'Апполинарьев',   name: 'Владлен'},
     ]
 }
 
@@ -241,12 +208,16 @@ const Group = () => {
     )
 }
 
-
+// заглушка для пользователя
+const user = {
+    shortName: 'Рамазанова З.Т.',
+    imgUrl: ''
+}
 
 const GroupsPage = () => {
     return (
         <div className="groups__wrapper">
-            <Header/>
+            <Header title="Создание группы" userData={user}/>
             <Group/>
         </div>
         
