@@ -1,21 +1,23 @@
-import React, { StrictMode } from 'react';
-import ReactDOMClient from 'react-dom/client';
+import React, {StrictMode} from 'react';
 
 import './index.scss';
 
 
-import TitleScreen from './view/pages/TitleScreen/TitleScreen'
-import Authentication from './view/pages/Authentication/Authentication'
 import Onboarding from './view/pages/Onboarding/Onboarding';
 import GroupsPage from './view/pages/Groups/Groups';
+import {renderTitleScreen} from "./view/pages/TitleScreen/TitleScreen";
+import {renderAuthenticationPage} from "./view/pages/Authentication/Authentication";
 
 
-const App = () => {
-    return (
-        <React.StrictMode>
-            <Authentication/>
-        </React.StrictMode>
-    )
+let loc = location.pathname
+switch (loc) {
+    case "/login": {
+        renderAuthenticationPage("loginPage")
+        break
+    }
+    default: {
+        renderTitleScreen("titlePage")
+        break
+    }
 }
 
-ReactDOMClient.createRoot(document.getElementById('root') as Element).render(<App/>);

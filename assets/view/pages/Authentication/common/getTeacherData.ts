@@ -1,0 +1,24 @@
+import {removeExtraBlanks} from "../../../../utility/removeExtraBlanks";
+
+type teacherDataType = {
+    firstName: string,
+    lastName: string
+    email: string,
+    password: string
+}
+
+const getTeacherData = (
+    nameInput: HTMLInputElement,
+    emailInput: HTMLInputElement,
+    passwordInput: HTMLInputElement,
+    teacherData: teacherDataType
+) => {
+    const namesString = removeExtraBlanks(nameInput.value)
+    const namesArr = namesString.split(' ')
+    teacherData.firstName = namesArr[1]
+    teacherData.lastName = namesArr[0]
+    teacherData.email = emailInput.value
+    teacherData.password = passwordInput.value
+}
+
+export {getTeacherData, teacherDataType}

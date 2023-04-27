@@ -2,6 +2,7 @@ import React from 'react';
 import './TitleScreen.scss'
 
 import Button from './../../components/Button/Button'
+import {createRoot} from "react-dom/client";
 
 
 const MainLogo = () => {
@@ -15,7 +16,7 @@ const MainLogo = () => {
 
 const TitleScreen = () => {
     return (
-        <div className='titleScreen__main-wrapper'>
+        <div className='titleScreen__main-wrapper' id={"titleScreenRoot"}>
 
             <div className='titleScreen__logoBlock'>
                 <MainLogo/>
@@ -30,4 +31,13 @@ const TitleScreen = () => {
     )
 }
 
-export default TitleScreen;
+const renderTitleScreen = (rootId: string) => {
+    const rootElement = document.getElementById(rootId)
+    const root = createRoot(rootElement)
+
+    root.render(
+        <TitleScreen/>
+    )
+}
+
+export {renderTitleScreen};

@@ -1,12 +1,12 @@
 import React from "react";
 import './Button.scss';
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-
+import {getLoginPageUrl} from "../../../api/pageUrls";
 
 interface ButtonProps {
     id?: string,
-    type:  'login' | 'register' | 'submit' | 'filled' | 'transparent' | 
-            'filledNoColor' | 'transparentNoColor',
+    type: 'login' | 'register' | 'submit' | 'filled' | 'transparent' |
+        'filledNoColor' | 'transparentNoColor',
     iconType?: 'add' | 'minus' | 'more',
     onClick?: () => void,
     data: string;
@@ -20,7 +20,7 @@ const Button = (props: ButtonProps) => {
         case 'register':
             buttonStyle += ` buttons__transparentNoColor`;
             return (
-                <a href='auth'>
+                <a onClick={() => window.location.href = getLoginPageUrl()}>
                     <button className={buttonStyle}>
                         {props.data}
                     </button>
@@ -29,7 +29,7 @@ const Button = (props: ButtonProps) => {
         case 'login':
             buttonStyle += ` buttons__filledNoColor`;
             return (
-                <a href='auth'>
+                <a onClick={() => window.location.href = getLoginPageUrl()}>
                     <button className={buttonStyle}>
                         {props.data}
                     </button>
@@ -38,7 +38,7 @@ const Button = (props: ButtonProps) => {
         case 'submit':
             buttonStyle += ' buttons__filled';
             return (
-                <button id={props.id} className={buttonStyle}>
+                <button id={props.id} className={buttonStyle} onClick={props.onClick}>
                     {props.data}
                 </button>
             )
@@ -54,7 +54,7 @@ const Button = (props: ButtonProps) => {
                 </button>
             )
     }
-    
+
 }
 
 export default Button;

@@ -17,11 +17,18 @@ class TeacherController extends AbstractController
     {
     }
 
+    public function titlePage(): Response
+    {
+        return $this->render('pages/title/title_screen.twig', [
+            'loginPageUrl' => $this->generateUrl('loginPage')
+        ]);
+    }
+
     public function loginPage(): Response
     {
         return $this->render('pages/login/default_login.twig',
             [
-
+                'createTeacherApiUrl' => $this->generateUrl('createTeacherApi')
             ]
         );
     }
@@ -45,7 +52,7 @@ class TeacherController extends AbstractController
         $firstName = $body["firstName"];
         $lastName = $body["lastName"];
         $email = $body["email"];
-        $password = $body["password"];
+        $password = base64_decode($body["encryptedPassword"]);
         $teacherId = $this->api->createTeacher($firstName, $lastName, $email, $password);
         $response = [
             "teacherId" => $teacherId

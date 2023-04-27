@@ -1,7 +1,11 @@
-index:
+titlePage:
     path: /
-    controller: App\Controller\TestController::get_test_page
+    controller: App\Controller\TeacherController::titlePage
 
 loginPage:
     path: /login
-    controller: App\Controller\TeacherController
+    controller: App\Controller\TeacherController::loginPage
+
+createTeacherApi:
+    path: api/v1/teacher/create
+    controller: App\Controller\TeacherController::createTeacherApi
