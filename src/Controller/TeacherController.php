@@ -29,9 +29,16 @@ class TeacherController extends AbstractController
         return $this->render('pages/login/default_login.twig',
             [
                 'createTeacherApiUrl' => $this->generateUrl('createTeacherApi'),
-                'authorizeApiUrl' => $this->generateUrl('authorizeApi')
+                'authorizeApiUrl' => $this->generateUrl('authorizeApi'),
+                'onboardingPageUrl' => $this->generateUrl('onboardingPage')
             ]
         );
+    }
+
+    public function onboardingPage(): Response
+    {
+        return $this->render('pages/onboarding/onboarding_screen.twig', [
+        ]);
     }
 
     public function authorizeApi(Request $request): Response

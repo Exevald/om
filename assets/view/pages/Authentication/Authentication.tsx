@@ -8,6 +8,7 @@ import Button from '../../components/Button/Button'
 import {createRoot} from "react-dom/client";
 import {getLoginTeacherData, getRegisterTeacherData, teacherDataType} from "./common/getTeacherData";
 import {createTeacher, login} from "../../../api/requests";
+import {getOnboardingPageUrl} from "../../../api/pageUrls";
 
 const Authentication = () => {
     const [register, setRegister] = useState(false);
@@ -32,29 +33,29 @@ const Authentication = () => {
                 const emailInput = document.querySelector('#email') as HTMLInputElement
                 const passwordInput = document.querySelector('#password') as HTMLInputElement
                 const loginButton = document.querySelector('#loginSubmit') as HTMLButtonElement
+                const teacherData: teacherDataType = {
+                    email: "",
+                    password: "",
+                    firstName: "",
+                    lastName: ""
+                }
 
                 if (register) {
                     const nameInput = document.querySelector('#fullName') as HTMLInputElement
                     if (loginButton) {
                         const onLoginButtonAction = () => {
-                            const teacherData: teacherDataType = {
-                                firstName: "",
-                                lastName: "",
-                                email: "",
-                                password: "",
-                            }
                             getRegisterTeacherData(nameInput, emailInput, passwordInput, teacherData)
-                            createTeacher(teacherData).then()
+                            createTeacher(teacherData).then(
+                                () => {
+                                    window.location.href = getOnboardingPageUrl()
+                                }
+                            )
                         }
                         onLoginButtonAction()
                     }
                 } else {
                     if (loginButton) {
                         const onLoginButtonAction = () => {
-                            const teacherData: teacherDataType = {
-                                email: "",
-                                password: "",
-                            }
                             getLoginTeacherData(emailInput, passwordInput, teacherData)
                             login(teacherData.email, teacherData.password).then()
                         }

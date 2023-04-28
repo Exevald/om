@@ -13,3 +13,7 @@ createTeacherApi:
 authorizeApi:
     path: api/v1/authorize
     controller: App\Controller\TeacherController::authorizeApi
+
+onboardingPage:
+    path: /onboarding
+    controller: App\Controller\TeacherController::onboardingPage

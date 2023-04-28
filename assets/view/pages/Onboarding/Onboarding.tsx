@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../../components/Button/Button";
 
 import './Onboarding.scss'
+import {createRoot} from "react-dom/client";
 
 
 const FirstImage = () => {
@@ -117,4 +118,13 @@ const Onboarding = () => {
     )
 }
 
-export default Onboarding;
+const renderOnboardingScreen = (rootId: string) => {
+    const rootElement = document.getElementById(rootId)
+    const root = createRoot(rootElement)
+
+    root.render(
+        <Onboarding/>
+    )
+}
+
+export {renderOnboardingScreen}
