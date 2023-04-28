@@ -28,13 +28,15 @@ class TeacherController extends AbstractController
     {
         return $this->render('pages/login/default_login.twig',
             [
-                'createTeacherApiUrl' => $this->generateUrl('createTeacherApi')
+                'createTeacherApiUrl' => $this->generateUrl('createTeacherApi'),
+                'authorizeApiUrl' => $this->generateUrl('authorizeApi')
             ]
         );
     }
 
     public function authorizeApi(Request $request): Response
     {
+        dump("here");
         $response = new Response();
         $body = json_decode($request->getContent(), true);
         $email = $body["email"];

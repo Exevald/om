@@ -9,3 +9,7 @@ loginPage:
 createTeacherApi:
     path: api/v1/teacher/create
     controller: App\Controller\TeacherController::createTeacherApi
+
+authorizeApi:
+    path: api/v1/authorize
+    controller: App\Controller\TeacherController::authorizeApi

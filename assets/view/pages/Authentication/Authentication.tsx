@@ -6,35 +6,8 @@ import './Authentication.scss'
 import InputArea from "../../components/InputArea/InputArea";
 import Button from '../../components/Button/Button'
 import {createRoot} from "react-dom/client";
-import {getTeacherData, teacherDataType} from "./common/getTeacherData";
-import {createTeacher} from "../../../api/requests";
-
-// async function postRequest(event: React.SyntheticEvent) {
-//     // мб эту строку уберу
-//     event.preventDefault();
-//
-//     const email = document.getElementById('email') as HTMLInputElement;
-//     const pass = document.getElementById('pass') as HTMLInputElement;
-//     const fullName = document.getElementById('fullName') as HTMLInputElement;
-//
-//     if (email && pass && fullName) {
-//         const data = {
-//             email: email.value,
-//             pass: pass.value,
-//             fullName: fullName.value
-//         }
-//         const response = await fetch('', {
-//             method: 'POST',
-//             body: JSON.stringify(data),
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         })
-//     } else {
-//         console.log('Error in getting inputs');
-//     }
-// }
-
+import {getLoginTeacherData, getRegisterTeacherData, teacherDataType} from "./common/getTeacherData";
+import {createTeacher, login} from "../../../api/requests";
 
 const Authentication = () => {
     const [register, setRegister] = useState(false);
@@ -56,27 +29,37 @@ const Authentication = () => {
                 <p onClick={() => setRegister(true)}>Зарегистрироваться</p>
             </div>
             <Button id="loginSubmit" type="submit" data="Войти" onClick={() => {
-                const nameInput = document.querySelector('#fullName') as HTMLInputElement
                 const emailInput = document.querySelector('#email') as HTMLInputElement
                 const passwordInput = document.querySelector('#password') as HTMLInputElement
                 const loginButton = document.querySelector('#loginSubmit') as HTMLButtonElement
-                console.log(nameInput)
-                console.log(emailInput)
-                console.log(passwordInput)
-                console.log(loginButton)
 
-                if (loginButton) {
-                    const onLoginButtonAction = () => {
-                        const teacherData: teacherDataType = {
-                            firstName: "",
-                            lastName: "",
-                            email: "",
-                            password: "",
+                if (register) {
+                    const nameInput = document.querySelector('#fullName') as HTMLInputElement
+                    if (loginButton) {
+                        const onLoginButtonAction = () => {
+                            const teacherData: teacherDataType = {
+                                firstName: "",
+                                lastName: "",
+                                email: "",
+                                password: "",
+                            }
+                            getRegisterTeacherData(nameInput, emailInput, passwordInput, teacherData)
+                            createTeacher(teacherData).then()
                         }
-                        getTeacherData(nameInput, emailInput, passwordInput, teacherData)
-                        createTeacher(teacherData).then()
+                        onLoginButtonAction()
                     }
-                    onLoginButtonAction()
+                } else {
+                    if (loginButton) {
+                        const onLoginButtonAction = () => {
+                            const teacherData: teacherDataType = {
+                                email: "",
+                                password: "",
+                            }
+                            getLoginTeacherData(emailInput, passwordInput, teacherData)
+                            login(teacherData.email, teacherData.password).then()
+                        }
+                        onLoginButtonAction()
+                    }
                 }
             }}
             />
