@@ -1,5 +1,5 @@
 import React from "react";
-import { GetData, Group, Student } from "../../../utility/types";
+import { Group, Student } from "../../../utility/types";
 import { DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME } from "../../../utility/utilities";
 
 

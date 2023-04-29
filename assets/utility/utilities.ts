@@ -2,7 +2,7 @@ const MIN_LABEL_DEFAULT_SIZE = 100;   // px
 const MAX_LABEL_DEFAULT_SIZE = 1500;    // px
 
 const MIN_LABEL_GROUP_SIZE = 300;   // px
-const MAX_LABEL_GROUP_SIZE = 1500;    // px
+const MAX_LABEL_GROUP_SIZE = 1200;    // px
 
 const MIN_LABEL_SUBJECT_SIZE = 150;   // px
 const MAX_LABEL_SUBJECT_SIZE = 1500;    // px

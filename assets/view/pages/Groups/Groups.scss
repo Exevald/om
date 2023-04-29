@@ -5,30 +5,7 @@
         flex-direction: column;
         padding: 130px calc( (100vw - 1358px)/2 ) 0 calc( (100vw - 1358px)/2 );
     }
-    &header {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 82px;
-        font: var(--text-text-normal-bold);
-        color: var(--ash-light)
-    }
-    &header h4 {
-        margin-right: auto;
-    }
-    &personArea {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        p {
-            margin-right: 13px;
-        }
-    }
 
-    &photo {
-        width: 40px;
-        height: 40px;
-    }
     &groupHeader {
         height: 126px;
         display: flex;
@@ -63,9 +40,7 @@
     &group {
         font: var(--text-header-large);
         color: var(--ash);
-        margin-right: 26px;
         max-width: 1100px;
-        overflow: hidden;
     }
     &studentArea {
         user-select: none;

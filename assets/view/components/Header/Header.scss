@@ -1,0 +1,13 @@
+.header__ {
+    &wrapper {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 82px;
+        font: var(--text-text-normal-bold);
+        color: var(--ash-light);
+        & h4 {
+            margin-right: auto;
+        }
+    }
+}
