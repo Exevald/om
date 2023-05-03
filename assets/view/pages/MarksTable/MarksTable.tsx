@@ -3,6 +3,8 @@ import './MarksTable.scss';
 
 
 import Header from "../../components/Header/Header";
+import Table from "../../components/Table/Table";
+import Button from "../../components/Button/Button";
 
 const TableContext = React.createContext(null);
 
@@ -18,7 +20,7 @@ interface GroupAreaProps {
 }
 const GroupArea = (props: GroupAreaProps) => {
     return(
-        <div>
+        <div className="marksTable__groupHeader">
             <h4>{props.groupName}</h4>
             <p onClick={() => props.setState(TableState.edit)}>
                 Редактировать страницу
@@ -28,7 +30,25 @@ const GroupArea = (props: GroupAreaProps) => {
 }
 const ButtonList = () => {
     return(
-        <></>
+        <div className="marksTable__buttons">
+            <TableContext.Consumer>
+            {
+                value =>
+                <>{
+                    value.state === TableState.default &&
+                    <>
+                        <Button type="transparent" data="?" />
+                        <Button type="transparent" data="Добавить работу" iconType="add" />
+                        <Button type="transparent" data="Удалить работу" iconType="minus" />
+                        <Button type="transparentDisabled" data="Сохранить" />
+                    </>
+                }{
+
+                }
+                </>
+            }
+            </TableContext.Consumer>
+        </div>
     )
 }
 const TableHeader = () => {
@@ -36,19 +56,12 @@ const TableHeader = () => {
         <TableContext.Consumer>
         {
             value =>
-            <>
+            <div className="marksTable__header">
                 <GroupArea groupName={value.group.name} setState={value.setState} />
                 <ButtonList/>
-            </>
+            </div>
         }
         </TableContext.Consumer>
-    )
-}
-
-
-const Table = () => {
-    return(
-        <></>
     )
 }
 
@@ -73,14 +86,14 @@ const GroupTable = () => {
     const [state, setState] = useState<TableState>(TableState.default);
     const [group, setGroup] = useState(data.group);
     return(
-        <div>
+        <>
             <TableContext.Provider
                 value={{ state, setState, group, setGroup
             }}>
                 <TableHeader/>
                 <Table/>
             </TableContext.Provider>
-        </div>
+        </>
     )
 }
 

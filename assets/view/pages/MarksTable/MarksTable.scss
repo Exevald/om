@@ -6,4 +6,26 @@
         width: 1358px;
         margin: 130px auto 0 auto;
     }
+    &header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+    &buttons {
+        display: flex;
+        margin-top: 24px;
+        & button {
+            margin-left: 20px;
+        }
+    }
+    &groupHeader {
+        & h4 {
+            font: var(--text-header-normal)
+        }
+        & p {
+            text-decoration: underline;
+            color: var(--ash-light);
+            cursor: pointer;
+        }
+    }
 }
