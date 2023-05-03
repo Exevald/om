@@ -112,7 +112,7 @@ const Onboarding = () => {
                 step === 1 && <Button type="transparent" data="Пропутить"/>
             }
             {
-                step === 2 && <Button type="filled" data="К группам"/>
+                step === 2 && <Button type="filled" data="К группам" onClick={() => {}}/>
             }
         </div>
     )

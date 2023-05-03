@@ -32,7 +32,7 @@ class TeacherController extends AbstractController
                 'createTeacherApiUrl' => $this->generateUrl('createTeacherApi'),
                 'authorizeApiUrl' => $this->generateUrl('authorizeApi'),
                 'onboardingPageUrl' => $this->generateUrl('onboardingPage'),
-                'groupsListPageUrl' => $this->generateUrl('groupsListPage', ['teacherId' => 'TEACHER_ID']),
+                'groupsListPageUrl' => $this->generateUrl('groupsListPage'),
             ]
         );
     }
@@ -40,6 +40,7 @@ class TeacherController extends AbstractController
     public function onboardingPage(): Response
     {
         return $this->render('pages/onboarding/onboarding_screen.twig', [
+            'groupsListPageUrl' => $this->generateUrl('groupsListPage'),
         ]);
     }
 

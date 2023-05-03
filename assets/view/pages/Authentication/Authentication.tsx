@@ -10,25 +10,40 @@ import {getLoginTeacherData, getRegisterTeacherData, teacherDataType} from "./co
 import {createTeacher, login} from "../../../api/requests";
 import {getGroupsListPageUrl, getOnboardingPageUrl} from "../../../api/pageUrls";
 
+enum AuthenticationPath {
+    login,
+    register
+}
+
 const Authentication = () => {
     const [register, setRegister] = useState(false);
 
     return (
         <div className="auth__main-wrapper" id={"authenticationPageRoot"}>
-            <h2 className="auth__header">
-                Войти в Ом
-            </h2>
+            {
+                register ?
+                    <h2 className="auth__header">
+                        Регистрация
+                    </h2>
+                    :
+                    <h2 className="auth__header">
+                        Войти в Ом
+                    </h2>
+            }
             <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
             <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
             {
                 register &&
-                <InputArea id="fullName" header="Имя, Отчество, Фамилия" type="text"
-                           placeholder="Иван Иванович Иванов"/>
+                <InputArea id="fullName" header="Имя, Фамилия" type="text"
+                           placeholder="Иван Иванов"/>
             }
-            <div className="auth__registerArea">
-                <p>Нет аккаунта?</p>
-                <p onClick={() => setRegister(true)}>Зарегистрироваться</p>
-            </div>
+            {
+                !register &&
+                <div className="auth__registerArea">
+                    <p>Нет аккаунта?</p>
+                    <p onClick={() => setRegister(true)}>Зарегистрироваться</p>
+                </div>
+            }
             <Button id="loginSubmit" type="submit" data="Войти" onClick={() => {
                 const emailInput = document.querySelector('#email') as HTMLInputElement
                 const passwordInput = document.querySelector('#password') as HTMLInputElement
