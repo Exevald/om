@@ -21,7 +21,7 @@ class TeacherController extends AbstractController
     public function titlePage(): Response
     {
         return $this->render('pages/title/title_screen.twig', [
-            'loginPageUrl' => $this->generateUrl('loginPage')
+            'loginPageUrl' => $this->generateUrl('loginPage', ["path" => "PATH"])
         ]);
     }
 

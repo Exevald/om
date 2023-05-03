@@ -20,7 +20,7 @@ const Button = (props: ButtonProps) => {
         case 'register':
             buttonStyle += ` buttons__transparentNoColor`;
             return (
-                <a onClick={() => window.location.href = getLoginPageUrl()}>
+                <a onClick={props.onClick}>
                     <button className={buttonStyle}>
                         {props.data}
                     </button>
@@ -29,7 +29,7 @@ const Button = (props: ButtonProps) => {
         case 'login':
             buttonStyle += ` buttons__filledNoColor`;
             return (
-                <a onClick={() => window.location.href = getLoginPageUrl()}>
+                <a onClick={props.onClick}>
                     <button className={buttonStyle}>
                         {props.data}
                     </button>

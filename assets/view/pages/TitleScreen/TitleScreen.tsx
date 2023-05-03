@@ -3,13 +3,14 @@ import './TitleScreen.scss'
 
 import Button from './../../components/Button/Button'
 import {createRoot} from "react-dom/client";
+import {getLoginPageUrl} from "../../../api/pageUrls";
 
 
 const MainLogo = () => {
     return (
         <img src='./images/OmMainLogo.svg'
-            className='title__main-logo'
-            alt='Om main logo'
+             className='title__main-logo'
+             alt='Om main logo'
         />
     )
 }
@@ -23,8 +24,14 @@ const TitleScreen = () => {
                 <h1>Электронный журнал</h1>
             </div>
             <div className='titleScreen__buttons'>
-                <Button type='login' data='Войти'/>
-                <Button type='register' data='Зарегистрироваться'/>
+                <Button type='login' data='Войти' onClick={
+                    () => {
+                        window.location.href = getLoginPageUrl().replace("PATH", "login")
+                    }
+                }/>
+                <Button type='register' data='Зарегистрироваться' onClick={
+                    () => window.location.href = getLoginPageUrl().replace("PATH", "register")
+                }/>
             </div>
 
         </div>
