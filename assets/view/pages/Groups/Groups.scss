@@ -3,7 +3,8 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        padding: 130px calc( (100vw - 1358px)/2 ) 0 calc( (100vw - 1358px)/2 );
+        width: 1358px;
+        margin: 130px auto 0 auto;
     }
 
     &groupHeader {
