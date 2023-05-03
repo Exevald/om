@@ -8,7 +8,7 @@ import Button from '../../components/Button/Button'
 import {createRoot} from "react-dom/client";
 import {getLoginTeacherData, getRegisterTeacherData, teacherDataType} from "./common/getTeacherData";
 import {createTeacher, login} from "../../../api/requests";
-import {getOnboardingPageUrl} from "../../../api/pageUrls";
+import {getGroupsListPageUrl, getOnboardingPageUrl} from "../../../api/pageUrls";
 
 const Authentication = () => {
     const [register, setRegister] = useState(false);
@@ -57,7 +57,11 @@ const Authentication = () => {
                     if (loginButton) {
                         const onLoginButtonAction = () => {
                             getLoginTeacherData(emailInput, passwordInput, teacherData)
-                            login(teacherData.email, teacherData.password).then()
+                            login(teacherData.email, teacherData.password).then(
+                                () => {
+                                    window.location.href = getGroupsListPageUrl()
+                                }
+                            )
                         }
                         onLoginButtonAction()
                     }
@@ -78,4 +82,4 @@ const renderAuthenticationPage = (rootId: string) => {
     )
 }
 
-export {renderAuthenticationPage};
+export {Authentication, renderAuthenticationPage}

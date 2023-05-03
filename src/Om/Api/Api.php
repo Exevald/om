@@ -53,11 +53,13 @@ use App\Om\App\Query\MarkQueryServiceInterface;
 use App\Om\App\Query\StudentQueryServiceInterface;
 use App\Om\App\Query\TaskQueryServiceInterface;
 use App\Om\App\Query\TeacherQueryServiceInterface;
+use App\Om\App\Service\Captcha\CaptchaStateManager;
 use App\Om\Infrastructure\Repositories\Repository\GroupRepository;
 use App\Om\Infrastructure\Repositories\Repository\MarkRepository;
 use App\Om\Infrastructure\Repositories\Repository\StudentRepository;
 use App\Om\Infrastructure\Repositories\Repository\TaskRepository;
 use App\Om\Infrastructure\Repositories\Repository\TeacherRepository;
+use App\Om\App\Model\AuthToken;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -162,10 +164,10 @@ class Api implements ApiInterface
         return $this->markQueryService->getAllMarks();
     }
 
-    public function login(string $email, string $password): bool
+    public function login(string $email, string $password): AuthToken
     {
-        $teacherRepository = new TeacherRepository($this->doctrine);
-        return $this->authorizer->login($email, $password);
+        $captchaStateManager = new CaptchaStateManager($this->doctrine);
+        return $captchaStateManager->login($email, $password);
     }
 
     public function createTeacher(string $firstName, string $lastName, string $email, string $password): int

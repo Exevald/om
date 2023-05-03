@@ -17,3 +17,7 @@ authorizeApi:
 onboardingPage:
     path: /onboarding
     controller: App\Controller\TeacherController::onboardingPage
+
+groupsListPage:
+    path: /groups/list
+    controller: App\Controller\GroupsListController::groupsListPage

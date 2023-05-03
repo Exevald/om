@@ -35,7 +35,6 @@ function setStudentById(
     const studentName = document.getElementById('name' + id) as HTMLInputElement;
     newStudents[id] = {surname: studentSurname.value, name: studentName.value};
     setActiveStudentId(-1);
-    console.log(-1);
     setStudents(newStudents);
 }
 

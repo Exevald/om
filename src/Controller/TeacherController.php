@@ -8,6 +8,7 @@ use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class TeacherController extends AbstractController
 {
@@ -30,7 +31,8 @@ class TeacherController extends AbstractController
             [
                 'createTeacherApiUrl' => $this->generateUrl('createTeacherApi'),
                 'authorizeApiUrl' => $this->generateUrl('authorizeApi'),
-                'onboardingPageUrl' => $this->generateUrl('onboardingPage')
+                'onboardingPageUrl' => $this->generateUrl('onboardingPage'),
+                'groupsListPageUrl' => $this->generateUrl('groupsListPage', ['teacherId' => 'TEACHER_ID']),
             ]
         );
     }
@@ -43,7 +45,6 @@ class TeacherController extends AbstractController
 
     public function authorizeApi(Request $request): Response
     {
-        dump("here");
         $response = new Response();
         $body = json_decode($request->getContent(), true);
         $email = $body["email"];
@@ -51,7 +52,8 @@ class TeacherController extends AbstractController
         if (empty($email) || empty($password)) {
             return $response->setStatusCode(401);
         }
-        $isAuthenticated = $this->api->login($email, $password);
+        $authToken = $this->api->login($email, $password);
+        $response->headers->setCookie(Cookie::create("token", $authToken->getToken()));
         return $response;
     }
 

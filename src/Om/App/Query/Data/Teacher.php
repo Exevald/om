@@ -10,12 +10,15 @@ class Teacher
     private string $email;
     private string $password;
 
+    private array $groupIdList;
+
     public function __construct(
         int    $teacherId,
         string $firstName,
         string $lastName,
         string $email,
-        string $password
+        string $password,
+        array $groupIdList
     )
     {
         $this->id = $teacherId;
@@ -23,6 +26,7 @@ class Teacher
         $this->lastName = $lastName;
         $this->email = $email;
         $this->password = $password;
+        $this->groupIdList = $groupIdList;
     }
 
     public function getId(): int
@@ -48,6 +52,10 @@ class Teacher
     public function getPassword(): string
     {
         return $this->password;
+    }
+    public function getGroupIdList(): array
+    {
+        return $this->groupIdList;
     }
 
 }

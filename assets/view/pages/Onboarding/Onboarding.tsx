@@ -127,4 +127,4 @@ const renderOnboardingScreen = (rootId: string) => {
     )
 }
 
-export {renderOnboardingScreen}
+export {Onboarding, renderOnboardingScreen}

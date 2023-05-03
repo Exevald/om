@@ -40,4 +40,4 @@ const renderTitleScreen = (rootId: string) => {
     )
 }
 
-export {renderTitleScreen};
+export {TitleScreen, renderTitleScreen}

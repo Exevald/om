@@ -1,0 +1,22 @@
+.groups__ {
+  &wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 130px calc((100vw - 1358px) / 2) 0 calc((100vw - 1358px) / 2);
+  }
+
+  &groupHeader {
+    height: 126px;
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 59px; // поменятб
+    :first-child {
+      margin-right: 26px; // поменятб
+    }
+
+    input {
+      margin-top: 18px;
+    }
+  }
+}

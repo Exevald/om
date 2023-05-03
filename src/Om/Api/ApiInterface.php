@@ -7,6 +7,7 @@ use App\Om\App\Query\Data\Student;
 use App\Om\App\Query\Data\Group;
 use App\Om\App\Query\Data\Task;
 use App\Om\App\Query\Data\Mark;
+use App\Om\App\Model\AuthToken;
 use DateTime;
 
 interface ApiInterface
@@ -45,7 +46,7 @@ interface ApiInterface
 
     public function getAllMarks(): array;
 
-    public function login(string $email, string $password): bool;
+    public function login(string $email, string $password): AuthToken;
 
     public function createTeacher(string $firstName, string $lastName, string $email, string $password): int;
 

@@ -1,12 +1,11 @@
 import React, {StrictMode} from 'react';
-
 import './index.scss';
 
 
-import GroupsPage from './view/pages/Groups/Groups';
 import {renderTitleScreen} from "./view/pages/TitleScreen/TitleScreen";
 import {renderAuthenticationPage} from "./view/pages/Authentication/Authentication";
 import {renderOnboardingScreen} from "./view/pages/Onboarding/Onboarding";
+import {renderGroupsListPage} from "./view/pages/GroupList/GroupsList";
 
 
 let loc = location.pathname
@@ -19,9 +18,12 @@ switch (loc) {
         renderOnboardingScreen("onboardingPage")
         break
     }
+    case "/groups/list": {
+        renderGroupsListPage("groupsListPage")
+        break
+    }
     default: {
         renderTitleScreen("titlePage")
         break
     }
 }
-
