@@ -6,7 +6,6 @@ import Button from "../../components/Button/Button";
 import {Group} from "../../../utility/types";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
-import {GroupContext, GroupState} from "../EditGroup/EditGroupHooks";
 
 const GroupsContext = React.createContext(null);
 
@@ -28,22 +27,27 @@ interface GroupsListPageProps {
     userGroups: any
 }
 
-const GroupHeader = () => {
+const ButtonList = () => {
     return (
-        <GroupContext.Consumer>
-            {
-                value =>
-                <>{
-                    value.state === GroupState.default &&
-                    <>
-                        <div className={"groups__groupHeader"}>
-
-                        </div>
+        <div className={"groups__groupHeader__buttons"}>
+            <GroupsContext.Consumer>
+                {
+                    value => <>{
+                        value.state === GroupsListState.default &&
+                        <>
+                            <Button type={"transparent"} iconType="more" data={"Редактировать"}/>
+                        </>
+                    }
                     </>
                 }
-                </>
-            }
-        </GroupContext.Consumer>
+            </GroupsContext.Consumer>
+        </div>
+    )
+}
+
+const GroupHeader = () => {
+    return (
+        <ButtonList/>
     )
 }
 
@@ -52,9 +56,16 @@ const GroupsListPage = (props: GroupsListPageProps) => {
         shortName: props.userLastName + " " + props.userFirstName,
         imgUrl: ''
     }
+    const [state, setState] = useState<GroupsListState>(GroupsListState.default);
     return (
         <div className={"groups__wrapper"}>
-            <Header title={"Группы"} userData={user}/>
+            <GroupsContext.Provider value={{
+                state, setState
+            }}>
+
+                <Header title={"Группы"} userData={user}/>
+                <GroupHeader/>
+            </GroupsContext.Provider>
 
         </div>
 
@@ -70,8 +81,14 @@ const renderGroupsListPage = (rootId: string) => {
     const userGroups = rootElement.dataset.groups
 
     root.render(
-        <GroupsListPage teacherId={teacherId} userFirstName={userFirstName} userLastName={userLastName} userGroups={userGroups}/>
+        <GroupsListPage teacherId={teacherId}
+                        userFirstName={userFirstName}
+                        userLastName={userLastName}
+                        userGroups={userGroups}
+        />
     )
 }
 
-export {renderGroupsListPage}
+export {
+    renderGroupsListPage
+}

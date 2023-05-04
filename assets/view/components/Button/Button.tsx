@@ -1,7 +1,6 @@
 import React from "react";
 import './Button.scss';
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import {getLoginPageUrl} from "../../../api/pageUrls";
 
 interface ButtonProps {
     id?: string,
