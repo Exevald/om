@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 import './Authentication.scss'
 
@@ -23,18 +23,17 @@ const Authentication = (props: AuthenticationProps) => {
         register = true
     }
     return (
-        <div className="auth__main-wrapper">
-        {
+        <>{
             register ?
-            <>
+            <div className="auth__main-wrapper" onKeyDown={(e) => e.key === 'Enter' && registerPerson()}>
                 <h2 className="auth__header">Регистрация</h2>
                 <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
                 <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
                 <InputArea id="fullName" header="Имя, Фамилия" type="text" placeholder="Иван Иванов"/>
-                <Button id="loginSubmit" type="submit" data="Зарегистрироваться" onClick={() => registerPerson()}/>
-            </>
+                <Button id="loginSubmit" type="submit" data="Зарегистрироваться" onClick={() => registerPerson()} />
+            </div>
             :
-            <>
+            <div className="auth__main-wrapper" onKeyDown={(e) => e.key === 'Enter' && loginPerson()}>
                 <h2 className="auth__header">Войти в Ом</h2>
                 <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
                 <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
@@ -44,9 +43,8 @@ const Authentication = (props: AuthenticationProps) => {
                 </div>
                 <Button id="loginSubmit" type="submit" data="Войти" onClick={() => loginPerson()}
                 />
-            </>
-        }
-        </div>
+            </div>
+        }</>
     )
 }
 
