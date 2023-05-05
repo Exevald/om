@@ -22,39 +22,39 @@ const ButtonList = () => {
     return (
         <div className="groups__groupHeader__buttons">
             <GroupContext.Consumer>
-                {
-                    value =>
-                        <>{
-                            value.state === GroupState.default &&
-                            <>
-                                <Button type="transparent" iconType="more" data="Изменить" onClick={
-                                    () => value.setState(GroupState.edit)}/>
-                                <Button type="filled" data="К журналу"/>
-                            </>
-                        }{
-                            value.state === GroupState.edit &&
-                            <>
-                                <Button type="transparent" iconType="add" data="Добавить ученика" onClick={
-                                    () => addStudent(value.students, value.setStudents)}/>
-                                <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
-                                    () => value.setState(GroupState.delete)}/>
-                                <Button type="filled" data="Сохранить" onClick={
-                                    () => {
-                                        saveAllChanges(value.setState, value.students, value.setStudents, value.setGroup,
-                                            value.activeStudentId, value.setActiveStudentId
-                                        )
-                                    }}/>
-                            </>
-                        }{
-                            value.state === GroupState.delete &&
-                            <>
-                                <Button type="transparent" iconType="minus" data="Удалить" onClick={
-                                    () => deleteStudents(value.students, value.setStudents, value.setState)}/>
-                                <Button type="transparent" data="Отмена" onClick={
-                                    () => value.setState(GroupState.default)}/>
-                            </>
-                        }</>
-                }
+            {
+                value =>
+                    <>{
+                        value.state === GroupState.default &&
+                        <>
+                            <Button type="transparent" iconType="more" data="Изменить" onClick={
+                                () => value.setState(GroupState.edit)}/>
+                            <Button type="filled" data="К журналу"/>
+                        </>
+                    }{
+                        value.state === GroupState.edit &&
+                        <>
+                            <Button type="transparent" iconType="add" data="Добавить ученика" onClick={
+                                () => addStudent(value.students, value.setStudents)}/>
+                            <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
+                                () => value.setState(GroupState.delete)}/>
+                            <Button type="filled" data="Сохранить" onClick={
+                                () => {
+                                    saveAllChanges(value.setState, value.students, value.setStudents, value.setGroup,
+                                        value.activeStudentId, value.setActiveStudentId
+                                    )
+                                }}/>
+                        </>
+                    }{
+                        value.state === GroupState.delete &&
+                        <>
+                            <Button type="transparent" iconType="minus" data="Удалить" onClick={
+                                () => deleteStudents(value.students, value.setStudents, value.setState)}/>
+                            <Button type="transparent" data="Отмена" onClick={
+                                () => value.setState(GroupState.default)}/>
+                        </>
+                    }</>
+            }
             </GroupContext.Consumer>
         </div>
     )
@@ -64,39 +64,39 @@ const ButtonList = () => {
 const GroupHeader = () => {
     return (
         <GroupContext.Consumer>
-            {
-                value =>
-                    <>{
-                        value.state === GroupState.default &&
-                        <>
-                            <div className="groups__groupHeader">
-                                <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
-                                <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
-                            </div>
-                            <ButtonList/>
-                        </>
-                    }{
-                        value.state === GroupState.edit &&
-                        <>
-                            <div className="groups__groupHeader" onKeyDown={
-                                (e) => e.key === 'Enter' ? saveGroupChanges(value.setState, value.setGroup) : null
-                            }>
-                                <InputArea id="group" type="group" value={value.group.name} widthChangeable/>
-                                <InputArea id="subject" type="subject" value={value.group.subject} widthChangeable/>
-                            </div>
-                            <ButtonList/>
-                        </>
-                    }{
-                        value.state === GroupState.delete &&
-                        <>
-                            <div className="groups__groupHeader">
-                                <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
-                                <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
-                            </div>
-                            <ButtonList/>
-                        </>
-                    }</>
-            }
+        {
+            value =>
+                <>{
+                    value.state === GroupState.default &&
+                    <>
+                        <div className="groups__groupHeader">
+                            <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
+                            <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
+                        </div>
+                        <ButtonList/>
+                    </>
+                }{
+                    value.state === GroupState.edit &&
+                    <>
+                        <div className="groups__groupHeader" onKeyDown={
+                            (e) => e.key === 'Enter' ? saveGroupChanges(value.setState, value.setGroup) : null
+                        }>
+                            <InputArea id="group" type="group" value={value.group.name} widthChangeable/>
+                            <InputArea id="subject" type="subject" value={value.group.subject} widthChangeable/>
+                        </div>
+                        <ButtonList/>
+                    </>
+                }{
+                    value.state === GroupState.delete &&
+                    <>
+                        <div className="groups__groupHeader">
+                            <h1 className="groups__group">{value.group.name ? value.group.name : 'Название'}</h1>
+                            <h2 className="groups__subject">{value.group.subject ? value.group.subject : 'Предмет'} </h2>
+                        </div>
+                        <ButtonList/>
+                    </>
+                }</>
+        }
         </GroupContext.Consumer>
     )
 }

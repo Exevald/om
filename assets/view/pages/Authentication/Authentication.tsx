@@ -53,7 +53,6 @@ const renderAuthenticationPage = (rootId: string) => {
     const loc = location.search
     const rootElement = document.getElementById(rootId)
     const root = createRoot(rootElement)
-    console.log(loc)
     let path: AuthenticationPath
     if (loc === "?path=register") {
         path = AuthenticationPath.register
