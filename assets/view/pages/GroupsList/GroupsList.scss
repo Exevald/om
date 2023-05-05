@@ -1,0 +1,54 @@
+.groups__ {
+    &wrapper {
+        display: flex;
+        width: 1358px;
+        flex-direction: column;
+        margin: 130px auto 0 auto;
+    }
+    &groupHeader__buttons {
+        display: flex;
+        flex-direction: row;
+        & button {
+          margin-right: 20px;
+        }
+    }
+
+    &group {
+        list-style-position: outside;
+        & :first-child {
+          font: var(--text-header-large);
+        }
+        & :last-child {
+          font: var(--text-header-small);
+          color: var(--ash-light);
+        }
+    }
+    &groupArea {
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        display: flex;
+        justify-content: flex-start;
+        margin: 72px 0 72px 22px;
+    
+        & input:not(:first-child), & li:not(:first-child) {
+          margin-top: 36px;
+        }
+    }
+    
+    &groupInputArea {
+        display: flex;
+        align-items: baseline;
+    
+        & div:first-child {
+          margin-right: 15px;
+        }
+    }
+    &checkboxArea {
+        margin: 1px 30px 0 0;
+    
+        & > div:not(:first-child) {
+          margin-top: 15px;
+        }
+      }
+}
