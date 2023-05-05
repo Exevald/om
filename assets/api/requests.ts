@@ -1,7 +1,7 @@
 import {fetchGetRequest, fetchPostRequest} from "../utility/fetchRequest";
 import {responseStatus} from "../utility/responseStatus";
 import {getEncryptedText} from "../utility/scrambler";
-import {teacherDataType} from "../view/pages/Authentication/common/getTeacherData";
+import {teacherDataType} from "../view/pages/Authentication/getTeacherData";
 
 let authorizeUrl = '404'
 let createTeacherUrl = '404'
