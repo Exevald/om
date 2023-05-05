@@ -1,12 +1,14 @@
 import React from 'react';
 import './TitleScreen.scss'
+// @ts-ignore
+import mainLogo from './OmMainLogo.svg';
 
 import Button from './../../components/Button/Button'
 
 
 const MainLogo = () => {
     return (
-        <img src='./images/OmMainLogo.svg'
+        <img src={mainLogo}
             className='title__main-logo'
             alt='Om main logo'
         />

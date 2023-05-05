@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import Button from "../../components/Button/Button";
+// @ts-ignore
+import firstAbstract from './FirstAbstract.svg'; import secondAbstract from './SecondAbstract.svg';
+// @ts-ignore
+import prevArrow from './Icons/navigate_previous.svg'; import nextArrow from './Icons/navigate_next.svg';
 
 import './Onboarding.scss'
 
@@ -7,7 +11,7 @@ import './Onboarding.scss'
 const FirstImage = () => {
     return (
         <img className="intro__images"
-            src="./images/FirstAbstract.svg"
+            src={firstAbstract}
             alt="Первая векторная абстракция"
         />
     )
@@ -15,19 +19,19 @@ const FirstImage = () => {
 const SecondImage = () => {
     return (
         <img className="intro__images"
-            src="./images/SecondAbstract.svg"
+            src={secondAbstract}
             alt="Вторая векторная абстракция"
         />
     )
 }
 
 interface arrowProps {
-    onClick: React.MouseEventHandler<HTMLImageElement>
+    onClick: () => void
 }
 const NextArrow = (props: arrowProps) => {
     return (
         <img className="intro__arrows"
-            src="./images/Icons/navigate_next.svg"
+            src={nextArrow}
             alt="Стрелка вправо"
             onClick={props.onClick}
         />
@@ -36,7 +40,7 @@ const NextArrow = (props: arrowProps) => {
 const PrevArrow = (props: arrowProps) => {
     return (
         <img className="intro__arrows"
-            src="./images/Icons/navigate_previous.svg"
+            src={prevArrow}
             alt="Стрелка влево"
             onClick={props.onClick}
         />
@@ -84,9 +88,7 @@ const Onboarding = () => {
                     <h1>Создавайте группы</h1>
                     <div className="intro__textarea">
                         <Plug/>
-                        <p>
-                            Добавляйте и удаляйте своих учеников, редактируйте их имена, названия групп и предметов.
-                        </p>
+                        <p>Добавляйте и удаляйте своих учеников, редактируйте их имена, названия групп и предметов.</p>
                         <NextArrow onClick={() => setStep(2)}/>
                     </div>
                 </>
