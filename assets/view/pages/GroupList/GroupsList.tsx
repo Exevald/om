@@ -15,11 +15,6 @@ enum GroupsListState {
     delete
 }
 
-// const user = {
-//     shortName: 'Рамазанова З.Т.',
-//     imgUrl: ''
-// }
-
 interface GroupsListPageProps {
     teacherId: string,
     userFirstName: string,
