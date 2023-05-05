@@ -1,5 +1,7 @@
 import React from 'react';
 import './TitleScreen.scss'
+// @ts-ignore
+import mainLogo from './OmMainLogo.svg';
 
 import Button from './../../components/Button/Button'
 import {createRoot} from "react-dom/client";
@@ -8,9 +10,9 @@ import {getLoginPageUrl} from "../../../api/pageUrls";
 
 const MainLogo = () => {
     return (
-        <img src='./images/OmMainLogo.svg'
-             className='title__main-logo'
-             alt='Om main logo'
+        <img src={mainLogo}
+            className='title__main-logo'
+            alt='Om main logo'
         />
     )
 }

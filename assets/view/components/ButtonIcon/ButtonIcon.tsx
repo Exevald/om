@@ -1,4 +1,8 @@
 import React from "react";
+// @ts-ignore
+import add from './Icons/add.svg'; import checkbox from './Icons/checkbox.svg'; import close from './Icons/close.svg'; 
+// @ts-ignore
+import minus from './Icons/minus.svg'; import more from './Icons/more.svg'; import checkboxOutline from './Icons/checkboxOutline.svg';
 
 import './ButtonIcon.scss';
 
@@ -7,7 +11,26 @@ interface ButtonIconProps {
     type: 'close' | 'add' | 'more' | 'minus' | 'checkbox' | 'checkboxOutline'
 }
 const ButtonIcon = (props: ButtonIconProps) => {
-    const src = `./images/Icons/${props.type}.svg`;
+    let src = '';
+    switch(props.type) {
+        case "close":
+            src = close;
+            break;
+        case "add":
+            src = add;
+            break;
+        case "more":
+            src = more;
+            break;
+        case "minus":
+            src = minus;
+            break;
+        case "checkbox":
+            src = checkbox;
+            break;
+        case "checkboxOutline":
+            src = checkboxOutline;
+    }
     return (
         <img className="buttonIcon__default"
              src={src}

@@ -82,4 +82,12 @@
         width: 100%;
         height: 55px;
     }
+
+    &transparentDisabled {
+        height: 40px;
+        padding: 0 24px 0 24px;
+        background-color: var(--ash-lighter);
+        border-color: var(--ash-lighter);
+        color: var(--ash-light)
+    }
 }
