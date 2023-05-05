@@ -1,4 +1,4 @@
-import {removeExtraBlanks} from "../../../../utility/removeExtraBlanks";
+import {removeExtraBlanks} from "../../../utility/removeExtraBlanks";
 
 type teacherDataType = {
     firstName: string,
