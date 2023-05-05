@@ -7,6 +7,7 @@ import Button from "../../components/Button/Button";
 import {Group, Student} from "../../../utility/types";
 import {addStudent, deleteStudents, saveAllChanges, saveGroupChanges} from "./EditGroupHooks";
 import Header from "../../components/Header/Header";
+import {createRoot} from "react-dom/client";
 
 
 const GroupContext = React.createContext(null);
@@ -227,4 +228,14 @@ const EditGroupPage = () => {
     )
 }
 
+const renderEditGroupPage = (rootId: string) => {
+    const rootElement = document.getElementById(rootId)
+    const root = createRoot(rootElement)
+
+    root.render(
+        <EditGroupPage/>
+    )
+}
+
 export default EditGroupPage;
+export {renderEditGroupPage}

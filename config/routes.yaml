@@ -21,3 +21,7 @@ onboardingPage:
 groupsListPage:
     path: /groups/list
     controller: App\Controller\GroupsListController::groupsListPage
+
+editGroupPage:
+    path: /groups/edit
+    controller: App\Controller\EditGroupController::editGroupPage
