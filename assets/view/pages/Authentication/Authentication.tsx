@@ -18,7 +18,6 @@ interface AuthenticationProps {
 }
 
 const Authentication = (props: AuthenticationProps) => {
-    // const [register, setRegister] = useState(false);
     let register = false
     if (props.path === 1) {
         register = true
