@@ -52,6 +52,7 @@ const GroupsListPage = (props: GroupsListPageProps) => {
         imgUrl: ''
     }
     const [state, setState] = useState<GroupsListState>(GroupsListState.default);
+    console.log(props.userGroups)
     return (
         <div className={"groups__wrapper"}>
             <GroupsContext.Provider value={{

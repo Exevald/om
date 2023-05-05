@@ -33,7 +33,7 @@ class GroupsListController extends AbstractController
             'userFirstName' => $teacher->getFirstName(),
             'userLastName' => $teacher->getLastName(),
             'userEmail' => $teacher->getEmail(),
-            'groups' => $this->getAllGroups($teacher->getId())
+            'groups' => json_encode($this->getAllGroups($teacher->getId()))
         ]);
     }
 
