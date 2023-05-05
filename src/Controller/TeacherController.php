@@ -29,6 +29,7 @@ class TeacherController extends AbstractController
     {
         return $this->render('pages/login/default_login.twig',
             [
+                'loginPageUrl' => $this->generateUrl('loginPage', ["path" => "PATH"]),
                 'createTeacherApiUrl' => $this->generateUrl('createTeacherApi'),
                 'authorizeApiUrl' => $this->generateUrl('authorizeApi'),
                 'onboardingPageUrl' => $this->generateUrl('onboardingPage'),
@@ -60,16 +61,16 @@ class TeacherController extends AbstractController
 
     public function createTeacherApi(Request $request): Response
     {
+        $response = new Response();
         $body = json_decode($request->getContent(), true);
         $firstName = $body["firstName"];
         $lastName = $body["lastName"];
         $email = $body["email"];
         $password = base64_decode($body["encryptedPassword"]);
-        $teacherId = $this->api->createTeacher($firstName, $lastName, $email, $password);
-        $response = [
-            "teacherId" => $teacherId
-        ];
-        return new Response(json_encode($response));
+        $this->api->createTeacher($firstName, $lastName, $email, $password);
+        $authToken = $this->api->login($email, $password);
+        $response->headers->setCookie(Cookie::create("token", $authToken->getToken()));
+        return $response;
     }
 
     public function changeTeacherNameApi(Request $request): Response

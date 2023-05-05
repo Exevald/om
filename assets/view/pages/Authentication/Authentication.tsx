@@ -7,10 +7,11 @@ import InputArea from "../../components/InputArea/InputArea";
 import Button from '../../components/Button/Button'
 import {createRoot} from "react-dom/client";
 import { loginPerson, registerPerson } from "./AuthenticationHooks";
+import {getLoginPageUrl} from "../../../api/pageUrls";
 
 enum AuthenticationPath {
-    login = 0,
-    register = 1
+    login,
+    register
 }
 
 interface AuthenticationProps {
@@ -39,7 +40,7 @@ const Authentication = (props: AuthenticationProps) => {
                 <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
                 <div className="auth__registerArea">
                     <p>Нет аккаунта?</p>
-                    <p onClick={() => register = true}>Зарегистрироваться</p>
+                    <p onClick={() => window.location.href = getLoginPageUrl().replace("PATH", "register")}>Зарегистрироваться</p>
                 </div>
                 <Button id="loginSubmit" type="submit" data="Войти" onClick={() => loginPerson()}
                 />

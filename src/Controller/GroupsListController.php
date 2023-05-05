@@ -29,6 +29,7 @@ class GroupsListController extends AbstractController
         $teacher = $this->api->getTeacherByToken($token);
         return $this->render('pages/groups_list/groups_list.twig', [
             'groupsListPageUrl' => $this->generateUrl("groupsListPage"),
+            'editGroupPageUrl' => $this->generateUrl("editGroupPage", ["path" => "PATH"]),
             'teacherId' => $teacher->getId(),
             'userFirstName' => $teacher->getFirstName(),
             'userLastName' => $teacher->getLastName(),

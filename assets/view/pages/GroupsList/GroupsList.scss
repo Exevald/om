@@ -14,7 +14,7 @@
     }
 
     &group {
-        list-style-position: outside;
+        list-style-type: none;
         & :first-child {
           font: var(--text-header-large);
         }

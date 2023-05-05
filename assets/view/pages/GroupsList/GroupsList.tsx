@@ -5,8 +5,8 @@ import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
-import { Group } from "../../../utility/types";
 import { GroupsListContext, GroupsListState } from "./GroupsListHooks";
+import {getEditGroupPageUrl} from "../../../api/pageUrls";
 
 
 interface GroupsListPageProps {
@@ -29,7 +29,9 @@ const ButtonList = () => {
                     }{
                         value.state === GroupsListState.edit &&
                         <>
-                            <Button type={"transparent"} iconType="add" data={"Добавить группу"}/>
+                            <Button type={"transparent"} iconType="add" data={"Добавить группу"} onClick={
+                                () => window.location.href = getEditGroupPageUrl().replace("PATH", "create")
+                            }/>
                             <Button type={"transparent"} iconType="minus" data={"Удалить группу"} 
                             onClick={() => value.setState(GroupsListState.delete)}/>
                             <Button type={"filled"} data={"Сохранить"}/>
@@ -111,18 +113,18 @@ const Groups = () => {
 // заглушка 
 const response = {
     groups: [
-        {name: 'Подргуппа программистов', subject: 'Физика'},
+        {name: '10-2', subject: 'Физика'},
         {name: '11-1', subject: 'ИКТ'},
         {name: '11-2', subject: 'ОБЖ'}
     ]
 }
 const GroupsListPage = (props: GroupsListPageProps) => {
     const user = {
-        shortName: props.userLastName + " " + props.userFirstName,
+        shortName: props.userLastName + " " + props.userFirstName[0] + ".",
         imgUrl: ''
     }
     const [state, setState] = useState<GroupsListState>(GroupsListState.default);
-    const [groups, setGroups] = useState(response.groups);
+    const [groups, setGroups] = useState(props.userGroups);
     const [activeGroupId, setActiveGroupId] = useState(-1);
     return (
         <div className={"groups__wrapper"}>

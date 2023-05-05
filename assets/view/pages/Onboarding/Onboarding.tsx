@@ -7,6 +7,7 @@ import prevArrow from './Icons/navigate_previous.svg'; import nextArrow from './
 
 import './Onboarding.scss'
 import {createRoot} from "react-dom/client";
+import {getGroupsListPageUrl} from "../../../api/pageUrls";
 
 
 const FirstImage = () => {
@@ -111,10 +112,10 @@ const Onboarding = () => {
             }
             <Dots step={step} setStep={setStep}/>
             {
-                step === 1 && <Button type="transparent" data="Пропутить"/>
+                step === 1 && <Button type="transparent" data="Пропутить" onClick={() => window.location.href = getGroupsListPageUrl()}/>
             }
             {
-                step === 2 && <Button type="filled" data="К группам" onClick={() => {}}/>
+                step === 2 && <Button type="filled" data="К группам" onClick={() => window.location.href = getGroupsListPageUrl()}/>
             }
         </div>
     )

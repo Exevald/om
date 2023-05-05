@@ -95,6 +95,10 @@ class TeacherRepository extends ServiceEntityRepository implements TeacherReposi
         $ORMTeacher->setEmail($teacher->getEmail());
         $ORMTeacher->setPassword($teacher->getPassword());
 
+        $generator = new AccessKeyGenerator();
+        $token = $generator->generateAccessKey();
+        $ORMTeacher->setLoginKey($token);
+
         $entityManager->persist($ORMTeacher);
         $entityManager->flush();
         $this->addGroupAffiliation($teacher->getId(), $teacher->getGroupIdList());
