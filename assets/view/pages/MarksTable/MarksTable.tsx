@@ -14,6 +14,7 @@ enum TableState {
     delete
 }
 
+
 interface GroupAreaProps {
     groupName: string,
     setState: React.Dispatch<React.SetStateAction<TableState>>
@@ -28,6 +29,8 @@ const GroupArea = (props: GroupAreaProps) => {
         </div>
     )
 }
+
+
 const ButtonList = () => {
     return(
         <div className="marksTable__buttons">
@@ -51,6 +54,8 @@ const ButtonList = () => {
         </div>
     )
 }
+
+
 const TableHeader = () => {
     return(
         <TableContext.Consumer>
