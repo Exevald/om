@@ -40,7 +40,9 @@ const Authentication = (props: AuthenticationProps) => {
                 <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
                 <div className="auth__registerArea">
                     <p>Нет аккаунта?</p>
-                    <p onClick={() => window.location.href = getLoginPageUrl().replace("PATH", "register")}>Зарегистрироваться</p>
+                    <p onClick={() => window.location.href = getLoginPageUrl().replace("PATH", "register")}>
+                        Зарегистрироваться
+                    </p>
                 </div>
                 <Button id="loginSubmit" type="submit" data="Войти" onClick={() => loginPerson()}
                 />
