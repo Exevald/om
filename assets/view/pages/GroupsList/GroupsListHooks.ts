@@ -18,7 +18,7 @@ function addGroup (
         let newGroups = groups;
         newGroups.push(
             {name: DEFAULT_GROUP_NAME, subject: DEFAULT_SUBJECT_NAME}
-            )
+        )
         setGroups([...newGroups])
 }
 
@@ -27,18 +27,18 @@ function setGroupById(
     groups: Array<Group>,
     setGroups: React.Dispatch<React.SetStateAction<Group[]>>,
     id: number,
-    setActiveStudentId: React.Dispatch<React.SetStateAction<number>>
+    setActiveGroupId: React.Dispatch<React.SetStateAction<number>>
     ) {
     let newGroups = groups;
     const groupName = document.getElementById('group' + id) as HTMLInputElement;
     const groupSubject = document.getElementById('subject' + id) as HTMLInputElement;
     newGroups[id] = {name: groupName.value, subject: groupSubject.value};
-    setActiveStudentId(-1);
+    setActiveGroupId(-1);
     setGroups(newGroups);
 }
 
 
-function deleteStudents (
+function deleteGroups (
     groups: Array<Group>,
     setGroups: React.Dispatch<React.SetStateAction<Group[]>>,
     setState: React.Dispatch<React.SetStateAction<GroupsListState>>
@@ -65,11 +65,12 @@ function saveAllChanges(
     if (activeGroupId !== -1) {
         setGroupById(groups, setGroups, activeGroupId, setActiveGroupId)
     }
+    setState(GroupsListState.default)
 }
 
 
 export { 
     GroupsListContext, GroupsListState, 
-    addGroup, setGroupById, deleteStudents, 
+    addGroup, setGroupById, deleteGroups, 
     saveAllChanges
 }

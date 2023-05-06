@@ -5,7 +5,7 @@ import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
-import { GroupsListContext, GroupsListState } from "./GroupsListHooks";
+import { GroupsListContext, GroupsListState, addGroup, deleteGroups, saveAllChanges } from "./GroupsListHooks";
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
 
 
@@ -16,35 +16,40 @@ interface GroupsListPageProps {
     userGroups: any
 }
 const ButtonList = () => {
+    const value = useContext(GroupsListContext);
     return (
         <div className="groups__groupHeader__buttons">
-            <GroupsListContext.Consumer>
-                {
-                    value => <>{
-                        value.state === GroupsListState.default &&
-                        <>
-                            <Button type={"transparent"} iconType="more" data={"Редактировать"} 
-                            onClick={() => value.setState(GroupsListState.edit)}/>
-                        </>
-                    }{
-                        value.state === GroupsListState.edit &&
-                        <>
-                            <Button type={"transparent"} iconType="add" data={"Добавить группу"} onClick={
-                                () => window.location.href = getEditGroupPageUrl().replace("PATH", "create")
-                            }/>
-                            <Button type={"transparent"} iconType="minus" data={"Удалить группу"} 
-                            onClick={() => value.setState(GroupsListState.delete)}/>
-                            <Button type={"filled"} data={"Сохранить"}/>
-                        </>
-                    }{
-                        value.state === GroupsListState.delete &&
-                        <>
-                            <Button type={"transparent"} iconType="minus" data={"Удалить"}/>
-                            <Button type={"transparent"} data={"Отмена"}/>
-                        </>
-                    }</>
-                }
-            </GroupsListContext.Consumer>
+            {
+                value.state === GroupsListState.default &&
+                <>
+                    <Button type={"transparent"} iconType="more" data={"Редактировать"} 
+                    onClick={() => value.setState(GroupsListState.edit)}/>
+                    <Button type={"filled"} data={"К журналу"} 
+                    onClick={() => window.location.href = getEditGroupPageUrl().replace("PATH", "create")}/>
+                    
+                </>
+            }{
+                value.state === GroupsListState.edit &&
+                <>
+                    <Button type={"transparent"} iconType="add" data={"Добавить группу"} onClick={
+                        () => addGroup(value.groups, value.setGroups)
+                    }/>
+                    <Button type={"transparent"} iconType="minus" data={"Удалить группу"} 
+                        onClick={() => value.setState(GroupsListState.delete)}/>
+                    <Button type={"filled"} data={"Сохранить"} 
+                        onClick={() => saveAllChanges(
+                        value.setState, value.groups, value.setGroups, value.activeGroupId, value.setActiveGroupId
+                    )}/>
+                </>
+            }{
+                value.state === GroupsListState.delete &&
+                <>
+                    <Button type={"transparent"} iconType="minus" data={"Удалить"}
+                    onClick={() => deleteGroups(value.groups, value.setGroups, value.setState)}/>
+                    <Button type={"transparent"} data={"Отмена"}
+                    onClick={() => value.setState(GroupsListState.default)}/>
+                </>
+            }
         </div>
     )
 }
@@ -85,7 +90,7 @@ const Groups = () => {
                 checkboxes.push(<InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>)
             } else {
                 groups.push(
-                    <li key={'student' + i}>
+                    <li key={'student' + i} className="groups__group">
                         <GroupInputArea groupId={i} name={context.groups[i].name} subject={context.groups[i].subject} />
                     </li>
                 )
@@ -94,7 +99,10 @@ const Groups = () => {
         }
     }
     return (
-        <div className="groups__groupArea" onKeyDown={(e) => e.key === 'Enter' && undefined}>
+        <div className="groups__groupArea" onKeyDown={
+            (e) => e.key === 'Enter' && saveAllChanges(
+                context.setState, context.groups, context.setGroups, context.activeGroupId, context.setActiveGroupId
+            )}>
             {
                 context.state === GroupsListState.delete &&
                 <div className="groups__checkboxArea">{checkboxes}</div>
@@ -124,7 +132,7 @@ const GroupsListPage = (props: GroupsListPageProps) => {
         imgUrl: ''
     }
     const [state, setState] = useState<GroupsListState>(GroupsListState.default);
-    const [groups, setGroups] = useState(props.userGroups);
+    const [groups, setGroups] = useState(response.groups/*props.userGroups*/);
     const [activeGroupId, setActiveGroupId] = useState(-1);
     return (
         <div className={"groups__wrapper"}>
