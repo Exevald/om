@@ -92,7 +92,7 @@ const GroupTable = () => {
             <TableContext.Provider
                 value={{ state, setState }}>
                 <TableHeader groupName={data.group.name}/>
-                <Table subject={data.group.subject} users={data.students} />
+                <Table subject={data.group.subject} students={data.students} />
             </TableContext.Provider>
         </>
     )

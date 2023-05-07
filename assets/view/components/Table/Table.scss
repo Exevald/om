@@ -1,0 +1,14 @@
+.table__ {
+    &head {
+        td {
+            border: 1px black solid;
+            border-top:none;
+            &:first-child {
+                border-left: none;
+            }
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+}
