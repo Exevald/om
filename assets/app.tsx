@@ -9,26 +9,26 @@ import {renderEditGroupPage} from "./view/pages/EditGroup/EditGroup";
 import {renderGroupsListPage} from "./view/pages/GroupsList/GroupsList";
 
 
-let loc = location.pathname
+let loc = location.pathname;
 switch (loc) {
     case "/login": {
-        renderAuthenticationPage("loginPage")
+        renderAuthenticationPage()
         break
     }
     case "/onboarding": {
-        renderOnboardingScreen("onboardingPage")
+        renderOnboardingScreen()
         break
     }
     case "/groups/list": {
-        renderGroupsListPage("groupsListPage")
+        renderGroupsListPage()
         break
     }
     case "/groups/edit": {
-        renderEditGroupPage("editGroupPage")
+        renderEditGroupPage()
         break
     }
     default: {
-        renderTitleScreen("titlePage")
+        renderTitleScreen()
         break
     }
 }
