@@ -1,3 +1,5 @@
+## Pages routes
+
 titlePage:
     path: /
     controller: App\Controller\TeacherController::titlePage
@@ -5,14 +7,6 @@ titlePage:
 loginPage:
     path: /login
     controller: App\Controller\TeacherController::loginPage
-
-createTeacherApi:
-    path: api/v1/teacher/create
-    controller: App\Controller\TeacherController::createTeacherApi
-
-authorizeApi:
-    path: api/v1/authorize
-    controller: App\Controller\TeacherController::authorizeApi
 
 onboardingPage:
     path: /onboarding
@@ -25,6 +19,26 @@ groupsListPage:
 editGroupPage:
     path: /groups/edit
     controller: App\Controller\EditGroupController::editGroupPage
+
+# Page data API routes
+
+editGroupPageApi:
+    path: /api/v1/groups/edit
+    controller: App\Controller\EditGroupController::getEditGroupPageApi
+
+groupsListPageApi:
+    path: /api/v1/groups/get
+    controller: App\Controller\GroupsListController::getGroupsListPageApi
+
+# API routes
+
+createTeacherApi:
+    path: api/v1/teacher/create
+    controller: App\Controller\TeacherController::createTeacherApi
+
+authorizeApi:
+    path: api/v1/authorize
+    controller: App\Controller\TeacherController::authorizeApi
 
 createGroupApi:
     path: /api/v1/group/create
