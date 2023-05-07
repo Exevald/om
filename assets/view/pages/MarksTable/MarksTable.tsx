@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import './MarksTable.scss';
 
 
 import Header from "../../components/Header/Header";
 import Table from "../../components/Table/Table";
 import Button from "../../components/Button/Button";
+import { UserContext } from "../Groups/GroopHooks";
 
 const TableContext = React.createContext(null);
 
@@ -32,37 +33,34 @@ const GroupArea = (props: GroupAreaProps) => {
 
 
 const ButtonList = () => {
+    const context = useContext(TableContext)
     return(
         <div className="marksTable__buttons">
-            <TableContext.Consumer>
-            {
-                value =>
-                <>{
-                    value.state === TableState.default &&
-                    <>
-                        <Button type="transparent" data="?" />
-                        <Button type="transparent" data="Добавить работу" iconType="add" />
-                        <Button type="transparent" data="Удалить работу" iconType="minus" />
-                        <Button type="transparentDisabled" data="Сохранить" />
-                    </>
-                }{
+        {
+            context.state === TableState.default &&
+            <>
+                <Button type="transparent" data="?" />
+                <Button type="transparent" data="Добавить работу" iconType="add" />
+                <Button type="transparent" data="Удалить работу" iconType="minus" />
+                <Button type="transparentDisabled" data="Сохранить" />
+            </>
+        }{
 
-                }
-                </>
-            }
-            </TableContext.Consumer>
+        }
         </div>
     )
 }
 
-
-const TableHeader = () => {
+interface TableHeaderProps {
+    groupName: string;
+}
+const TableHeader = (props: TableHeaderProps) => {
     return(
         <TableContext.Consumer>
         {
             value =>
             <div className="marksTable__header">
-                <GroupArea groupName={value.group.name} setState={value.setState} />
+                <GroupArea groupName={props.groupName} setState={value.setState} />
                 <ButtonList/>
             </div>
         }
@@ -89,14 +87,12 @@ const data = {
 
 const GroupTable = () => {
     const [state, setState] = useState<TableState>(TableState.default);
-    const [group, setGroup] = useState(data.group);
     return(
         <>
             <TableContext.Provider
-                value={{ state, setState, group, setGroup
-            }}>
-                <TableHeader/>
-                <Table/>
+                value={{ state, setState }}>
+                <TableHeader groupName={data.group.name}/>
+                <Table subject={data.group.subject} users={data.students} />
             </TableContext.Provider>
         </>
     )

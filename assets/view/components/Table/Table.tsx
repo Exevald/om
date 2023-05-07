@@ -1,19 +1,24 @@
 import React from "react";
-import { Student } from "../../../utility/types";
+import { Group, Student } from "../../../utility/types";
 
 
+interface TableRowProps {
 
-const TableRow = () => {}
+}
+const TableRow = () => {
+
+}
 
 
 interface TableProps {
+    subject: string,
     users: Array<Student>
 }
-const Table = () => {
+const Table = (props: TableProps) => {
     return(
-        <div className="">
+        <table>
 
-        </div>
+        </table>
     )
 }
 
