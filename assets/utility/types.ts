@@ -17,7 +17,8 @@ type Task = {
     id: number,
     topic: string,
     description: string,
-    date: Date,
+    // потом свяжу время
+    // date: Date,
     maxMark: number,
     marksList: Array<number>
 }

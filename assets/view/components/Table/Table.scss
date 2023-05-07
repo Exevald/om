@@ -1,13 +1,31 @@
 .table__ {
-    &head {
-        td {
+    &wrapper {
+        width: 100%;
+        border-collapse: collapse;
+        td, th {
             border: 1px black solid;
+        }
+    }
+    &head {
+        align-content: space-between;
+        th {
             border-top:none;
             &:first-child {
                 border-left: none;
-            }
-            &:last-child {
+            }&:last-child {
                 border-right: none;
+            }
+        }
+    }
+    &body {
+        tr {
+            td {
+                &:first-child {
+                    border-left: none;
+                }
+                &:last-child {
+                    border-right: none;
+                }
             }
         }
     }

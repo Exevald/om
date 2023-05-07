@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  Mark, Student } from "../../../utility/types";
+import {  Mark, Student, Task } from "../../../utility/types";
 
 import './Table.scss'
 
@@ -11,19 +11,22 @@ interface TableHeaderProps {
 const TableHeader = (props: TableHeaderProps) => {
     return (
         <thead className="table__head">
-            <td>{props.subject}</td>
-            <td>Итого</td>
+            <tr>
+                <th>{props.subject}</th>
+                <th>Итого</th>
+            </tr>
         </thead>
     )
 }
 
 interface TableRowProps {
     student: Student,
-    marks: Array<Mark>
+    marks: Array<Mark>,
+    tasks: Array<Task>
 }
 const TableRow = (props: TableRowProps) => {
     const marks = props.marks.map(mark => 
-        <td>
+        <td key={mark.id} >
             {mark.studentMark}
         </td>
     );
@@ -43,12 +46,13 @@ interface TableProps {
     students: Array<Student>
 }
 const Table = (props: TableProps) => {
-    const [marks, setMarks] = useState(response.marks)
+    let marks = response.marks;
+    let tasks = response.tasks;
     return(
-        <table>
+        <table className="table__wrapper">
             <TableHeader subject={props.subject}/>
-            <tbody>
-                <TableRow student={props.students[0]} marks={response.marks} />
+            <tbody className="table__body">
+                <TableRow student={props.students[0]} marks={response.marks} tasks={tasks} />
             </tbody>
         </table>
     )
@@ -75,9 +79,12 @@ const response = {
         {id: 1, studentId: 2, studentMark: 4},
         {id: 2, studentId: 1, studentMark: 0}
     ],
-    Tasks: [
+    tasks: [
         {
-            id: 0, topic: 'Контрольная работа', description: 'Контрольная работа по теме "Тонкие плёнки"',
+            id: 0, topic: 'Контрольная работа', 
+            description: 'Контрольная работа по теме "Интерференция в тонких плёнках"',
+            maxMark: 30,
+            marksList: [0, 2]
         }
     ]
 }

@@ -51,10 +51,10 @@ const ButtonList = () => {
     )
 }
 
-interface TableHeaderProps {
+interface TableGroupHeaderProps {
     groupName: string;
 }
-const TableHeader = (props: TableHeaderProps) => {
+const TableGroupHeader = (props: TableGroupHeaderProps) => {
     return(
         <TableContext.Consumer>
         {
@@ -91,7 +91,7 @@ const GroupTable = () => {
         <>
             <TableContext.Provider
                 value={{ state, setState }}>
-                <TableHeader groupName={data.group.name}/>
+                <TableGroupHeader groupName={data.group.name}/>
                 <Table subject={data.group.subject} students={data.students} />
             </TableContext.Provider>
         </>
