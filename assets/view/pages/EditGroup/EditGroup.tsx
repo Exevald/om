@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import "./EditGroup.scss";
 
 
@@ -8,6 +8,8 @@ import {Group, Student} from "../../../utility/types";
 import {addStudent, deleteStudents, saveAllChanges, saveGroupChanges} from "./EditGroupHooks";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
+import { fetchGetRequest } from "../../../utility/fetchRequest";
+import { groupEditUrlApi } from "../../../api/utilities";
 
 
 const GroupContext = React.createContext(null);
@@ -18,18 +20,12 @@ enum GroupState {
     delete
 }
 
-enum EditGroupPath {
-    edit,
-    create
-}
 
 interface EditGroupPageProps {
-    path: EditGroupPath,
     teacherId: string,
     userFirstName: string,
     userLastName: string,
-    groupName: string,
-    groupSubject: string,
+    group: Group
 }
 
 const ButtonList = () => {
@@ -227,57 +223,29 @@ const EditGroupPage = (props: EditGroupPageProps) => {
         shortName: props.userLastName + " " + props.userFirstName[0] + ".",
         imgUrl: ''
     }
-    let isCreate = false
-    if (props.path === 1) {
-        isCreate = true
-    }
     return (
-        <>{
-            isCreate ?
-                <div className="editGroup__wrapper">
-                    <Header title="Создание группы" userData={user}/>
-                    <Group name={props.groupName} subject={props.groupSubject}/>
-                </div>
-                :
-                <div className="editGroup__wrapper">
-                    <Header title="Группа" userData={user}/>
-                    <Group name={props.groupName} subject={props.groupSubject}/>
-                </div>
-        }</>
+        <div className="editGroup__wrapper">
+            <Header title="Изменение группы" userData={user}/>
+            <Group name={props.group.name} subject={props.group.subject}/>
+        </div>
 
     )
 }
 
-const renderEditGroupPage = (rootId: string) => {
-    const loc = location.search
-    const rootElement = document.getElementById(rootId)
-    const root = createRoot(rootElement)
-    const teacherId = rootElement.dataset.teacherId
-    const userFirstName = rootElement.dataset.userFirstName
-    const userLastName = rootElement.dataset.userLastName
-    let groupName: string
-    let groupSubject: string
-
-    let path: EditGroupPath
-    if (loc === "?path=edit") {
-        path = EditGroupPath.edit
-        groupName = "Название"
-        groupSubject = "Предмет"
-    }
-    if (loc === "?path=create") {
-        path = EditGroupPath.create
-        groupName = "Название"
-        groupSubject = "Предмет"
-    }
-    root.render(
-        <EditGroupPage path={path}
-                       teacherId={teacherId}
-                       userFirstName={userFirstName}
-                       userLastName={userLastName}
-                       groupName={groupName}
-                       groupSubject={groupSubject}
-        />
+function renderEditGroupPage() {
+    const root = createRoot(document.getElementById('root'));
+    fetchGetRequest(groupEditUrlApi)
+    .then(res => 
+        root.render(
+            <EditGroupPage
+                teacherId={res.teacherId}
+                userFirstName={res.userFirstName}
+                userLastName={res.userLastName}
+                group={{id: '0', name: 'Название', subject: 'Предмет'}} />
+        )
     )
+
+    
 }
 
 export default EditGroupPage;

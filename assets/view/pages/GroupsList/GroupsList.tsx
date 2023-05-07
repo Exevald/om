@@ -12,6 +12,8 @@ import {
     saveAllChanges,
     removeGroups
 } from "./GroupsListHooks";
+import { fetchGetRequest } from "../../../utility/fetchRequest";
+import { groupsListUrlApi } from "../../../api/utilities";
 
 
 interface GroupsListPageProps {
@@ -163,21 +165,19 @@ const GroupsListPage = (props: GroupsListPageProps) => {
 }
 
 
-const renderGroupsListPage = (rootId: string) => {
-    const rootElement = document.getElementById(rootId)
+function renderGroupsListPage() {
+    const rootElement = document.getElementById('root')
     const root = createRoot(rootElement)
-    const teacherId = rootElement.dataset.teacherId
-    const userFirstName = rootElement.dataset.userFirstName
-    const userLastName = rootElement.dataset.userLastName
-    const userGroups = rootElement.dataset.groups
 
-    root.render(
-        <GroupsListPage teacherId={teacherId}
-                        userFirstName={userFirstName}
-                        userLastName={userLastName}
-                        userGroups={userGroups}
-        />
-    )
+    fetchGetRequest(groupsListUrlApi)
+    .then(res => {
+        root.render(
+            <GroupsListPage teacherId={res.teacherId}
+                            userFirstName={res.userFirstName}
+                            userLastName={res.userLastName}
+                            userGroups={res.groups}
+            />)
+    })
 }
 
 export {

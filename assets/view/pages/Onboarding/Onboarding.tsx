@@ -121,13 +121,13 @@ const Onboarding = () => {
     )
 }
 
-const renderOnboardingScreen = (rootId: string) => {
-    const rootElement = document.getElementById(rootId)
-    const root = createRoot(rootElement)
+function renderOnboardingScreen() {
+    const rootElement = document.getElementById('root');
+    const root = createRoot(rootElement);
 
     root.render(
-        <Onboarding/>
-    )
+        <Onboarding />
+    );
 }
 
 export {Onboarding, renderOnboardingScreen}

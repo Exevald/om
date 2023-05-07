@@ -40,9 +40,8 @@ const TitleScreen = () => {
     )
 }
 
-const renderTitleScreen = (rootId: string) => {
-    const rootElement = document.getElementById(rootId)
-    const root = createRoot(rootElement)
+function renderTitleScreen() {
+    const root = createRoot(document.getElementById('root'))
 
     root.render(
         <TitleScreen/>
