@@ -18,7 +18,7 @@ class GroupsListController extends AbstractController
     {
     }
 
-    public function groupsListPage()
+    public function groupsListPage(): Response
     {
         return $this->render('default.html.twig');
     }

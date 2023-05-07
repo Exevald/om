@@ -12,8 +12,8 @@ import {
     saveAllChanges,
     removeGroups
 } from "./GroupsListHooks";
-import { fetchGetRequest } from "../../../utility/fetchRequest";
-import { groupsListUrlApi } from "../../../api/utilities";
+import {fetchGetRequest} from "../../../utility/fetchRequest";
+import {groupsListUrlApi} from "../../../api/utilities";
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
 
 
@@ -64,7 +64,6 @@ const ButtonList = () => {
     )
 }
 
-
 interface GroupInputAreaProps {
     groupId: number,
     name: string,
@@ -80,7 +79,6 @@ const GroupInputArea = (props: GroupInputAreaProps) => {
     )
 }
 
-
 const Groups = () => {
     const context = useContext(GroupsListContext);
     let groups: Array<JSX.Element> = [], checkboxes: Array<JSX.Element> = [];
@@ -91,7 +89,11 @@ const Groups = () => {
                 groups.push(
                     <li key={'student' + i} className="groups__group"
                         onClick={
-                            () => window.location.href = getEditGroupPageUrl().replace("PATH", "edit")
+                            () => {
+                                if (context.state === GroupsListState.default) {
+                                    window.location.href = getEditGroupPageUrl().replace("PATH", "edit")
+                                }
+                            }
                         }
                         onDoubleClick={
                             context.state === GroupsListState.edit ?
@@ -131,15 +133,6 @@ const Groups = () => {
     )
 }
 
-
-// заглушка 
-const response = {
-    groups: [
-        {name: '10-2', subject: 'Физика'},
-        {name: '11-1', subject: 'ИКТ'},
-        {name: '11-2', subject: 'ОБЖ'}
-    ]
-}
 const GroupsListPage = (props: GroupsListPageProps) => {
     const user = {
         shortName: props.userLastName + " " + props.userFirstName[0] + ".",
@@ -174,14 +167,14 @@ function renderGroupsListPage() {
     const root = createRoot(rootElement)
 
     fetchGetRequest(groupsListUrlApi)
-    .then(res => {
-        root.render(
-            <GroupsListPage teacherId={res.teacherId}
-                            userFirstName={res.userFirstName}
-                            userLastName={res.userLastName}
-                            userGroups={res.groups}
-            />)
-    })
+        .then(res => {
+            root.render(
+                <GroupsListPage teacherId={res.teacherId}
+                                userFirstName={res.userFirstName}
+                                userLastName={res.userLastName}
+                                userGroups={res.groups}
+                />)
+        })
 }
 
 export {

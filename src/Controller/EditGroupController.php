@@ -13,7 +13,7 @@ class EditGroupController extends AbstractController
     {
     }
 
-    public function editGroupPage()
+    public function editGroupPage(): Response
     {
         return $this->render('default.html.twig');
     }
