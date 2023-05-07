@@ -13,7 +13,11 @@ class EditGroupController extends AbstractController
     {
     }
 
-    public function editGroupPage(Request $request): Response
+    public function editGroupPage()
+    {
+        return $this->render('default.html.twig');
+    }
+    public function getEditGroupPageApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
         if (empty($token))
@@ -22,13 +26,18 @@ class EditGroupController extends AbstractController
             $response->send();
         }
         $teacher = $this->api->getTeacherByToken($token);
-        return $this->render('pages/edit_group/edit_group.twig', [
-            'editGroupPageUrl' => $this->generateUrl("editGroupPage"),
+        $returnData = [
             'teacherId' => $teacher->getId(),
             'userFirstName' => $teacher->getFirstName(),
             'userLastName' => $teacher->getLastName(),
             'userEmail' => $teacher->getEmail(),
-        ]);
+        ];
+
+        $response = new Response;
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setContent(json_encode($returnData));
+
+        return $response;
     }
 
 

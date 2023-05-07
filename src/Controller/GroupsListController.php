@@ -18,7 +18,12 @@ class GroupsListController extends AbstractController
     {
     }
 
-    public function groupsListPage(Request $request): Response
+    public function groupsListPage()
+    {
+        return $this->render('default.html.twig');
+    }
+    
+    public function getGroupsListPageApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
         if (empty($token))
@@ -27,19 +32,19 @@ class GroupsListController extends AbstractController
             $response->send();
         }
         $teacher = $this->api->getTeacherByToken($token);
-        return $this->render('pages/groups_list/groups_list.twig', [
-            'groupsListPageUrl' => $this->generateUrl("groupsListPage"),
-            'editGroupPageUrl' => $this->generateUrl("editGroupPage", ["path" => "PATH"]),
+
+        $returnData = [
             'teacherId' => $teacher->getId(),
             'userFirstName' => $teacher->getFirstName(),
             'userLastName' => $teacher->getLastName(),
-            'userEmail' => $teacher->getEmail(),
-            'groups' => json_encode($this->getAllGroups($teacher->getId())),
-            'createGroupApiUrl' => $this->generateUrl("createGroupApi"),
-            'deleteGroupsApiUrl' => $this->generateUrl("deleteGroupsApi"),
-            'changeGroupTitleApi' => $this->generateUrl("changeGroupTitleApi"),
-            'changeGroupSubjectApi' => $this->generateUrl("changeGroupSubjectApi")
-        ]);
+            'groups' => json_encode($this->getAllGroups($teacher->getId()))
+        ];
+
+        $response = new Response;
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setContent(json_encode($returnData));
+
+        return $response;
     }
 
     private function getTeacherData(Teacher $teacher): array

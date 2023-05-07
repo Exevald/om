@@ -20,29 +20,17 @@ class TeacherController extends AbstractController
 
     public function titlePage(): Response
     {
-        return $this->render('pages/title/title_screen.twig', [
-            'loginPageUrl' => $this->generateUrl('loginPage', ["path" => "PATH"])
-        ]);
+        return $this->render('default.html.twig');
     }
 
     public function loginPage(): Response
     {
-        return $this->render('pages/login/default_login.twig',
-            [
-                'loginPageUrl' => $this->generateUrl('loginPage', ["path" => "PATH"]),
-                'createTeacherApiUrl' => $this->generateUrl('createTeacherApi'),
-                'authorizeApiUrl' => $this->generateUrl('authorizeApi'),
-                'onboardingPageUrl' => $this->generateUrl('onboardingPage'),
-                'groupsListPageUrl' => $this->generateUrl('groupsListPage'),
-            ]
-        );
+        return $this->render('default.html.twig');
     }
 
     public function onboardingPage(): Response
     {
-        return $this->render('pages/onboarding/onboarding_screen.twig', [
-            'groupsListPageUrl' => $this->generateUrl('groupsListPage'),
-        ]);
+        return $this->render('default.html.twig');
     }
 
     public function authorizeApi(Request $request): Response
