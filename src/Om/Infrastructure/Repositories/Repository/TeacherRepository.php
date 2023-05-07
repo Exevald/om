@@ -56,10 +56,10 @@ class TeacherRepository extends ServiceEntityRepository implements TeacherReposi
             throw new Exception("Element with current index " . $id . " does not exist", ErrorType::NOT_FOUND->value);
         }
         $entityManager = $this->getEntityManager()->getRepository(Group::class)->getEntityManager();
-        $query = $entityManager->createQuery('SELECT group.id
-                                                  FROM App\Om\Infrastructure\Repositories\Entity\Group group INNER JOIN App\Om\Infrastructure\Repositories\Entity\TeacherGroup teacher_group
-                                                  WHERE teacher_group.teacher_id = :id AND group.id = teacher_group.group_id
-                                                  ORDER BY group.id ASC'
+        $query = $entityManager->createQuery('SELECT g.id
+                                                  FROM App\Om\Infrastructure\Repositories\Entity\Group g INNER JOIN App\Om\Infrastructure\Repositories\Entity\TeacherGroup teacher_group
+                                                  WHERE teacher_group.teacher_id = :id AND g.id = teacher_group.group_id
+                                                  ORDER BY g.id ASC'
         )->setParameter('id', $id);
         $groupResult = $query->getResult();
         $groupsList = [];
@@ -109,10 +109,12 @@ class TeacherRepository extends ServiceEntityRepository implements TeacherReposi
         $entityManager = $this->getEntityManager();
         $ORMTeacher = $this->find($teacher->getId());
 
+        $ORMTeacher->setId($teacher->getId());
         $ORMTeacher->setFirstName($teacher->getFirstName());
         $ORMTeacher->setLastName($teacher->getLastName());
         $ORMTeacher->setEmail($teacher->getEmail());
         $ORMTeacher->setPassword($teacher->getPassword());
+        var_dump($teacher->getGroupIdList());
         $this->updateGroupAffiliation($teacher->getId(), $teacher->getGroupIdList());
         $entityManager->persist($ORMTeacher);
         $entityManager->flush();

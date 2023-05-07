@@ -1,10 +1,11 @@
 import React from "react";
-import { Group, Student } from "../../../utility/types";
-import { DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME } from "../../../utility/utilities";
+import {Group, Student} from "../../../utility/types";
+import {DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME} from "../../../utility/utilities";
 
 
-const GroupContext  = React.createContext(null);
-const UserContext   = React.createContext(null);
+const GroupContext = React.createContext(null);
+const UserContext = React.createContext(null);
+
 enum GroupState {
     default,
     edit,
@@ -12,15 +13,15 @@ enum GroupState {
 }
 
 
-function addStudent (
+function addStudent(
     students: Array<Student>,
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>
-    ) {
-        let newStudents = students;
-        newStudents.push(
-            {surname: DEFAULT_STUDENT_SURNAME, name: DEFAULT_STUDENT_NAME}
-        )
-        setStudents([...newStudents])
+) {
+    let newStudents = students;
+    newStudents.push(
+        {surname: DEFAULT_STUDENT_SURNAME, name: DEFAULT_STUDENT_NAME}
+    )
+    setStudents([...newStudents])
 }
 
 
@@ -29,7 +30,7 @@ function setStudentById(
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
     id: number,
     setActiveStudentId: React.Dispatch<React.SetStateAction<number>>
-    ) {
+) {
     let newStudents = students;
     const studentSurname = document.getElementById('surname' + id) as HTMLInputElement;
     const studentName = document.getElementById('name' + id) as HTMLInputElement;
@@ -39,30 +40,30 @@ function setStudentById(
 }
 
 
-function deleteStudents (
+function deleteStudents(
     students: Array<Student>,
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
     setState: React.Dispatch<React.SetStateAction<GroupState>>
-    ) {
-        let newStudents = [];
-        for (let i = 0; i < students.length; i++) {
-            const checkbox = document.getElementById('checkbox' + i) as HTMLInputElement;
-            if (!checkbox.checked) {
-                newStudents.push(students[i])
-            }
+) {
+    let newStudents = [];
+    for (let i = 0; i < students.length; i++) {
+        const checkbox = document.getElementById('checkbox' + i) as HTMLInputElement;
+        if (!checkbox.checked) {
+            newStudents.push(students[i])
         }
-        setStudents(newStudents);
-        setState(GroupState.default);
+    }
+    setStudents(newStudents);
+    setState(GroupState.default);
 }
 
 
-function saveGroupChanges (
+function saveGroupChanges(
     setState: React.Dispatch<React.SetStateAction<GroupState>>,
     setGroup: React.Dispatch<React.SetStateAction<Group>>
 ) {
     const subj = document.getElementById('subject') as HTMLInputElement;
     const name = document.getElementById('group') as HTMLInputElement;
-    setGroup({name: name.value, subject: subj.value});
+    // setGroup({name: name.value, subject: subj.value});
     setState(GroupState.default);
 }
 
@@ -81,9 +82,9 @@ function saveAllChanges(
 }
 
 
-export { 
-    GroupContext, UserContext, GroupState, 
-    addStudent, setStudentById, deleteStudents, 
+export {
+    GroupContext, UserContext, GroupState,
+    addStudent, setStudentById, deleteStudents,
     saveGroupChanges,
     saveAllChanges
 }

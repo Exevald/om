@@ -1,4 +1,5 @@
 type Group = {
+    id: string,
     name: string,
     subject: string
 }

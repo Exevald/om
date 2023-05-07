@@ -25,3 +25,19 @@ groupsListPage:
 editGroupPage:
     path: /groups/edit
     controller: App\Controller\EditGroupController::editGroupPage
+
+createGroupApi:
+    path: /api/v1/group/create
+    controller: App\Controller\GroupController::createGroupApi
+
+deleteGroupsApi:
+    path: /api/v1/group/delete
+    controller: App\Controller\GroupController::deleteGroupsApi
+
+changeGroupTitleApi:
+    path: /api/v1/group/title/change
+    controller: App\Controller\GroupController::changeGroupTitleApi
+
+changeGroupSubjectApi:
+    path: /api/v1/group/subject/change
+    controller: App\Controller\GroupController::changeGroupSubjectApi

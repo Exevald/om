@@ -73,7 +73,7 @@ class GroupController extends AbstractController
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
-        $teacherId = $body["teacher"];
+        $teacherId = $body["teacherId"];
         $groupIdList = $body["groupIdList"];
         if (empty($teacherId) || empty($groupIdList)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);

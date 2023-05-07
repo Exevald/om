@@ -5,8 +5,13 @@ import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
-import { GroupsListContext, GroupsListState, addGroup, deleteGroups, saveAllChanges } from "./GroupsListHooks";
-import {getEditGroupPageUrl} from "../../../api/pageUrls";
+import {
+    GroupsListContext,
+    GroupsListState,
+    addGroup,
+    saveAllChanges,
+    removeGroups
+} from "./GroupsListHooks";
 
 
 interface GroupsListPageProps {
@@ -15,6 +20,7 @@ interface GroupsListPageProps {
     userLastName: string,
     userGroups: any
 }
+
 const ButtonList = () => {
     const value = useContext(GroupsListContext);
     return (
@@ -22,34 +28,35 @@ const ButtonList = () => {
             {
                 value.state === GroupsListState.default &&
                 <>
-                    <Button type={"transparent"} iconType="more" data={"Редактировать"} 
-                    onClick={() => value.setState(GroupsListState.edit)}/>
-                    <Button type={"filled"} data={"К журналу"} 
-                    onClick={() => window.location.href = getEditGroupPageUrl().replace("PATH", "create")}/>
-                    
+                    <Button type={"transparent"} iconType="more" data={"Редактировать"}
+                            onClick={() => value.setState(GroupsListState.edit)}/>
+                    <Button type={"filled"} data={"К журналу"}/>
+
                 </>
             }{
-                value.state === GroupsListState.edit &&
-                <>
-                    <Button type={"transparent"} iconType="add" data={"Добавить группу"} onClick={
-                        () => addGroup(value.groups, value.setGroups)
-                    }/>
-                    <Button type={"transparent"} iconType="minus" data={"Удалить группу"} 
+            value.state === GroupsListState.edit &&
+            <>
+                <Button type={"transparent"} iconType="add" data={"Добавить группу"} onClick={
+                    () => addGroup(value.teacherId)
+                }/>
+                <Button type={"transparent"} iconType="minus" data={"Удалить группу"}
                         onClick={() => value.setState(GroupsListState.delete)}/>
-                    <Button type={"filled"} data={"Сохранить"} 
+                <Button type={"filled"} data={"Сохранить"}
                         onClick={() => saveAllChanges(
-                        value.setState, value.groups, value.setGroups, value.activeGroupId, value.setActiveGroupId
-                    )}/>
-                </>
-            }{
-                value.state === GroupsListState.delete &&
-                <>
-                    <Button type={"transparent"} iconType="minus" data={"Удалить"}
-                    onClick={() => deleteGroups(value.groups, value.setGroups, value.setState)}/>
-                    <Button type={"transparent"} data={"Отмена"}
-                    onClick={() => value.setState(GroupsListState.default)}/>
-                </>
-            }
+                            value.setState, value.groups, value.setGroups, value.activeGroupId, value.setActiveGroupId
+                        )}/>
+            </>
+        }{
+            value.state === GroupsListState.delete &&
+            <>
+                <Button type={"transparent"} iconType="minus" data={"Удалить"} onClick={
+                    () => removeGroups(value.teacherId, value.groups, value.setGroups, value.setState)
+                }
+                />
+                <Button type={"transparent"} data={"Отмена"}
+                        onClick={() => value.setState(GroupsListState.default)}/>
+            </>
+        }
         </div>
     )
 }
@@ -60,8 +67,9 @@ interface GroupInputAreaProps {
     name: string,
     subject: string
 }
+
 const GroupInputArea = (props: GroupInputAreaProps) => {
-    return(
+    return (
         <div className="groups__groupInputArea">
             <InputArea id={'group' + props.groupId} type="group" value={props.name} widthChangeable/>
             <InputArea id={'subject' + props.groupId} type="subject" value={props.subject} widthChangeable/>
@@ -79,19 +87,19 @@ const Groups = () => {
             if (i != context.activeGroupId) {
                 groups.push(
                     <li key={'student' + i} className="groups__group"
-                        onDoubleClick={ 
+                        onDoubleClick={
                             context.state === GroupsListState.edit ?
                                 () => context.setActiveGroupId(i) : null
                         }>
-                            <span>{context.groups[i].name} </span>
-                            <span>{context.groups[i].subject}</span>
+                        <span>{context.groups[i].title} </span>
+                        <span>{context.groups[i].subject}</span>
                     </li>
                 )
                 checkboxes.push(<InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>)
             } else {
                 groups.push(
                     <li key={'student' + i} className="groups__group">
-                        <GroupInputArea groupId={i} name={context.groups[i].name} subject={context.groups[i].subject} />
+                        <GroupInputArea groupId={i} name={context.groups[i].title} subject={context.groups[i].subject}/>
                     </li>
                 )
             }
@@ -108,7 +116,7 @@ const Groups = () => {
                 <div className="groups__checkboxArea">{checkboxes}</div>
             }
             {
-                groups.length && <ol>{groups}</ol>
+                groups.length > 0 && <ol>{groups}</ol>
             }
             {
                 groups.length === 0 && <h5>Вы ещё не добавили ни одной группы</h5>
@@ -132,14 +140,16 @@ const GroupsListPage = (props: GroupsListPageProps) => {
         imgUrl: ''
     }
     const [state, setState] = useState<GroupsListState>(GroupsListState.default);
-    const [groups, setGroups] = useState(response.groups/*props.userGroups*/);
+    const [groups, setGroups] = useState(JSON.parse(props.userGroups));
     const [activeGroupId, setActiveGroupId] = useState(-1);
+    const teacherId: number = parseInt(props.teacherId, 10)
     return (
         <div className={"groups__wrapper"}>
             <GroupsListContext.Provider value={{
                 state, setState,
                 groups, setGroups,
-                activeGroupId, setActiveGroupId
+                activeGroupId, setActiveGroupId,
+                teacherId,
             }}>
 
                 <Header title={"Группы"} userData={user}/>
@@ -151,7 +161,6 @@ const GroupsListPage = (props: GroupsListPageProps) => {
 
     )
 }
-
 
 
 const renderGroupsListPage = (rootId: string) => {
