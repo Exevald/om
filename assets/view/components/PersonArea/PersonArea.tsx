@@ -1,7 +1,9 @@
 import React from "react";
 import './PersonArea.scss'
+
 // @ts-ignore
 import userDefaultIcon from "./userIcon_default.svg"
+
 
 interface PersonAreaProps {
     shortName: string,
