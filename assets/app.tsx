@@ -7,6 +7,7 @@ import {renderAuthenticationPage} from "./view/pages/Authentication/Authenticati
 import {renderOnboardingScreen} from "./view/pages/Onboarding/Onboarding";
 import {renderEditGroupPage} from "./view/pages/EditGroup/EditGroup";
 import {renderGroupsListPage} from "./view/pages/GroupsList/GroupsList";
+import {renderMarksTable} from "./view/pages/MarksTable/MarksTable";
 
 
 let loc = location.pathname
@@ -25,6 +26,10 @@ switch (loc) {
     }
     case "/groups/edit": {
         renderEditGroupPage("editGroupPage")
+        break
+    }
+    case  "/table": {
+        renderMarksTable("marksTablePage")
         break
     }
     default: {

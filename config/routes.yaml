@@ -41,3 +41,7 @@ changeGroupTitleApi:
 changeGroupSubjectApi:
     path: /api/v1/group/subject/change
     controller: App\Controller\GroupController::changeGroupSubjectApi
+
+marksTablePage:
+    path: /table
+    controller: App\Controller\MarksTableController::marksTablePage
