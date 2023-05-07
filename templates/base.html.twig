@@ -15,21 +15,6 @@
     {% endblock %}
 </head>
 <body>
-<div
-        id="urlsContainer"
-        data-authorize-url="{{ authorizeApiUrl ?? 'notFound_1' }}"
-        data-login-url="{{ loginPageUrl ?? 'notFound_2' }}"
-        data-title-url="{{ titlePageUrl ?? 'notFound_3' }}"
-        data-create-teacher-url="{{ createTeacherApiUrl ?? 'notFound_4' }}"
-        data-onboarding-url="{{ onboardingPageUrl ?? 'notFound_5' }}"
-        data-groups-list-url="{{ groupsListPageUrl ?? 'notFound_6' }}"
-        data-edit-group-url="{{ editGroupPageUrl ?? 'notFound_7' }}"
-        data-create-group-url="{{ createGroupApiUrl ?? 'notFound_8' }}"
-        data-delete-groups-url="{{ deleteGroupsApiUrl ?? 'notFound_9' }}"
-        data-change-group-title-url="{{ changeGroupTitleApiUrl ?? 'notFound_10' }}"
-        data-change-group-subject-url="{{ changeGroupSubjectApiUrl ?? 'notFound_11' }}"
-
-></div>
 {% block body %}{% endblock %}
 </body>
 </html>
