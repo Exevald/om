@@ -52,11 +52,10 @@ const Authentication = (props: AuthenticationProps) => {
 }
 
 
-const renderAuthenticationPage = (rootId: string) => {
-    const loc = location.search
-    const rootElement = document.getElementById(rootId)
-    const root = createRoot(rootElement)
-    let path: AuthenticationPath
+function renderAuthenticationPage() {
+    const loc = location.search;
+    const root = createRoot(document.getElementById('root'))
+    let path: AuthenticationPath;
     if (loc === "?path=register") {
         path = AuthenticationPath.register
     }

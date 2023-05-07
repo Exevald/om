@@ -15,7 +15,7 @@ function registerPerson() {
         lastName: ""
     }
     if (loginButton) {
-        const onLoginButtonAction = () => {
+        const onRegisterButtonAction = () => {
             getRegisterTeacherData(nameInput, emailInput, passwordInput, teacherData)
             createTeacher(teacherData).then(
                 () => {
@@ -23,7 +23,7 @@ function registerPerson() {
                 }
             )
         }
-        onLoginButtonAction()
+        onRegisterButtonAction()
     }
 }
 
