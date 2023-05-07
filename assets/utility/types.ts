@@ -7,5 +7,19 @@ type Student = {
     name: string,
     surname: string
 }
+type Mark = {
+    id: number,
+    studentId: number,
+    studentMark: number
+}
 
-export { Group, Student }
+type Task = {
+    id: number,
+    topic: string,
+    description: string,
+    date: Date,
+    maxMark: number,
+    marksList: Array<number>
+}
+
+export { Group, Student, Mark, Task }
