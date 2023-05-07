@@ -37,8 +37,8 @@ class GroupsListController extends AbstractController
             'groups' => json_encode($this->getAllGroups($teacher->getId())),
             'createGroupApiUrl' => $this->generateUrl("createGroupApi"),
             'deleteGroupsApiUrl' => $this->generateUrl("deleteGroupsApi"),
-            'changeGroupTitleApi' => $this->generateUrl("changeGroupTitleApi"),
-            'changeGroupSubjectApi' => $this->generateUrl("changeGroupSubjectApi")
+            'changeGroupTitleApiUrl' => $this->generateUrl("changeGroupTitleApi"),
+            'changeGroupSubjectApiUrl' => $this->generateUrl("changeGroupSubjectApi")
         ]);
     }
 

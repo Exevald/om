@@ -2,7 +2,7 @@ import React from "react";
 import {Group, Student} from "../../../utility/types";
 import {DEFAULT_GROUP_NAME, DEFAULT_SUBJECT_NAME} from "../../../utility/utilities";
 import {groupDataType} from "./getGroupData";
-import {createGroup} from "../../../api/requests";
+import {changeGroupSubject, changeGroupTitle, createGroup} from "../../../api/requests";
 import {getGroupsListPageUrl} from "../../../api/pageUrls";
 import {deleteGroups} from "../../../api/requests";
 
@@ -38,11 +38,15 @@ function setGroupById(
     setActiveGroupId: React.Dispatch<React.SetStateAction<number>>
 ) {
     let newGroups = groups
-    console.log(groups)
+    const groupForEditId = String(groups[id].id)
     const groupNameInput = document.getElementById('group' + id) as HTMLInputElement
     const groupSubjectInput = document.getElementById('subject' + id) as HTMLInputElement
-    console.log(groupNameInput.value, groupSubjectInput.value)
-    // newGroups[id] = {name: groupName.value, subject: groupSubject.value};
+    changeGroupTitle(groupForEditId, groupNameInput.value).then(
+        () => window.location.href = getGroupsListPageUrl()
+    )
+    changeGroupSubject(groupForEditId, groupSubjectInput.value).then(
+        () => window.location.href = getGroupsListPageUrl()
+    )
     setActiveGroupId(-1)
     setGroups(newGroups)
 }
@@ -77,8 +81,6 @@ function saveAllChanges(
     activeGroupId: number,
     setActiveGroupId: React.Dispatch<React.SetStateAction<number>>
 ) {
-    // console.log(groups)
-    console.log(activeGroupId)
     if (activeGroupId !== -1) {
         setGroupById(groups, setGroups, activeGroupId, setActiveGroupId)
     }

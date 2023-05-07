@@ -74,7 +74,6 @@ class Api implements ApiInterface
         private readonly TaskQueryServiceInterface    $taskQueryService,
         private readonly MarkQueryServiceInterface    $markQueryService,
         private readonly AuthorizerInterface          $authorizer,
-
     )
     {
     }
