@@ -8,6 +8,8 @@ interface StudentRepositoryInterface
 
     public function store(Student $student): void;
 
+    public function update(Student $student): void;
+
     public function delete(int $id): void;
 
     public function takeNewId(): int;

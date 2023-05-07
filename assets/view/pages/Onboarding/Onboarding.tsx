@@ -6,6 +6,8 @@ import firstAbstract from './FirstAbstract.svg'; import secondAbstract from './S
 import prevArrow from './Icons/navigate_previous.svg'; import nextArrow from './Icons/navigate_next.svg';
 
 import './Onboarding.scss'
+import {createRoot} from "react-dom/client";
+import {getGroupsListPageUrl} from "../../../api/pageUrls";
 
 
 const FirstImage = () => {
@@ -110,13 +112,22 @@ const Onboarding = () => {
             }
             <Dots step={step} setStep={setStep}/>
             {
-                step === 1 && <Button type="transparent" data="Пропутить"/>
+                step === 1 && <Button type="transparent" data="Пропутить" onClick={() => window.location.href = getGroupsListPageUrl()}/>
             }
             {
-                step === 2 && <Button type="filled" data="К группам"/>
+                step === 2 && <Button type="filled" data="К группам" onClick={() => window.location.href = getGroupsListPageUrl()}/>
             }
         </div>
     )
 }
 
-export default Onboarding;
+const renderOnboardingScreen = (rootId: string) => {
+    const rootElement = document.getElementById(rootId)
+    const root = createRoot(rootElement)
+
+    root.render(
+        <Onboarding/>
+    )
+}
+
+export {Onboarding, renderOnboardingScreen}

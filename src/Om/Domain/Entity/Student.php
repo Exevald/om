@@ -11,7 +11,7 @@ class Student
     public function __construct(
         int    $id,
         string $firstName,
-        string $lastName,
+        string $lastName
     )
     {
         $userDataValidator = new UserDataValidator();

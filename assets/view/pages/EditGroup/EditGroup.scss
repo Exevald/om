@@ -1,0 +1,84 @@
+.editGroup__ {
+  &wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 130px calc((100vw - 1358px) / 2) 0 calc((100vw - 1358px) / 2);
+  }
+
+  &groupHeader {
+    height: 126px;
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 59px; // поменятб
+    :first-child {
+      margin-right: 26px; // поменятб
+    }
+
+    input {
+      margin-top: 18px;
+    }
+  }
+
+  &groupHeader__buttons {
+    display: flex;
+    flex-direction: row;
+
+    button {
+      margin-right: 20px;
+    }
+  }
+
+  &group-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &subject {
+    font: var(--text-header-small);
+    color: var(--ash-light);
+    margin-top: 35px;
+    max-width: 200px;
+    overflow: hidden;
+  }
+
+  &group {
+    font: var(--text-header-large);
+    color: var(--ash);
+    max-width: 1100px;
+  }
+
+  &studentArea {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    display: flex;
+    justify-content: flex-start;
+    margin: 72px 0 72px 22px;
+
+    & input:not(:first-child), & li:not(:first-child) {
+      margin-top: 15px;
+    }
+  }
+
+  &checkboxArea {
+    margin: 1px 30px 0 0;
+
+    & > div:not(:first-child) {
+      margin-top: 15px;
+    }
+  }
+
+  &student {
+    list-style-position: outside;
+  }
+
+  &studentInputArea {
+    display: flex;
+
+    & div:first-child {
+      margin-right: 15px;
+    }
+  }
+}

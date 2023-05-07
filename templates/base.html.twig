@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Om{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div
+        id="urlsContainer"
+        data-authorize-url="{{ authorizeApiUrl ?? 'notFound_1' }}"
+        data-login-url="{{ loginPageUrl ?? 'notFound_2' }}"
+        data-title-url="{{ titlePageUrl ?? 'notFound_3' }}"
+        data-create-teacher-url="{{ createTeacherApiUrl ?? 'notFound_4' }}"
+        data-onboarding-url="{{ onboardingPageUrl ?? 'notFound_5' }}"
+        data-groups-list-url="{{ groupsListPageUrl ?? 'notFound_6' }}"
+        data-edit-group-url="{{ editGroupPageUrl ?? 'notFound_7' }}"
+        data-create-group-url="{{ createGroupApiUrl ?? 'notFound_8' }}"
+        data-delete-groups-url="{{ deleteGroupsApiUrl ?? 'notFound_9' }}"
+        data-change-group-title-url="{{ changeGroupTitleApiUrl ?? 'notFound_10' }}"
+        data-change-group-subject-url="{{ changeGroupSubjectApiUrl ?? 'notFound_11' }}"
+
+></div>
+{% block body %}{% endblock %}
+</body>
 </html>

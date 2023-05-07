@@ -9,8 +9,8 @@ class Group
     private int $id;
     private string $title;
     private string $subject;
-    private array $studentsIdList = [];
-    private array $tasksIdList = [];
+    private array $studentsIdList;
+    private array $tasksIdList;
 
     public function __construct
     (
@@ -66,7 +66,7 @@ class Group
     public function addStudent(int $studentId): void
     {
         if (in_array($studentId, $this->studentsIdList)) {
-            throw new Exception("Student with id" . $studentId . " is already in a group!", 420);
+            throw new Exception("StudentController with id" . $studentId . " is already in a group!", 420);
         }
         $this->studentsIdList[] = $studentId;
     }

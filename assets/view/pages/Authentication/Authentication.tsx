@@ -1,58 +1,71 @@
-import React, { useState } from "react";
+import React from "react";
 
 import './Authentication.scss'
 
 
 import InputArea from "../../components/InputArea/InputArea";
 import Button from '../../components/Button/Button'
+import {createRoot} from "react-dom/client";
+import { loginPerson, registerPerson } from "./AuthenticationHooks";
+import {getLoginPageUrl} from "../../../api/pageUrls";
 
-async function postRequest(event: React.SyntheticEvent) {
-    // мб эту строку уберу
-    event.preventDefault();
-
-    const email     = document.getElementById('email') as HTMLInputElement;
-    const pass      = document.getElementById('pass') as HTMLInputElement;
-    const fullName  = document.getElementById('fullName') as HTMLInputElement;
-
-    if (email && pass && fullName) {
-        const data = {
-            email: email.value,
-            pass: pass.value,
-            fullName: fullName.value
-        }
-        const response = await fetch('', {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-    } else {
-        console.log('Error in getting inputs');
-    }
+enum AuthenticationPath {
+    login,
+    register
 }
 
-const Authentication = () => {
-    const [register, setRegister] = useState(false);
-    
+interface AuthenticationProps {
+    path: AuthenticationPath
+}
+
+const Authentication = (props: AuthenticationProps) => {
+    let register = false
+    if (props.path === 1) {
+        register = true
+    }
     return (
-        <div className="auth__main-wrapper">
-            <h2 className="auth__header">
-                Войти в Ом
-            </h2>
-            <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
-            <InputArea id="pass" header="Пароль" type="password" placeholder="****************"/>
-            {
-                register &&
-                <InputArea id="fullName" header="Имя, Отчество, Фамилия" type="text" placeholder="Иван Иванович Иванов"/>
-            }
-            <div className="auth__registerArea">
-                <p>Нет аккаунта?</p>
-                <p onClick={() => setRegister(true)}>Зарегестрироваться</p>
+        <>{
+            register ?
+            <div className="auth__main-wrapper" onKeyDown={(e) => e.key === 'Enter' && registerPerson()}>
+                <h2 className="auth__header">Регистрация</h2>
+                <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
+                <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
+                <InputArea id="fullName" header="Имя, Фамилия" type="text" placeholder="Иван Иванов"/>
+                <Button id="loginSubmit" type="submit" data="Зарегистрироваться" onClick={() => registerPerson()} />
             </div>
-            <Button id="loginSubmit" type="submit" data="Войти"/>
-        </div>
+            :
+            <div className="auth__main-wrapper" onKeyDown={(e) => e.key === 'Enter' && loginPerson()}>
+                <h2 className="auth__header">Войти в Ом</h2>
+                <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
+                <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
+                <div className="auth__registerArea">
+                    <p>Нет аккаунта?</p>
+                    <p onClick={() => window.location.href = getLoginPageUrl().replace("PATH", "register")}>
+                        Зарегистрироваться
+                    </p>
+                </div>
+                <Button id="loginSubmit" type="submit" data="Войти" onClick={() => loginPerson()}
+                />
+            </div>
+        }</>
     )
 }
 
-export default Authentication;
+
+const renderAuthenticationPage = (rootId: string) => {
+    const loc = location.search
+    const rootElement = document.getElementById(rootId)
+    const root = createRoot(rootElement)
+    let path: AuthenticationPath
+    if (loc === "?path=register") {
+        path = AuthenticationPath.register
+    }
+    if (loc === "?path=login") {
+        path = AuthenticationPath.login
+    }
+    root.render(
+        <Authentication path={path}/>
+    )
+}
+
+export {Authentication, renderAuthenticationPage}

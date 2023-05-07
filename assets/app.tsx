@@ -1,24 +1,34 @@
-import React from 'react';
-import ReactDOMClient from 'react-dom/client';
-
+import React, {StrictMode} from 'react';
 import './index.scss';
 
 
-import TitleScreen from './view/pages/TitleScreen/TitleScreen'
-import Authentication from './view/pages/Authentication/Authentication'
-import Onboarding from './view/pages/Onboarding/Onboarding';
-import GroupsPage from './view/pages/Groups/Groups';
-import MarksTable from './view/pages/MarksTable/MarksTable';
+import {renderTitleScreen} from "./view/pages/TitleScreen/TitleScreen";
+import {renderAuthenticationPage} from "./view/pages/Authentication/Authentication";
+import {renderOnboardingScreen} from "./view/pages/Onboarding/Onboarding";
+import {renderEditGroupPage} from "./view/pages/EditGroup/EditGroup";
+import {renderGroupsListPage} from "./view/pages/GroupsList/GroupsList";
 
 
-const App = () => {
-    return (
-        <MarksTable/>
-    )
+let loc = location.pathname
+switch (loc) {
+    case "/login": {
+        renderAuthenticationPage("loginPage")
+        break
+    }
+    case "/onboarding": {
+        renderOnboardingScreen("onboardingPage")
+        break
+    }
+    case "/groups/list": {
+        renderGroupsListPage("groupsListPage")
+        break
+    }
+    case "/groups/edit": {
+        renderEditGroupPage("editGroupPage")
+        break
+    }
+    default: {
+        renderTitleScreen("titlePage")
+        break
+    }
 }
-
-ReactDOMClient.createRoot(document.getElementById('root') as Element).render(
-    <React.StrictMode>
-        <App/>
-    </React.StrictMode>
-);

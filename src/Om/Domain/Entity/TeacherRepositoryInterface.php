@@ -4,6 +4,8 @@ namespace App\Om\Domain\Entity;
 
 interface TeacherRepositoryInterface
 {
+    public function createEmailToken(int $teacherId): string;
+
     public function checkExitedEmail(string $email): bool;
 
     public function get(int $id): Teacher;

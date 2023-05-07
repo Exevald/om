@@ -2,10 +2,9 @@ import React from "react";
 import './Button.scss';
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
-
 interface ButtonProps {
     id?: string,
-    type:   'login' | 'register' | 'submit' | 'filled' | 'transparent' | 
+    type:   'login' | 'register' | 'submit' | 'filled' | 'transparent' |
             'filledNoColor' | 'transparentNoColor' |
             'transparentDisabled',
     iconType?: 'add' | 'minus' | 'more',
@@ -21,7 +20,7 @@ const Button = (props: ButtonProps) => {
         case 'register':
             buttonStyle += ` buttons__transparentNoColor`;
             return (
-                <a href='auth'>
+                <a onClick={props.onClick}>
                     <button className={buttonStyle}>
                         {props.data}
                     </button>
@@ -30,7 +29,7 @@ const Button = (props: ButtonProps) => {
         case 'login':
             buttonStyle += ` buttons__filledNoColor`;
             return (
-                <a href='auth'>
+                <a onClick={props.onClick}>
                     <button className={buttonStyle}>
                         {props.data}
                     </button>
@@ -39,7 +38,7 @@ const Button = (props: ButtonProps) => {
         case 'submit':
             buttonStyle += ' buttons__filled';
             return (
-                <button id={props.id} className={buttonStyle}>
+                <button id={props.id} className={buttonStyle} onClick={props.onClick}>
                     {props.data}
                 </button>
             )
@@ -55,7 +54,7 @@ const Button = (props: ButtonProps) => {
                 </button>
             )
     }
-    
+
 }
 
 export default Button;

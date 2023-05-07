@@ -8,6 +8,8 @@ interface GroupRepositoryInterface
 
     public function store(Group $group): void;
 
+    public function update(Group $group): void;
+
     public function delete(int $id): void;
 
     public function takeNewId(): int;

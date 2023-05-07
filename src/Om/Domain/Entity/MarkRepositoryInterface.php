@@ -8,6 +8,8 @@ interface MarkRepositoryInterface
 
     public function store(Mark $mark): void;
 
+    public function update(Mark $mark): void;
+
     public function delete(int $id): void;
 
     public function takeNewId(): int;
