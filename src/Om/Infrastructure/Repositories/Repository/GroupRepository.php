@@ -70,6 +70,7 @@ class GroupRepository extends ServiceEntityRepository implements GroupRepository
         }
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Group::class, [
+                "id" => $ORMGroup->getId(),
                 "title" => $ORMGroup->getTitle(),
                 "subject" => $ORMGroup->getSubject(),
                 "studentsIdList" => $studentsList,
@@ -97,7 +98,8 @@ class GroupRepository extends ServiceEntityRepository implements GroupRepository
     {
         $entityManager = $this->getEntityManager();
 
-        $ORMGroup = $this->find($group->getId());
+        $groupId = $group->getId();
+        $ORMGroup = $this->find($groupId);
         $ORMGroup->setId($group->getId());
         $ORMGroup->setTitle($group->getTitle());
         $ORMGroup->setSubject($group->getSubject());
@@ -139,7 +141,7 @@ class GroupRepository extends ServiceEntityRepository implements GroupRepository
         $entityManager = $this->getEntityManager()->getRepository(ORMGroupTask::class)->getEntityManager();
         $query = $entityManager->createQuery('DELETE
                                                   FROM App\Om\Infrastructure\Repositories\Entity\GroupTask group_task
-                                                  WHERE group_task.group.id = :id'
+                                                  WHERE group_task.group_id = :id'
         )->setParameter('id', $groupId);
         $query->getResult();
         foreach ($tasksList as $taskId) {

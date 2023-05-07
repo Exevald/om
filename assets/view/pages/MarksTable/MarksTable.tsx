@@ -5,6 +5,7 @@ import './MarksTable.scss';
 import Header from "../../components/Header/Header";
 import Table from "../../components/Table/Table";
 import Button from "../../components/Button/Button";
+import {createRoot} from "react-dom/client";
 
 const TableContext = React.createContext(null);
 
@@ -112,4 +113,13 @@ const MarksTable = () => {
     )
 }
 
-export default MarksTable;
+const renderMarksTable = (rootId: string) => {
+    const rootElement = document.getElementById(rootId)
+    const root = createRoot(rootElement)
+
+    root.render(
+        <MarksTable/>
+    )
+}
+
+export {renderMarksTable}
