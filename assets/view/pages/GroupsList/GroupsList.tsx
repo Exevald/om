@@ -12,6 +12,7 @@ import {
     saveAllChanges,
     removeGroups
 } from "./GroupsListHooks";
+import {getEditGroupPageUrl} from "../../../api/pageUrls";
 
 
 interface GroupsListPageProps {
@@ -87,6 +88,9 @@ const Groups = () => {
             if (i != context.activeGroupId) {
                 groups.push(
                     <li key={'student' + i} className="groups__group"
+                        onClick={
+                            () => window.location.href = getEditGroupPageUrl().replace("PATH", "edit")
+                        }
                         onDoubleClick={
                             context.state === GroupsListState.edit ?
                                 () => context.setActiveGroupId(i) : null
