@@ -1,5 +1,7 @@
 import React from "react";
 import './PersonArea.scss'
+// @ts-ignore
+import defaultIcon from './defaultUserIcon.svg'
 
 interface PersonAreaProps {
     shortName: string,
@@ -14,7 +16,7 @@ const PersonArea = (props: PersonAreaProps) => {
                 {
                     props.imgUrl === "" &&
                     <img className="personArea__photo"
-                        src="./images/Icons/userIcon_default.svg"
+                        src={defaultIcon}
                         alt="default user photo"
                     />
                 }
