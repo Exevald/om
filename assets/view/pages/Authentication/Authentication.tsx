@@ -63,7 +63,9 @@ function renderAuthenticationPage() {
         path = AuthenticationPath.login
     }
     root.render(
-        <Authentication path={path}/>
+        <React.StrictMode>
+            <Authentication path={path}/>
+        </React.StrictMode>
     )
 }
 

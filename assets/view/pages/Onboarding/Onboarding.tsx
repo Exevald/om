@@ -126,7 +126,9 @@ function renderOnboardingScreen() {
     const root = createRoot(rootElement);
 
     root.render(
-        <Onboarding />
+        <React.StrictMode>
+            <Onboarding/>
+        </React.StrictMode>
     );
 }
 

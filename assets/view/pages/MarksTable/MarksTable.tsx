@@ -118,7 +118,9 @@ const renderMarksTable = (rootId: string) => {
     const root = createRoot(rootElement)
 
     root.render(
-        <MarksTable/>
+        <React.StrictMode>
+            <MarksTable/>
+        </React.StrictMode>
     )
 }
 

@@ -44,7 +44,9 @@ function renderTitleScreen() {
     const root = createRoot(document.getElementById('root'))
 
     root.render(
-        <TitleScreen/>
+        <React.StrictMode>
+            <TitleScreen/>
+        </React.StrictMode>
     )
 }
 

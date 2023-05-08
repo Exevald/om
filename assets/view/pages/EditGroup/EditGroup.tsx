@@ -252,20 +252,20 @@ function renderEditGroupPage() {
                 fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
                     console.log(groupResponse)
                     root.render(
-                        <EditGroupPage
-                            teacherId={pageResponse.teacherId}
-                            userFirstName={pageResponse.userFirstName}
-                            userLastName={pageResponse.userLastName}
-                            group={
-                                {
-                                    id: groupId,
-                                    name: groupResponse.groupTitle,
-                                    subject: groupResponse.groupSubject,
-                                    studentsList: groupResponse.studentsIdList,
-                                    tasksIdLIst: groupResponse.tasksIdList
-                                }
-                            }
-                        />
+                        <React.StrictMode>
+                            <EditGroupPage
+                                teacherId={pageResponse.teacherId}
+                                userFirstName={pageResponse.userFirstName}
+                                userLastName={pageResponse.userLastName}
+                                group={{
+                                        id: groupId,
+                                        name: groupResponse.groupTitle,
+                                        subject: groupResponse.groupSubject,
+                                        studentsList: groupResponse.studentsIdList,
+                                        tasksIdLIst: groupResponse.tasksIdList
+                                    }}
+                            />
+                        </React.StrictMode>
                     )
                         })
 

@@ -38,29 +38,29 @@ const ButtonList = () => {
 
                 </>
             }{
-            value.state === GroupsListState.edit &&
-            <>
-                <Button type={"transparent"} iconType="add" data={"Добавить группу"} onClick={
-                    () => addGroup(value.teacherId)
-                }/>
-                <Button type={"transparent"} iconType="minus" data={"Удалить группу"}
-                        onClick={() => value.setState(GroupsListState.delete)}/>
-                <Button type={"filled"} data={"Сохранить"}
-                        onClick={() => saveAllChanges(
-                            value.setState, value.groups, value.setGroups, value.activeGroupId, value.setActiveGroupId
-                        )}/>
-            </>
-        }{
-            value.state === GroupsListState.delete &&
-            <>
-                <Button type={"transparent"} iconType="minus" data={"Удалить"} onClick={
-                    () => removeGroups(value.teacherId, value.groups, value.setGroups, value.setState)
-                }
-                />
-                <Button type={"transparent"} data={"Отмена"}
-                        onClick={() => value.setState(GroupsListState.default)}/>
-            </>
-        }
+                value.state === GroupsListState.edit &&
+                <>
+                    <Button type={"transparent"} iconType="add" data={"Добавить группу"} onClick={
+                        () => addGroup(value.teacherId)
+                    }/>
+                    <Button type={"transparent"} iconType="minus" data={"Удалить группу"}
+                            onClick={() => value.setState(GroupsListState.delete)}/>
+                    <Button type={"filled"} data={"Сохранить"}
+                            onClick={() => saveAllChanges(
+                                value.setState, value.groups, value.setGroups, 
+                                value.activeGroupId, value.setActiveGroupId
+                            )}/>
+                </>
+            }{
+                value.state === GroupsListState.delete &&
+                <>
+                    <Button type={"transparent"} iconType="minus" data={"Удалить"} onClick={
+                        () => removeGroups(value.teacherId, value.groups, value.setGroups, value.setState)
+                    }/>
+                    <Button type={"transparent"} data={"Отмена"}
+                            onClick={() => value.setState(GroupsListState.default)}/>
+                </>
+            }
         </div>
     )
 }
@@ -170,11 +170,14 @@ function renderGroupsListPage() {
     fetchGetRequest(groupsListUrlApi)
         .then(res => {
             root.render(
-                <GroupsListPage teacherId={res.teacherId}
-                                userFirstName={res.userFirstName}
-                                userLastName={res.userLastName}
-                                userGroups={res.groups}
-                />)
+                <React.StrictMode>
+                    <GroupsListPage teacherId={res.teacherId}
+                                    userFirstName={res.userFirstName}
+                                    userLastName={res.userLastName}
+                                    userGroups={res.groups}
+                    />
+                </React.StrictMode>
+            )
         })
 }
 
