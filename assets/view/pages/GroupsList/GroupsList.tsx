@@ -15,6 +15,7 @@ import {
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {groupsListUrlApi} from "../../../api/utilities";
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
+import {getEncryptedText} from "../../../utility/scrambler";
 
 
 interface GroupsListPageProps {
@@ -91,7 +92,7 @@ const Groups = () => {
                         onClick={
                             () => {
                                 if (context.state === GroupsListState.default) {
-                                    window.location.href = getEditGroupPageUrl().replace("PATH", "edit")
+                                    window.location.href = getEditGroupPageUrl().replace("GROUP_ID", getEncryptedText(context.groups[i].id))
                                 }
                             }
                         }

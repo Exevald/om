@@ -1,4 +1,4 @@
-import {studentDataType} from "./getStudentData";
+import {studentDataType} from "../EditGroup/getStudentData";
 
 type groupDataType = {
     teacherId: number,

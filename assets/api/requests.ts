@@ -2,7 +2,7 @@ import {fetchGetRequest, fetchPostRequest} from "../utility/fetchRequest";
 import {responseStatus} from "../utility/responseStatus";
 import {getEncryptedText} from "../utility/scrambler";
 import {teacherDataType} from "../view/pages/Authentication/getTeacherData";
-import {studentDataType} from "../view/pages/GroupsList/getStudentData";
+import {studentDataType} from "../view/pages/EditGroup/getStudentData";
 import {groupDataType} from "../view/pages/GroupsList/getGroupData";
 import { 
     authorizeUrl, changeGroupSubjectUrl, changeGroupTitleUrl, createGroupUrl, 
@@ -45,6 +45,7 @@ function createStudent(studentData: studentDataType) {
     return fetchPostRequest(
         createStudentUrl,
         {
+            groupId: studentData.groupId,
             firstName: studentData.firstName,
             lastName: studentData.lastName
         }

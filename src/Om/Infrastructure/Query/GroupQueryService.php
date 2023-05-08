@@ -40,7 +40,7 @@ class GroupQueryService extends ServiceEntityRepository implements GroupQuerySer
         $entityManager = $this->getEntityManager()->getRepository(Task::class)->getEntityManager();
         $query = $entityManager->createQuery('SELECT t
                                                   FROM App\Om\Infrastructure\Repositories\Entity\Task t INNER JOIN App\Om\Infrastructure\Repositories\Entity\GroupTask group_task
-                                                  WHERE group_task.group_id = :id AND group_student.task_id = t.id
+                                                  WHERE group_task.group_id = :id AND group_task.task_id = t.id
                                                   ORDER BY t.id ASC'
         )->setParameter('id', $groupId);
         $tasksList = $query->getResult();
@@ -119,7 +119,7 @@ class GroupQueryService extends ServiceEntityRepository implements GroupQuerySer
             $entityManager = $this->getEntityManager()->getRepository(Task::class)->getEntityManager();
             $query = $entityManager->createQuery('SELECT t
                                                   FROM App\Om\Infrastructure\Repositories\Entity\Task t INNER JOIN App\Om\Infrastructure\Repositories\Entity\GroupTask group_task
-                                                  WHERE group_task.group_id = :id AND group_student.task_id = t.id
+                                                  WHERE group_task.group_id = :id AND group_task.task_id = t.id
                                                   ORDER BY t.id ASC'
             )->setParameter('id', $groupId);
             $tasksList = $query->getResult();

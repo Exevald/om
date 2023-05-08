@@ -33,11 +33,11 @@ groupsListPageApi:
 # API routes
 
 createTeacherApi:
-    path: api/v1/teacher/create
+    path: /api/v1/teacher/create
     controller: App\Controller\TeacherController::createTeacherApi
 
 authorizeApi:
-    path: api/v1/authorize
+    path: /api/v1/authorize
     controller: App\Controller\TeacherController::authorizeApi
 
 createGroupApi:
@@ -59,3 +59,11 @@ changeGroupSubjectApi:
 marksTablePage:
     path: /table
     controller: App\Controller\MarksTableController::marksTablePage
+
+getGroupDataByIdApi:
+    path: /api/v1/group/{groupId}
+    controller: App\Controller\GroupController::getGroupDataByIdApi
+
+createStudentApi:
+    path: /api/v1/student/create
+    controller: App\Controller\StudentController::createStudentApi

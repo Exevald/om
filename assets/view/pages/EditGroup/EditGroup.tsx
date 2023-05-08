@@ -4,13 +4,13 @@ import "./EditGroup.scss";
 
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
-import {Group, Student} from "../../../utility/types";
+import {Group, Student, Task} from "../../../utility/types";
 import {addStudent, deleteStudents, saveAllChanges, saveGroupChanges} from "./EditGroupHooks";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
-import { fetchGetRequest } from "../../../utility/fetchRequest";
-import { groupEditUrlApi } from "../../../api/utilities";
-
+import {fetchGetRequest} from "../../../utility/fetchRequest";
+import {getGroupDataByIdUrl, groupEditUrlApi} from "../../../api/utilities";
+import {getDecryptedText} from "../../../utility/scrambler";
 
 const GroupContext = React.createContext(null);
 
@@ -50,12 +50,12 @@ const ButtonList = () => {
                             value.state === GroupState.edit &&
                             <>
                                 <Button type="transparent" iconType="add" data="Добавить ученика" onClick={
-                                    () => addStudent(value.students, value.setStudents)}/>
+                                    () => addStudent(value.groupId)}/>
                                 <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
                                     () => value.setState(GroupState.delete)}/>
                                 <Button type="filled" data="Сохранить" onClick={
                                     () => {
-                                        saveAllChanges(value.setState, value.students, value.setStudents, value.setGroup,
+                                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents,
                                             value.activeStudentId, value.setActiveStudentId
                                         )
                                     }}/>
@@ -94,7 +94,7 @@ const GroupHeader = () => {
                         value.state === GroupState.edit &&
                         <>
                             <div className="editGroup__groupHeader" onKeyDown={
-                                (e) => e.key === 'Enter' ? saveGroupChanges(value.setState, value.setGroup) : null
+                                (e) => e.key === 'Enter' ? saveGroupChanges(value.groupId, value.setState) : null
                             }>
                                 <InputArea id="group" type="group" value={value.group.name} widthChangeable/>
                                 <InputArea id="subject" type="subject" value={value.group.subject} widthChangeable/>
@@ -169,7 +169,7 @@ const Students = (props: StudentsProps) => {
             {
                 value =>
                     <div className="editGroup__studentArea" onKeyDown={(e) => e.key === 'Enter' ?
-                        saveAllChanges(value.setState, value.students, value.setStudents, value.setGroup,
+                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents,
                             value.activeStudentId, value.setActiveStudentId
                         ) : null
                     }>
@@ -188,25 +188,30 @@ const Students = (props: StudentsProps) => {
 }
 
 interface GroupProps {
+    id: string,
     name: string,
-    subject: string
+    subject: string,
+    studentsIdList: Array<Student>,
+    tasksIdList: Array<Task>
 }
 
 const Group = (props: GroupProps) => {
     const [state, setState] = useState<GroupState>(GroupState.default);
     const [group, setGroup] = useState({
         name: props.name,
-        subject: props.subject
+        subject: props.subject,
     });
     const [activeStudentId, setActiveStudentId] = useState(-1);
-    const [students, setStudents] = useState([]);
+    const [students, setStudents] = useState(props.studentsIdList);
+    const groupId: string = props.id
     return (
         <div className="editGroup__group-wrapper">
             <GroupContext.Provider value={{
                 group, setGroup,
                 students, setStudents,
                 state, setState,
-                activeStudentId, setActiveStudentId
+                activeStudentId, setActiveStudentId,
+                groupId
             }}>
                 <GroupHeader/>
                 <Students state={state} students={students}
@@ -226,7 +231,13 @@ const EditGroupPage = (props: EditGroupPageProps) => {
     return (
         <div className="editGroup__wrapper">
             <Header title="Изменение группы" userData={user}/>
-            <Group name={props.group.name} subject={props.group.subject}/>
+            <Group
+                id={props.group.id}
+                name={props.group.name}
+                subject={props.group.subject}
+                studentsIdList={props.group.studentsList}
+                tasksIdList={props.group.tasksIdLIst}
+            />
         </div>
 
     )
@@ -234,18 +245,34 @@ const EditGroupPage = (props: EditGroupPageProps) => {
 
 function renderEditGroupPage() {
     const root = createRoot(document.getElementById('root'));
+    const loc = location.search
+    const groupId = getDecryptedText(loc.replace("?groupId=", ""))
     fetchGetRequest(groupEditUrlApi)
-    .then(res => 
-        root.render(
-            <EditGroupPage
-                teacherId={res.teacherId}
-                userFirstName={res.userFirstName}
-                userLastName={res.userLastName}
-                group={{id: '0', name: 'Название', subject: 'Предмет'}} />
-        )
-    )
+        .then(pageResponse => {
+                fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
+                    console.log(groupResponse)
+                    root.render(
+                        <EditGroupPage
+                            teacherId={pageResponse.teacherId}
+                            userFirstName={pageResponse.userFirstName}
+                            userLastName={pageResponse.userLastName}
+                            group={
+                                {
+                                    id: groupId,
+                                    name: groupResponse.groupTitle,
+                                    subject: groupResponse.groupSubject,
+                                    studentsList: groupResponse.studentsIdList,
+                                    tasksIdLIst: groupResponse.tasksIdList
+                                }
+                            }
+                        />
+                    )
+                        })
 
-    
+            }
+        )
+
+
 }
 
 export default EditGroupPage;

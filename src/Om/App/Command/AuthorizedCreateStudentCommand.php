@@ -10,7 +10,7 @@ class AuthorizedCreateStudentCommand
     private int $groupId;
 
     public function __construct(
-        int    $token,
+        string    $token,
         string $firstName,
         string $lastName,
         int    $groupId,

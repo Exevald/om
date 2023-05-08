@@ -1,4 +1,5 @@
 type studentDataType = {
+    groupId: number,
     firstName: string,
     lastName: string
 }

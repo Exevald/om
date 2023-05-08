@@ -1,7 +1,9 @@
 type Group = {
     id: string,
     name: string,
-    subject: string
+    subject: string,
+    studentsList: Array<Student>,
+    tasksIdLIst: Array<Task>
 }
 
 type Student = {

@@ -24,6 +24,13 @@ class StudentController extends AbstractController
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
+        $groupId = $body["groupId"];
+        $firstName = $body["firstName"];
+        $lastName = $body["lastName"];
+        if (empty($groupId) || empty($firstName) || empty($lastName)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $this->api->createStudent($token, $firstName, $lastName, $groupId);
         return new Response();
     }
 
