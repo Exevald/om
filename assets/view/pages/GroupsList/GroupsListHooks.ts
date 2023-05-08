@@ -55,11 +55,9 @@ function setGroupById(
 function removeGroups(
     teacherId: string,
     groups: Array<Group>,
-    setGroups: React.Dispatch<React.SetStateAction<Group[]>>,
     setState: React.Dispatch<React.SetStateAction<GroupsListState>>
 ) {
     let groupsForDelete: Array<Group> = [];
-    let groupsIds = [];
     for (let i = 0; i < groups.length; i++) {
         const checkbox = document.getElementById('checkbox' + i) as HTMLInputElement;
         if (checkbox.checked) {
