@@ -4,7 +4,8 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 
 interface ButtonProps {
     id?: string,
-    type:   'login' | 'register' | 'submit' | 'filled' | 'transparent' |
+    type:   'login' | 'register' | 'submit' | 
+            'filled' | 'transparent' |
             'filledNoColor' | 'transparentNoColor' |
             'transparentDisabled',
     iconType?: 'add' | 'minus' | 'more',
@@ -44,8 +45,12 @@ const Button = (props: ButtonProps) => {
             )
         default:
             props.iconType ? buttonStyle += ' buttons__hasIcon' : null;
+            function handleCLick(Event: React.MouseEvent<HTMLButtonElement>) {
+                Event.preventDefault();
+                props.onClick()
+            }
             return (
-                <button id={props.id} className={buttonStyle} onClick={props.onClick}>
+                <button id={props.id} className={buttonStyle} onClick={handleCLick}>
                     {
                         props.iconType &&
                         <ButtonIcon type={props.iconType}/>
@@ -54,7 +59,6 @@ const Button = (props: ButtonProps) => {
                 </button>
             )
     }
-
 }
 
 export default Button;

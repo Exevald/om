@@ -31,12 +31,8 @@ const ButtonList = () => {
         <div className="groups__groupHeader__buttons">
             {
                 value.state === GroupsListState.default &&
-                <>
                     <Button type={"transparent"} iconType="more" data={"Редактировать"}
                             onClick={() => value.setState(GroupsListState.edit)}/>
-                    <Button type={"filled"} data={"К журналу"}/>
-
-                </>
             }{
                 value.state === GroupsListState.edit &&
                 <>
@@ -55,7 +51,7 @@ const ButtonList = () => {
                 value.state === GroupsListState.delete &&
                 <>
                     <Button type={"transparent"} iconType="minus" data={"Удалить"} onClick={
-                        () => removeGroups(value.teacherId, value.groups, value.setGroups, value.setState)
+                        () => removeGroups(value.teacherId, value.groups, value.setState)
                     }/>
                     <Button type={"transparent"} data={"Отмена"}
                             onClick={() => value.setState(GroupsListState.default)}/>
@@ -92,7 +88,8 @@ const Groups = () => {
                         onClick={
                             () => {
                                 if (context.state === GroupsListState.default) {
-                                    window.location.href = getEditGroupPageUrl().replace("GROUP_ID", getEncryptedText(context.groups[i].id))
+                                    window.location.href = getEditGroupPageUrl()
+                                        .replace("GROUP_ID", getEncryptedText(context.groups[i].id))
                                 }
                             }
                         }
@@ -115,11 +112,17 @@ const Groups = () => {
 
         }
     }
+    function hadnleKeyDown(Event: React.KeyboardEvent<HTMLDivElement>) {
+        if(Event.key === 'Enter') {
+            Event.preventDefault()
+            saveAllChanges (
+                context.setState, context.groups, context.setGroups, 
+                context.activeGroupId, context.setActiveGroupId
+            )
+        }
+    }
     return (
-        <div className="groups__groupArea" onKeyDown={
-            (e) => e.key === 'Enter' && saveAllChanges(
-                context.setState, context.groups, context.setGroups, context.activeGroupId, context.setActiveGroupId
-            )}>
+        <div className="groups__groupArea" onKeyDown={hadnleKeyDown}>
             {
                 context.state === GroupsListState.delete &&
                 <div className="groups__checkboxArea">{checkboxes}</div>
