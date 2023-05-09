@@ -239,14 +239,16 @@ class Api implements ApiInterface
     public function changeGroupTitle(string $token, int $groupId, string $title): void
     {
         $groupRepository = new GroupRepository($this->doctrine);
-        $handler = new AuthorizedChangeGroupTitleCommandHandler($this->authorizer, $groupRepository);
+        $studentRepository = new StudentRepository($this->doctrine);
+        $handler = new AuthorizedChangeGroupTitleCommandHandler($this->authorizer, $groupRepository, $studentRepository);
         $handler->handle(new AuthorizedChangeGroupTitleCommand($token, $groupId, $title));
     }
 
     public function changeGroupSubject(string $token, int $groupId, string $subject): void
     {
         $groupRepository = new GroupRepository($this->doctrine);
-        $handler = new AuthorizedChangeGroupSubjectCommandHandler($this->authorizer, $groupRepository);
+        $studentRepository = new StudentRepository($this->doctrine);
+        $handler = new AuthorizedChangeGroupSubjectCommandHandler($this->authorizer, $groupRepository, $studentRepository);
         $handler->handle(new AuthorizedChangeGroupSubjectCommand($token, $groupId, $subject));
     }
 

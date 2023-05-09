@@ -112,7 +112,7 @@ const Groups = () => {
 
         }
     }
-    function hadnleKeyDown(Event: React.KeyboardEvent<HTMLDivElement>) {
+    function handleKeyDown(Event: React.KeyboardEvent<HTMLDivElement>) {
         if(Event.key === 'Enter') {
             Event.preventDefault()
             saveAllChanges (
@@ -122,7 +122,7 @@ const Groups = () => {
         }
     }
     return (
-        <div className="groups__groupArea" onKeyDown={hadnleKeyDown}>
+        <div className="groups__groupArea" onKeyDown={handleKeyDown}>
             {
                 context.state === GroupsListState.delete &&
                 <div className="groups__checkboxArea">{checkboxes}</div>

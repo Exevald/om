@@ -1,7 +1,13 @@
 import React from "react";
 import {Group, Student} from "../../../utility/types";
 import {DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME} from "../../../utility/utilities";
-import {changeGroupSubject, changeGroupTitle, createStudent, deleteStudents} from "../../../api/requests";
+import {
+    changeGroupSubject,
+    changeGroupTitle,
+    changeStudentName,
+    createStudent,
+    deleteStudents
+} from "../../../api/requests";
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
 import {getEncryptedText} from "../../../utility/scrambler";
 import {studentDataType} from "./getStudentData";
@@ -32,15 +38,19 @@ function addStudent(
 
 
 function setStudentById(
+    groupId: string,
     students: Array<Student>,
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
     id: number,
     setActiveStudentId: React.Dispatch<React.SetStateAction<number>>
 ) {
     let newStudents = students;
-    const studentSurname = document.getElementById('surname' + id) as HTMLInputElement;
-    const studentName = document.getElementById('name' + id) as HTMLInputElement;
-    // newStudents[id] = {id: '1', lastName: studentSurname.value, firstName: studentName.value};
+    let studentIdForEdit = String(students[id].id)
+    const studentLastNameInput = document.getElementById('surname' + id) as HTMLInputElement;
+    const studentFirstNameInput = document.getElementById('name' + id) as HTMLInputElement;
+    changeStudentName(studentIdForEdit, studentFirstNameInput.value, studentLastNameInput.value).then(
+        () => window.location.href = getEditGroupPageUrl().replace("GROUP_ID", getEncryptedText(groupId))
+    )
     setActiveStudentId(-1);
     setStudents(newStudents);
 }
@@ -91,7 +101,7 @@ function saveAllChanges(
 ) {
     saveGroupChanges(groupId, setState);
     if (activeStudentId !== -1) {
-        setStudentById(students, setStudents, activeStudentId, setActiveStudentId)
+        setStudentById(groupId, students, setStudents, activeStudentId, setActiveStudentId)
     }
 }
 
