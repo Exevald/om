@@ -7,6 +7,7 @@ type Group = {
 }
 
 type Student = {
+    id: string,
     firstName: string,
     lastName: string
 }

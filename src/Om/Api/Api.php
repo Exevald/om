@@ -296,7 +296,8 @@ class Api implements ApiInterface
     public function deleteStudentsFromGroup(string $token, int $groupId, array $studentsIdList): void
     {
         $groupRepository = new GroupRepository($this->doctrine);
-        $handler = new AuthorizedDeleteStudentsFromGroupCommandHandler($this->authorizer, $groupRepository);
+        $studentRepository = new StudentRepository($this->doctrine);
+        $handler = new AuthorizedDeleteStudentsFromGroupCommandHandler($this->authorizer, $groupRepository, $studentRepository);
         $handler->handle(new AuthorizedDeleteStudentsFromGroupCommand($token, $groupId, $studentsIdList));
     }
 

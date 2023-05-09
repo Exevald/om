@@ -34,6 +34,40 @@ class StudentController extends AbstractController
         return new Response();
     }
 
+    public function changeStudentNameApi(Request $request): Response
+    {
+        $token = $request->cookies->get("token");
+        if (empty($token)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $body = json_decode($request->getContent(), true);
+        $studentId = $body["studentId"];
+        $firstName = $body["firstName"];
+        $lastName = $body["lastName"];
+        if (empty($studentId) || empty($firstName) || empty($lastName)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $this->api->changeStudentName($token, $studentId, $firstName, $lastName);
+        return new Response();
+    }
+
+    public function deleteStudentsApi(Request $request): Response
+    {
+        var_dump("here delete");
+        $token = $request->cookies->get("token");
+        if (empty($token)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $body = json_decode($request->getContent(), true);
+        $groupId = $body["groupId"];
+        $studentsIdList = $body["studentsIdList"];
+        if (empty($groupId) || empty($studentsIdList)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $this->api->deleteStudentsFromGroup($token, $groupId, $studentsIdList);
+        return new Response();
+    }
+
     public function getStudentDataByIdApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
@@ -46,7 +80,7 @@ class StudentController extends AbstractController
         }
         $student = $this->api->getStudentById($studentId);
         $responseContent = [
-            // 'studentId' => $student->getId(),
+            'studentId' => $student->getId(),
             'firstName' => $student->getFirstName(),
             'lastName' => $student->getLastName()
         ];

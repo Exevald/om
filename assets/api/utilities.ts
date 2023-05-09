@@ -24,11 +24,13 @@ const deleteGroupsUrl = '/api/v1/group/delete'
 const changeGroupTitleUrl = '/api/v1/group/title/change'
 const changeGroupSubjectUrl = '/api/v1/group/subject/change'
 const getGroupDataByIdUrl = '/api/v1/group/GROUP_ID'
-const getStudentDataByIdUrl = '/api/v1/student/STUDENT_ID'
+const changeStudentNameUrl = '/api/v1/student/name/change'
+const deleteStudentsUrl = '/api/v1/student/delete'
 
 export {
     titleUrl, loginUrl, onboardingUrl, groupsListUrl, editGroupUrl,
     groupsListUrlApi, groupEditUrlApi,
     authorizeUrl, createTeacherUrl, createGroupUrl, createStudentUrl, deleteGroupsUrl,
-    changeGroupTitleUrl, changeGroupSubjectUrl, getGroupDataByIdUrl, getStudentDataByIdUrl
+    changeGroupTitleUrl, changeGroupSubjectUrl, getGroupDataByIdUrl,
+    changeStudentNameUrl, deleteStudentsUrl
 }

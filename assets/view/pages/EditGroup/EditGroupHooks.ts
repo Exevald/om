@@ -1,7 +1,7 @@
 import React from "react";
 import {Group, Student} from "../../../utility/types";
 import {DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME} from "../../../utility/utilities";
-import {changeGroupSubject, changeGroupTitle, createStudent} from "../../../api/requests";
+import {changeGroupSubject, changeGroupTitle, createStudent, deleteStudents} from "../../../api/requests";
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
 import {getEncryptedText} from "../../../utility/scrambler";
 import {studentDataType} from "./getStudentData";
@@ -40,25 +40,28 @@ function setStudentById(
     let newStudents = students;
     const studentSurname = document.getElementById('surname' + id) as HTMLInputElement;
     const studentName = document.getElementById('name' + id) as HTMLInputElement;
-    newStudents[id] = {lastName: studentSurname.value, firstName: studentName.value};
+    // newStudents[id] = {id: '1', lastName: studentSurname.value, firstName: studentName.value};
     setActiveStudentId(-1);
     setStudents(newStudents);
 }
 
 
-function deleteStudents(
+function removeStudents(
+    groupId: string,
     students: Array<Student>,
-    setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
     setState: React.Dispatch<React.SetStateAction<GroupState>>
 ) {
-    let newStudents = [];
+    let studentsForDelete: Array<Student> = [];
     for (let i = 0; i < students.length; i++) {
         const checkbox = document.getElementById('checkbox' + i) as HTMLInputElement;
-        if (!checkbox.checked) {
-            newStudents.push(students[i])
+        if (checkbox.checked) {
+            studentsForDelete.push(students[i])
         }
     }
-    setStudents(newStudents);
+    let studentsIdsForDelete = studentsForDelete.map(student => student.id)
+    deleteStudents(groupId, studentsIdsForDelete).then(
+        () => window.location.href = getEditGroupPageUrl().replace("GROUP_ID", getEncryptedText(groupId))
+    )
     setState(GroupState.default);
 }
 
@@ -95,7 +98,7 @@ function saveAllChanges(
 
 export {
     GroupContext, UserContext, GroupState,
-    addStudent, setStudentById, deleteStudents,
+    addStudent, setStudentById, removeStudents,
     saveGroupChanges,
     saveAllChanges
 }

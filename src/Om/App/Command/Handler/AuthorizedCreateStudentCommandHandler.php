@@ -23,7 +23,7 @@ class AuthorizedCreateStudentCommandHandler
     {
         $this->authorizer = $authorizer;
         $this->studentService = new StudentService($studentRepository);
-        $this->groupService = new GroupService($groupRepository);
+        $this->groupService = new GroupService($groupRepository, $studentRepository);
     }
 
     public function handle(AuthorizedCreateStudentCommand $command): int

@@ -1,16 +1,16 @@
-import {fetchGetRequest, fetchPostRequest} from "../utility/fetchRequest";
+import {fetchPostRequest} from "../utility/fetchRequest";
 import {responseStatus} from "../utility/responseStatus";
 import {getEncryptedText} from "../utility/scrambler";
 import {teacherDataType} from "../view/pages/Authentication/getTeacherData";
 import {studentDataType} from "../view/pages/EditGroup/getStudentData";
 import {groupDataType} from "../view/pages/GroupsList/getGroupData";
-import { 
-    authorizeUrl, changeGroupSubjectUrl, changeGroupTitleUrl, createGroupUrl, 
-    createStudentUrl, createTeacherUrl, deleteGroupsUrl 
+import {
+    authorizeUrl, changeGroupSubjectUrl, changeGroupTitleUrl, changeStudentNameUrl, createGroupUrl,
+    createStudentUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl
 } from "./utilities";
 
 
-function login (email: string, password: string) {
+function login(email: string, password: string) {
     return fetchPostRequest(
         authorizeUrl,
         {
@@ -83,8 +83,8 @@ function deleteGroups(groupIdList: Array<string>, teacherId: string) {
     return fetchPostRequest(
         deleteGroupsUrl,
         {
-            groupIdList: groupIdList.map(id => parseInt(id)),
-            teacherId: parseInt(teacherId)
+            groupIdList: groupIdList.map(id => parseInt(id, 10)),
+            teacherId: parseInt(teacherId, 10)
         }
     ).then(
         response => {
@@ -116,6 +116,34 @@ function changeGroupSubject(groupId: string, subject: string) {
     )
 }
 
+function changeStudentName(studentId: string, firstName: string, lastName: string) {
+    return fetchPostRequest(
+        changeStudentNameUrl,
+        {
+            studentId: parseInt(studentId, 10),
+            firstName: firstName,
+            lastName: lastName
+        }
+    )
+}
+
+function deleteStudents(groupId: string, studentsIdList: Array<string>) {
+    return fetchPostRequest(
+        deleteStudentsUrl,
+        {
+            groupId: parseInt(groupId, 10),
+            studentsIdList: studentsIdList.map(id => parseInt(id, 10))
+        }
+    ).then(
+        response => {
+            if (!response.ok || response.status === 409) {
+                throw new Error();
+            }
+            return response;
+        }
+    )
+}
+
 export {
     login,
     createTeacher,
@@ -123,5 +151,7 @@ export {
     createGroup,
     deleteGroups,
     changeGroupTitle,
-    changeGroupSubject
+    changeGroupSubject,
+    changeStudentName,
+    deleteStudents
 }

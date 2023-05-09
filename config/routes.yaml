@@ -68,6 +68,10 @@ createStudentApi:
     path: /api/v1/student/create
     controller: App\Controller\StudentController::createStudentApi
 
-getStudentDataByIdApi:
-    path: /api/v1/student/{studentId}
-    controller: App\Controller\StudentController::getStudentDataByIdApi
+changeStudentNameApi:
+    path: /api/v1/student/name/change
+    controller: App\Controller\StudentController::changeStudentNameApi
+
+deleteStudentsApi:
+    path: /api/v1/student/delete
+    controller: App\Controller\StudentController::deleteStudentsApi
