@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 class GroupController extends AbstractController
 {
     public function __construct(
@@ -84,6 +87,9 @@ class GroupController extends AbstractController
 
     public function getGroupDataByIdApi(Request $request): Response
     {
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer([$normalizer]);
+
         $token = $request->cookies->get("token");
         if (empty($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
@@ -97,11 +103,15 @@ class GroupController extends AbstractController
             'groupId' => $group->getId(),
             'groupTitle' => $group->getTitle(),
             'groupSubject' => $group->getSubject(),
-            'studentsIdList' => $group->getStudentsIdList(),
+            'studentsIdList' => $serializer->normalize($group->getStudentsIdList()),
             'tasksIdList' => $group->getTasksIdList()
         ];
 
-        return new Response(json_encode($responseContent));
+        $response = new Response;
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setContent(json_encode($responseContent));
+
+        return $response;
     }
 
 }

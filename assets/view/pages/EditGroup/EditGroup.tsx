@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./EditGroup.scss";
 
 
@@ -11,6 +11,7 @@ import { createRoot } from "react-dom/client";
 import { fetchGetRequest } from "../../../utility/fetchRequest";
 import { getGroupDataByIdUrl, getStudentDataByIdUrl, groupEditUrlApi } from "../../../api/utilities";
 import { getDecryptedText } from "../../../utility/scrambler";
+import { getGroupsListPageUrl } from "../../../api/pageUrls";
 
 const GroupContext = React.createContext(null);
 
@@ -29,48 +30,47 @@ interface EditGroupPageProps {
 }
 
 const ButtonList = () => {
+    const value = useContext(GroupContext);
     return (
         <div className="editGroup__groupHeader__buttons">
-            <GroupContext.Consumer>
+        {
+            value.state === GroupState.default &&
+            <>
+                <Button type="filled" data="К гпуппам" onClick={() =>
+                    window.location.href = getGroupsListPageUrl()
+                }/>
+                <Button type="transparent" iconType="more" data="Изменить" onClick={
+                    () => value.setState(GroupState.edit)} />
                 {
-                    value =>
-                        <>{
-                            value.state === GroupState.default &&
-                            <>
-                                <Button type="transparent" iconType="more" data="Изменить" onClick={
-                                    () => value.setState(GroupState.edit)} />
-                                {
-                                    value.students.length !== 0 ?
-                                        <Button type="filled" data="К журналу" />
-                                        :
-                                        <Button type="transparentDisabled" data="К журналу" />
-                                }
-                            </>
-                        }{
-                                value.state === GroupState.edit &&
-                                <>
-                                    <Button type="transparent" iconType="add" data="Добавить ученика" onClick={
-                                        () => addStudent(value.groupId)} />
-                                    <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
-                                        () => value.setState(GroupState.delete)} />
-                                    <Button type="filled" data="Сохранить" onClick={
-                                        () => {
-                                            saveAllChanges(value.groupId, value.setState, value.students, value.setStudents,
-                                                value.activeStudentId, value.setActiveStudentId
-                                            )
-                                        }} />
-                                </>
-                            }{
-                                value.state === GroupState.delete &&
-                                <>
-                                    <Button type="transparent" iconType="minus" data="Удалить" onClick={
-                                        () => deleteStudents(value.students, value.setStudents, value.setState)} />
-                                    <Button type="transparent" data="Отмена" onClick={
-                                        () => value.setState(GroupState.default)} />
-                                </>
-                            }</>
+                    value.students.length !== 0 ?
+                        <Button type="filled" data="К журналу" />
+                        :
+                        <Button type="transparentDisabled" data="К журналу" />
                 }
-            </GroupContext.Consumer>
+            </>
+        }{
+                value.state === GroupState.edit &&
+                <>
+                    <Button type="transparent" iconType="add" data="Добавить ученика" onClick={
+                        () => addStudent(value.groupId)} />
+                    <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
+                        () => value.setState(GroupState.delete)} />
+                    <Button type="filled" data="Сохранить" onClick={
+                        () => {
+                            saveAllChanges(value.groupId, value.setState, value.students, value.setStudents,
+                                value.activeStudentId, value.setActiveStudentId
+                            )
+                        }} />
+                </>
+            }{
+                value.state === GroupState.delete &&
+                <>
+                    <Button type="transparent" iconType="minus" data="Удалить" onClick={
+                        () => deleteStudents(value.students, value.setStudents, value.setState)} />
+                    <Button type="transparent" data="Отмена" onClick={
+                        () => value.setState(GroupState.default)} />
+                </>
+            }
         </div>
     )
 }
@@ -142,7 +142,6 @@ const Students = (props: StudentsProps) => {
     let students: Array<JSX.Element> = [], checkboxes: Array<JSX.Element> = [];
     if (props.students.length > 0) {
         for (let i = 0; i < props.students.length; i++) {
-            console.log("fewfwefewf", props.students[i])
             if (i != props.activeStudentId) {
                 students.push(
                     <li key={'student' + i} className="editGroup__student"
@@ -236,7 +235,7 @@ const EditGroupPage = (props: EditGroupPageProps) => {
                 id={props.group.id}
                 name={props.group.name}
                 subject={props.group.subject}
-                studentsList={[]}
+                studentsList={props.group.studentsList}
                 tasksIdList={props.group.tasksIdLIst}
             />
         </div>
@@ -250,7 +249,6 @@ function renderEditGroupPage() {
     const groupId = getDecryptedText(loc.replace("?groupId=", ""))
     fetchGetRequest(groupEditUrlApi)
         .then(pageResponse => {
-            console.log(pageResponse)
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
                 root.render(
                     <EditGroupPage
@@ -262,7 +260,7 @@ function renderEditGroupPage() {
                                 id: groupId,
                                 name: groupResponse.groupTitle,
                                 subject: groupResponse.groupSubject,
-                                studentsList: [],
+                                studentsList: groupResponse.studentsIdList,
                                 tasksIdLIst: groupResponse.tasksIdList
                             }
                         }
