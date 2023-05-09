@@ -76,12 +76,12 @@ const data = {
         subject: 'Физика'
     },
     students: [
-        {surname: 'Шиханова',       name: 'Дарья'},
-        {surname: 'Викторов',       name: 'Роберт'},
-        {surname: 'Баянова',        name: 'Наталия'},
-        {surname: 'Грустный',       name: 'Павел'},
-        {surname: 'Зелепупкович',   name: 'Афанасий'},
-        {surname: 'Апполинарьев',   name: 'Владлен'},
+        {lastName: 'Шиханова',       firstName: 'Дарья'},
+        {lastName: 'Викторов',       firstName: 'Роберт'},
+        {lastName: 'Баянова',        firstName: 'Наталия'},
+        {lastName: 'Грустный',       firstName: 'Павел'},
+        {lastName: 'Зелепупкович',   firstName: 'Афанасий'},
+        {lastName: 'Апполинарьев',   firstName: 'Владлен'},
     ]
 }
 

@@ -7,8 +7,8 @@ type Group = {
 }
 
 type Student = {
-    name: string,
-    surname: string
+    firstName: string,
+    lastName: string
 }
 type Mark = {
     id: number,

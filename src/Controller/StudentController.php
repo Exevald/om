@@ -34,4 +34,26 @@ class StudentController extends AbstractController
         return new Response();
     }
 
+    public function getStudentDataByIdApi(Request $request): Response
+    {
+        $token = $request->cookies->get("token");
+        if (empty($token)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $studentId = $request->attributes->get("studentId");
+        if (empty($studentId)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $student = $this->api->getStudentById($studentId);
+        $responseContent = [
+            // 'studentId' => $student->getId(),
+            'firstName' => $student->getFirstName(),
+            'lastName' => $student->getLastName()
+        ];
+        $response = new Response;
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setContent(json_encode($responseContent));
+        return $response;
+    }
+
 }

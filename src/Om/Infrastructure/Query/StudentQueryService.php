@@ -31,6 +31,7 @@ class StudentQueryService extends ServiceEntityRepository implements StudentQuer
             throw new Exception('', ErrorType::NOT_FOUND->value);
         }
         $hydrator = new Hydrator();
+        $ORMStudent = $ORMStudent[0];
         return $hydrator->hydrate(Student::class, [
             'id' => $ORMStudent->getId(),
             'firstName' => $ORMStudent->getFirstName(),

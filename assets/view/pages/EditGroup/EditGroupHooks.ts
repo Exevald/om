@@ -41,7 +41,7 @@ function setStudentById(
     let newStudents = students;
     const studentSurname = document.getElementById('surname' + id) as HTMLInputElement;
     const studentName = document.getElementById('name' + id) as HTMLInputElement;
-    newStudents[id] = {surname: studentSurname.value, name: studentName.value};
+    newStudents[id] = {lastName: studentSurname.value, firstName: studentName.value};
     setActiveStudentId(-1);
     setStudents(newStudents);
 }
