@@ -47,7 +47,9 @@ const Button = (props: ButtonProps) => {
             props.iconType ? buttonStyle += ' buttons__hasIcon' : null;
             function handleCLick(Event: React.MouseEvent<HTMLButtonElement>) {
                 Event.preventDefault();
-                props.onClick()
+                if(props.onClick) {
+                    props.onClick()
+                }
             }
             return (
                 <button id={props.id} className={buttonStyle} onClick={handleCLick}>
