@@ -77,42 +77,38 @@ const ButtonList = () => {
 
 
 const GroupHeader = () => {
+    const value = useContext(GroupContext);
     return (
-        <GroupContext.Consumer>
-            {
-                value =>
-                    <>{
-                        value.state === GroupState.default &&
-                        <>
-                            <div className="editGroup__groupHeader">
-                                <h1 className="editGroup__group">{value.group.name}</h1>
-                                <h2 className="editGroup__subject">{value.group.subject} </h2>
-                            </div>
-                            <ButtonList />
-                        </>
-                    }{
-                            value.state === GroupState.edit &&
-                            <>
-                                <div className="editGroup__groupHeader" onKeyDown={
-                                    (e) => e.key === 'Enter' ? saveGroupChanges(value.groupId, value.setState) : null
-                                }>
-                                    <InputArea id="group" type="group" value={value.group.name} widthChangeable />
-                                    <InputArea id="subject" type="subject" value={value.group.subject} widthChangeable />
-                                </div>
-                                <ButtonList />
-                            </>
-                        }{
-                            value.state === GroupState.delete &&
-                            <>
-                                <div className="editGroup__groupHeader">
-                                    <h1 className="editGroup__group">{value.group.name}</h1>
-                                    <h2 className="editGroup__subject">{value.group.subject} </h2>
-                                </div>
-                                <ButtonList />
-                            </>
-                        }</>
-            }
-        </GroupContext.Consumer>
+        <>{
+            value.state === GroupState.default &&
+            <>
+                <div className="editGroup__groupHeader">
+                    <h1 className="editGroup__group">{value.group.name}</h1>
+                    <h2 className="editGroup__subject">{value.group.subject} </h2>
+                </div>
+                <ButtonList/>
+            </>
+        }{
+                value.state === GroupState.edit &&
+                <>
+                    <div className="editGroup__groupHeader" onKeyDown={
+                        (e) => e.key === 'Enter' ? saveGroupChanges(value.groupId, value.setState) : null
+                    }>
+                        <InputArea id="group" type="group" value={value.group.name} widthChangeable />
+                        <InputArea id="subject" type="subject" value={value.group.subject} widthChangeable />
+                    </div>
+                    <ButtonList/>
+                </>
+            }{
+                value.state === GroupState.delete &&
+                <>
+                    <div className="editGroup__groupHeader">
+                        <h1 className="editGroup__group">{value.group.name}</h1>
+                        <h2 className="editGroup__subject">{value.group.subject} </h2>
+                    </div>
+                    <ButtonList/>
+                </>
+            }</>
     )
 }
 
@@ -251,20 +247,22 @@ function renderEditGroupPage() {
         .then(pageResponse => {
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
                 root.render(
-                    <EditGroupPage
-                        teacherId={pageResponse.teacherId}
-                        userFirstName={pageResponse.userFirstName}
-                        userLastName={pageResponse.userLastName}
-                        group={
-                            {
-                                id: groupId,
-                                name: groupResponse.groupTitle,
-                                subject: groupResponse.groupSubject,
-                                studentsList: groupResponse.studentsIdList,
-                                tasksIdLIst: groupResponse.tasksIdList
+                    <React.StrictMode>
+                        <EditGroupPage
+                            teacherId={pageResponse.teacherId}
+                            userFirstName={pageResponse.userFirstName}
+                            userLastName={pageResponse.userLastName}
+                            group={
+                                {
+                                    id: groupId,
+                                    name: groupResponse.groupTitle,
+                                    subject: groupResponse.groupSubject,
+                                    studentsList: groupResponse.studentsIdList,
+                                    tasksIdLIst: groupResponse.tasksIdList
+                                }
                             }
-                        }
-                    />
+                        />
+                    </React.StrictMode>
                 )
             })
         }
