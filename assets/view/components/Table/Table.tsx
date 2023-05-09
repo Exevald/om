@@ -33,7 +33,7 @@ const TableRow = (props: TableRowProps) => {
     return (
         <tr>
             <td>
-                {props.student.name} {props.student.surname}
+                {props.student.firstName} {props.student.lastName}
             </td>
             {marks}
         </tr>
@@ -67,12 +67,12 @@ const response = {
         subject: 'Физика'
     },
     students: [
-        {id: 0, surname: 'Шиханова',       name: 'Дарья'},
-        {id: 1, surname: 'Викторов',       name: 'Роберт'},
-        {id: 2, surname: 'Баянова',        name: 'Наталия'},
-        {id: 3, surname: 'Грустный',       name: 'Павел'},
-        {id: 4, surname: 'Зелепупкович',   name: 'Афанасий'},
-        {id: 5, surname: 'Апполинарьев',   name: 'Владлен'},
+        {id: 0, lastName: 'Шиханова',       firstName: 'Дарья'},
+        {id: 1, lastName: 'Викторов',       firstName: 'Роберт'},
+        {id: 2, lastName: 'Баянова',        firstName: 'Наталия'},
+        {id: 3, lastName: 'Грустный',       firstName: 'Павел'},
+        {id: 4, lastName: 'Зелепупкович',   firstName: 'Афанасий'},
+        {id: 5, lastName: 'Апполинарьев',   firstName: 'Владлен'},
     ],
     marks: [
         {id: 0, studentId: 2, studentMark: 5},
