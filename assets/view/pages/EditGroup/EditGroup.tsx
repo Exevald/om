@@ -9,9 +9,9 @@ import {addStudent, removeStudents, saveAllChanges, saveGroupChanges} from "./Ed
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
-import {getGroupDataByIdUrl, groupEditUrlApi, marksTableUrl} from "../../../api/utilities";
-import {getDecryptedText} from "../../../utility/scrambler";
-import {getGroupsListPageUrl} from "../../../api/pageUrls";
+import {getGroupDataByIdUrl, groupEditUrlApi} from "../../../api/utilities";
+import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
+import {getGroupsListPageUrl, getMarksTablePageUrl} from "../../../api/pageUrls";
 
 const GroupContext = React.createContext(null);
 
@@ -44,7 +44,7 @@ const ButtonList = () => {
                     {
                         value.students.length !== 0 ?
                             <Button type="filled" data="К журналу" onClick={() => 
-                                window.location.href = marksTableUrl
+                                window.location.href = getMarksTablePageUrl().replace("GROUP_ID", getEncryptedText(value.groupId))
                             }/>
                             :
                             <Button type="transparentDisabled" data="К журналу"/>

@@ -29,7 +29,7 @@ switch (loc) {
         break
     }
     case  "/table": {
-        renderMarksTable("marksTablePage")
+        renderMarksTable()
         break
     }
     default: {

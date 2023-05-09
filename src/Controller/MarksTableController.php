@@ -15,7 +15,12 @@ class MarksTableController extends AbstractController
     {
     }
 
-    public function marksTablePage(Request $request): Response
+    public function marksTablePage(): Response
+    {
+        return $this->render('default.html.twig');
+    }
+
+    public function getMarksTablePageApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
         if (empty($token))

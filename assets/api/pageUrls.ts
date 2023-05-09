@@ -1,4 +1,4 @@
-import { titleUrl, loginUrl, onboardingUrl, groupsListUrl, editGroupUrl } from "./utilities"
+import {titleUrl, loginUrl, onboardingUrl, groupsListUrl, editGroupUrl, marksTableUrl} from "./utilities"
 
 
 
@@ -22,10 +22,15 @@ const getEditGroupPageUrl = () => {
     return editGroupUrl
 }
 
+const getMarksTablePageUrl = () => {
+    return marksTableUrl
+}
+
 export {
     getTitlePageUrl,
     getLoginPageUrl,
     getOnboardingPageUrl,
     getGroupsListPageUrl,
-    getEditGroupPageUrl
+    getEditGroupPageUrl,
+    getMarksTablePageUrl
 }

@@ -6,6 +6,10 @@ import Header from "../../components/Header/Header";
 import Table from "../../components/Table/Table";
 import Button from "../../components/Button/Button";
 import {createRoot} from "react-dom/client";
+import {Group} from "../../../utility/types";
+import {getDecryptedText} from "../../../utility/scrambler";
+import {fetchGetRequest} from "../../../utility/fetchRequest";
+import {getGroupDataByIdUrl, groupEditUrlApi} from "../../../api/utilities";
 
 const TableContext = React.createContext(null);
 
@@ -100,13 +104,18 @@ const GroupTable = () => {
     )
 }
 
-// заглушка для пользователя
-const user = {
-    shortName: 'Рамазанова З.Т.',
-    imgUrl: ''
+interface MarksTableProps {
+    teacherId: string,
+    userFirstName: string,
+    userLastName: string,
+    group: Group
 }
 
-const MarksTable = () => {
+const MarksTable = (props: MarksTableProps) => {
+    const user = {
+        shortName: props.userLastName + " " + props.userFirstName[0] + ".",
+        imgUrl: ''
+    }
     return (
         <div className="marksTable__wrapper">
             <Header title="Журнал" userData={user}/>
@@ -115,15 +124,25 @@ const MarksTable = () => {
     )
 }
 
-const renderMarksTable = (rootId: string) => {
-    const rootElement = document.getElementById(rootId)
-    const root = createRoot(rootElement)
-
-    root.render(
-        <React.StrictMode>
-            <MarksTable/>
-        </React.StrictMode>
-    )
+const renderMarksTable = () => {
+    const root = createRoot(document.getElementById('root'))
+    const loc = location.search
+    const groupId = getDecryptedText(loc.replace("?groupId=", ""))
+    fetchGetRequest(groupEditUrlApi).then(pageResponse => {
+        fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
+            root.render(
+                <React.StrictMode>
+                    <MarksTable teacherId={pageResponse.teacherId} userFirstName={pageResponse.userFirstName} userLastName={pageResponse.userLastName} group={{
+                        id: groupId,
+                        name: groupResponse.groupTitle,
+                        subject: groupResponse.groupSubject,
+                        studentsList: groupResponse.studentsIdList,
+                        tasksIdLIst: groupResponse.tasksIdList
+                    }}/>
+                </React.StrictMode>
+            )
+        })
+    })
 }
 
 export {renderMarksTable}
