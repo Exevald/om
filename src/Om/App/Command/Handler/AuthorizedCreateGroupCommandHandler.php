@@ -7,6 +7,7 @@ use App\Om\App\Command\AuthorizedCreateGroupCommand;
 use App\Om\Domain\Service\GroupService;
 use App\Om\Domain\Service\TeacherService;
 use App\Om\Infrastructure\Repositories\Repository\GroupRepository;
+use App\Om\Infrastructure\Repositories\Repository\StudentRepository;
 use App\Om\Infrastructure\Repositories\Repository\TeacherRepository;
 
 class AuthorizedCreateGroupCommandHandler
@@ -17,12 +18,13 @@ class AuthorizedCreateGroupCommandHandler
 
     public function __construct(
         AuthorizerInterface $authorizer,
-        GroupRepository $groupRepository,
-        TeacherRepository $teacherRepository
+        GroupRepository     $groupRepository,
+        TeacherRepository   $teacherRepository,
+        StudentRepository   $studentRepository
     )
     {
         $this->authorizer = $authorizer;
-        $this->groupService = new GroupService($groupRepository);
+        $this->groupService = new GroupService($groupRepository, $studentRepository);
         $this->teacherService = new TeacherService($teacherRepository);
     }
 
