@@ -6,6 +6,7 @@ const loginUrl = '/login?path=PATH'
 const onboardingUrl = '/onboarding'
 const groupsListUrl = '/groups/list'
 const editGroupUrl = '/groups/edit?groupId=GROUP_ID'
+const marksTableUrl = '/table'
 
 /**
  * Page data API routes
@@ -32,5 +33,6 @@ export {
     groupsListUrlApi, groupEditUrlApi,
     authorizeUrl, createTeacherUrl, createGroupUrl, createStudentUrl, deleteGroupsUrl,
     changeGroupTitleUrl, changeGroupSubjectUrl, getGroupDataByIdUrl,
-    changeStudentNameUrl, deleteStudentsUrl
+    changeStudentNameUrl, deleteStudentsUrl,
+    marksTableUrl
 }
