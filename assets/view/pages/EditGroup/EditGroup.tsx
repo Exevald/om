@@ -36,7 +36,7 @@ const ButtonList = () => {
         {
             value.state === GroupState.default &&
             <>
-                <Button type="filled" data="К гпуппам" onClick={() =>
+                <Button type="filled" data="К группам" onClick={() =>
                     window.location.href = getGroupsListPageUrl()
                 }/>
                 <Button type="transparent" iconType="more" data="Изменить" onClick={
