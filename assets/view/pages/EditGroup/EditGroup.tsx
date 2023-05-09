@@ -9,7 +9,7 @@ import {addStudent, removeStudents, saveAllChanges, saveGroupChanges} from "./Ed
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
-import {getGroupDataByIdUrl, groupEditUrlApi} from "../../../api/utilities";
+import {getGroupDataByIdUrl, groupEditUrlApi, marksTableUrl} from "../../../api/utilities";
 import {getDecryptedText} from "../../../utility/scrambler";
 import {getGroupsListPageUrl} from "../../../api/pageUrls";
 
@@ -43,7 +43,9 @@ const ButtonList = () => {
                         () => value.setState(GroupState.edit)}/>
                     {
                         value.students.length !== 0 ?
-                            <Button type="filled" data="К журналу"/>
+                            <Button type="filled" data="К журналу" onClick={() => 
+                                window.location.href = marksTableUrl
+                            }/>
                             :
                             <Button type="transparentDisabled" data="К журналу"/>
                     }
