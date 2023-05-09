@@ -25,7 +25,6 @@ function addStudent(
         firstName: DEFAULT_STUDENT_NAME,
         lastName: DEFAULT_STUDENT_SURNAME
     }
-    alert(studentData)
     createStudent(studentData).then(
         () => window.location.href = getEditGroupPageUrl().replace("GROUP_ID", getEncryptedText(groupId))
     )
