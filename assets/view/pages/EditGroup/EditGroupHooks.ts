@@ -1,5 +1,5 @@
 import React from "react";
-import {Group, Student} from "../../../utility/types";
+import {Group, GroupFrontData, Student} from "../../../utility/types";
 import {DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME} from "../../../utility/utilities";
 import {
     changeGroupSubject,
@@ -11,6 +11,8 @@ import {
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
 import {getEncryptedText} from "../../../utility/scrambler";
 import {studentDataType} from "./getStudentData";
+import { fetchGetRequest } from "../../../utility/fetchRequest";
+import {changeGroupSubjectUrl, getGroupDataByIdUrl} from "../../../api/utilities";
 
 
 const GroupContext = React.createContext(null);
@@ -78,28 +80,42 @@ function removeStudents(
 
 function saveGroupChanges(
     groupId: string,
+    setGroup: React.Dispatch<React.SetStateAction<GroupFrontData>>,
     setState: React.Dispatch<React.SetStateAction<GroupState>>,
 ) {
     const groupNameInput = document.getElementById('group') as HTMLInputElement;
     const groupSubjectInput = document.getElementById('subject') as HTMLInputElement;
-    changeGroupTitle(groupId, groupNameInput.value).then(
-        () => window.location.href = getEditGroupPageUrl().replace("GROUP_ID", getEncryptedText(groupId))
-    )
-    changeGroupSubject(groupId, groupSubjectInput.value).then(
-        () => window.location.href = getEditGroupPageUrl().replace("GROUP_ID", getEncryptedText(groupId))
-    )
-    setState(GroupState.default);
+
+    changeGroupTitle(groupId, groupNameInput.value)
+        .then(() => 
+            fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
+                .then(response => 
+                    setGroup({name: response.groupTitle, subject: response.groupSubject})
+                )
+                .catch(err => console.log(err +' from saving group changes'))
+        )
+    changeGroupSubject(groupId, groupSubjectInput.value)
+        .then(() => 
+            fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
+                .then(response => 
+                    setGroup({name: response.groupTitle, subject: response.groupSubject})
+                )
+                .catch(err => console.log(err +' from saving subject changes'))
+            )
+        .finally(() => setState(GroupState.default))
+
 }
 
 function saveAllChanges(
     groupId: string,
+    setGroup: React.Dispatch<React.SetStateAction<GroupFrontData>>,
     setState: React.Dispatch<React.SetStateAction<GroupState>>,
     students: Array<Student>,
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
     activeStudentId: number,
     setActiveStudentId: React.Dispatch<React.SetStateAction<number>>
 ) {
-    saveGroupChanges(groupId, setState);
+    saveGroupChanges(groupId, setGroup, setState);
     if (activeStudentId !== -1) {
         setStudentById(groupId, students, setStudents, activeStudentId, setActiveStudentId)
     }
