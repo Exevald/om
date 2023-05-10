@@ -16,6 +16,7 @@ import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {groupsListUrlApi} from "../../../api/utilities";
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
 import {getEncryptedText} from "../../../utility/scrambler";
+import { Group } from "../../../utility/types";
 
 
 interface GroupsListPageProps {
@@ -37,12 +38,13 @@ const ButtonList = () => {
                 value.state === GroupsListState.edit &&
                 <>
                     <Button type={"transparent"} iconType="add" data={"Добавить группу"} onClick={
-                        () => addGroup(value.teacherId)
+                        () => addGroup(value.teacherId, value.setGroups)
                     }/>
                     <Button type={"transparent"} iconType="minus" data={"Удалить группу"}
                             onClick={() => value.setState(GroupsListState.delete)}/>
                     <Button type={"filled"} data={"Сохранить"}
-                            onClick={() => saveAllChanges(
+                            onClick={() => 
+                                saveAllChanges(
                                 value.setState, value.groups, value.setGroups, 
                                 value.activeGroupId, value.setActiveGroupId
                             )}/>
@@ -51,7 +53,7 @@ const ButtonList = () => {
                 value.state === GroupsListState.delete &&
                 <>
                     <Button type={"transparent"} iconType="minus" data={"Удалить"} onClick={
-                        () => removeGroups(value.teacherId, value.groups, value.setState)
+                        () => removeGroups(value.teacherId, value.groups, value.setState, value.setGroups)
                     }/>
                     <Button type={"transparent"} data={"Отмена"}
                             onClick={() => value.setState(GroupsListState.default)}/>
@@ -112,14 +114,12 @@ const Groups = () => {
 
         }
     }
-    function handleKeyDown(Event: React.KeyboardEvent<HTMLDivElement>) {
-        if(Event.key === 'Enter') {
-            Event.preventDefault()
-            saveAllChanges (
-                context.setState, context.groups, context.setGroups, 
-                context.activeGroupId, context.setActiveGroupId
-            )
-        }
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+        if (e.key === 'Enter')
+        saveAllChanges (
+            context.setState, context.groups, context.setGroups, 
+            context.activeGroupId, context.setActiveGroupId
+        )
     }
     return (
         <div className="groups__groupArea" onKeyDown={handleKeyDown}>
@@ -143,7 +143,7 @@ const GroupsListPage = (props: GroupsListPageProps) => {
         imgUrl: ''
     }
     const [state, setState] = useState<GroupsListState>(GroupsListState.default);
-    const [groups, setGroups] = useState(JSON.parse(props.userGroups));
+    const [groups, setGroups] = useState<Group>(JSON.parse(props.userGroups));
     const [activeGroupId, setActiveGroupId] = useState(-1);
     const teacherId: number = parseInt(props.teacherId, 10)
     return (
@@ -167,8 +167,7 @@ const GroupsListPage = (props: GroupsListPageProps) => {
 
 
 function renderGroupsListPage() {
-    const rootElement = document.getElementById('root')
-    const root = createRoot(rootElement)
+    const root = createRoot(document.getElementById('root'))
 
     fetchGetRequest(groupsListUrlApi)
         .then(res => {
