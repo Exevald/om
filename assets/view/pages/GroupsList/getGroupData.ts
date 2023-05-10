@@ -1,10 +1,10 @@
-import {studentDataType} from "../EditGroup/getStudentData";
+import {StudentFrontData} from "../../../utility/types";
 
 type groupDataType = {
     teacherId: number,
     title: string,
     subject: string,
-    studentsList: Array<studentDataType>,
+    studentsList: Array<StudentFrontData>,
     tasksList: any
 }
 

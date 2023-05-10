@@ -2,7 +2,7 @@ import {fetchPostRequest} from "../utility/fetchRequest";
 import {responseStatus} from "../utility/responseStatus";
 import {getEncryptedText} from "../utility/scrambler";
 import {teacherDataType} from "../view/pages/Authentication/getTeacherData";
-import {studentDataType} from "../view/pages/EditGroup/getStudentData";
+import {StudentFrontData} from '../utility/types'
 import {groupDataType} from "../view/pages/GroupsList/getGroupData";
 import {
     authorizeUrl, changeGroupSubjectUrl, changeGroupTitleUrl, changeStudentNameUrl, createGroupUrl,
@@ -41,7 +41,7 @@ function createTeacher(teacherData: teacherDataType) {
     )
 }
 
-function createStudent(studentData: studentDataType) {
+function createStudent(studentData: StudentFrontData) {
     return fetchPostRequest(
         createStudentUrl,
         {

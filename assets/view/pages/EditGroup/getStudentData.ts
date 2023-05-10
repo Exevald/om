@@ -1,16 +1,10 @@
-type studentDataType = {
-    groupId: number,
-    firstName: string,
-    lastName: string
-}
+import { StudentFrontData } from "../../../utility/types"
 
-const getCreateTeacherData = (
-    lastNameInput: HTMLInputElement,
+function getCreateTeacherData(lastNameInput: HTMLInputElement,
     firstNameInput: HTMLInputElement,
-    studentData: studentDataType
-) => {
+    studentData: StudentFrontData) {
     studentData.lastName = lastNameInput.value
     studentData.firstName = firstNameInput.value
 }
 
-export {getCreateTeacherData, studentDataType}
+export {getCreateTeacherData}
