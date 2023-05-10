@@ -9,8 +9,8 @@ import {
     GroupsListContext,
     GroupsListState,
     addGroup,
-    saveAllChanges,
-    removeGroups
+    removeGroups,
+    setGroupById
 } from "./GroupsListHooks";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {groupsListUrlApi} from "../../../api/utilities";
@@ -44,7 +44,7 @@ const ButtonList = () => {
                             onClick={() => value.setState(GroupsListState.delete)}/>
                     <Button type={"filled"} data={"Сохранить"}
                             onClick={() => 
-                                saveAllChanges(
+                                setGroupById(
                                 value.setState, value.groups, value.setGroups, 
                                 value.activeGroupId, value.setActiveGroupId
                             )}/>
@@ -116,7 +116,7 @@ const Groups = () => {
     }
     function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
         if (e.key === 'Enter')
-        saveAllChanges (
+        setGroupById (
             context.setState, context.groups, context.setGroups, 
             context.activeGroupId, context.setActiveGroupId
         )

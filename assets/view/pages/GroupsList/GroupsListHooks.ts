@@ -39,29 +39,33 @@ function addGroup(
 
 
 function setGroupById(
+    setState: React.Dispatch<React.SetStateAction<GroupsListState>>,
     groups: Array<Group>,
     setGroups: React.Dispatch<React.SetStateAction<Group[]>>,
-    id: number,
+    activeGroupId: number,
     setActiveGroupId: React.Dispatch<React.SetStateAction<number>>
 ) {
-    let newGroups = groups
-    const groupForEditId = String(groups[id].id)
-    const groupNameInput = document.getElementById('group' + id) as HTMLInputElement
-    const groupSubjectInput = document.getElementById('subject' + id) as HTMLInputElement
-    changeGroupTitle(groupForEditId, groupNameInput.value)
-        .then(() => 
-            fetchGetRequest(groupsListUrlApi)
-                .then(response => setGroups(JSON.parse(response.groups)))
-                .catch(err => console.log(err + ' from changing group title'))
-        )
-    changeGroupSubject(groupForEditId, groupSubjectInput.value)
-        .then(() => 
-            fetchGetRequest(groupsListUrlApi)
-                .then(response => setGroups(JSON.parse(response.groups)))
-                .catch(err => console.log(err + ' from changing group subject'))
-    )
-    setActiveGroupId(-1)
-    setGroups(newGroups)
+    if (activeGroupId !== -1) {
+        const groupForEditId = String(groups[activeGroupId].id)
+        const groupNameInput = document.getElementById('group' + activeGroupId) as HTMLInputElement
+        const groupSubjectInput = document.getElementById('subject' + activeGroupId) as HTMLInputElement
+        changeGroupTitle(groupForEditId, groupNameInput.value)
+            .then(() => 
+                fetchGetRequest(groupsListUrlApi)
+                    .then(response => setGroups(JSON.parse(response.groups)))
+                    .catch(err => console.log(err + ' from changing group title'))
+            )
+        changeGroupSubject(groupForEditId, groupSubjectInput.value)
+            .then(() => 
+                fetchGetRequest(groupsListUrlApi)
+                    .then(response => setGroups(JSON.parse(response.groups)))
+                    .catch(err => console.log(err + ' from changing group subject'))
+            )
+            .finally(() => {
+                setActiveGroupId(-1);
+                setState(GroupsListState.default)
+            })
+    }
 }
 
 
@@ -84,26 +88,11 @@ function removeGroups(
                 .then(response => setGroups(JSON.parse(response.groups)))
                 .catch(err => console.log(err + ' from deleting groups'))   
         )
-    setState(GroupsListState.default);
-}
-
-
-function saveAllChanges(
-    setState: React.Dispatch<React.SetStateAction<GroupsListState>>,
-    groups: Array<Group>,
-    setGroups: React.Dispatch<React.SetStateAction<Group[]>>,
-    activeGroupId: number,
-    setActiveGroupId: React.Dispatch<React.SetStateAction<number>>
-) {
-    if (activeGroupId !== -1) {
-        setGroupById(groups, setGroups, activeGroupId, setActiveGroupId)
-    }
-    setState(GroupsListState.default)
+        .finally(() => setState(GroupsListState.default))
 }
 
 
 export {
     GroupsListContext, GroupsListState,
-    addGroup, removeGroups,
-    saveAllChanges
+    addGroup, setGroupById, removeGroups
 }
