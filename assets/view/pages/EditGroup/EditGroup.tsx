@@ -4,7 +4,7 @@ import "./EditGroup.scss";
 
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
-import {Group, Student, Task} from "../../../utility/types";
+import {Group, GroupFrontData, Student, Task} from "../../../utility/types";
 import {addStudent, removeStudents, saveAllChanges, saveGroupChanges} from "./EditGroupHooks";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
@@ -54,12 +54,12 @@ const ButtonList = () => {
             value.state === GroupState.edit &&
             <>
                 <Button type="transparent" iconType="add" data="Добавить ученика" onClick={
-                    () => addStudent(value.groupId)}/>
+                    () => addStudent(value.groupId, value.setStudents)}/>
                 <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
                     () => value.setState(GroupState.delete)}/>
                 <Button type="filled" data="Сохранить" onClick={
                     () => {
-                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents,
+                        saveAllChanges(value.groupId, value.setGroup, value.setState, value.students, value.setStudents,
                             value.activeStudentId, value.setActiveStudentId
                         )
                     }}/>
@@ -69,7 +69,7 @@ const ButtonList = () => {
             <>
                 <Button type="transparent" iconType="minus" data="Удалить" onClick={
                     () => {
-                        removeStudents(value.groupId, value.students, value.setState)
+                        removeStudents(value.groupId, value.students, value.setStudents, value.setState)
                     }}/>
                 <Button type="transparent" data="Отмена" onClick={
                     () => value.setState(GroupState.default)}/>
@@ -82,6 +82,12 @@ const ButtonList = () => {
 
 const GroupHeader = () => {
     const value = useContext(GroupContext);
+
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+        if(e.key === 'Enter') 
+            saveGroupChanges(value.groupId, value.setGroup, value.setState)
+    }
+
     return (
         <>{
             value.state === GroupState.default &&
@@ -95,9 +101,7 @@ const GroupHeader = () => {
         }{
             value.state === GroupState.edit &&
             <>
-                <div className="editGroup__groupHeader" onKeyDown={
-                    (e) => e.key === 'Enter' ? saveGroupChanges(value.groupId, value.setState) : null
-                }>
+                <div className="editGroup__groupHeader" onKeyDown={handleKeyDown}>
                     <InputArea id="group" type="group" value={value.group.name} widthChangeable/>
                     <InputArea id="subject" type="subject" value={value.group.subject} widthChangeable/>
                 </div>
@@ -108,7 +112,7 @@ const GroupHeader = () => {
             <>
                 <div className="editGroup__groupHeader">
                     <h1 className="editGroup__group">{value.group.name}</h1>
-                    <h2 className="editGroup__subject">{value.group.subject} </h2>
+                    <h2 className="editGroup__subject">{value.group.subject}</h2>
                 </div>
                 <ButtonList/>
             </>
@@ -164,26 +168,25 @@ const Students = (props: StudentsProps) => {
             }
         }
     }
+    function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+        if(e.key === 'Enter')
+            saveAllChanges(
+                value.groupId, value.setGroup, value.setState, value.students, value.setStudents,
+                value.activeStudentId, value.setActiveStudentId
+            ) 
+    }
+    const value = useContext(GroupContext);
     return (
-        <GroupContext.Consumer>
-            {
-                value =>
-                    <div className="editGroup__studentArea" onKeyDown={(e) => e.key === 'Enter' ?
-                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents,
-                            value.activeStudentId, value.setActiveStudentId
-                        ) : null
-                    }>
-                        {
-                            props.state === GroupState.delete &&
-                            <div className="editGroup__checkboxArea">{checkboxes}</div>
-                        }{
-                        students.length !== 0 && <ol>{students}</ol>
-                    }{
-                        students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
-                    }
-                    </div>
-            }
-        </GroupContext.Consumer>
+        <div className="editGroup__studentArea" onKeyDown={handleKeyDown}>
+        {
+            props.state === GroupState.delete &&
+            <div className="editGroup__checkboxArea">{checkboxes}</div>
+        }{
+            students.length !== 0 && <ol>{students}</ol>
+        }{
+            students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
+        }
+        </div>
     )
 }
 
@@ -197,7 +200,7 @@ interface GroupProps {
 
 const Group = (props: GroupProps) => {
     const [state, setState] = useState<GroupState>(GroupState.default);
-    const [group, setGroup] = useState({
+    const [group, setGroup] = useState<GroupFrontData>({
         name: props.name,
         subject: props.subject,
     });
