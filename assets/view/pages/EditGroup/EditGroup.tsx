@@ -59,7 +59,7 @@ const ButtonList = () => {
                     () => value.setState(GroupState.delete)}/>
                 <Button type="filled" data="Сохранить" onClick={
                     () => {
-                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents,
+                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents, value.setGroup,
                             value.activeStudentId, value.setActiveStudentId
                         )
                     }}/>
@@ -96,7 +96,10 @@ const GroupHeader = () => {
             value.state === GroupState.edit &&
             <>
                 <div className="editGroup__groupHeader" onKeyDown={
-                    (e) => e.key === 'Enter' ? saveGroupChanges(value.groupId, value.setState) : null
+                    (e) => e.key === 'Enter' ?
+                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents, value.setGroup,
+                            value.activeStudentId, value.setActiveStudentId
+                        ) : null
                 }>
                     <InputArea id="group" type="group" value={value.group.name} widthChangeable/>
                     <InputArea id="subject" type="subject" value={value.group.subject} widthChangeable/>
@@ -169,7 +172,7 @@ const Students = (props: StudentsProps) => {
             {
                 value =>
                     <div className="editGroup__studentArea" onKeyDown={(e) => e.key === 'Enter' ?
-                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents,
+                        saveAllChanges(value.groupId, value.setState, value.students, value.setStudents, value.setGroup,
                             value.activeStudentId, value.setActiveStudentId
                         ) : null
                     }>
@@ -178,8 +181,6 @@ const Students = (props: StudentsProps) => {
                             <div className="editGroup__checkboxArea">{checkboxes}</div>
                         }{
                         students.length !== 0 && <ol>{students}</ol>
-                    }{
-                        students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
                     }
                     </div>
             }

@@ -8,6 +8,8 @@ import {
     authorizeUrl, changeGroupSubjectUrl, changeGroupTitleUrl, changeStudentNameUrl, createGroupUrl,
     createStudentUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl
 } from "./utilities";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 
 function login(email: string, password: string) {
