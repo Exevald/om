@@ -66,11 +66,9 @@ interface ApiInterface
 
     public function changeStudentName(string $token, int $studentId, string $firstName, string $lastName): void;
 
-    public function changeGroupName(string $token, int $groupId, string $title, string $subject): void;
+    public function changeGroupInitials(string $token, int $groupId, string $title, string $subject): void;
 
-    public function changeTaskTopic(string $token, int $taskId, string $topic): void;
-
-    public function changeTaskDescription(string $token, int $taskId, string $description): void;
+    public function changeTaskInitials(string $token, int $taskId, string $topic, string $description): void;
 
     public function changeTaskDate(string $token, int $taskId, DateTime $date): void;
 

@@ -36,5 +36,37 @@ class MarksTableController extends AbstractController
         ]);
     }
 
+    private function getAllTasks(int $groupId): array
+    {
+        $responseContent = [];
+        foreach ($this->api->getTasksByGroupId($groupId) as $task) {
+            $responseContent[] = [
+                'id' => $task->getId(),
+                'topic' => $task->getTopic(),
+                'description' => $task->getDescription(),
+                'date' => $task->getDate(),
+                'maxMark' => $task->getMaxMark(),
+                'marksIdList' => $task->getMarksList()
+            ];
+        }
+        return $responseContent;
+    }
+
+    private function getAllMarks(int $groupId): array
+    {
+        $responseContent = [];
+        foreach ($this->api->getTasksByGroupId($groupId) as $task) {
+            $taskId = $task->getId();
+            foreach ($this->api->getMarksByTaskId($taskId) as $mark) {
+                $responseContent[] = [
+                    'id' => $mark->getId(),
+                    'studentId' => $mark->getStudentId(),
+                    'studentMark' => $mark->getStudentMark()
+                ];
+            }
+        }
+        return $responseContent;
+    }
+
 
 }

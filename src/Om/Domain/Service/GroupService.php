@@ -46,7 +46,7 @@ class GroupService
         $this->groupRepository->delete($id);
     }
 
-    public function changeGroupName(int $id, string $title, string $subject): void
+    public function changeGroupInitials(int $id, string $title, string $subject): void
     {
         if ($title === "" || $subject === "") {
             throw new Exception("", ErrorType::INVALID_DATA->value);

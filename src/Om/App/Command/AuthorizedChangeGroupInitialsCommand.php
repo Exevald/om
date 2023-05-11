@@ -2,7 +2,7 @@
 
 namespace App\Om\App\Command;
 
-class AuthorizedChangeGroupNameCommand
+class AuthorizedChangeGroupInitialsCommand
 {
     private string $token;
     private int $groupId;

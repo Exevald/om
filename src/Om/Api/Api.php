@@ -3,14 +3,12 @@
 namespace App\Om\Api;
 
 use App\Om\App\Auth\AuthorizerInterface;
-use App\Om\App\Command\AuthorizedChangeGroupSubjectCommand;
-use App\Om\App\Command\AuthorizedChangeGroupNameCommand;
+use App\Om\App\Command\AuthorizedChangeGroupInitialsCommand;
 use App\Om\App\Command\AuthorizedChangeStudentNameCommand;
 use App\Om\App\Command\AuthorizedChangeTaskDateCommand;
-use App\Om\App\Command\AuthorizedChangeTaskDescriptionCommand;
 use App\Om\App\Command\AuthorizedChangeTaskMaxMarkCommand;
 use App\Om\App\Command\AuthorizedChangeTaskStudentMarkCommand;
-use App\Om\App\Command\AuthorizedChangeTaskTopicCommand;
+use App\Om\App\Command\AuthorizedChangeTaskInitialsCommand;
 use App\Om\App\Command\AuthorizedChangeTeacherEmailCommand;
 use App\Om\App\Command\AuthorizedChangeTeacherNameCommand;
 use App\Om\App\Command\AuthorizedChangeTeacherPasswordCommand;
@@ -23,14 +21,12 @@ use App\Om\App\Command\AuthorizedDeleteGroupsCommand;
 use App\Om\App\Command\AuthorizedDeleteStudentsFromGroupCommand;
 use App\Om\App\Command\AuthorizedDeleteTaskMarkCommand;
 use App\Om\App\Command\AuthorizedDeleteTasksFromGroupCommand;
-use App\Om\App\Command\Handler\AuthorizedChangeGroupSubjectCommandHandler;
-use App\Om\App\Command\Handler\AuthorizedChangeGroupNameCommandHandler;
+use App\Om\App\Command\Handler\AuthorizedChangeGroupInitialsCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeStudentNameCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeTaskDateCommandHandler;
-use App\Om\App\Command\Handler\AuthorizedChangeTaskDescriptionCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeTaskMaxMarkCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeTaskStudentMarkCommandHandler;
-use App\Om\App\Command\Handler\AuthorizedChangeTaskTopicCommandHandler;
+use App\Om\App\Command\Handler\AuthorizedChangeTaskInitialsCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeTeacherEmailCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeTeacherNameCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeTeacherPasswordCommandHandler;
@@ -63,17 +59,17 @@ use App\Om\App\Model\AuthToken;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 
-class Api implements ApiInterface
+readonly class Api implements ApiInterface
 {
 
     public function __construct(
-        private readonly ManagerRegistry              $doctrine,
-        private readonly TeacherQueryServiceInterface $teacherQueryService,
-        private readonly StudentQueryServiceInterface $studentQueryService,
-        private readonly GroupQueryServiceInterface   $groupQueryService,
-        private readonly TaskQueryServiceInterface    $taskQueryService,
-        private readonly MarkQueryServiceInterface    $markQueryService,
-        private readonly AuthorizerInterface          $authorizer,
+        private ManagerRegistry              $doctrine,
+        private TeacherQueryServiceInterface $teacherQueryService,
+        private StudentQueryServiceInterface $studentQueryService,
+        private GroupQueryServiceInterface   $groupQueryService,
+        private TaskQueryServiceInterface    $taskQueryService,
+        private MarkQueryServiceInterface    $markQueryService,
+        private AuthorizerInterface          $authorizer,
     )
     {
     }
@@ -237,26 +233,19 @@ class Api implements ApiInterface
         $handler->handle(new AuthorizedChangeStudentNameCommand($token, $studentId, $firstName, $lastName));
     }
 
-    public function changeGroupName(string $token, int $groupId, string $title, string $subject): void
+    public function changeGroupInitials(string $token, int $groupId, string $title, string $subject): void
     {
         $groupRepository = new GroupRepository($this->doctrine);
         $studentRepository = new StudentRepository($this->doctrine);
-        $handler = new AuthorizedChangeGroupNameCommandHandler($this->authorizer, $groupRepository, $studentRepository);
-        $handler->handle(new AuthorizedChangeGroupNameCommand($token, $groupId, $title, $subject));
+        $handler = new AuthorizedChangeGroupInitialsCommandHandler($this->authorizer, $groupRepository, $studentRepository);
+        $handler->handle(new AuthorizedChangeGroupInitialsCommand($token, $groupId, $title, $subject));
     }
 
-    public function changeTaskTopic(string $token, int $taskId, string $topic): void
+    public function changeTaskInitials(string $token, int $taskId, string $topic, string $description): void
     {
         $taskRepository = new TaskRepository($this->doctrine);
-        $handler = new AuthorizedChangeTaskTopicCommandHandler($this->authorizer, $taskRepository);
-        $handler->handle(new AuthorizedChangeTaskTopicCommand($token, $taskId, $topic));
-    }
-
-    public function changeTaskDescription(string $token, int $taskId, string $description): void
-    {
-        $taskRepository = new TaskRepository($this->doctrine);
-        $handler = new AuthorizedChangeTaskDescriptionCommandHandler($this->authorizer, $taskRepository);
-        $handler->handle(new AuthorizedChangeTaskDescriptionCommand($token, $taskId, $description));
+        $handler = new AuthorizedChangeTaskInitialsCommandHandler($this->authorizer, $taskRepository);
+        $handler->handle(new AuthorizedChangeTaskInitialsCommand($token, $taskId, $topic, $description));
     }
 
     public function changeTaskDate(string $token, int $taskId, DateTime $date): void

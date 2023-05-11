@@ -3,11 +3,11 @@
 namespace App\Om\App\Command\Handler;
 
 use App\Om\App\Auth\AuthorizerInterface;
-use App\Om\App\Command\AuthorizedChangeTaskDescriptionCommand;
+use App\Om\App\Command\AuthorizedChangeTaskInitialsCommand;
 use App\Om\Domain\Service\TaskService;
 use App\Om\Infrastructure\Repositories\Repository\TaskRepository;
 
-class AuthorizedChangeTaskDescriptionCommandHandler
+class AuthorizedChangeTaskInitialsCommandHandler
 {
     private AuthorizerInterface $authorizer;
     private TaskService $taskService;
@@ -21,15 +21,16 @@ class AuthorizedChangeTaskDescriptionCommandHandler
         $this->taskService = new TaskService($taskRepository);
     }
 
-    public function handle(AuthorizedChangeTaskDescriptionCommand $command): void
+    public function handle(AuthorizedChangeTaskInitialsCommand $command): void
     {
         $token = $command->getToken();
         $this->authorizer->validateToken($token);
 
         $taskId = $command->getTaskId();
+        $topic = $command->getTopic();
         $description = $command->getDescription();
 
-        $this->taskService->changeTaskDescription($taskId, $description);
+        $this->taskService->changeTaskInitials($taskId, $topic, $description);
     }
 
 }

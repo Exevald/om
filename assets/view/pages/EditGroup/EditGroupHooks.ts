@@ -2,7 +2,7 @@ import React from "react";
 import {GroupFrontData, Student, StudentFrontData} from "../../../utility/types";
 import {DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME} from "../../../utility/utilities";
 import {
-    changeGroupName,
+    changeGroupInitials,
     changeStudentName,
     createStudent,
     deleteStudents
@@ -91,7 +91,7 @@ function saveGroupChanges(
     const groupSubjectInput = document.getElementById('subject') as HTMLInputElement;
     const getUrlApi = getGroupDataByIdUrl.replace("GROUP_ID", groupId)
 
-    changeGroupName(groupId, groupNameInput.value, groupSubjectInput.value)
+    changeGroupInitials(groupId, groupNameInput.value, groupSubjectInput.value)
         .then(() =>
             fetchGetRequest(getUrlApi)
                 .then(response =>

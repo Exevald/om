@@ -2,7 +2,7 @@ import React from "react";
 import {Group, Student} from "../../../utility/types";
 import {DEFAULT_GROUP_NAME, DEFAULT_SUBJECT_NAME} from "../../../utility/utilities";
 import {groupDataType} from "./getGroupData";
-import {changeGroupName, createGroup} from "../../../api/requests";
+import {changeGroupInitials, createGroup} from "../../../api/requests";
 import {getGroupsListPageUrl} from "../../../api/pageUrls";
 import {deleteGroups} from "../../../api/requests";
 import {fetchGetRequest} from '../../../utility/fetchRequest';
@@ -49,7 +49,7 @@ function setGroupById(
         const groupForEditId = String(groups[activeGroupId].id)
         const groupNameInput = document.getElementById('group' + activeGroupId) as HTMLInputElement
         const groupSubjectInput = document.getElementById('subject' + activeGroupId) as HTMLInputElement
-        changeGroupName(groupForEditId, groupNameInput.value, groupSubjectInput.value)
+        changeGroupInitials(groupForEditId, groupNameInput.value, groupSubjectInput.value)
             .then(() =>
                 fetchGetRequest(groupsListUrlApi)
                     .then(response => setGroups(JSON.parse(response.groups)))

@@ -26,16 +26,10 @@ class TaskService
        return $taskId;
     }
 
-    public function changeTaskTopic(int $id, string $topic): void
+    public function changeTaskInitials(int $id, string $topic, string $description): void
     {
         $task = $this->taskRepository->get($id);
         $task->setTopic($topic);
-        $this->taskRepository->update($task);
-    }
-
-    public function changeTaskDescription(int $id, string $description): void
-    {
-        $task = $this->taskRepository->get($id);
         $task->setDescription($description);
         $this->taskRepository->update($task);
     }

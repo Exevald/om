@@ -50,7 +50,7 @@ class GroupController extends AbstractController
         if (empty($groupId) || empty($title) || empty($subject)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
-        $this->api->changeGroupName($token, $groupId, $title, $subject);
+        $this->api->changeGroupInitials($token, $groupId, $title, $subject);
         return new Response();
     }
 
@@ -89,7 +89,7 @@ class GroupController extends AbstractController
             'groupTitle' => $group->getTitle(),
             'groupSubject' => $group->getSubject(),
             'studentsIdList' => $serializer->normalize($group->getStudentsIdList()),
-            'tasksIdList' => $group->getTasksIdList()
+            'tasksIdList' => $serializer->normalize($group->getTasksIdList())
         ];
 
         $response = new Response;

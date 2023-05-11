@@ -71,3 +71,15 @@ changeStudentNameApi:
 deleteStudentsApi:
     path: /api/v1/student/delete
     controller: App\Controller\StudentController::deleteStudentsApi
+
+getTaskDataByIdApi:
+    path: /api/v1/task/{taskId}
+    controller: App\Controller\TaskController::getTaskDataByIdApi
+
+createTaskApi:
+    path: /api/v1/task/create
+    controller: App\Controller\TaskController::createTaskApi
+
+deleteTasksApi:
+    path: /api/v1/task/delete
+    controller: App\Controller\TaskController::deleteTasksApi

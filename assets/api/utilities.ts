@@ -26,6 +26,9 @@ const changeGroupNameUrl = '/api/v1/group/name/change'
 const getGroupDataByIdUrl = '/api/v1/group/GROUP_ID'
 const changeStudentNameUrl = '/api/v1/student/name/change'
 const deleteStudentsUrl = '/api/v1/student/delete'
+const getTaskDataByIdUrl = '/api/v1/task/TASK_ID'
+const createTaskUrl = '/api/v1/task/create'
+const deleteTasksUrl = '/api/v1/task/delete'
 
 export {
     titleUrl, loginUrl, onboardingUrl, groupsListUrl, editGroupUrl,
@@ -33,5 +36,5 @@ export {
     authorizeUrl, createTeacherUrl, createGroupUrl, createStudentUrl, deleteGroupsUrl,
     changeGroupNameUrl, getGroupDataByIdUrl,
     changeStudentNameUrl, deleteStudentsUrl,
-    marksTableUrl
+    marksTableUrl, getTaskDataByIdUrl, createTaskUrl, deleteTasksUrl
 }

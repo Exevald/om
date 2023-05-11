@@ -96,7 +96,7 @@ function deleteGroups(groupIdList: Array<string>, teacherId: string) {
     )
 }
 
-function changeGroupName(groupId: string, title: string, subject: string) {
+function changeGroupInitials(groupId: string, title: string, subject: string) {
     return fetchPostRequest(
         changeGroupNameUrl,
         {
@@ -141,7 +141,7 @@ export {
     createStudent,
     createGroup,
     deleteGroups,
-    changeGroupName,
+    changeGroupInitials,
     changeStudentName,
     deleteStudents
 }

@@ -3,12 +3,12 @@
 namespace App\Om\App\Command\Handler;
 
 use App\Om\App\Auth\AuthorizerInterface;
-use App\Om\App\Command\AuthorizedChangeGroupNameCommand;
+use App\Om\App\Command\AuthorizedChangeGroupInitialsCommand;
 use App\Om\Domain\Service\GroupService;
 use App\Om\Infrastructure\Repositories\Repository\GroupRepository;
 use App\Om\Infrastructure\Repositories\Repository\StudentRepository;
 
-class AuthorizedChangeGroupNameCommandHandler
+class AuthorizedChangeGroupInitialsCommandHandler
 {
     private AuthorizerInterface $authorizer;
     private GroupService $groupService;
@@ -23,7 +23,7 @@ class AuthorizedChangeGroupNameCommandHandler
         $this->groupService = new GroupService($groupRepository, $studentRepository);
     }
 
-    public function handle(AuthorizedChangeGroupNameCommand $command): void
+    public function handle(AuthorizedChangeGroupInitialsCommand $command): void
     {
         $token = $command->getToken();
         $this->authorizer->validateToken($token);
@@ -32,7 +32,7 @@ class AuthorizedChangeGroupNameCommandHandler
         $title = $command->getTitle();
         $subject = $command->getSubject();
 
-        $this->groupService->changeGroupName($groupId, $title, $subject);
+        $this->groupService->changeGroupInitials($groupId, $title, $subject);
     }
 
 }

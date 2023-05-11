@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Common\ErrorType;
 use App\Om\Api\ApiInterface;
-use App\Om\App\Query\Data\Teacher;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,18 +42,6 @@ class GroupsListController extends AbstractController
         $response->setContent(json_encode($returnData));
 
         return $response;
-    }
-
-    private function getTeacherData(Teacher $teacher): array
-    {
-        return [
-            'teacherId' => $teacher->getId(),
-            'firstName' => $teacher->getFirstName(),
-            'lastName' => $teacher->getLastName(),
-            'email' => $teacher->getEmail(),
-            'password' => $teacher->getPassword(),
-            'groupIdList' => $teacher->getGroupIdList()
-        ];
     }
 
     private function getAllGroups(int $teacherId): array
