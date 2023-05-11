@@ -58,10 +58,7 @@ class TeacherController extends AbstractController
         $teacherId = $this->api->createTeacher($firstName, $lastName, $email, $password);
         $authToken = $this->api->login($email, $password);
         $response->headers->setCookie(Cookie::create("token", $authToken->getToken()));
-        $response = [
-            "teacherId" => $teacherId
-        ];
-        return new Response(json_encode($response));
+        return $response;
     }
 
     public function changeTeacherNameApi(Request $request): Response
