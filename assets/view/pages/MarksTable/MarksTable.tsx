@@ -7,11 +7,11 @@ import Table from "../../components/Table/Table";
 import Button from "../../components/Button/Button";
 import {createRoot} from "react-dom/client";
 import {Group} from "../../../utility/types";
-import {getDecryptedText} from "../../../utility/scrambler";
+import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
-import {getGroupDataByIdUrl, groupEditUrlApi} from "../../../api/utilities";
+import {editGroupUrl, getGroupDataByIdUrl, groupEditUrlApi} from "../../../api/utilities";
 
-const TableContext = React.createContext(null);
+const TableGroupContext = React.createContext(null);
 
 enum TableState {
     default,
@@ -38,7 +38,7 @@ const GroupArea = (props: GroupAreaProps) => {
 
 
 const ButtonList = () => {
-    const context = useContext(TableContext)
+    const context = useContext(TableGroupContext)
     return (
         <div className="marksTable__buttons">
             {
@@ -48,6 +48,9 @@ const ButtonList = () => {
                     <Button type="transparent" data="Добавить работу" iconType="add"/>
                     <Button type="transparent" data="Удалить работу" iconType="minus"/>
                     <Button type="transparentDisabled" data="Сохранить"/>
+                    <Button type="filled" data="К группе" onClick={() =>
+                        window.location.href = editGroupUrl.replace("GROUP_ID", getEncryptedText(context.groupId))
+                    }/>
                 </>
             }{
 
@@ -56,50 +59,37 @@ const ButtonList = () => {
     )
 }
 
-interface TableGroupHeaderProps {
-    groupName: string;
-}
 
-const TableGroupHeader = (props: TableGroupHeaderProps) => {
+const TableGroupHeader = () => {
+    const context = useContext(TableGroupContext);
     return (
-        <TableContext.Consumer>
-            {
-                value =>
-                    <div className="marksTable__header">
-                        <GroupArea groupName={props.groupName} setState={value.setState}/>
-                        <ButtonList/>
-                    </div>
-            }
-        </TableContext.Consumer>
+        <div className="marksTable__header">
+            <GroupArea groupName={context.groupName} setState={context.setState}/>
+            <ButtonList/>
+        </div>
     )
 }
 
 
-// заглушка для данных по группе
-const data = {
-    group: {
-        name: '11 класс',
-        subject: 'Физика'
-    },
-    students: [
-        {id: '1', lastName: 'Шиханова', firstName: 'Дарья'},
-        {id: '2', lastName: 'Викторов', firstName: 'Роберт'},
-        {id: '3', lastName: 'Баянова', firstName: 'Наталия'},
-        {id: '4', lastName: 'Грустный', firstName: 'Павел'},
-        {id: '5', lastName: 'Зелепупкович', firstName: 'Афанасий'},
-        {id: '6', lastName: 'Апполинарьев', firstName: 'Владлен'},
-    ]
+interface GroupTableProps {
+    group: Group
 }
-
-const GroupTable = () => {
+const GroupTable = (props: GroupTableProps) => {
     const [state, setState] = useState<TableState>(TableState.default);
+    const [tasks, setTasks] = useState(props.group.tasksIdLIst)
+    const groupId = props.group.id;
+    const groupName = props.group.name;
     return (
         <>
-            <TableContext.Provider
-                value={{state, setState}}>
-                <TableGroupHeader groupName={data.group.name}/>
-                <Table subject={data.group.subject} students={data.students}/>
-            </TableContext.Provider>
+            <TableGroupContext.Provider
+                value={{
+                    groupId, groupName,
+                    state, setState,
+                    tasks, setTasks
+            }}>
+                <TableGroupHeader/>
+                <Table group={props.group} setState={setState} setTasks={setTasks} />
+            </TableGroupContext.Provider>
         </>
     )
 }
@@ -119,7 +109,7 @@ const MarksTable = (props: MarksTableProps) => {
     return (
         <div className="marksTable__wrapper">
             <Header title="Журнал" userData={user}/>
-            <GroupTable/>
+            <GroupTable group={props.group}/>
         </div>
     )
 }
@@ -132,12 +122,15 @@ const renderMarksTable = () => {
         fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
             root.render(
                 <React.StrictMode>
-                    <MarksTable teacherId={pageResponse.teacherId} userFirstName={pageResponse.userFirstName} userLastName={pageResponse.userLastName} group={{
-                        id: groupId,
-                        name: groupResponse.groupTitle,
-                        subject: groupResponse.groupSubject,
-                        studentsList: groupResponse.studentsIdList,
-                        tasksIdLIst: groupResponse.tasksIdList
+                    <MarksTable teacherId={pageResponse.teacherId} 
+                        userFirstName={pageResponse.userFirstName} 
+                        userLastName={pageResponse.userLastName} 
+                        group={{
+                            id: groupId,
+                            name: groupResponse.groupTitle,
+                            subject: groupResponse.groupSubject,
+                            studentsList: groupResponse.studentsIdList,
+                            tasksIdLIst: groupResponse.tasksIdList
                     }}/>
                 </React.StrictMode>
             )
@@ -145,4 +138,7 @@ const renderMarksTable = () => {
     })
 }
 
-export {renderMarksTable}
+export { 
+    TableState, TableGroupContext, 
+    renderMarksTable
+}
