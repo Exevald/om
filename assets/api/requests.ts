@@ -5,7 +5,7 @@ import {teacherDataType} from "../view/pages/Authentication/getTeacherData";
 import {StudentFrontData} from '../utility/types'
 import {groupDataType} from "../view/pages/GroupsList/getGroupData";
 import {
-    authorizeUrl, changeGroupSubjectUrl, changeGroupTitleUrl, changeStudentNameUrl, createGroupUrl,
+    authorizeUrl, changeGroupNameUrl, changeStudentNameUrl, createGroupUrl,
     createStudentUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl
 } from "./utilities";
 
@@ -96,21 +96,12 @@ function deleteGroups(groupIdList: Array<string>, teacherId: string) {
     )
 }
 
-function changeGroupTitle(groupId: string, title: string) {
+function changeGroupName(groupId: string, title: string, subject: string) {
     return fetchPostRequest(
-        changeGroupTitleUrl,
+        changeGroupNameUrl,
         {
             groupId: parseInt(groupId, 10),
-            title: title
-        }
-    )
-}
-
-function changeGroupSubject(groupId: string, subject: string) {
-    return fetchPostRequest(
-        changeGroupSubjectUrl,
-        {
-            groupId: parseInt(groupId, 10),
+            title: title,
             subject: subject
         }
     )
@@ -150,8 +141,7 @@ export {
     createStudent,
     createGroup,
     deleteGroups,
-    changeGroupTitle,
-    changeGroupSubject,
+    changeGroupName,
     changeStudentName,
     deleteStudents
 }

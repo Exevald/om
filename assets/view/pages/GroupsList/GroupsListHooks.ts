@@ -2,7 +2,7 @@ import React from "react";
 import {Group, Student} from "../../../utility/types";
 import {DEFAULT_GROUP_NAME, DEFAULT_SUBJECT_NAME} from "../../../utility/utilities";
 import {groupDataType} from "./getGroupData";
-import {changeGroupSubject, changeGroupTitle, createGroup} from "../../../api/requests";
+import {changeGroupName, createGroup} from "../../../api/requests";
 import {getGroupsListPageUrl} from "../../../api/pageUrls";
 import {deleteGroups} from "../../../api/requests";
 import {fetchGetRequest} from '../../../utility/fetchRequest';
@@ -30,11 +30,11 @@ function addGroup(
         tasksList: []
     }
     createGroup(groupData)
-        .then(() => 
+        .then(() =>
             fetchGetRequest(groupsListUrlApi)
                 .then(response => setGroups(JSON.parse(response.groups)))
                 .catch(err => console.log(err + ' from adding new group'))
-    )
+        )
 }
 
 
@@ -49,22 +49,15 @@ function setGroupById(
         const groupForEditId = String(groups[activeGroupId].id)
         const groupNameInput = document.getElementById('group' + activeGroupId) as HTMLInputElement
         const groupSubjectInput = document.getElementById('subject' + activeGroupId) as HTMLInputElement
-        changeGroupTitle(groupForEditId, groupNameInput.value)
-            .then(() => 
+        changeGroupName(groupForEditId, groupNameInput.value, groupSubjectInput.value)
+            .then(() =>
                 fetchGetRequest(groupsListUrlApi)
                     .then(response => setGroups(JSON.parse(response.groups)))
                     .catch(err => console.log(err + ' from changing group title'))
-            )
-        changeGroupSubject(groupForEditId, groupSubjectInput.value)
-            .then(() => 
-                fetchGetRequest(groupsListUrlApi)
-                    .then(response => setGroups(JSON.parse(response.groups)))
-                    .catch(err => console.log(err + ' from changing group subject'))
-            )
-            .finally(() => {
-                setActiveGroupId(-1);
-                setState(GroupsListState.default)
-            })
+            ).finally(() => {
+            setActiveGroupId(-1);
+            setState(GroupsListState.default)
+        })
     }
 }
 
@@ -83,10 +76,10 @@ function removeGroups(
         }
     }
     deleteGroups(groupsIdsForDelete, teacherId)
-        .then(() => 
+        .then(() =>
             fetchGetRequest(groupsListUrlApi)
                 .then(response => setGroups(JSON.parse(response.groups)))
-                .catch(err => console.log(err + ' from deleting groups'))   
+                .catch(err => console.log(err + ' from deleting groups'))
         )
         .finally(() => setState(GroupsListState.default))
 }

@@ -4,7 +4,7 @@ namespace App\Om\Api;
 
 use App\Om\App\Auth\AuthorizerInterface;
 use App\Om\App\Command\AuthorizedChangeGroupSubjectCommand;
-use App\Om\App\Command\AuthorizedChangeGroupTitleCommand;
+use App\Om\App\Command\AuthorizedChangeGroupNameCommand;
 use App\Om\App\Command\AuthorizedChangeStudentNameCommand;
 use App\Om\App\Command\AuthorizedChangeTaskDateCommand;
 use App\Om\App\Command\AuthorizedChangeTaskDescriptionCommand;
@@ -24,7 +24,7 @@ use App\Om\App\Command\AuthorizedDeleteStudentsFromGroupCommand;
 use App\Om\App\Command\AuthorizedDeleteTaskMarkCommand;
 use App\Om\App\Command\AuthorizedDeleteTasksFromGroupCommand;
 use App\Om\App\Command\Handler\AuthorizedChangeGroupSubjectCommandHandler;
-use App\Om\App\Command\Handler\AuthorizedChangeGroupTitleCommandHandler;
+use App\Om\App\Command\Handler\AuthorizedChangeGroupNameCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeStudentNameCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeTaskDateCommandHandler;
 use App\Om\App\Command\Handler\AuthorizedChangeTaskDescriptionCommandHandler;
@@ -237,20 +237,12 @@ class Api implements ApiInterface
         $handler->handle(new AuthorizedChangeStudentNameCommand($token, $studentId, $firstName, $lastName));
     }
 
-    public function changeGroupTitle(string $token, int $groupId, string $title): void
+    public function changeGroupName(string $token, int $groupId, string $title, string $subject): void
     {
         $groupRepository = new GroupRepository($this->doctrine);
         $studentRepository = new StudentRepository($this->doctrine);
-        $handler = new AuthorizedChangeGroupTitleCommandHandler($this->authorizer, $groupRepository, $studentRepository);
-        $handler->handle(new AuthorizedChangeGroupTitleCommand($token, $groupId, $title));
-    }
-
-    public function changeGroupSubject(string $token, int $groupId, string $subject): void
-    {
-        $groupRepository = new GroupRepository($this->doctrine);
-        $studentRepository = new StudentRepository($this->doctrine);
-        $handler = new AuthorizedChangeGroupSubjectCommandHandler($this->authorizer, $groupRepository, $studentRepository);
-        $handler->handle(new AuthorizedChangeGroupSubjectCommand($token, $groupId, $subject));
+        $handler = new AuthorizedChangeGroupNameCommandHandler($this->authorizer, $groupRepository, $studentRepository);
+        $handler->handle(new AuthorizedChangeGroupNameCommand($token, $groupId, $title, $subject));
     }
 
     public function changeTaskTopic(string $token, int $taskId, string $topic): void

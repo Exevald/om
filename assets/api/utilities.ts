@@ -22,8 +22,7 @@ const createTeacherUrl = 'api/v1/teacher/create'
 const createGroupUrl = '/api/v1/group/create'
 const createStudentUrl = '/api/v1/student/create'
 const deleteGroupsUrl = '/api/v1/group/delete'
-const changeGroupTitleUrl = '/api/v1/group/title/change'
-const changeGroupSubjectUrl = '/api/v1/group/subject/change'
+const changeGroupNameUrl = '/api/v1/group/name/change'
 const getGroupDataByIdUrl = '/api/v1/group/GROUP_ID'
 const changeStudentNameUrl = '/api/v1/student/name/change'
 const deleteStudentsUrl = '/api/v1/student/delete'
@@ -32,7 +31,7 @@ export {
     titleUrl, loginUrl, onboardingUrl, groupsListUrl, editGroupUrl,
     groupsListUrlApi, groupEditUrlApi,
     authorizeUrl, createTeacherUrl, createGroupUrl, createStudentUrl, deleteGroupsUrl,
-    changeGroupTitleUrl, changeGroupSubjectUrl, getGroupDataByIdUrl,
+    changeGroupNameUrl, getGroupDataByIdUrl,
     changeStudentNameUrl, deleteStudentsUrl,
     marksTableUrl
 }

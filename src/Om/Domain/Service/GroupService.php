@@ -46,19 +46,13 @@ class GroupService
         $this->groupRepository->delete($id);
     }
 
-    public function changeGroupTitle(int $id, string $title): void
+    public function changeGroupName(int $id, string $title, string $subject): void
     {
-        if ($title === "") {
+        if ($title === "" || $subject === "") {
             throw new Exception("", ErrorType::INVALID_DATA->value);
         }
         $group = $this->groupRepository->get($id);
         $group->setTitle($title);
-        $this->groupRepository->update($group);
-    }
-
-    public function changeGroupSubject(int $id, string $subject): void
-    {
-        $group = $this->groupRepository->get($id);
         $group->setSubject($subject);
         $this->groupRepository->update($group);
     }

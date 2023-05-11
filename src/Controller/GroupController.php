@@ -37,7 +37,7 @@ class GroupController extends AbstractController
         return new Response();
     }
 
-    public function changeGroupTitleApi(Request $request): Response
+    public function changeGroupNameApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
         if (empty($token)) {
@@ -46,26 +46,11 @@ class GroupController extends AbstractController
         $body = json_decode($request->getContent(), true);
         $groupId = $body["groupId"];
         $title = $body["title"];
-        if (empty($groupId) || empty($title)) {
-            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
-        }
-        $this->api->changeGroupTitle($token, $groupId, $title);
-        return new Response();
-    }
-
-    public function changeGroupSubjectApi(Request $request): Response
-    {
-        $token = $request->cookies->get("token");
-        if (empty($token)) {
-            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
-        }
-        $body = json_decode($request->getContent(), true);
-        $groupId = $body["groupId"];
         $subject = $body["subject"];
-        if (empty($groupId) || empty($subject)) {
+        if (empty($groupId) || empty($title) || empty($subject)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
-        $this->api->changeGroupSubject($token, $groupId, $subject);
+        $this->api->changeGroupName($token, $groupId, $title, $subject);
         return new Response();
     }
 

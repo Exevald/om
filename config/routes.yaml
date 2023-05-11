@@ -48,13 +48,9 @@ deleteGroupsApi:
     path: /api/v1/group/delete
     controller: App\Controller\GroupController::deleteGroupsApi
 
-changeGroupTitleApi:
-    path: /api/v1/group/title/change
-    controller: App\Controller\GroupController::changeGroupTitleApi
-
-changeGroupSubjectApi:
-    path: /api/v1/group/subject/change
-    controller: App\Controller\GroupController::changeGroupSubjectApi
+changeGroupNameApi:
+    path: /api/v1/group/name/change
+    controller: App\Controller\GroupController::changeGroupNameApi
 
 marksTablePage:
     path: /table

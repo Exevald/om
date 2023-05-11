@@ -2,14 +2,13 @@ import React from "react";
 import {GroupFrontData, Student, StudentFrontData} from "../../../utility/types";
 import {DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME} from "../../../utility/utilities";
 import {
-    changeGroupSubject,
-    changeGroupTitle,
+    changeGroupName,
     changeStudentName,
     createStudent,
     deleteStudents
 } from "../../../api/requests";
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
-import { fetchGetRequest } from "../../../utility/fetchRequest";
+import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {getGroupDataByIdUrl} from "../../../api/utilities";
 
 
@@ -33,7 +32,7 @@ function addStudent(
         lastName: DEFAULT_STUDENT_SURNAME
     }
     createStudent(studentData)
-        .then(() => 
+        .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => setStudents(response.studentsIdList))
                 .catch(err => console.log(err + ' from adding student'))
@@ -53,7 +52,7 @@ function setStudentById(
     const studentFirstNameInput = document.getElementById('name' + id) as HTMLInputElement;
 
     changeStudentName(studentIdForEdit, studentFirstNameInput.value, studentLastNameInput.value)
-        .then(() => 
+        .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => setStudents(response.studentsIdList))
                 .catch(err => console.log(err + ' from setting student initials'))
@@ -76,7 +75,7 @@ function removeStudents(
         }
     }
     deleteStudents(groupId, studentsIdsForDelete)
-        .then(() => 
+        .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => setStudents(response.studentsIdList))
                 .catch(err => console.log(err + ' from removing students'))
@@ -94,23 +93,15 @@ function saveGroupChanges(
     const groupSubjectInput = document.getElementById('subject') as HTMLInputElement;
     const getUrlApi = getGroupDataByIdUrl.replace("GROUP_ID", groupId)
 
-    changeGroupTitle(groupId, groupNameInput.value)
-        .then(() => 
+    changeGroupName(groupId, groupNameInput.value, groupSubjectInput.value)
+        .then(() =>
             fetchGetRequest(getUrlApi)
-                .then(response => 
+                .then(response =>
                     setGroup({name: response.groupTitle, subject: response.groupSubject})
                 )
                 .catch(err => console.log(err + ' from saving group changes'))
+                .finally(() => setState(GroupState.default))
         )
-    changeGroupSubject(groupId, groupSubjectInput.value)
-        .then(() => 
-            fetchGetRequest(getUrlApi)
-                .then(response => 
-                    setGroup({name: response.groupTitle, subject: response.groupSubject})
-                )
-                .catch(err => console.log(err + ' from saving subject changes'))
-            )
-        .finally(() => setState(GroupState.default))
 
 }
 
