@@ -5,6 +5,9 @@
         td, th {
             border: 1px black solid;
         }
+        td {
+            padding: 20px 0 8px 0;
+        }
     }
     &head {
         align-content: space-between;
