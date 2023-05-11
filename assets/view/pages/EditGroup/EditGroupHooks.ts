@@ -7,13 +7,11 @@ import {
     createStudent,
     deleteStudents
 } from "../../../api/requests";
-import {getEditGroupPageUrl} from "../../../api/pageUrls";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {getGroupDataByIdUrl} from "../../../api/utilities";
 
 
 const GroupContext = React.createContext(null);
-const UserContext = React.createContext(null);
 
 enum GroupState {
     default,
@@ -122,7 +120,7 @@ function saveAllChanges(
 
 
 export {
-    GroupContext, UserContext, GroupState,
+    GroupContext, GroupState,
     addStudent, setStudentById, removeStudents,
     saveGroupChanges,
     saveAllChanges
