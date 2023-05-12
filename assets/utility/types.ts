@@ -16,12 +16,12 @@ type Student = {
     firstName: string,
     lastName: string
 }
+
 type StudentFrontData = {
     groupId: number,
     firstName: string,
     lastName: string
 }
-
 
 type Mark = {
     id: number,
@@ -38,4 +38,11 @@ type Task = {
     marksList: Array<number>
 }
 
-export { Group, GroupFrontData, Student, StudentFrontData, Mark, Task }
+type TaskFrontData = {
+    groupId: number,
+    topic: string,
+    description: string,
+    maxMark: number
+}
+
+export { Group, GroupFrontData, Student, StudentFrontData, Mark, Task, TaskFrontData }

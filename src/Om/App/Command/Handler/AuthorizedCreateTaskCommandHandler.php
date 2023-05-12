@@ -7,6 +7,7 @@ use App\Om\App\Command\AuthorizedCreateTaskCommand;
 use App\Om\Domain\Service\GroupService;
 use App\Om\Domain\Service\TaskService;
 use App\Om\Infrastructure\Repositories\Repository\GroupRepository;
+use App\Om\Infrastructure\Repositories\Repository\StudentRepository;
 use App\Om\Infrastructure\Repositories\Repository\TaskRepository;
 
 class AuthorizedCreateTaskCommandHandler
@@ -18,12 +19,13 @@ class AuthorizedCreateTaskCommandHandler
     public function __construct(
         AuthorizerInterface $authorizer,
         GroupRepository     $groupRepository,
-        TaskRepository      $taskRepository
+        TaskRepository      $taskRepository,
+        StudentRepository   $studentRepository
     )
     {
         $this->authorizer = $authorizer;
         $this->taskService = new TaskService($taskRepository);
-        $this->groupService = new GroupService($groupRepository);
+        $this->groupService = new GroupService($groupRepository, $studentRepository);
     }
 
     public function handle(AuthorizedCreateTaskCommand $command): int
