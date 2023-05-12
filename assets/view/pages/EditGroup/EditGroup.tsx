@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useLayoutEffect, useState} from "react";
 import "./EditGroup.scss";
 
 
@@ -43,7 +43,7 @@ const ButtonList = () => {
                         () => value.setState(GroupState.edit)}/>
                     {
                         value.students.length !== 0 ?
-                            <Button type="filled" data="К журналу" onClick={() => 
+                            <Button type="filled" data="К журналу" onClick={() =>
                                 window.location.href = getMarksTablePageUrl().replace("GROUP_ID", getEncryptedText(value.groupId))
                             }/>
                             :
@@ -84,7 +84,7 @@ const GroupHeader = () => {
     const value = useContext(GroupContext);
 
     function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-        if(e.key === 'Enter') 
+        if (e.key === 'Enter')
             saveGroupChanges(value.groupId, value.setGroup, value.setState)
     }
 
@@ -168,20 +168,22 @@ const Students = (props: StudentsProps) => {
             }
         }
     }
+
     function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-        if(e.key === 'Enter')
+        if (e.key === 'Enter')
             saveAllChanges(
                 value.groupId, value.setGroup, value.setState, value.students, value.setStudents,
                 value.activeStudentId, value.setActiveStudentId
-            ) 
+            )
     }
+
     const value = useContext(GroupContext);
     return (
         <div className="editGroup__studentArea" onKeyDown={handleKeyDown}>
-        {
-            props.state === GroupState.delete &&
-            <div className="editGroup__checkboxArea">{checkboxes}</div>
-        }{
+            {
+                props.state === GroupState.delete &&
+                <div className="editGroup__checkboxArea">{checkboxes}</div>
+            }{
             students.length !== 0 && <ol>{students}</ol>
         }{
             students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
@@ -205,7 +207,26 @@ const Group = (props: GroupProps) => {
         subject: props.subject,
     });
     const [activeStudentId, setActiveStudentId] = useState(-1);
-    const [students, setStudents] = useState(props.studentsList);
+    const [students, setStudents] = useState(
+        props.studentsList.sort((a, b) => {
+            if (a.lastName > b.lastName) {
+                return 1
+            } else if (a.firstName > b.firstName && a.lastName === b.lastName) {
+                return 1
+            } else return -1
+        })
+    );
+    useLayoutEffect(() =>
+        setStudents(
+            students.sort((a, b) => {
+                if (a.lastName > b.lastName) {
+                    return 1
+                } else if (a.firstName > b.firstName && a.lastName === b.lastName) {
+                    return 1
+                } else return -1
+            })
+        )
+    )
     const groupId: string = props.id
     return (
         <div className="editGroup__group-wrapper">
