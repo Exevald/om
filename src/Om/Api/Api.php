@@ -193,7 +193,8 @@ readonly class Api implements ApiInterface
     {
         $taskRepository = new TaskRepository($this->doctrine);
         $groupRepository = new GroupRepository($this->doctrine);
-        $handler = new AuthorizedCreateTaskCommandHandler($this->authorizer, $groupRepository, $taskRepository);
+        $studentRepository = new StudentRepository($this->doctrine);
+        $handler = new AuthorizedCreateTaskCommandHandler($this->authorizer, $groupRepository, $taskRepository, $studentRepository);
         return $handler->handle(new AuthorizedCreateTaskCommand($token, $groupId, $topic, $description, $maxMark));
     }
 
