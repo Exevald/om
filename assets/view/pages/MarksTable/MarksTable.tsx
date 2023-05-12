@@ -76,7 +76,7 @@ interface GroupTableProps {
 }
 const GroupTable = (props: GroupTableProps) => {
     const [state, setState] = useState<TableState>(TableState.default);
-    const [tasks, setTasks] = useState(props.group.tasksIdLIst)
+    const [tasks, setTasks] = useState(props.group.tasksList)
     const groupId = props.group.id;
     const groupName = props.group.name;
     return (
@@ -130,7 +130,7 @@ const renderMarksTable = () => {
                             name: groupResponse.groupTitle,
                             subject: groupResponse.groupSubject,
                             studentsList: groupResponse.studentsIdList,
-                            tasksIdLIst: groupResponse.tasksIdList
+                            tasksList: groupResponse.tasksList
                     }}/>
                 </React.StrictMode>
             )
