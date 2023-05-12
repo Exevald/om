@@ -57,7 +57,7 @@ marksTablePage:
     controller: App\Controller\MarksTableController::marksTablePage
 
 getGroupDataByIdApi:
-    path: /api/v1/group/{groupId}
+    path: /api/v1/group/get/{groupId}
     controller: App\Controller\GroupController::getGroupDataByIdApi
 
 createStudentApi:
@@ -73,7 +73,7 @@ deleteStudentsApi:
     controller: App\Controller\StudentController::deleteStudentsApi
 
 getTaskDataByIdApi:
-    path: /api/v1/task/{taskId}
+    path: /api/v1/task/get/{taskId}
     controller: App\Controller\TaskController::getTaskDataByIdApi
 
 createTaskApi:
