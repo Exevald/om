@@ -248,7 +248,7 @@ const EditGroupPage = (props: EditGroupPageProps) => {
                 name={props.group.name}
                 subject={props.group.subject}
                 studentsList={props.group.studentsList}
-                tasksIdList={props.group.tasksIdLIst}
+                tasksIdList={props.group.tasksList}
             />
         </div>
 
@@ -274,7 +274,7 @@ function renderEditGroupPage() {
                                         name: groupResponse.groupTitle,
                                         subject: groupResponse.groupSubject,
                                         studentsList: groupResponse.studentsIdList,
-                                        tasksIdLIst: groupResponse.tasksIdList
+                                        tasksList: groupResponse.tasksList
                                     }
                                 }
                             />

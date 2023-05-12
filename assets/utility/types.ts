@@ -3,7 +3,7 @@ type Group = {
     name: string,
     subject: string,
     studentsList: Array<Student>,
-    tasksIdLIst: Array<Task>
+    tasksList: Array<Task>
 }
 
 type GroupFrontData = {

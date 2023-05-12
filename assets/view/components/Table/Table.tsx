@@ -46,13 +46,13 @@ interface TableProps {
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>
 }
 const Table = (props: TableProps) => {
-
+    console.log(props.group)
     const rows = props.group.studentsList.map(student => 
-        <TableRow key={student.id} student={student} tasks={props.group.tasksIdLIst}/>
+        <TableRow key={student.id} student={student} tasks={props.group.tasksList}/>
     )
     return(
         <table className="table__wrapper">
-            <TableHeader subject={props.group.subject} tasks={props.group.tasksIdLIst}/>
+            <TableHeader subject={props.group.subject} tasks={props.group.tasksList}/>
             <tbody className="table__body">
                 {rows}
             </tbody>
