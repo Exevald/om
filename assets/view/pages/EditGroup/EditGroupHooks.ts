@@ -119,9 +119,19 @@ function saveAllChanges(
 }
 
 
+function sortStudentsByIitials(a: Student, b: Student): number {
+    if (a.lastName > b.lastName) {
+        return 1
+    } else if (a.firstName > b.firstName && a.lastName === b.lastName) {
+        return 1
+    } else return -1
+}
+
+
 export {
     GroupContext, GroupState,
     addStudent, setStudentById, removeStudents,
     saveGroupChanges,
-    saveAllChanges
+    saveAllChanges,
+    sortStudentsByIitials
 }
