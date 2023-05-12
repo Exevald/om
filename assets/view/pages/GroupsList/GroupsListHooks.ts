@@ -22,14 +22,7 @@ function addGroup(
     teacherId: number,
     setGroups: React.Dispatch<React.SetStateAction<Group[]>>
 ) {
-    const groupData: groupDataType = {
-        teacherId: teacherId,
-        title: DEFAULT_GROUP_NAME,
-        subject: DEFAULT_SUBJECT_NAME,
-        studentsList: [],
-        tasksList: []
-    }
-    createGroup(groupData)
+    createGroup(teacherId)
         .then(() =>
             fetchGetRequest(groupsListUrlApi)
                 .then(response => setGroups(JSON.parse(response.groups)))
@@ -55,8 +48,8 @@ function setGroupById(
                     .then(response => setGroups(JSON.parse(response.groups)))
                     .catch(err => console.log(err + ' from changing group title'))
             ).finally(() => {
-            setActiveGroupId(-1);
-            setState(GroupsListState.default)
+                setActiveGroupId(-1);
+                setState(GroupsListState.default)
         })
     }
 }

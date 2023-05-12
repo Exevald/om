@@ -8,6 +8,7 @@ import {
     authorizeUrl, changeGroupNameUrl, changeStudentNameUrl, createGroupUrl,
     createStudentUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl
 } from "./utilities";
+import { DEFAULT_GROUP_NAME, DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME, DEFAULT_SUBJECT_NAME } from "../utility/utilities";
 
 
 function login(email: string, password: string) {
@@ -41,13 +42,13 @@ function createTeacher(teacherData: teacherDataType) {
     )
 }
 
-function createStudent(studentData: StudentFrontData) {
+function createStudent(groupId: number) {
     return fetchPostRequest(
         createStudentUrl,
         {
-            groupId: studentData.groupId,
-            firstName: studentData.firstName,
-            lastName: studentData.lastName
+            groupId: groupId,
+            firstName: DEFAULT_STUDENT_NAME,
+            lastName: DEFAULT_STUDENT_SURNAME
         }
     ).then(
         response => {
@@ -59,13 +60,13 @@ function createStudent(studentData: StudentFrontData) {
     )
 }
 
-function createGroup(groupData: groupDataType) {
+function createGroup(teacherId: number) {
     return fetchPostRequest(
         createGroupUrl,
         {
-            teacherId: groupData.teacherId,
-            title: groupData.title,
-            subject: groupData.subject,
+            teacherId: teacherId,
+            title: DEFAULT_GROUP_NAME,
+            subject: DEFAULT_SUBJECT_NAME,
             studentsList: [],
             tasksList: []
         }
@@ -133,6 +134,10 @@ function deleteStudents(groupId: string, studentsIdList: Array<string>) {
             return response;
         }
     )
+}
+
+function createTask(groupId: string) {
+
 }
 
 export {
