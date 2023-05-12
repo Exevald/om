@@ -1,6 +1,5 @@
 import React from "react";
-import {GroupFrontData, Student, StudentFrontData} from "../../../utility/types";
-import {DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME} from "../../../utility/utilities";
+import {GroupFrontData, Student} from "../../../utility/types";
 import {
     changeGroupInitials,
     changeStudentName,
@@ -24,12 +23,7 @@ function addStudent(
     groupId: string,
     setStudents: React.Dispatch<React.SetStateAction<Student[]>>
 ) {
-    const studentData: StudentFrontData = {
-        groupId: parseInt(groupId, 10),
-        firstName: DEFAULT_STUDENT_NAME,
-        lastName: DEFAULT_STUDENT_SURNAME
-    }
-    createStudent(studentData)
+    createStudent(parseInt(groupId, 10))
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => setStudents(response.studentsIdList))
