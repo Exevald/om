@@ -2,13 +2,11 @@ import {fetchPostRequest} from "../utility/fetchRequest";
 import {responseStatus} from "../utility/responseStatus";
 import {getEncryptedText} from "../utility/scrambler";
 import {teacherDataType} from "../view/pages/Authentication/getTeacherData";
-import {StudentFrontData} from '../utility/types'
-import {groupDataType} from "../view/pages/GroupsList/getGroupData";
 import {
     authorizeUrl, changeGroupNameUrl, changeStudentNameUrl, createGroupUrl,
-    createStudentUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl
+    createStudentUrl, createTaskUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl
 } from "./utilities";
-import { DEFAULT_GROUP_NAME, DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME, DEFAULT_SUBJECT_NAME } from "../utility/utilities";
+import { DEFAULT_GROUP_NAME, DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME, DEFAULT_SUBJECT_NAME, DEFAULT_TASK_DESCRIPTION, DEFAULT_TASK_MAXMARK, DEFAULT_TASK_TITLE } from "../utility/utilities";
 
 
 function login(email: string, password: string) {
@@ -137,7 +135,22 @@ function deleteStudents(groupId: string, studentsIdList: Array<string>) {
 }
 
 function createTask(groupId: string) {
-
+    return fetchPostRequest(
+        createTaskUrl,
+        {
+            groupId: parseInt(groupId, 10),
+            topic: DEFAULT_TASK_TITLE,
+            description: DEFAULT_TASK_DESCRIPTION,
+            maxMark: DEFAULT_TASK_MAXMARK
+        }
+    ).then(
+        response => {
+            if (!response.ok || response.status === 409) {
+                throw new Error()
+            }
+            return response
+        }
+    )
 }
 
 export {
@@ -148,5 +161,6 @@ export {
     deleteGroups,
     changeGroupInitials,
     changeStudentName,
-    deleteStudents
+    deleteStudents,
+    createTask
 }
