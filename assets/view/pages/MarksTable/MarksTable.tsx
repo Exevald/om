@@ -21,21 +21,19 @@ enum TableState {
 }
 
 
-interface GroupAreaProps {
-    groupName: string,
-    setState: React.Dispatch<React.SetStateAction<TableState>>
-}
-
-const GroupArea = (props: GroupAreaProps) => {
+const GroupArea = React.memo(() => {
+    const context = useContext(TableGroupContext);
     return (
         <div className="marksTable__groupHeader">
-            <h4>{props.groupName}</h4>
-            <p onClick={() => props.setState(TableState.edit)}>
-                Редактировать страницу
+            <h4>{context.groupName}</h4>
+            <p onClick={() => 
+                window.location.href = editGroupUrl.replace("GROUP_ID", getEncryptedText(context.groupId))
+            }>
+                Редактировать группу
             </p>
         </div>
     )
-}
+})
 
 
 const ButtonList = () => {
@@ -48,25 +46,37 @@ const ButtonList = () => {
                     <Button type="transparent" data="?"/>
                     <Button type="transparent" data="Добавить работу" iconType="add" 
                         onClick={() => addTask(context.groupId, context.setTasks)}/>
-                    <Button type="transparent" data="Удалить работу" iconType="minus"/>
+                    <Button type="transparent" data="Удалить работу" iconType="minus"
+                        onClick={() => context.setState(TableState.delete)}/>
                     <Button type="transparentDisabled" data="Сохранить"/>
-                    <Button type="filled" data="К группе" onClick={() =>
-                        window.location.href = editGroupUrl.replace("GROUP_ID", getEncryptedText(context.groupId))
-                    }/>
                 </>
             }{
-
-        }
+                context.state === TableState.edit &&
+                <>
+                    <Button type="transparent" data="?"/>
+                    <Button type="transparent" data="Добавить работу" iconType="add" 
+                        onClick={() => addTask(context.groupId, context.setTasks)}/>
+                    <Button type="transparent" data="Удалить работу" iconType="minus"
+                        onClick={() => context.setState(TableState.delete)}/>
+                    <Button type="filled" data="Сохранить"/>
+                </>
+            }{
+                context.state === TableState.delete &&
+                <>
+                    <Button type="transparent" data="Удалить работу" iconType="minus"
+                        onClick={() => context.setState(TableState.delete)}/>
+                    <Button type="transparent" data="Отмена" onClick={() => context.setState()}/>
+                </>
+            }
         </div>
     )
 }
 
 
 const TableGroupHeader = () => {
-    const context = useContext(TableGroupContext);
     return (
         <div className="marksTable__header">
-            <GroupArea groupName={context.groupName} setState={context.setState}/>
+            <GroupArea/>
             <ButtonList/>
         </div>
     )
@@ -90,7 +100,10 @@ const GroupTable = (props: GroupTableProps) => {
                     tasks, setTasks
             }}>
                 <TableGroupHeader/>
-                <Table group={props.group} setState={setState} setTasks={setTasks} />
+                <Table  subject={props.group.subject}
+                        students={props.group.studentsList} 
+                        tasks={tasks}
+                />
             </TableGroupContext.Provider>
         </>
     )

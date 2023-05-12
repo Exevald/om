@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {  Group, Student, Task } from "../../../utility/types";
 
 import './Table.scss'
-import { TableState } from "../../pages/MarksTable/MarksTable";
 
 
 interface TableHeaderProps {
@@ -40,19 +39,19 @@ const TableRow = (props: TableRowProps) => {
 }
 
 
+
 interface TableProps {
-    group: Group,
-    setState: React.Dispatch<React.SetStateAction<TableState>>,
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>
+    subject: string,
+    students: Array<Student>,
+    tasks: Array<Task>
 }
 const Table = (props: TableProps) => {
-    console.log(props.group)
-    const rows = props.group.studentsList.map(student => 
-        <TableRow key={student.id} student={student} tasks={props.group.tasksList}/>
+    const rows = props.students.map(student => 
+        <TableRow key={student.id} student={student} tasks={props.tasks}/>
     )
     return(
         <table className="table__wrapper">
-            <TableHeader subject={props.group.subject} tasks={props.group.tasksList}/>
+            <TableHeader subject={props.subject} tasks={props.tasks}/>
             <tbody className="table__body">
                 {rows}
             </tbody>

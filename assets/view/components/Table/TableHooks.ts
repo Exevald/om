@@ -12,7 +12,7 @@ function addTask(
     createTask(groupId)
         .then(() => 
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => console.log(response))
+                .then(response => setTasks(response.tasksList))
                 .catch(err => console.log(err))
         )
 }
