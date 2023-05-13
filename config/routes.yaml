@@ -83,3 +83,7 @@ createTaskApi:
 deleteTasksApi:
     path: /api/v1/task/delete
     controller: App\Controller\TaskController::deleteTasksApi
+
+changeTaskInitialsApi:
+    path: /api/v1/task/initials/change
+    controller: App\Controller\TaskController::changeTaskInitialsApi

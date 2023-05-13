@@ -53,6 +53,23 @@ class TaskController extends AbstractController
         return new Response();
     }
 
+    public function changeTaskInitialsApi(Request $request): Response
+    {
+        $token = $request->cookies->get("token");
+        if (empty($token)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $body = json_decode($request->getContent(), true);
+        $taskId = $body["taskId"];
+        $topic = $body["topic"];
+        $description = $body["description"];
+        if (empty($taskId) || empty($topic) || empty($description)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $this->api->changeTaskInitials($token, $taskId, $topic, $description);
+        return new Response();
+    }
+
     public function getTaskDataByIdApi(Request $request): Response
     {
         $normalizer = new ObjectNormalizer();

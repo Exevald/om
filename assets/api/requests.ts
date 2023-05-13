@@ -3,8 +3,8 @@ import {responseStatus} from "../utility/responseStatus";
 import {getEncryptedText} from "../utility/scrambler";
 import {teacherDataType} from "../view/pages/Authentication/getTeacherData";
 import {
-    authorizeUrl, changeGroupNameUrl, changeStudentNameUrl, createGroupUrl,
-    createStudentUrl, createTaskUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl
+    authorizeUrl, changeGroupNameUrl, changeStudentNameUrl, changeTaskInitialsUrl, createGroupUrl,
+    createStudentUrl, createTaskUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl, deleteTasksUrl
 } from "./utilities";
 import { DEFAULT_GROUP_NAME, DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME, DEFAULT_SUBJECT_NAME, DEFAULT_TASK_DESCRIPTION, DEFAULT_TASK_MAXMARK, DEFAULT_TASK_TITLE } from "../utility/utilities";
 
@@ -153,6 +153,34 @@ function createTask(groupId: string) {
     )
 }
 
+function deleteTasks(groupId: string, tasksIdList: Array<string>) {
+    return fetchPostRequest(
+        deleteTasksUrl,
+        {
+            groupId: parseInt(groupId, 10),
+            tasksIdList: tasksIdList.map(id => parseInt(id, 10))
+        }
+    ).then(
+        response => {
+            if (!response.ok || response.status === 409) {
+                throw new Error();
+            }
+            return response;
+        }
+    )
+}
+
+function changeTaskInitials(taskId: string, topic: string, description: string) {
+    return fetchPostRequest(
+        changeTaskInitialsUrl,
+        {
+            taskId: parseInt(taskId, 10),
+            topic: topic,
+            description: description
+        }
+    )
+}
+
 export {
     login,
     createTeacher,
@@ -162,5 +190,7 @@ export {
     changeGroupInitials,
     changeStudentName,
     deleteStudents,
-    createTask
+    createTask,
+    deleteTasks,
+    changeTaskInitials
 }
