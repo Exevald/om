@@ -9,7 +9,7 @@ import {createRoot} from "react-dom/client";
 import {Group} from "../../../utility/types";
 import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
-import {editGroupUrl, getGroupDataByIdUrl, groupEditUrlApi} from "../../../api/utilities";
+import {editGroupUrl, getGroupDataByIdUrl, groupEditUrlApi, marksTableUrlApi} from "../../../api/utilities";
 import { addTask } from "../../components/Table/TableHooks";
 
 const TableGroupContext = React.createContext(null);
@@ -133,7 +133,8 @@ const renderMarksTable = () => {
     const root = createRoot(document.getElementById('root'))
     const loc = location.search
     const groupId = getDecryptedText(loc.replace("?groupId=", ""))
-    fetchGetRequest(groupEditUrlApi).then(pageResponse => {
+    fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId)).then(pageResponse => {
+        console.log(pageResponse)
         fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
             root.render(
                 <React.StrictMode>
