@@ -1,4 +1,14 @@
+.taskLabel {
+    min-width: 80px;
+    color: var(--ash-light);
+    font: var(--text-text-normal-regular);
+    span {
+        margin-right: 5px;
+    }
+    margin-bottom: 5px;
+}
 .taskIcon {
-    width: 5px;
-    height: 10px;
+    width: 12px;
+    height: 8px;
+    margin-bottom: 3px;
 }

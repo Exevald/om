@@ -6,26 +6,27 @@
 
     }
     &wrapper {
-        width: fit-content;
+        min-width: fit-content;
         border-collapse: collapse;
         tr {
-            td {
+            th, td {
                 border: 1px black solid;
+            }
+            td {
                 padding: 20px 0 8px 0;
             }
-            th {
-                border: 1px black solid;
-                padding: 20px 10px 8px 10px
-            }
         }
-        tr:last-child {
-            td {
-                border-bottom: none;
+    }
+    &head {
+        tr {
+            th {
+                border-top: none;
             }
         }
     }
     &tasks {
         width: 100%;
+        margin: 0 -1px 0 -1px;
         thead {
             tr {
                 th:last-child {

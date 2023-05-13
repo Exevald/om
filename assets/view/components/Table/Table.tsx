@@ -12,7 +12,7 @@ interface StudentTableProps {
 const StudentsTable = (props: StudentTableProps) => {
     return (
         <table className="table__wrapper">
-            <thead><tr><td>{props.subject}</td></tr></thead>
+            <thead className="table__head"><tr><th><strong>{props.subject}</strong></th></tr></thead>
             <tbody>
                 {
                     props.students.map(student => 
@@ -23,7 +23,7 @@ const StudentsTable = (props: StudentTableProps) => {
                         </tr>
                     )
                 }
-                    <tr><td>󠇮</td></tr>
+                <tr><td>󠇮</td></tr>
             </tbody>
         </table>
     )
@@ -39,15 +39,19 @@ const TasksTable = (props: TasksTableProps) => {
     )
     // заглушка для заполнения лишнего пространства
     tasksHead.push(
-        
+        <th key={-1}></th>
     )
     return (
-        <table className="table__wrapper table__tasks">
-            <thead>
+        <table className="table__wrapper table__tasks" >
+            <thead className="table__head">
                 <tr>{tasksHead}</tr>
             </thead>
             <tbody>
-                Пародия на столбцы
+                <tr>
+                    <td>
+                        П
+                    </td>
+                </tr>
             </tbody>
         </table>
     )
@@ -75,7 +79,7 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
     )
     return (
         <table className="table__wrapper">
-            <thead><tr><td><strong>Итого</strong></td></tr></thead>
+            <thead className="tabel__head"><tr><th><strong>Итого</strong></th></tr></thead>
             <tbody>
                 {finalMarks}
             </tbody>

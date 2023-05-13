@@ -11,13 +11,13 @@ interface TaskPreviewProps {
 }
 const TaskPreview = (props: TaskPreviewProps) => {
     return (
-        <div className="" onClick={props.onClick}>
-            <span>props.date</span>
+        <th className="taskLabel" onClick={props.onClick}>
+            <span>01.01</span>
             <img className="taskIcon"
                  src={taskIcon}
                  alt="Подробнее"
                  />
-        </div>
+        </th>
     )
 }
 
