@@ -20,6 +20,10 @@ editGroupPage:
     path: /groups/edit
     controller: App\Controller\EditGroupController::editGroupPage
 
+marksTablePage:
+    path: /table
+    controller: App\Controller\MarksTableController::marksTablePage
+
 # Page data API routes
 
 editGroupPageApi:
@@ -29,6 +33,10 @@ editGroupPageApi:
 groupsListPageApi:
     path: /api/v1/groups/get
     controller: App\Controller\GroupsListController::getGroupsListPageApi
+
+marksTablePageApi:
+    path: /api/v1/table/get/{groupId}
+    controller: App\Controller\MarksTableController::marksTablePageApi
 
 # API routes
 
@@ -51,10 +59,6 @@ deleteGroupsApi:
 changeGroupNameApi:
     path: /api/v1/group/name/change
     controller: App\Controller\GroupController::changeGroupNameApi
-
-marksTablePage:
-    path: /table
-    controller: App\Controller\MarksTableController::marksTablePage
 
 getGroupDataByIdApi:
     path: /api/v1/group/get/{groupId}

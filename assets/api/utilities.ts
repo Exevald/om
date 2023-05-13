@@ -13,6 +13,7 @@ const marksTableUrl = '/table?groupId=GROUP_ID'
  */
 const groupsListUrlApi = '/api/v1/groups/get'
 const groupEditUrlApi = '/api/v1/groups/edit'
+const marksTableUrlApi = '/api/v1/table/get/GROUP_ID'
 
 /**
  * API routes
@@ -40,5 +41,5 @@ export {
     changeGroupNameUrl, getGroupDataByIdUrl,
     changeStudentNameUrl, deleteStudentsUrl,
     marksTableUrl, getTaskDataByIdUrl, createTaskUrl, deleteTasksUrl, changeTaskInitialsUrl,
-    changeTaskDateUrl, changeTaskMaxMarkUrl
+    changeTaskDateUrl, changeTaskMaxMarkUrl, marksTableUrlApi
 }
