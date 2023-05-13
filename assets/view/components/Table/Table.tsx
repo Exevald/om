@@ -2,6 +2,7 @@ import React from "react";
 import {  Group, Student, Task } from "../../../utility/types";
 
 import './Table.scss'
+import TaskPreview from "../TaskPreview/TaskPreview";
 
 
 interface StudentTableProps {
@@ -34,19 +35,19 @@ interface TasksTableProps {
 }
 const TasksTable = (props: TasksTableProps) => {
     const tasksHead = props.tasks.map(task =>
-        <th key={task.id}>{task.id}</th>
+        <TaskPreview key={task.id} date={new Date('2019 01')} />
     )
+    // заглушка для заполнения лишнего пространства
     tasksHead.push(
-        <th key={-1}></th>
+        
     )
-    const tasksRows = props.tasks.map(task => <tr></tr>)
     return (
         <table className="table__wrapper table__tasks">
             <thead>
                 <tr>{tasksHead}</tr>
             </thead>
             <tbody>
-
+                Пародия на столбцы
             </tbody>
         </table>
     )
