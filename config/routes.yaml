@@ -36,7 +36,7 @@ groupsListPageApi:
 
 marksTablePageApi:
     path: /api/v1/table/get/{groupId}
-    controller: App\Controller\MarksTableController::marksTablePageApi
+    controller: App\Controller\MarksTableController::getMarksTablePageApi
 
 # API routes
 
