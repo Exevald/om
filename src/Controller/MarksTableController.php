@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Common\ErrorType;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Om\Api\ApiInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,11 +30,17 @@ class MarksTableController extends AbstractController
             $response = $this->redirectToRoute("loginPage");
             $response->send();
         }
+        $groupId = $request->attributes->get("groupId");
+        if (empty($taskId)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
         $teacher = $this->api->getTeacherByToken($token);
         return $this->render('pages/marks_table/marks_table.twig', [
             'teacherId' => $teacher->getId(),
             'userFirstName' => $teacher->getFirstName(),
-            'userLastName' => $teacher->getLastName()
+            'userLastName' => $teacher->getLastName(),
+            'tasks' => $this->getAllTasks($groupId),
+            'marks' => $this->getAllMarks($groupId)
         ]);
     }
 
