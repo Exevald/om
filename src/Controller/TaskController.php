@@ -70,6 +70,38 @@ class TaskController extends AbstractController
         return new Response();
     }
 
+    public function changeTaskDateApi(Request $request): Response
+    {
+        $token = $request->cookies->get("token");
+        if (empty($token)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $body = json_decode($request->getContent(), true);
+        $taskId = $body["taskId"];
+        $date = $body["date"];
+        if (empty($taskId) || $date($date)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $this->api->changeTaskDate($token, $taskId, $date);
+        return new Response();
+    }
+
+    public function changeTaskMaxMarkApi(Request $request): Response
+    {
+        $token = $request->cookies->get("token");
+        if (empty($token)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $body = json_decode($request->getContent(), true);
+        $taskId = $body["taskId"];
+        $maxMark = $body["maxMark"];
+        if (empty($taskId) || empty($maxMark)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $this->api->changeTaskMaxMark($token, $taskId, $maxMark);
+        return new Response();
+    }
+
     public function getTaskDataByIdApi(Request $request): Response
     {
         $normalizer = new ObjectNormalizer();

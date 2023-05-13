@@ -87,3 +87,11 @@ deleteTasksApi:
 changeTaskInitialsApi:
     path: /api/v1/task/initials/change
     controller: App\Controller\TaskController::changeTaskInitialsApi
+
+changeTaskDateApi:
+    path: /api/v1/task/date/change
+    controller: App\Controller\TaskController::changeTaskDateApi
+
+changeTaskMaxMarkApi:
+    path: /api/v1/task/max_mark/change
+    controller: App\Controller\TaskController::changeTaskMaxMarkApi

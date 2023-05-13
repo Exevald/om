@@ -3,7 +3,7 @@ import {responseStatus} from "../utility/responseStatus";
 import {getEncryptedText} from "../utility/scrambler";
 import {teacherDataType} from "../view/pages/Authentication/getTeacherData";
 import {
-    authorizeUrl, changeGroupNameUrl, changeStudentNameUrl, changeTaskInitialsUrl, createGroupUrl,
+    authorizeUrl, changeGroupNameUrl, changeStudentNameUrl, changeTaskInitialsUrl, changeTaskMaxMarkUrl, createGroupUrl,
     createStudentUrl, createTaskUrl, createTeacherUrl, deleteGroupsUrl, deleteStudentsUrl, deleteTasksUrl
 } from "./utilities";
 import { DEFAULT_GROUP_NAME, DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME, DEFAULT_SUBJECT_NAME, DEFAULT_TASK_DESCRIPTION, DEFAULT_TASK_MAXMARK, DEFAULT_TASK_TITLE } from "../utility/utilities";
@@ -181,6 +181,16 @@ function changeTaskInitials(taskId: string, topic: string, description: string) 
     )
 }
 
+function changeTaskMaxMark(taskId: string, maxMark: number) {
+    return fetchPostRequest(
+        changeTaskMaxMarkUrl,
+        {
+            taskId: parseInt(taskId, 10),
+            maxMark: maxMark
+        }
+    )
+}
+
 export {
     login,
     createTeacher,
@@ -192,5 +202,6 @@ export {
     deleteStudents,
     createTask,
     deleteTasks,
-    changeTaskInitials
+    changeTaskInitials,
+    changeTaskMaxMark
 }

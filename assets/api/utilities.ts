@@ -30,6 +30,8 @@ const getTaskDataByIdUrl = '/api/v1/task/get/TASK_ID'
 const createTaskUrl = '/api/v1/task/create'
 const deleteTasksUrl = '/api/v1/task/delete'
 const changeTaskInitialsUrl = '/api/v1/task/initials/change'
+const changeTaskDateUrl = '/api/v1/task/date/change'
+const changeTaskMaxMarkUrl = 'api/v1/task/max_mark/change'
 
 export {
     titleUrl, loginUrl, onboardingUrl, groupsListUrl, editGroupUrl,
@@ -37,5 +39,6 @@ export {
     authorizeUrl, createTeacherUrl, createGroupUrl, createStudentUrl, deleteGroupsUrl,
     changeGroupNameUrl, getGroupDataByIdUrl,
     changeStudentNameUrl, deleteStudentsUrl,
-    marksTableUrl, getTaskDataByIdUrl, createTaskUrl, deleteTasksUrl, changeTaskInitialsUrl
+    marksTableUrl, getTaskDataByIdUrl, createTaskUrl, deleteTasksUrl, changeTaskInitialsUrl,
+    changeTaskDateUrl, changeTaskMaxMarkUrl
 }
