@@ -1,33 +1,35 @@
 .table__ {
-    &wrapper {
+    &tables {
         width: 100%;
-        border-collapse: collapse;
-        td, th {
-            border: 1px black solid;
-        }
-        td {
-            padding: 20px 0 8px 0;
-        }
+        height: 100%;
+        display: flex;
+
     }
-    &head {
-        align-content: space-between;
-        th {
-            border-top:none;
-            &:first-child {
-                border-left: none;
-            }&:last-child {
-                border-right: none;
+    &wrapper {
+        width: fit-content;
+        border-collapse: collapse;
+        tr {
+            td {
+                border: 1px black solid;
+                padding: 20px 0 8px 0;
+            }
+            th {
+                border: 1px black solid;
+                padding: 20px 10px 8px 10px
+            }
+        }
+        tr:last-child {
+            td {
+                border-bottom: none;
             }
         }
     }
-    &body {
-        tr {
-            td {
-                &:first-child {
-                    border-left: none;
-                }
-                &:last-child {
-                    border-right: none;
+    &tasks {
+        width: 100%;
+        thead {
+            tr {
+                th:last-child {
+                    width: 100%;
                 }
             }
         }
