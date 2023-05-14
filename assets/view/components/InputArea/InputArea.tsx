@@ -60,25 +60,41 @@ const InputArea = (props: InputAreaProps) => {
         changeWidth(props.id, props.type, props.widthChangeable), 
     []);
     return (
-        <div>
+        <>
             {
-                props.header &&
-                <div className="inputArea__header">
-                    <p>{props.header}</p>
+                props.header ?
+                <div>
+                    <div className="inputArea__header">
+                        <p>{props.header}</p>
+                    </div>
+                    {
+                        props.widthChangeable && 
+                        <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
+                        onChange={() => changeWidth(props.id, props.type, props.widthChangeable)} 
+                        placeholder={props.placeholder} />
+                    }
+                    {
+                        !props.widthChangeable && 
+                        <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
+                        placeholder={props.placeholder} />
+                    } 
                 </div>
-            }
-            {
-                props.widthChangeable && 
-                <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
-                onChange={() => changeWidth(props.id, props.type, props.widthChangeable)} 
-                placeholder={props.placeholder} />
-            }
-            {
-                !props.widthChangeable && 
-                <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
-                placeholder={props.placeholder} />
-            }       
-        </div>
+             :
+                <>
+                    {
+                        props.widthChangeable && 
+                        <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
+                        onChange={() => changeWidth(props.id, props.type, props.widthChangeable)} 
+                        placeholder={props.placeholder} />
+                    }
+                    {
+                        !props.widthChangeable && 
+                        <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
+                        placeholder={props.placeholder} />
+                    } 
+                </>
+            }      
+        </>
     )
 }
 

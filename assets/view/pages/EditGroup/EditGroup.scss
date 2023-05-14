@@ -57,16 +57,23 @@
     justify-content: flex-start;
     margin: 72px 0 72px 22px;
 
-    & input:not(:first-child), & li:not(:first-child) {
+    & li:not(:first-child) {
       margin-top: 15px;
     }
   }
 
   &checkboxArea {
-    margin: 1px 30px 0 0;
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
 
-    & > div:not(:first-child) {
-      margin-top: 15px;
+    input {
+      height: 24px;
+      display: flex;
+      align-items: center;
+      &:not(:first-child) {
+        margin-top: 15px;
+      }
     }
   }
 
@@ -76,8 +83,9 @@
 
   &studentInputArea {
     display: flex;
+    align-items: baseline;
 
-    & div:first-child {
+    & input:first-child {
       margin-right: 15px;
     }
   }
