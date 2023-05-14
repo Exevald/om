@@ -10,6 +10,7 @@
         border: none;
     }
     &wrapper {
+        text-align: center;
         min-width: fit-content;
         border-collapse: collapse;
         tr {
@@ -40,7 +41,7 @@
         thead {
             tr {
                 th {
-                    text-align: justify;
+                    text-align: left;
                     border-left: none;
                     padding-bottom: 9px; 
                     width: 339px;
@@ -57,9 +58,10 @@
         }
     }
     &tasks {
-        width: 100%;
         margin: 0 -1px 0 -1px;
+        width: 100%;
         thead {
+            overflow-x: hidden;
             tr {
                 th {
                     padding-bottom: 9px;

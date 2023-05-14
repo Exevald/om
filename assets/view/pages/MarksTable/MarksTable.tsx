@@ -66,7 +66,7 @@ const ButtonList = () => {
                 <>
                     <Button type="transparent" data="Удалить работу" iconType="minus"
                         onClick={() => context.setState(TableState.delete)}/>
-                    <Button type="transparent" data="Отмена" onClick={() => context.setState()}/>
+                    <Button type="transparent" data="Отмена" onClick={() => context.setState(TableState.default)}/>
                 </>
             }
         </div>

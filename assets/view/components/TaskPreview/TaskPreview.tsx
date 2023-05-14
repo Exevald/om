@@ -13,7 +13,7 @@ function handleKeyDown(
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>
 ) {
     if (event.key === 'Enter') {
-        
+        // тут прокинем изменение даты
     }
 }
 

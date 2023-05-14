@@ -3,6 +3,7 @@ import {Group, Student, Task} from "../../../utility/types";
 
 import './Table.scss'
 import TaskPreview from "../TaskPreview/TaskPreview";
+import InputArea from "../InputArea/InputArea";
 
 
 interface StudentTableProps {
@@ -44,7 +45,8 @@ interface TasksTableProps {
 const TasksTable = (props: TasksTableProps) => {
     const tasksHead: Array<JSX.Element> = [], 
           tasksBody: Array<JSX.Element> = [], 
-          tasksMaxMarks: Array<JSX.Element> = [];
+          tasksMaxMarks: Array<JSX.Element> = []
+    let marksRow: Array<JSX.Element> = []
     props.tasks.forEach(task => {
         tasksHead.push(
             <TaskPreview key={task.id} id={task.id} date={task.date}/>
@@ -57,11 +59,21 @@ const TasksTable = (props: TasksTableProps) => {
     tasksHead.push(
         <th key={-1} className="table__plug">󠇮</th>
     )
-    props.studentsIds.forEach(studentId => 
+    props.studentsIds.forEach(studentId => {
+        props.tasks.forEach(task => {
+            marksRow.push(
+                    <td key={task.id + ' ' + studentId}>
+                        <InputArea id={task.id + ' ' + studentId} type="mark" value={'00'}/>
+                    </td>
+            )
+        })
         tasksBody.push(
-            <tr key={studentId}><td></td></tr>
+            <tr key={studentId}>
+                {marksRow}
+            </tr>
         )
-    )
+        marksRow = [];
+    })
     return (
         <table className="table__wrapper table__tasks">
             <thead>
