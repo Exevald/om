@@ -1,101 +1,113 @@
 ## Pages routes
 
 titlePage:
-    path: /
-    controller: App\Controller\TeacherController::titlePage
+  path: /
+  controller: App\Controller\TeacherController::titlePage
 
 loginPage:
-    path: /login
-    controller: App\Controller\TeacherController::loginPage
+  path: /login
+  controller: App\Controller\TeacherController::loginPage
 
 onboardingPage:
-    path: /onboarding
-    controller: App\Controller\TeacherController::onboardingPage
+  path: /onboarding
+  controller: App\Controller\TeacherController::onboardingPage
 
 groupsListPage:
-    path: /groups/list
-    controller: App\Controller\GroupsListController::groupsListPage
+  path: /groups/list
+  controller: App\Controller\GroupsListController::groupsListPage
 
 editGroupPage:
-    path: /groups/edit
-    controller: App\Controller\EditGroupController::editGroupPage
+  path: /groups/edit
+  controller: App\Controller\EditGroupController::editGroupPage
 
 marksTablePage:
-    path: /table
-    controller: App\Controller\MarksTableController::marksTablePage
+  path: /table
+  controller: App\Controller\MarksTableController::marksTablePage
 
 # Page data API routes
 
 editGroupPageApi:
-    path: /api/v1/groups/edit
-    controller: App\Controller\EditGroupController::getEditGroupPageApi
+  path: /api/v1/groups/edit
+  controller: App\Controller\EditGroupController::getEditGroupPageApi
 
 groupsListPageApi:
-    path: /api/v1/groups/get
-    controller: App\Controller\GroupsListController::getGroupsListPageApi
+  path: /api/v1/groups/get
+  controller: App\Controller\GroupsListController::getGroupsListPageApi
 
 marksTablePageApi:
-    path: /api/v1/table/get/{groupId}
-    controller: App\Controller\MarksTableController::getMarksTablePageApi
+  path: /api/v1/table/get/{groupId}
+  controller: App\Controller\MarksTableController::getMarksTablePageApi
 
 # API routes
 
 createTeacherApi:
-    path: /api/v1/teacher/create
-    controller: App\Controller\TeacherController::createTeacherApi
+  path: /api/v1/teacher/create
+  controller: App\Controller\TeacherController::createTeacherApi
 
 authorizeApi:
-    path: /api/v1/authorize
-    controller: App\Controller\TeacherController::authorizeApi
+  path: /api/v1/authorize
+  controller: App\Controller\TeacherController::authorizeApi
 
 createGroupApi:
-    path: /api/v1/group/create
-    controller: App\Controller\GroupController::createGroupApi
+  path: /api/v1/group/create
+  controller: App\Controller\GroupController::createGroupApi
 
 deleteGroupsApi:
-    path: /api/v1/group/delete
-    controller: App\Controller\GroupController::deleteGroupsApi
+  path: /api/v1/group/delete
+  controller: App\Controller\GroupController::deleteGroupsApi
 
 changeGroupNameApi:
-    path: /api/v1/group/name/change
-    controller: App\Controller\GroupController::changeGroupNameApi
+  path: /api/v1/group/name/change
+  controller: App\Controller\GroupController::changeGroupNameApi
 
 getGroupDataByIdApi:
-    path: /api/v1/group/get/{groupId}
-    controller: App\Controller\GroupController::getGroupDataByIdApi
+  path: /api/v1/group/get/{groupId}
+  controller: App\Controller\GroupController::getGroupDataByIdApi
 
 createStudentApi:
-    path: /api/v1/student/create
-    controller: App\Controller\StudentController::createStudentApi
+  path: /api/v1/student/create
+  controller: App\Controller\StudentController::createStudentApi
 
 changeStudentNameApi:
-    path: /api/v1/student/name/change
-    controller: App\Controller\StudentController::changeStudentNameApi
+  path: /api/v1/student/name/change
+  controller: App\Controller\StudentController::changeStudentNameApi
 
 deleteStudentsApi:
-    path: /api/v1/student/delete
-    controller: App\Controller\StudentController::deleteStudentsApi
+  path: /api/v1/student/delete
+  controller: App\Controller\StudentController::deleteStudentsApi
 
 getTaskDataByIdApi:
-    path: /api/v1/task/get/{taskId}
-    controller: App\Controller\TaskController::getTaskDataByIdApi
+  path: /api/v1/task/get/{taskId}
+  controller: App\Controller\TaskController::getTaskDataByIdApi
 
 createTaskApi:
-    path: /api/v1/task/create
-    controller: App\Controller\TaskController::createTaskApi
+  path: /api/v1/task/create
+  controller: App\Controller\TaskController::createTaskApi
 
 deleteTasksApi:
-    path: /api/v1/task/delete
-    controller: App\Controller\TaskController::deleteTasksApi
+  path: /api/v1/task/delete
+  controller: App\Controller\TaskController::deleteTasksApi
 
 changeTaskInitialsApi:
-    path: /api/v1/task/initials/change
-    controller: App\Controller\TaskController::changeTaskInitialsApi
+  path: /api/v1/task/initials/change
+  controller: App\Controller\TaskController::changeTaskInitialsApi
 
 changeTaskDateApi:
-    path: /api/v1/task/date/change
-    controller: App\Controller\TaskController::changeTaskDateApi
+  path: /api/v1/task/date/change
+  controller: App\Controller\TaskController::changeTaskDateApi
 
 changeTaskMaxMarkApi:
-    path: /api/v1/task/max_mark/change
-    controller: App\Controller\TaskController::changeTaskMaxMarkApi
+  path: /api/v1/task/max_mark/change
+  controller: App\Controller\TaskController::changeTaskMaxMarkApi
+
+createMarkApi:
+  path: /api/v1/mark/create
+  controller: App\Controller\MarkController::createMarkApi
+
+changeTaskStudentMarkApi:
+  path: /api/v1/mark/student_mark/change
+  controller: App\Controller\MarkController::changeTaskStudentMarkApi
+
+deleteMarkApi:
+  path: /api/v1/mark/delete
+  controller: App\Controller\MarkController::deleteMarkApi
