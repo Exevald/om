@@ -4,7 +4,7 @@ import { MAX_LABEL_DEFAULT_SIZE, MAX_LABEL_GROUP_SIZE, MAX_LABEL_STUDENT_NAME_SI
 
 interface InputAreaProps {
     id: string,
-    type: 'email' | 'password' | 'text' | 'group' | 'subject' | 'checkbox' | 'studentName' | 'studentSurname',
+    type: 'email' | 'password' | 'text' | 'group' | 'subject' | 'checkbox' | 'studentName' | 'studentSurname' | 'mark',
     header?: string,
     widthChangeable?: boolean,
     placeholder?: string,

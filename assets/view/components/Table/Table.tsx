@@ -23,7 +23,7 @@ const StudentsTable = (props: StudentTableProps) => {
                 props.students.map(student =>
                     <tr key={student.id}>
                         <td>
-                            {student.firstName} {student.lastName}
+                            {student.lastName} {student.firstName}
                         </td>
                     </tr>
                 )
@@ -47,7 +47,7 @@ const TasksTable = (props: TasksTableProps) => {
           tasksMaxMarks: Array<JSX.Element> = [];
     props.tasks.forEach(task => {
         tasksHead.push(
-            <TaskPreview key={task.id} date={task.date}/>
+            <TaskPreview key={task.id} id={task.id} date={task.date}/>
         )
         tasksMaxMarks.push(
             <td key={task.id}>{task.maxMark}</td>
@@ -55,7 +55,7 @@ const TasksTable = (props: TasksTableProps) => {
     })
     //заглушка на оставшееся место
     tasksHead.push(
-        <th key={-1}>󠇮</th>
+        <th key={-1} className="table__plug">󠇮</th>
     )
     props.studentsIds.forEach(studentId => 
         tasksBody.push(
