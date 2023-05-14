@@ -2,7 +2,7 @@ import React from "react"
 import { Task } from "../../../utility/types"
 import { createTask } from "../../../api/requests"
 import { fetchGetRequest } from "../../../utility/fetchRequest"
-import { getGroupDataByIdUrl } from "../../../api/utilities"
+import { marksTableUrlApi } from "../../../api/utilities"
 
 
 function addTask(
@@ -11,8 +11,8 @@ function addTask(
 ) {
     createTask(groupId)
         .then(() => 
-            fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => setTasks(response.tasksList))
+            fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
+                .then(response => setTasks(response.tasks))
                 .catch(err => console.log(err))
         )
 }
