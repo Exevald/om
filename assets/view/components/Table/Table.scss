@@ -5,6 +5,10 @@
         display: flex;
 
     }
+    &plug {
+        width: 100%;
+        border: none;
+    }
     &wrapper {
         min-width: fit-content;
         border-collapse: collapse;
@@ -36,8 +40,10 @@
         thead {
             tr {
                 th {
+                    text-align: justify;
                     border-left: none;
-                    padding-bottom: 9px;
+                    padding-bottom: 9px; 
+                    width: 339px;
                 }
             }
         }
@@ -57,9 +63,6 @@
             tr {
                 th {
                     padding-bottom: 9px;
-                    &:last-child {
-                        width: 100%;
-                    }
                 }
             }
         }

@@ -132,8 +132,8 @@ interface StudentInputAreaProps {
 const StudentInputArea = (props: StudentInputAreaProps) => {
     return (
         <div className="editGroup__studentInputArea">
-            <InputArea id={'name' + props.studentId} type="studentName" value={props.firstName} widthChangeable/>
             <InputArea id={'surname' + props.studentId} type="studentSurname" value={props.lastName} widthChangeable/>
+            <InputArea id={'name' + props.studentId} type="studentName" value={props.firstName} widthChangeable/>
         </div>
     )
 }
@@ -157,7 +157,7 @@ const Students = (props: StudentsProps) => {
                                 () => props.setActiveStudentId(i) :
                                 null
                         }>
-                        {props.students[i].firstName} {props.students[i].lastName}
+                        {props.students[i].lastName} {props.students[i].firstName}
                     </li>
                 )
                 checkboxes.push(<InputArea key={'checkbox' + i} id={'checkbox' + i} type="checkbox"/>)
