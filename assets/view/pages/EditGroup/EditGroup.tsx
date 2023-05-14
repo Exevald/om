@@ -5,7 +5,7 @@ import "./EditGroup.scss";
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import {Group, GroupFrontData, Student, Task} from "../../../utility/types";
-import {addStudent, removeStudents, saveAllChanges, saveGroupChanges, sortStudentsByIitials} from "./EditGroupHooks";
+import {addStudent, removeStudents, saveAllChanges, saveGroupChanges, sortStudentsByInitials} from "./EditGroupHooks";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
@@ -211,11 +211,11 @@ const Group = (props: GroupProps) => {
     });
     const [activeStudentId, setActiveStudentId] = useState(-1);
     const [students, setStudents] = useState(
-        props.studentsList.sort((a, b) => sortStudentsByIitials(a, b))
+        props.studentsList.sort((a, b) => sortStudentsByInitials(a, b))
     );
     useLayoutEffect(() =>
         setStudents(
-            students.sort((a, b) => sortStudentsByIitials(a, b))
+            students.sort((a, b) => sortStudentsByInitials(a, b))
         )
     )
     const groupId: string = props.id

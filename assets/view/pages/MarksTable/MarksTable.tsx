@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useLayoutEffect, useState} from "react";
 import './MarksTable.scss';
 
 
@@ -11,6 +11,7 @@ import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {editGroupUrl, getGroupDataByIdUrl, groupEditUrlApi, marksTableUrlApi} from "../../../api/utilities";
 import { addTask } from "../../components/Table/TableHooks";
+import {sortStudentsByInitials} from "../EditGroup/EditGroupHooks";
 
 const TableGroupContext = React.createContext(null);
 
@@ -89,6 +90,14 @@ interface GroupTableProps {
 const GroupTable = (props: GroupTableProps) => {
     const [state, setState] = useState<TableState>(TableState.default);
     const [tasks, setTasks] = useState(props.group.tasksList)
+    const [students, setStudents] = useState(
+        props.group.studentsList.sort((a, b) => sortStudentsByInitials(a, b))
+    );
+    useLayoutEffect(() =>
+        setStudents(
+            students.sort((a, b) => sortStudentsByInitials(a, b))
+        )
+    )
     const groupId = props.group.id;
     const groupName = props.group.name;
     return (
@@ -101,7 +110,7 @@ const GroupTable = (props: GroupTableProps) => {
             }}>
                 <TableGroupHeader/>
                 <Table  subject={props.group.subject}
-                        students={props.group.studentsList} 
+                        students={students}
                         tasks={tasks}
                 />
             </TableGroupContext.Provider>
