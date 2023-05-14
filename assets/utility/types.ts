@@ -35,7 +35,7 @@ type Task = {
     description: string,
     date: Date,
     maxMark: number,
-    marksList: Array<number>
+    marksIdsList: Array<number>
 }
 
 type TaskFrontData = {
