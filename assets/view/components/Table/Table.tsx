@@ -12,8 +12,8 @@ interface StudentTableProps {
 
 const StudentsTable = (props: StudentTableProps) => {
     return (
-        <table className="table__wrapper">
-            <thead className="table__head">
+        <table className="table__wrapper table__students">
+            <thead>
             <tr>
                 <th><strong>{props.subject}</strong></th>
             </tr>
@@ -38,29 +38,40 @@ const StudentsTable = (props: StudentTableProps) => {
 
 interface TasksTableProps {
     tasks: Array<Task>,
-    countOfRows: number
+    studentsIds: Array<number>
 }
 
 const TasksTable = (props: TasksTableProps) => {
-    const tasksHead = []
+    const tasksHead: Array<JSX.Element> = [], 
+          tasksBody: Array<JSX.Element> = [], 
+          tasksMaxMarks: Array<JSX.Element> = [];
     props.tasks.forEach(task => {
         tasksHead.push(
             <TaskPreview key={task.id} date={task.date}/>
         )
+        tasksMaxMarks.push(
+            <td key={task.id}>{task.maxMark}</td>
+        )
     })
+    //заглушка на оставшееся место
     tasksHead.push(
-        <th key={-1}></th>
+        <th key={-1}>󠇮</th>
+    )
+    props.studentsIds.forEach(studentId => 
+        tasksBody.push(
+            <tr key={studentId}><td></td></tr>
+        )
     )
     return (
         <table className="table__wrapper table__tasks">
-            <thead className="table__head">
+            <thead>
             <tr>{tasksHead}</tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-                </td>
-            </tr>
+                {tasksBody}
+                <tr>
+                    {tasksMaxMarks}
+                </tr>
             </tbody>
         </table>
     )
@@ -78,7 +89,7 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
         // здесь рендер финальной оценки
         finalMarks.push(
             <tr key={i}>
-                <td>{i}</td>
+                <td><strong>{i}</strong></td>
             </tr>
         )
     }
@@ -88,8 +99,8 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
         </tr>
     )
     return (
-        <table className="table__wrapper">
-            <thead className="tabel__head">
+        <table className="table__wrapper table__finalMarks">
+            <thead>
             <tr>
                 <th><strong>Итого</strong></th>
             </tr>
@@ -112,7 +123,7 @@ const Table = (props: TableProps) => {
     return (
         <div className="table__tables">
             <StudentsTable subject={props.subject} students={props.students}/>
-            <TasksTable tasks={props.tasks} countOfRows={props.students.length}/>
+            <TasksTable tasks={props.tasks} studentsIds={props.students.map(student => parseInt(student.id))}/>
             <FinalMarksTable tasks={props.tasks} countOfRows={props.students.length}/>
         </div>
     )

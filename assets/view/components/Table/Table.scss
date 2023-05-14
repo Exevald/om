@@ -13,14 +13,40 @@
                 border: 1px black solid;
             }
             td {
+                text-align: center;
                 padding: 20px 0 8px 0;
             }
         }
+        thead {
+            tr {
+                th {
+                    border-top: none;
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    border-bottom: none;
+                }
+            }
+        }
     }
-    &head {
-        tr {
-            th {
-                border-top: none;
+    &students {
+        thead {
+            tr {
+                th {
+                    border-left: none;
+                    padding-bottom: 9px;
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    text-align: left;
+                    border-left: none;
+                }
             }
         }
     }
@@ -29,8 +55,29 @@
         margin: 0 -1px 0 -1px;
         thead {
             tr {
-                th:last-child {
-                    width: 100%;
+                th {
+                    padding-bottom: 9px;
+                    &:last-child {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    &finalMarks {
+        min-width: 89px;
+        thead {
+            tr {
+                th {
+                    border-right: none;
+                    padding-bottom: 9px;
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    border-right: none;
                 }
             }
         }

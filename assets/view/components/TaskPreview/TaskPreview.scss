@@ -1,11 +1,11 @@
 .taskLabel {
+    cursor: pointer;
     min-width: 80px;
     color: var(--ash-light);
     font: var(--text-text-normal-regular);
     span {
         margin-right: 5px;
     }
-    margin-bottom: 5px;
 }
 .taskIcon {
     width: 12px;

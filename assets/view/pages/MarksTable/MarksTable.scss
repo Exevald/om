@@ -5,6 +5,9 @@
         flex-direction: column;
         width: 1358px;
         margin: 130px auto 0 auto;
+        table {
+            margin-top: 93px;
+        }
     }
     &header {
         display: flex;
@@ -14,15 +17,15 @@
     &buttons {
         display: flex;
         margin-top: 24px;
-        & button {
+        button {
             margin-left: 20px;
         }
     }
     &groupHeader {
-        & h4 {
+        h4 {
             font: var(--text-header-normal)
         }
-        & p {
+        p {
             text-decoration: underline;
             color: var(--ash-light);
             cursor: pointer;

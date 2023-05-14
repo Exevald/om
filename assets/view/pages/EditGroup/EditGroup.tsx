@@ -43,11 +43,11 @@ const ButtonList = () => {
                         () => value.setState(GroupState.edit)}/>
                     {
                         value.students.length !== 0 ?
-                            <Button type="filled" data="К журналу" onClick={() =>
-                                window.location.href = getMarksTablePageUrl().replace("GROUP_ID", getEncryptedText(value.groupId))
-                            }/>
-                            :
-                            <Button type="transparentDisabled" data="К журналу"/>
+                        <Button type="filled" data="К журналу" onClick={() =>
+                            window.location.href = getMarksTablePageUrl().replace("GROUP_ID", getEncryptedText(value.groupId))
+                        }/>
+                        :
+                        <Button type="transparentDisabled" data="К журналу"/>
                     }
                 </>
             }{
@@ -56,7 +56,10 @@ const ButtonList = () => {
                 <Button type="transparent" iconType="add" data="Добавить ученика" onClick={
                     () => addStudent(value.groupId, value.setStudents)}/>
                 <Button type="transparent" iconType="minus" data="Удалить ученика" onClick={
-                    () => value.setState(GroupState.delete)}/>
+                    () => {
+                        value.setActiveStudentId(-1)
+                        value.setState(GroupState.delete)
+                }}/>
                 <Button type="filled" data="Сохранить" onClick={
                     () => {
                         saveAllChanges(value.groupId, value.setGroup, value.setState, value.students, value.setStudents,
