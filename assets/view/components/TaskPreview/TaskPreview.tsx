@@ -6,13 +6,13 @@ import './TaskPreview.scss'
 
 
 interface TaskPreviewProps {
-    date: Date,
+    date: string,
     onClick?: () => void
 }
 const TaskPreview = (props: TaskPreviewProps) => {
     return (
         <th className="taskLabel" onClick={props.onClick}>
-            <span>01.01</span>
+            <span>{props.date}</span>
             <img className="taskIcon"
                  src={taskIcon}
                  alt="Подробнее"

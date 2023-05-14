@@ -134,7 +134,6 @@ const renderMarksTable = () => {
     const loc = location.search
     const groupId = getDecryptedText(loc.replace("?groupId=", ""))
     fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId)).then(pageResponse => {
-        console.log(pageResponse)
         fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
             root.render(
                 <React.StrictMode>
@@ -146,7 +145,7 @@ const renderMarksTable = () => {
                             name: groupResponse.groupTitle,
                             subject: groupResponse.groupSubject,
                             studentsList: groupResponse.studentsIdList,
-                            tasksList: groupResponse.tasksList
+                            tasksList: pageResponse.tasks
                     }}/>
                 </React.StrictMode>
             )

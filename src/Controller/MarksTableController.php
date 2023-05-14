@@ -57,7 +57,7 @@ class MarksTableController extends AbstractController
                 'id' => $task->getId(),
                 'topic' => $task->getTopic(),
                 'description' => $task->getDescription(),
-                'date' => $task->getDate(),
+                'date' => $task->getDate()->format('Y-m-d'),
                 'maxMark' => $task->getMaxMark(),
                 'marksIdList' => $task->getMarksList()
             ];
