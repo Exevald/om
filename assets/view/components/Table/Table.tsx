@@ -44,17 +44,8 @@ interface TasksTableProps {
 const TasksTable = (props: TasksTableProps) => {
     const tasksHead = []
     props.tasks.forEach(task => {
-        let date = new Date(task.date).getDate().toString()
-        if (parseInt(date, 10) < 10) {
-            date = "0" + date
-        }
-        let month = (new Date(task.date).getMonth() + 1).toString()
-        if (parseInt(month, 10) < 10) {
-            month = "0" + month
-        }
-        const finalDate = date + "." + month
         tasksHead.push(
-            <TaskPreview key={task.id} date={finalDate}/>
+            <TaskPreview key={task.id} date={task.date}/>
         )
     })
     tasksHead.push(
