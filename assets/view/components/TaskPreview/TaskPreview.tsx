@@ -41,7 +41,7 @@ const TaskPreview = (props: TaskPreviewProps) => {
         >
             {
                 isOnChange ?
-                    <InputArea id={"taskLabel" + props.id} type='mark'  value={finalDate}/>
+                    <InputArea id={"taskLabel" + props.id} type='taskLabel'  value={finalDate}/>
                 :
                     <span>{finalDate}</span>
             }
