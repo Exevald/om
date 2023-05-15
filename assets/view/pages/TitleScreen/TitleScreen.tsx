@@ -11,7 +11,7 @@ import {getLoginPageUrl} from "../../../api/pageUrls";
 const MainLogo = () => {
     return (
         <img src={mainLogo}
-            className='title__main-logo'
+            className='titleScreen__main-logo'
             alt='Om main logo'
         />
     )
