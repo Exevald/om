@@ -11,7 +11,7 @@ import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {editGroupUrl, getGroupDataByIdUrl, groupEditUrlApi, marksTableUrlApi} from "../../../api/utilities";
 import { addTask } from "../../components/Table/TableHooks";
-import {sortStudentsByInitials} from "../EditGroup/EditGroupHooks";
+import { sortStudentsByInitials } from "../../../utility/hooks";
 
 const TableGroupContext = React.createContext(null);
 

@@ -5,13 +5,14 @@ import "./EditGroup.scss";
 import InputArea from "../../components/InputArea/InputArea";
 import Button from "../../components/Button/Button";
 import {Group, GroupFrontData, Student, Task} from "../../../utility/types";
-import {addStudent, removeStudents, saveAllChanges, saveGroupChanges, sortStudentsByInitials} from "./EditGroupHooks";
+import {addStudent, removeStudents, saveAllChanges, saveGroupChanges} from "./EditGroupHooks";
 import Header from "../../components/Header/Header";
 import {createRoot} from "react-dom/client";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {getGroupDataByIdUrl, groupEditUrlApi} from "../../../api/utilities";
 import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {getGroupsListPageUrl, getMarksTablePageUrl} from "../../../api/pageUrls";
+import { sortStudentsByInitials } from "../../../utility/hooks";
 
 const GroupContext = React.createContext(null);
 
