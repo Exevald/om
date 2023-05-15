@@ -6,6 +6,7 @@ import TaskPreview from "../TaskPreview/TaskPreview";
 import InputArea from "../InputArea/InputArea";
 import { changeTaskMaxMarkHandler } from "./TableHooks";
 import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
+import { generateTaskBody } from "./TableRenderHooks";
 
 
 interface StudentTableProps {
@@ -39,6 +40,7 @@ const StudentsTable = (props: StudentTableProps) => {
     )
 }
 
+
 interface TasksTableProps {
     tasks: Array<Task>,
     studentsIds: Array<number>
@@ -46,17 +48,21 @@ interface TasksTableProps {
 
 const TasksTable = (props: TasksTableProps) => {
     const context = useContext(TableGroupContext)
-    const tasksHead: Array<JSX.Element> = [], 
-          tasksBody: Array<JSX.Element> = [], 
+    const tasksHead: Array<JSX.Element> = [],
+          tasksBody: Array<JSX.Element> = generateTaskBody(props.studentsIds, props.tasks), 
           tasksMaxMarks: Array<JSX.Element> = []
-    let marksRow: Array<JSX.Element> = []
     props.tasks.forEach(task => {
         tasksHead.push(
             <TaskPreview key={task.id} id={task.id} date={task.date}/>
         )
         tasksMaxMarks.push(
-            <td key={task.id} onKeyDown={(e) => e.key === 'Enter' && changeTaskMaxMarkHandler(task.id, context.setTasks)}>
-                <InputArea id={'maxMark' + task.id} type="mark" value={task.maxMark}/>
+            <td key={task.id} onKeyDown={(e) => e.key === 'Enter' && 
+                changeTaskMaxMarkHandler(task.id, context.setTasks, context.groupId)
+            }>
+                <InputArea key={task.id} 
+                    id={'maxMark' + task.id} 
+                    type="mark" 
+                    value={task.maxMark.toString()}/>
             </td>
         )
     })
@@ -64,22 +70,6 @@ const TasksTable = (props: TasksTableProps) => {
     tasksHead.push(
         <th key={-1} className="table__plug">󠇮</th>
     )
-    props.studentsIds.forEach(studentId => {
-        props.tasks.forEach(task => {
-            marksRow.push(
-                    <td key={task.id + ' ' + studentId}>
-                        <InputArea id={task.id + ' ' + studentId} type="mark" value={'00'}/>
-                    </td>
-            )
-        })
-        marksRow.push(<td className="table__markPlug"></td>)
-        tasksBody.push(
-            <tr key={studentId}>
-                {marksRow}
-            </tr>
-        )
-        marksRow = []
-    })
     return (
         <table className="table__wrapper table__tasks">
             <thead>
