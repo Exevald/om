@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {Student, Task} from "../../../utility/types";
 
 import './Table.scss'
@@ -6,7 +6,7 @@ import TaskPreview from "../TaskPreview/TaskPreview";
 import InputArea from "../InputArea/InputArea";
 import { changeTaskMaxMarkHandler } from "./TableHooks";
 import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
-import { generateTaskBody } from "./TableRenderHooks";
+import { generateTaskHead, generateTaskBody, generateTaskMaxMarks } from "./TableRenderHooks";
 
 
 interface StudentTableProps {
@@ -48,28 +48,16 @@ interface TasksTableProps {
 
 const TasksTable = (props: TasksTableProps) => {
     const context = useContext(TableGroupContext)
-    const tasksHead: Array<JSX.Element> = [],
-          tasksBody: Array<JSX.Element> = generateTaskBody(props.studentsIds, props.tasks), 
-          tasksMaxMarks: Array<JSX.Element> = []
-    props.tasks.forEach(task => {
-        tasksHead.push(
-            <TaskPreview key={task.id} id={task.id} date={task.date}/>
-        )
-        tasksMaxMarks.push(
-            <td key={task.id} onKeyDown={(e) => e.key === 'Enter' && 
-                changeTaskMaxMarkHandler(task.id, context.setTasks, context.groupId)
-            }>
-                <InputArea key={task.id} 
-                    id={'maxMark' + task.id} 
-                    type="mark" 
-                    value={task.maxMark.toString()}/>
-            </td>
-        )
-    })
-    //заглушка на оставшееся место
-    tasksHead.push(
-        <th key={-1} className="table__plug">󠇮</th>
-    )
+    let     tasksHead: Array<JSX.Element>     = generateTaskHead(props.tasks, context.state)
+    const   tasksBody: Array<JSX.Element>     = generateTaskBody(props.studentsIds, props.tasks.map(task => task.id)), 
+            tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
+                props.tasks, context.state, context.setTasks, context.groupId
+            )
+    
+    useEffect(() => {
+        tasksHead = generateTaskHead(props.tasks, context.state)
+    }, [context.state])
+    
     return (
         <table className="table__wrapper table__tasks">
             <thead>
