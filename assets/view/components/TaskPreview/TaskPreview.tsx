@@ -36,8 +36,8 @@ const TaskPreview = (props: TaskPreviewProps) => {
         >
             {
                 props.onDelete &&
-                <InputArea key={'checkbox ' + props.id} 
-                        id={'checkbox ' + props.id}
+                <InputArea key={'checkbox' + props.id} 
+                        id={'checkbox' + props.id}
                         type="checkbox"/>
             }
             {

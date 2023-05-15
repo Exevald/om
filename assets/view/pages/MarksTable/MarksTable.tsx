@@ -10,7 +10,7 @@ import {Group} from "../../../utility/types";
 import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {editGroupUrl, getGroupDataByIdUrl, groupEditUrlApi, marksTableUrlApi} from "../../../api/utilities";
-import { addTask } from "../../components/Table/TableHooks";
+import { addTask, removeTasks } from "../../components/Table/TableHooks";
 import { sortStudentsByInitials } from "../../../utility/hooks";
 
 const TableGroupContext = React.createContext(null);
@@ -65,7 +65,7 @@ const ButtonList = () => {
                 context.state === TableState.delete &&
                 <>
                     <Button type="transparent" data="Удалить работу" iconType="minus"
-                        onClick={() => context.setState(TableState.delete)}/>
+                        onClick={() => removeTasks(context.groupId, context.tasks, context.setTasks, context.setState)}/>
                     <Button type="transparent" data="Отмена" onClick={() => context.setState(TableState.default)}/>
                 </>
             }
