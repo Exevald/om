@@ -19,19 +19,27 @@ function addTask(
 }
 
 
+function deleteTasks(
+    
+) {
+
+}
+
+
 function changeTaskMaxMarkHandler(
     id: number,
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
+    groupId: string
 ) {
-    const context = useContext(TableGroupContext)
     const maxMark = (document.getElementById('maxMark' + id) as HTMLInputElement).value
     changeTaskMaxMark(id.toString(), parseInt(maxMark))
         .then(() =>
-            fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", context.groupId))
+            fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
                 .then(response => setTasks(response.tasks))
                 .catch(err => console.log(`${err} from updating max mark of ${id} task`))
         )
 }
+
 
 export {
     addTask,
