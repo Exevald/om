@@ -1,21 +1,12 @@
-import React, { useState } from "react";
+import { useContext, useState } from "react";
+import InputArea from "../InputArea/InputArea";
+import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
+import { handleKeyDown } from "./TaskPreviewHooks";
 // @ts-ignore
 import taskIcon from './Icons/taskIcon.svg'
 
 import './TaskPreview.scss'
-import InputArea from "../InputArea/InputArea";
-import { Task } from "../../../utility/types";
 
-
-function handleKeyDown(
-    event: React.KeyboardEvent,
-    id: number,
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>
-) {
-    if (event.key === 'Enter') {
-        // тут прокинем изменение даты
-    }
-}
 
 interface TaskPreviewProps {
     id: number,
@@ -33,15 +24,17 @@ const TaskPreview = (props: TaskPreviewProps) => {
         month = "0" + month
     }
     const finalDate = date + "." + month
+
+    const context = useContext(TableGroupContext)
     return (
         <th className="taskLabel"
             onClick={props.onClick}
             onDoubleClick={() => setIsOnChange(true)}
-            onKeyDown={(e) => e.key === 'Enter' && setIsOnChange(false)}
+            onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, setIsOnChange, context.setTasks)}
         >
             {
                 isOnChange ?
-                    <InputArea id={"taskLabel" + props.id} type='taskLabel'  value={finalDate}/>
+                    <InputArea id={"taskLabel" + props.id} type='taskLabel' value={finalDate}/>
                 :
                     <span>{finalDate}</span>
             }
