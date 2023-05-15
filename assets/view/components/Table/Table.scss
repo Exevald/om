@@ -9,6 +9,11 @@
         width: 100%;
         border: none;
     }
+    &markPlug {
+        width: 100%;
+        border-left: none;
+        border-right: none;
+    }
     &wrapper {
         text-align: center;
         min-width: fit-content;
@@ -30,8 +35,9 @@
             }
         }
         tbody {
-            tr {
+            tr:last-child {
                 td {
+                    padding-bottom: 0;
                     border-bottom: none;
                 }
             }
@@ -54,12 +60,19 @@
                     text-align: left;
                     border-left: none;
                 }
+                &:last-child {
+                    td {
+                        padding-bottom: 15px;
+                    }
+                }
             }
         }
     }
     &tasks {
+        display: block;
+        overflow-x: scroll;
         margin: 0 -1px 0 -1px;
-        width: 100%;
+        min-width: 936px;
         thead {
             overflow-x: hidden;
             tr {
@@ -83,6 +96,11 @@
             tr {
                 td {
                     border-right: none;
+                }
+                &:last-child {
+                    td {
+                        padding-bottom: 15px;
+                    }
                 }
             }
         }

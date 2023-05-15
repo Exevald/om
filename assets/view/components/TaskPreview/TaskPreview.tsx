@@ -14,7 +14,9 @@ interface TaskPreviewProps {
     onClick?: () => void
 }
 const TaskPreview = (props: TaskPreviewProps) => {
+    const context = useContext(TableGroupContext)
     const [isOnChange, setIsOnChange] = useState(false);
+    
     let date = new Date(props.date).getDate().toString()
     if (parseInt(date, 10) < 10) {
         date = "0" + date
@@ -25,7 +27,6 @@ const TaskPreview = (props: TaskPreviewProps) => {
     }
     const finalDate = date + "." + month
 
-    const context = useContext(TableGroupContext)
     return (
         <th className="taskLabel"
             onClick={props.onClick}

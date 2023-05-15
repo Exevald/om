@@ -1,8 +1,9 @@
-import React from "react"
-import {Student, Task} from "../../../utility/types"
-import { createTask } from "../../../api/requests"
+import React, { useContext } from "react"
+import { Task } from "../../../utility/types"
+import { changeTaskMaxMark, createTask } from "../../../api/requests"
 import { fetchGetRequest } from "../../../utility/fetchRequest"
 import { marksTableUrlApi } from "../../../api/utilities"
+import { TableGroupContext } from "../../pages/MarksTable/MarksTable"
 
 
 function addTask(
@@ -18,10 +19,21 @@ function addTask(
 }
 
 
-
-
-
+function changeTaskMaxMarkHandler(
+    id: number,
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>
+) {
+    const context = useContext(TableGroupContext)
+    const maxMark = (document.getElementById('maxMark' + id) as HTMLInputElement).value
+    changeTaskMaxMark(id.toString(), parseInt(maxMark))
+        .then(() =>
+            fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", context.groupId))
+                .then(response => setTasks(response.tasks))
+                .catch(err => console.log(`${err} from updating max mark of ${id} task`))
+        )
+}
 
 export {
-    addTask
+    addTask,
+    changeTaskMaxMarkHandler
 }

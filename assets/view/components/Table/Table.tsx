@@ -1,9 +1,11 @@
-import React from "react";
-import {Group, Student, Task} from "../../../utility/types";
+import React, { useContext } from "react";
+import {Student, Task} from "../../../utility/types";
 
 import './Table.scss'
 import TaskPreview from "../TaskPreview/TaskPreview";
 import InputArea from "../InputArea/InputArea";
+import { changeTaskMaxMarkHandler } from "./TableHooks";
+import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
 
 
 interface StudentTableProps {
@@ -43,6 +45,7 @@ interface TasksTableProps {
 }
 
 const TasksTable = (props: TasksTableProps) => {
+    const context = useContext(TableGroupContext)
     const tasksHead: Array<JSX.Element> = [], 
           tasksBody: Array<JSX.Element> = [], 
           tasksMaxMarks: Array<JSX.Element> = []
@@ -52,7 +55,9 @@ const TasksTable = (props: TasksTableProps) => {
             <TaskPreview key={task.id} id={task.id} date={task.date}/>
         )
         tasksMaxMarks.push(
-            <td key={task.id}>{task.maxMark}</td>
+            <td key={task.id} onKeyDown={(e) => e.key === 'Enter' && changeTaskMaxMarkHandler(task.id, context.setTasks)}>
+                <InputArea id={'maxMark' + task.id} type="mark" value={task.maxMark}/>
+            </td>
         )
     })
     //заглушка на оставшееся место
@@ -67,12 +72,13 @@ const TasksTable = (props: TasksTableProps) => {
                     </td>
             )
         })
+        marksRow.push(<td className="table__markPlug"></td>)
         tasksBody.push(
             <tr key={studentId}>
                 {marksRow}
             </tr>
         )
-        marksRow = [];
+        marksRow = []
     })
     return (
         <table className="table__wrapper table__tasks">
