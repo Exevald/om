@@ -1,4 +1,3 @@
-import React, {StrictMode} from 'react';
 import './index.scss';
 
 
@@ -10,7 +9,7 @@ import {renderGroupsListPage} from "./view/pages/GroupsList/GroupsList";
 import {renderMarksTable} from "./view/pages/MarksTable/MarksTable";
 
 
-let loc = location.pathname;
+let loc = location.pathname
 switch (loc) {
     case "/login": {
         renderAuthenticationPage()
