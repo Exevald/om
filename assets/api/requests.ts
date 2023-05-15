@@ -164,12 +164,12 @@ function createTask(groupId: string) {
     )
 }
 
-function deleteTasks(groupId: string, tasksIdList: Array<string>) {
+function deleteTasks(groupId: string, tasksIdsList: Array<string>) {
     return fetchPostRequest(
         deleteTasksUrl,
         {
             groupId: parseInt(groupId, 10),
-            tasksIdList: tasksIdList.map(id => parseInt(id, 10))
+            tasksIdList: tasksIdsList.map(id => parseInt(id, 10))
         }
     ).then(
         response => {

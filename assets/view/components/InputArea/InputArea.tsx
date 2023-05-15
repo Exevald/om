@@ -11,7 +11,7 @@ interface InputAreaProps {
     header?: string,
     widthChangeable?: boolean,
     placeholder?: string,
-    value?: string | number
+    value?: string
 }
 
 
