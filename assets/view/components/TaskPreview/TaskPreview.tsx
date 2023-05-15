@@ -11,7 +11,8 @@ import './TaskPreview.scss'
 interface TaskPreviewProps {
     id: number,
     date: Date,
-    onClick?: () => void
+    onClick?: () => void,
+    onDelete?: boolean
 }
 const TaskPreview = (props: TaskPreviewProps) => {
     const context = useContext(TableGroupContext)
@@ -33,6 +34,12 @@ const TaskPreview = (props: TaskPreviewProps) => {
             onDoubleClick={() => setIsOnChange(true)}
             onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, setIsOnChange, context.setTasks)}
         >
+            {
+                props.onDelete &&
+                <InputArea key={'checkbox ' + props.id} 
+                        id={'checkbox ' + props.id}
+                        type="checkbox"/>
+            }
             {
                 isOnChange ?
                     <InputArea id={"taskLabel" + props.id} type='taskLabel' value={finalDate}/>
