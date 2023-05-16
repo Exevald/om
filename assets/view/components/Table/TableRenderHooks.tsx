@@ -1,5 +1,4 @@
 import { Task } from "../../../utility/types"
-import { DEFAULT_TASKTABLE_WIDTH } from "../../../utility/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
 import InputArea from "../InputArea/InputArea"
 import TaskPreview from "../TaskPreview/TaskPreview"
