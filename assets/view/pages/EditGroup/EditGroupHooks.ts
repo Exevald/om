@@ -27,8 +27,8 @@ function addStudent(
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => setStudents(response.studentsIdList))
-                .catch(err => console.log(err + ' from adding student'))
         )
+        .catch(err => console.log(err + ' from adding student'))
 }
 
 
@@ -47,8 +47,8 @@ function setStudentById(
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => setStudents(response.studentsIdList))
-                .catch(err => console.log(err + ' from setting student initials'))
         )
+        .catch(err => console.log(err + ' from setting student initials'))
         .finally(() => setActiveStudentId(-1))
 }
 
@@ -70,8 +70,8 @@ function removeStudents(
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => setStudents(response.studentsIdList))
-                .catch(err => console.log(err + ' from removing students'))
         )
+        .catch(err => console.log(err + ' from removing students'))
         .finally(() => setState(GroupState.default))
 }
 
@@ -91,9 +91,9 @@ function saveGroupChanges(
                 .then(response =>
                     setGroup({name: response.groupTitle, subject: response.groupSubject})
                 )
-                .catch(err => console.log(err + ' from saving group changes'))
-                .finally(() => setState(GroupState.default))
         )
+        .catch(err => console.log(err + ' from saving group changes'))
+        .finally(() => setState(GroupState.default))
 
 }
 

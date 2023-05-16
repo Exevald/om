@@ -26,8 +26,8 @@ function addGroup(
         .then(() =>
             fetchGetRequest(groupsListUrlApi)
                 .then(response => setGroups(JSON.parse(response.groups)))
-                .catch(err => console.log(err + ' from adding new group'))
         )
+        .catch(err => console.log(err + ' from adding new group'))
 }
 
 
@@ -46,8 +46,9 @@ function setGroupById(
             .then(() =>
                 fetchGetRequest(groupsListUrlApi)
                     .then(response => setGroups(JSON.parse(response.groups)))
-                    .catch(err => console.log(err + ' from changing group title'))
-            ).finally(() => {
+            )
+            .catch(err => console.log(err + ' from changing group title'))
+            .finally(() => {
                 setActiveGroupId(-1);
                 setState(GroupsListState.default)
         })
@@ -72,8 +73,8 @@ function removeGroups(
         .then(() =>
             fetchGetRequest(groupsListUrlApi)
                 .then(response => setGroups(JSON.parse(response.groups)))
-                .catch(err => console.log(err + ' from deleting groups'))
-        )
+            )
+        .catch(err => console.log(err + ' from deleting groups'))
         .finally(() => setState(GroupsListState.default))
 }
 
