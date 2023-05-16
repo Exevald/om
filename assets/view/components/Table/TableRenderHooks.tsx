@@ -80,14 +80,4 @@ function generateTaskHead(tasks: Array<Task>, state: number) {
 }
 
 
-function setTableOverflowOptional() {
-    const TasksTable = document.querySelector('.table__tasks') as HTMLElement
-        if(TasksTable.children[0].clientWidth > DEFAULT_TASKTABLE_WIDTH) {
-            TasksTable.style.overflowX = 'scroll'
-        } else {
-            TasksTable.style.overflowX = 'initial'
-        }
-}
-
-
-export {generateTaskBody, generateTaskHead, generateTaskMaxMarks, setTableOverflowOptional}
+export {generateTaskBody, generateTaskHead, generateTaskMaxMarks}

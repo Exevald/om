@@ -1,10 +1,10 @@
 import { useContext, useEffect } from "react";
 import {Student, Task} from "../../../utility/types";
+import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
+import { generateTaskHead, generateTaskBody, generateTaskMaxMarks } from "./TableRenderHooks";
+import { DropDownList } from "../DropDown/DropDown";
 
 import './Table.scss'
-import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
-import { generateTaskHead, generateTaskBody, generateTaskMaxMarks, setTableOverflowOptional } from "./TableRenderHooks";
-import { DropDownList } from "../DropDown/DropDown";
 
 
 interface StudentTableProps {
@@ -54,8 +54,7 @@ const TasksTable = (props: TasksTableProps) => {
     
     useEffect(() => {
         tasksHead = generateTaskHead(props.tasks, context.state)
-        setTableOverflowOptional()
-    }, [context.state, props.tasks])
+    }, [context.state])
 
     return (
         <table className="table__wrapper table__tasks">
@@ -101,7 +100,7 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
             </tr>
             </thead>
             <tbody>
-            {finalMarks}
+                {finalMarks}
             </tbody>
         </table>
     )

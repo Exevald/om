@@ -73,7 +73,7 @@ $tasksTableWidth: 936px;
     }
     &tasks {
         display: block;
-        overflow-x: initial;
+        overflow-x: auto;
         margin: 0 -1px 0 -1px;
         min-width: $tasksTableWidth;
         thead {
