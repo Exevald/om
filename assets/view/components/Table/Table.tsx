@@ -4,6 +4,7 @@ import {Student, Task} from "../../../utility/types";
 import './Table.scss'
 import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
 import { generateTaskHead, generateTaskBody, generateTaskMaxMarks, setTableOverflowOptional } from "./TableRenderHooks";
+import { DropDownList } from "../DropDown/DropDown";
 
 
 interface StudentTableProps {
@@ -116,6 +117,7 @@ interface TableProps {
 const Table = (props: TableProps) => {
     return (
         <div className="table__tables">
+            <DropDownList tasks={props.tasks}/>
             <StudentsTable subject={props.subject} students={props.students}/>
             <TasksTable tasks={props.tasks} studentsIds={props.students.map(student => parseInt(student.id))}/>
             <FinalMarksTable tasks={props.tasks} countOfRows={props.students.length}/>

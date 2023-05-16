@@ -11,7 +11,8 @@ interface InputAreaProps {
     header?: string,
     widthChangeable?: boolean,
     placeholder?: string,
-    value?: string
+    value?: string,
+    onClick?: () => void
 }
 
 
@@ -88,12 +89,14 @@ const InputArea = (props: InputAreaProps) => {
                         props.widthChangeable && 
                         <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
                         onChange={() => changeWidth(props.id, props.type, props.widthChangeable)} 
-                        placeholder={props.placeholder} />
+                        placeholder={props.placeholder}
+                        onClick={props.onClick} />
                     }
                     {
                         !props.widthChangeable && 
                         <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
-                        placeholder={props.placeholder} />
+                        placeholder={props.placeholder}
+                        onClick={props.onClick} />
                     } 
                 </>
             }      

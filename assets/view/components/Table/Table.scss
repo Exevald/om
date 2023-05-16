@@ -84,6 +84,13 @@ $tasksTableWidth: 936px;
                 }
             }
         }
+        tbody {
+            tr {
+                td:active {
+                    background-color: var(--ash-lighter)
+                }
+            }
+        }
     }
     &finalMarks {
         min-width: 89px;
