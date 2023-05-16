@@ -1,10 +1,11 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import InputArea from "../InputArea/InputArea"
 
 import './DropDown.scss'
 import { Task } from "../../../utility/types"
 import { TableGroupContext } from "../../pages/MarksTable/MarksTable"
 import { setTaskInitials } from "../Table/TableHooks"
+import { DROPDOWN_ANIMATION_TIME } from "../../../utility/utilities"
 
 interface DropDownProps {
     taskId: number,
@@ -50,12 +51,28 @@ interface DropDownListProps {
     tasks: Array<Task>
 }
 const DropDownList = (props: DropDownListProps) => {
+    const dropDowns: Array<JSX.Element> = props.tasks.map(task =>
+        <DropDown key={task.id} taskId={task.id} topic={task.topic} description={task.description}/>
+    )
+
+    function closeDropDownsByTasksIdsListener(e: MouseEvent) {
+        const path = e.composedPath()
+        props.tasks.forEach(task => {
+            const dropdown = document.getElementById('dropdown' + task.id) as HTMLInputElement
+            if (!path.includes(dropdown) && dropdown.classList.contains('dropdown__show')) {
+                dropdown.classList.remove('dropdown__open')
+                setTimeout(() => dropdown.classList.remove('dropdown__show'), DROPDOWN_ANIMATION_TIME)
+            }
+        })
+    }
+
+    useEffect(() => {
+        document.body.addEventListener('click', closeDropDownsByTasksIdsListener)
+        return () => document.body.removeEventListener('click', closeDropDownsByTasksIdsListener) 
+    })
     return (
         <>
-            { props.tasks.map(task =>
-                    <DropDown key={task.id} taskId={task.id} topic={task.topic} description={task.description}/>
-                )
-            }
+            {dropDowns}
         </>
     )
 }
