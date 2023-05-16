@@ -185,7 +185,8 @@ readonly class Api implements ApiInterface
         $groupRepository = new GroupRepository($this->doctrine);
         $studentRepository = new StudentRepository($this->doctrine);
         $teacherRepository = new TeacherRepository($this->doctrine);
-        $handler = new AuthorizedCreateGroupCommandHandler($this->authorizer, $groupRepository, $teacherRepository, $studentRepository);
+        $taskRepository = new TaskRepository($this->doctrine);
+        $handler = new AuthorizedCreateGroupCommandHandler($this->authorizer, $groupRepository, $teacherRepository, $studentRepository, $taskRepository);
         return $handler->handle(new AuthorizedCreateGroupCommand($token, $teacherId, $title, $subject));
     }
 
@@ -238,7 +239,8 @@ readonly class Api implements ApiInterface
     {
         $groupRepository = new GroupRepository($this->doctrine);
         $studentRepository = new StudentRepository($this->doctrine);
-        $handler = new AuthorizedChangeGroupInitialsCommandHandler($this->authorizer, $groupRepository, $studentRepository);
+        $taskRepository = new TaskRepository($this->doctrine);
+        $handler = new AuthorizedChangeGroupInitialsCommandHandler($this->authorizer, $groupRepository, $studentRepository, $taskRepository);
         $handler->handle(new AuthorizedChangeGroupInitialsCommand($token, $groupId, $title, $subject));
     }
 
@@ -275,7 +277,8 @@ readonly class Api implements ApiInterface
         $teacherRepository = new TeacherRepository($this->doctrine);
         $groupRepository = new GroupRepository($this->doctrine);
         $studentRepository = new StudentRepository($this->doctrine);
-        $handler = new AuthorizedDeleteGroupsCommandHandler($this->authorizer, $teacherRepository, $groupRepository, $studentRepository);
+        $taskRepository = new TaskRepository($this->doctrine);
+        $handler = new AuthorizedDeleteGroupsCommandHandler($this->authorizer, $teacherRepository, $groupRepository, $studentRepository, $taskRepository);
         $handler->handle(new AuthorizedDeleteGroupsCommand($token, $teacherId, $groupIdList));
     }
 
@@ -283,7 +286,8 @@ readonly class Api implements ApiInterface
     {
         $groupRepository = new GroupRepository($this->doctrine);
         $studentRepository = new StudentRepository($this->doctrine);
-        $handler = new AuthorizedDeleteStudentsFromGroupCommandHandler($this->authorizer, $groupRepository, $studentRepository);
+        $taskRepository = new TaskRepository($this->doctrine);
+        $handler = new AuthorizedDeleteStudentsFromGroupCommandHandler($this->authorizer, $groupRepository, $studentRepository, $taskRepository);
         $handler->handle(new AuthorizedDeleteStudentsFromGroupCommand($token, $groupId, $studentsIdList));
     }
 
@@ -298,7 +302,8 @@ readonly class Api implements ApiInterface
     {
         $groupRepository = new GroupRepository($this->doctrine);
         $studentRepository = new StudentRepository($this->doctrine);
-        $handler = new AuthorizedDeleteTasksFromGroupCommandHandler($this->authorizer, $groupRepository, $studentRepository);
+        $taskRepository = new TaskRepository($this->doctrine);
+        $handler = new AuthorizedDeleteTasksFromGroupCommandHandler($this->authorizer, $groupRepository, $studentRepository, $taskRepository);
         $handler->handle(new AuthorizedDeleteTasksFromGroupCommand($token, $groupId, $tasksIdList));
     }
 }

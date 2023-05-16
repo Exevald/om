@@ -8,6 +8,7 @@ use App\Om\Domain\Service\GroupService;
 use App\Om\Domain\Service\TeacherService;
 use App\Om\Infrastructure\Repositories\Repository\GroupRepository;
 use App\Om\Infrastructure\Repositories\Repository\StudentRepository;
+use App\Om\Infrastructure\Repositories\Repository\TaskRepository;
 use App\Om\Infrastructure\Repositories\Repository\TeacherRepository;
 
 class AuthorizedDeleteGroupsCommandHandler
@@ -20,12 +21,13 @@ class AuthorizedDeleteGroupsCommandHandler
         AuthorizerInterface $authorizer,
         TeacherRepository   $teacherRepository,
         GroupRepository     $groupRepository,
-        StudentRepository   $studentRepository
+        StudentRepository   $studentRepository,
+        TaskRepository      $taskRepository
     )
     {
         $this->authorizer = $authorizer;
         $this->teacherService = new TeacherService($teacherRepository);
-        $this->groupService = new GroupService($groupRepository, $studentRepository);
+        $this->groupService = new GroupService($groupRepository, $studentRepository, $taskRepository);
     }
 
     public function handle(AuthorizedDeleteGroupsCommand $command): void

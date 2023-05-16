@@ -20,12 +20,12 @@ class AuthorizedCreateTaskCommandHandler
         AuthorizerInterface $authorizer,
         GroupRepository     $groupRepository,
         TaskRepository      $taskRepository,
-        StudentRepository   $studentRepository
+        StudentRepository   $studentRepository,
     )
     {
         $this->authorizer = $authorizer;
         $this->taskService = new TaskService($taskRepository);
-        $this->groupService = new GroupService($groupRepository, $studentRepository);
+        $this->groupService = new GroupService($groupRepository, $studentRepository, $taskRepository);
     }
 
     public function handle(AuthorizedCreateTaskCommand $command): int
