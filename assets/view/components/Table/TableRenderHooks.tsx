@@ -1,4 +1,5 @@
 import { Task } from "../../../utility/types"
+import { DEFAULT_TASKTABLE_WIDTH } from "../../../utility/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
 import InputArea from "../InputArea/InputArea"
 import TaskPreview from "../TaskPreview/TaskPreview"
@@ -39,7 +40,7 @@ function generateTaskMaxMarks(
     const tasksMaxMarks: Array<JSX.Element> = []
     tasks.forEach(task => 
         tasksMaxMarks.push(
-            <td key={task.id} onKeyDown={(e) => e.key === 'Enter' && 
+            <td key={task.id} onKeyDown={(e) => e.key === 'Enter' &&
                 changeTaskMaxMarkHandler(task.id, setTasks, groupId)
             }>
                 <InputArea key={task.id} 
@@ -76,4 +77,14 @@ function generateTaskHead(tasks: Array<Task>, state: number) {
 }
 
 
-export {generateTaskBody, generateTaskHead, generateTaskMaxMarks}
+function setTableOverflowOptional() {
+    const TasksTable = document.querySelector('.table__tasks') as HTMLElement
+        if(TasksTable.children[0].clientWidth > DEFAULT_TASKTABLE_WIDTH) {
+            TasksTable.style.overflowX = 'scroll'
+        } else {
+            TasksTable.style.overflowX = 'initial'
+        }
+}
+
+
+export {generateTaskBody, generateTaskHead, generateTaskMaxMarks, setTableOverflowOptional}

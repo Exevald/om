@@ -1,3 +1,6 @@
+$tasksTableWidth: 936px;
+
+
 .table__ {
     &tables {
         width: 100%;
@@ -70,9 +73,9 @@
     }
     &tasks {
         display: block;
-        overflow-x: scroll;
+        overflow-x: initial;
         margin: 0 -1px 0 -1px;
-        min-width: 936px;
+        min-width: $tasksTableWidth;
         thead {
             overflow-x: hidden;
             tr {

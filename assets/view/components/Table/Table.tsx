@@ -1,12 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import {Student, Task} from "../../../utility/types";
 
 import './Table.scss'
-import TaskPreview from "../TaskPreview/TaskPreview";
-import InputArea from "../InputArea/InputArea";
-import { changeTaskMaxMarkHandler } from "./TableHooks";
 import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
-import { generateTaskHead, generateTaskBody, generateTaskMaxMarks } from "./TableRenderHooks";
+import { generateTaskHead, generateTaskBody, generateTaskMaxMarks, setTableOverflowOptional } from "./TableRenderHooks";
 
 
 interface StudentTableProps {
@@ -56,8 +53,9 @@ const TasksTable = (props: TasksTableProps) => {
     
     useEffect(() => {
         tasksHead = generateTaskHead(props.tasks, context.state)
-    }, [context.state])
-    
+        setTableOverflowOptional()
+    }, [context.state, props.tasks])
+
     return (
         <table className="table__wrapper table__tasks">
             <thead>
