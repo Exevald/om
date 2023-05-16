@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import InputArea from "../InputArea/InputArea";
-import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
+import { TableGroupContext, TableState } from "../../pages/MarksTable/MarksTable";
 import { handleKeyDown } from "./TaskPreviewHooks";
 // @ts-ignore
 import taskIcon from './Icons/taskIcon.svg'
@@ -28,10 +28,10 @@ const TaskPreview = (props: TaskPreviewProps) => {
     }
     const finalDate = date + "." + month
 
+    /*onDoubleClick={() => setIsOnChange(true)}*/
     return (
         <th className="taskLabel"
-            onClick={(e) => showDropDownByTaskId(props.id, e)}
-            onDoubleClick={() => setIsOnChange(true)}
+            onClick={(e) => context.state === TableState.default && showDropDownByTaskId(props.id, e)}
             onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, setIsOnChange, context.setTasks)}
         >
             {

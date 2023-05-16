@@ -17,7 +17,6 @@ const TableGroupContext = React.createContext(null);
 
 enum TableState {
     default,
-    edit,
     delete
 }
 
@@ -49,17 +48,6 @@ const ButtonList = () => {
                         onClick={() => addTask(context.groupId, context.setTasks)}/>
                     <Button type="transparent" data="Удалить работу" iconType="minus"
                         onClick={() => context.setState(TableState.delete)}/>
-                    <Button type="transparentDisabled" data="Сохранить"/>
-                </>
-            }{
-                context.state === TableState.edit &&
-                <>
-                    <Button type="transparent" data="?"/>
-                    <Button type="transparent" data="Добавить работу" iconType="add" 
-                        onClick={() => addTask(context.groupId, context.setTasks)}/>
-                    <Button type="transparent" data="Удалить работу" iconType="minus"
-                        onClick={() => context.setState(TableState.delete)}/>
-                    <Button type="filled" data="Сохранить"/>
                 </>
             }{
                 context.state === TableState.delete &&
