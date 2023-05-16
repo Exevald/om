@@ -53,6 +53,7 @@ class TaskRepository extends ServiceEntityRepository implements TaskRepositoryIn
         }
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Task::class, [
+                "id" => $ORMTask->getId(),
                 "topic" => $ORMTask->getTopic(),
                 "description" => $ORMTask->getDescription(),
                 "date" => $ORMTask->getDate(),

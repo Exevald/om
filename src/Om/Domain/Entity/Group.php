@@ -6,7 +6,7 @@ use Exception;
 
 class Group
 {
-    private ?int $id = null;
+    private int $id;
     private string $title;
     private string $subject;
     private array $studentsIdList;
@@ -28,7 +28,7 @@ class Group
         $this->tasksIdList = $tasksIdList;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
