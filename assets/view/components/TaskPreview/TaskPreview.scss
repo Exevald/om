@@ -1,8 +1,13 @@
-.taskLabel {
-    cursor: pointer;
+.taskLabel__wrapper {
     min-width: 80px;
     color: var(--ash-light);
     font: var(--text-text-normal-regular);
+    input[type="checkbox"] {
+        margin: 15px 0 31px 0;
+    }
+}
+.taskLabel {
+    cursor: pointer;
     span {
         margin-right: 5px;
     }

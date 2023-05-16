@@ -30,7 +30,7 @@ const TaskPreview = (props: TaskPreviewProps) => {
 
     /*onDoubleClick={() => setIsOnChange(true)}*/
     return (
-        <th className="taskLabel"
+        <th className="taskLabel__wrapper"
             onClick={(e) => context.state === TableState.default && showDropDownByTaskId(props.id, e)}
             onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, setIsOnChange, context.setTasks)}
         >
@@ -40,16 +40,18 @@ const TaskPreview = (props: TaskPreviewProps) => {
                         id={'checkbox' + props.id}
                         type="checkbox"/>
             }
-            {
-                isOnChange ?
-                    <InputArea id={"taskLabel" + props.id} type='taskLabel' value={finalDate}/>
-                :
-                    <span>{finalDate}</span>
-            }
-            <img className="taskIcon"
-                src={taskIcon}
-                alt="Подробнее"
-            />
+            <div className="taskLabel">
+                {
+                    isOnChange ?
+                        <InputArea id={"taskLabel" + props.id} type='taskLabel' value={finalDate}/>
+                    :
+                        <span>{finalDate}</span>
+                }
+                <img className="taskIcon"
+                    src={taskIcon}
+                    alt="Подробнее"
+                />
+            </div>
         </th>
     )
 }

@@ -1,6 +1,4 @@
 import React, {useContext, useLayoutEffect, useState} from "react";
-import './MarksTable.scss';
-
 
 import Header from "../../components/Header/Header";
 import Table from "../../components/Table/Table";
@@ -9,9 +7,13 @@ import {createRoot} from "react-dom/client";
 import {Group} from "../../../utility/types";
 import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
-import {editGroupUrl, getGroupDataByIdUrl, groupEditUrlApi, marksTableUrlApi} from "../../../api/utilities";
+import {editGroupUrl, getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities";
 import { addTask, removeTasks } from "../../components/Table/TableHooks";
 import { sortStudentsByInitials } from "../../../utility/hooks";
+
+import './MarksTable.scss'
+import { updateTableMargins } from "../../components/Table/TableRenderHooks";
+
 
 const TableGroupContext = React.createContext(null);
 
@@ -81,11 +83,12 @@ const GroupTable = (props: GroupTableProps) => {
     const [students, setStudents] = useState(
         props.group.studentsList.sort((a, b) => sortStudentsByInitials(a, b))
     );
-    useLayoutEffect(() =>
+    useLayoutEffect(() => {
         setStudents(
             students.sort((a, b) => sortStudentsByInitials(a, b))
-        )
-    )
+            )
+        updateTableMargins(state)
+    }, [state, students])
     const groupId = props.group.id;
     const groupName = props.group.name;
     return (

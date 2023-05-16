@@ -80,4 +80,21 @@ function generateTaskHead(tasks: Array<Task>, state: number) {
 }
 
 
-export {generateTaskBody, generateTaskHead, generateTaskMaxMarks}
+function updateTableMargins(state: TableState) {
+    const table = document.querySelector('.table__tables') as HTMLTableElement
+    const tableStudents = document.querySelector('.table__students') as HTMLTableElement
+    const tableFinalMarks = document.querySelector('.table__finalMarks') as HTMLTableElement
+    if (state === TableState.delete) {
+        table.style.marginTop = 29 + 'px'
+        tableStudents.style.marginTop = 64 + 'px'
+        tableFinalMarks.style.marginTop = 64 + 'px'
+    }
+    if (state === TableState.default) {
+        table.style.marginTop = 93 + 'px'
+        tableStudents.style.marginTop = 0 + 'px'
+        tableFinalMarks.style.marginTop = 0 + 'px'
+    }
+}
+
+
+export {generateTaskBody, generateTaskHead, generateTaskMaxMarks, updateTableMargins}
