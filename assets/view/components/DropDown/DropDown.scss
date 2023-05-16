@@ -1,0 +1,33 @@
+$dropDownAnimationTime: 220ms;
+
+.dropdown__ {
+    &wrapper {
+        display: none;
+        position: absolute;
+        z-index: 4;
+
+        transform: scale(0);
+        transform-origin: bottom left;
+        transition: $dropDownAnimationTime;
+
+        h6 {
+            font: var(--text-text-normal-bold)
+        }
+        p {
+            font: var(--text-text-normal-regular)
+        }
+    }
+    &content {
+        min-height: 60px;
+        min-width: 220px;
+
+        display: flex;
+        flex-direction: column;
+    }
+    &show {
+        display: block;
+    }
+    &open {
+        transform: scale(1);
+    }
+}

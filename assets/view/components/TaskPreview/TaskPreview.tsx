@@ -6,6 +6,7 @@ import { handleKeyDown } from "./TaskPreviewHooks";
 import taskIcon from './Icons/taskIcon.svg'
 
 import './TaskPreview.scss'
+import { showDropDownByTaskId } from "../DropDown/DropDownHooks";
 
 
 interface TaskPreviewProps {
@@ -49,6 +50,7 @@ const TaskPreview = (props: TaskPreviewProps) => {
             <img className="taskIcon"
                  src={taskIcon}
                  alt="Подробнее"
+                 onClick={(e) => showDropDownByTaskId(props.id, e)}
                  />
         </th>
     )
