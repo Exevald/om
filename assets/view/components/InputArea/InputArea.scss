@@ -14,7 +14,7 @@
         border-color: var(--ash-default);
         padding-left: 23px;
     }
-    &group, &subject,
+    &group, &subject, &taskTopic, &taskDescription,
     &studentName, &studentSurname {
         border: none;
         border-radius: 0px;
@@ -58,5 +58,13 @@
         height: 18px;
         margin: 0;
         padding: 0;
+    }
+    &taskTopic, &taskDescription {
+        padding: 0;
+        height: 20px;
+        margin-bottom: 6px;
+    }
+    &taskTopic {
+        font: var(--text-text-normal-bold)
     }
 }

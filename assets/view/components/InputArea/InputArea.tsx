@@ -7,7 +7,8 @@ interface InputAreaProps {
     type:   'email' | 'password' | 'text' | 
             'group' | 'subject' | 'checkbox' | 
             'studentName' | 'studentSurname' | 
-            'mark' | 'taskLabel',
+            'mark' | 'taskLabel' |
+            'taskTopic' | 'taskDescription',
     header?: string,
     widthChangeable?: boolean,
     placeholder?: string,
