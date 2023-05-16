@@ -53,7 +53,10 @@ function changeTaskMaxMarkHandler(
     changeTaskMaxMark(id.toString(), parseInt(maxMark))
         .then(() =>
             fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
-                .then(response => setTasks(response.tasks))
+                .then(response => {
+                    setTasks(response.tasks)
+                    document.getElementById('maxMark' + id).blur()
+                })
                 .catch(err => console.log(`${err} from updating max mark of ${id} task`))
         )
 }
