@@ -17,12 +17,12 @@ const DropDown = (props: DropDownProps) => {
         <div id={'dropdown' + props.taskId} className="dropdown__wrapper">
             <div className="dropdown__content">
                 { isTopicOnChange ? 
-                        <InputArea id={'topic' + props.taskId} type="text" widthChangeable/>
+                    <InputArea id={'topic' + props.taskId} type="text" widthChangeable/>
                     :
                     <h6 onDoubleClick={() => setIsTopicOnChange(true)}>{props.topic}</h6>
                 }
                 { isDescriptionOnChange ?
-                        <InputArea id={'    description' + props.taskId} type="text" widthChangeable/>
+                    <InputArea id={'description' + props.taskId} type="text" widthChangeable/>
                     :
                     <p onDoubleClick={() => setIsDescriptionOnChange(true)}>{props.description}</p>
                 }

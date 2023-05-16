@@ -19,10 +19,18 @@ $dropDownAnimationTime: 220ms;
     }
     &content {
         min-height: 60px;
-        min-width: 220px;
+        min-width: 211px;
 
         display: flex;
         flex-direction: column;
+
+        border: 1px solid var(--ash-default);
+        border-radius: 20px;
+
+        padding: 20px 37px 25px 37px;
+        h6 {
+            margin-bottom: 6px
+        }
     }
     &show {
         display: block;

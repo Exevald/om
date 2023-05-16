@@ -12,7 +12,7 @@ interface InputAreaProps {
     widthChangeable?: boolean,
     placeholder?: string,
     value?: string,
-    onClick?: () => void
+    onKeyDown?: () => void
 }
 
 
@@ -90,13 +90,13 @@ const InputArea = (props: InputAreaProps) => {
                         <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
                         onChange={() => changeWidth(props.id, props.type, props.widthChangeable)} 
                         placeholder={props.placeholder}
-                        onClick={props.onClick} />
+                        onClick={props.onKeyDown} />
                     }
                     {
                         !props.widthChangeable && 
                         <input id={props.id} className={styles} defaultValue={props.value} type={props.type} 
                         placeholder={props.placeholder}
-                        onClick={props.onClick} />
+                        onClick={props.onKeyDown} />
                     } 
                 </>
             }      

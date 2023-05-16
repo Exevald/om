@@ -12,7 +12,6 @@ import { showDropDownByTaskId } from "../DropDown/DropDownHooks";
 interface TaskPreviewProps {
     id: number,
     date: Date,
-    onClick?: () => void,
     onDelete?: boolean
 }
 const TaskPreview = (props: TaskPreviewProps) => {
@@ -31,7 +30,7 @@ const TaskPreview = (props: TaskPreviewProps) => {
 
     return (
         <th className="taskLabel"
-            onClick={props.onClick}
+            onClick={(e) => showDropDownByTaskId(props.id, e)}
             onDoubleClick={() => setIsOnChange(true)}
             onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, setIsOnChange, context.setTasks)}
         >
@@ -48,10 +47,9 @@ const TaskPreview = (props: TaskPreviewProps) => {
                     <span>{finalDate}</span>
             }
             <img className="taskIcon"
-                 src={taskIcon}
-                 alt="Подробнее"
-                 onClick={(e) => showDropDownByTaskId(props.id, e)}
-                 />
+                src={taskIcon}
+                alt="Подробнее"
+            />
         </th>
     )
 }
