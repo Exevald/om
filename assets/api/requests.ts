@@ -181,11 +181,11 @@ function deleteTasks(groupId: string, tasksIdsList: Array<number>) {
     )
 }
 
-function changeTaskInitials(taskId: string, topic: string, description: string) {
+function changeTaskInitials(taskId: number, topic: string, description: string) {
     return fetchPostRequest(
         changeTaskInitialsUrl,
         {
-            taskId: parseInt(taskId, 10),
+            taskId: taskId,
             topic: topic,
             description: description
         }

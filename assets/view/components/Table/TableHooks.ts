@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { Task } from "../../../utility/types"
-import { changeTaskMaxMark, createTask, deleteTasks } from "../../../api/requests"
+import { changeTaskInitials, changeTaskMaxMark, createTask, deleteTasks } from "../../../api/requests"
 import { fetchGetRequest } from "../../../utility/fetchRequest"
 import { marksTableUrlApi } from "../../../api/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
@@ -14,8 +14,8 @@ function addTask(
         .then(() => 
             fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
                 .then(response => setTasks(response.tasks))
-                .catch(err => console.log(err))
         )
+        .catch(err => console.log(err))
 }
 
 
@@ -38,9 +38,29 @@ function removeTasks(
         .then(() =>
             fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
                 .then(response => setTasks(response.tasks))
-                .catch(err => console.log(err + ' from removing tasks'))
-        )
+            )
+        .catch(err => console.log(err + ' from removing tasks'))
         .finally(() => setState(TableState.default))
+}
+
+
+function setTaskInitials(
+    taskId: number,
+    groupId: string,
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
+    setIsInitialsOnChange: React.Dispatch<React.SetStateAction<boolean>>
+) {
+    const topic = document.getElementById('topic' + taskId) as HTMLInputElement
+    const description = document.getElementById('description' + taskId) as HTMLInputElement
+    changeTaskInitials(taskId, topic.value, description.value)
+        .then(() =>
+            fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
+                .then(response => setTasks(response.tasks))
+        )
+        .catch(err => console.log(err + ' from setting task initials'))
+        .finally(() => {
+            setIsInitialsOnChange(false)
+        })
 }
 
 
@@ -57,12 +77,11 @@ function changeTaskMaxMarkHandler(
                     setTasks(response.tasks)
                     document.getElementById('maxMark' + id).blur()
                 })
-                .catch(err => console.log(`${err} from updating max mark of ${id} task`))
         )
+        .catch(err => console.log(`${err} from updating max mark of ${id} task`))
 }
 
 
 export {
-    addTask, removeTasks,
-    changeTaskMaxMarkHandler
+    addTask, removeTasks, setTaskInitials, changeTaskMaxMarkHandler
 }
