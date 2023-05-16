@@ -15,7 +15,7 @@ function generateTaskBody(studentsIds: Array<number>, tasksIds: Array<number>) {
                         <InputArea key={taskId + ' ' + studentId} 
                             id={taskId + ' ' + studentId} 
                             type="mark" 
-                            value={'00'}/>
+                            value={'0'}/>
                     </td>
             )
         })

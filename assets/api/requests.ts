@@ -8,8 +8,8 @@ import {
     changeStudentNameUrl,
     changeTaskDateUrl,
     changeTaskInitialsUrl,
-    changeTaskMaxMarkUrl,
-    createGroupUrl,
+    changeTaskMaxMarkUrl, changeTaskStudentMarkUrl,
+    createGroupUrl, createMarkUrl,
     createStudentUrl,
     createTaskUrl,
     createTeacherUrl,
@@ -212,18 +212,37 @@ function changeTaskMaxMark(taskId: string, maxMark: number) {
     )
 }
 
+function createMark(taskId: string, studentId: string, studentMark: number) {
+    return fetchPostRequest(
+        createMarkUrl,
+        {
+            taskId: parseInt(taskId, 10),
+            studentId: parseInt(studentId, 10),
+            studentMark: studentMark
+        }
+    ).then(
+        response => {
+            if (!response.ok || response.status === 409) {
+                throw new Error();
+            }
+            return response;
+        }
+    )
+}
+
+function changeTaskStudentMark(markId: string, studentMark: number) {
+    return fetchPostRequest(
+        changeTaskStudentMarkUrl,
+        {
+            markId: parseInt(markId, 10),
+            studentMark: studentMark
+        }
+    )
+}
+
 export {
-    login,
-    createTeacher,
-    createStudent,
-    createGroup,
-    deleteGroups,
-    changeGroupInitials,
-    changeStudentName,
-    deleteStudents,
-    createTask,
-    deleteTasks,
-    changeTaskInitials,
-    changeTaskMaxMark,
-    changeTaskDate
+    login, createTeacher, createStudent, createGroup,
+    deleteGroups, changeGroupInitials, changeStudentName,
+    deleteStudents, createTask, deleteTasks, changeTaskInitials,
+    changeTaskMaxMark, changeTaskDate, createMark, changeTaskStudentMark
 }
