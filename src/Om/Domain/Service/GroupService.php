@@ -6,11 +6,17 @@ use App\Common\ErrorType;
 use App\Om\Domain\Entity\Group;
 use App\Om\Domain\Entity\GroupRepositoryInterface;
 use App\Om\Domain\Entity\StudentRepositoryInterface;
+use App\Om\Domain\Entity\TaskRepositoryInterface;
+use App\Om\Infrastructure\Repositories\Repository\TaskRepository;
 use Exception;
 
 class GroupService
 {
-    public function __construct(private readonly GroupRepositoryInterface $groupRepository, private readonly StudentRepositoryInterface $studentRepository)
+    public function __construct(
+        private readonly GroupRepositoryInterface $groupRepository,
+        private readonly StudentRepositoryInterface $studentRepository,
+        private readonly TaskRepositoryInterface $taskRepository
+    )
     {
     }
 
@@ -95,6 +101,9 @@ class GroupService
         }
         $group = $this->groupRepository->get($id);
         $group->deleteTasks($tasksIdList);
+        foreach ($tasksIdList as $taskId) {
+            $this->taskRepository->delete($taskId);
+        }
         $this->groupRepository->update($group);
     }
 
