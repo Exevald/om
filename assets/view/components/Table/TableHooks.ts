@@ -5,6 +5,7 @@ import { fetchGetRequest } from "../../../utility/fetchRequest"
 import {getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
 import { hasOnlyNumbers } from "../../../utility/hooks"
+import { showToast } from "../Toast/Toast"
 
 
 function addTask(
@@ -146,7 +147,10 @@ function updateMark(
         changeTaskStudentMark(markId, mark)
             .then(() =>
                 fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
-                    .then(response => setTasks(response.tasks))
+                    .then(response => {
+                        setTasks(response.tasks)
+                        showToast('Успешно сохранено', 3000)
+                    })
             )
             .catch(err => console.log(err + ' from adding new mark'))
             .finally(() => el.blur())
