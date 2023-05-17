@@ -34,8 +34,8 @@ class MarkRepository extends ServiceEntityRepository implements MarkRepositoryIn
         }
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Mark::class, [
-                "student_id" => $ORMMark->getStudentId(),
-                "student_mark" => $ORMMark->getStudentMark(),
+                "studentId" => $ORMMark->getStudentId(),
+                "studentMark" => $ORMMark->getStudentMark(),
                 "id" => $ORMMark->getId(),
             ]
         );
