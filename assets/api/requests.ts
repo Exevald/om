@@ -15,7 +15,7 @@ import {
     createTeacherUrl,
     deleteGroupsUrl,
     deleteStudentsUrl,
-    deleteTasksUrl
+    deleteTasksUrl, logoutUrl
 } from "./utilities";
 import { DEFAULT_GROUP_NAME, DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME, DEFAULT_SUBJECT_NAME, DEFAULT_TASK_DESCRIPTION, DEFAULT_TASK_MAXMARK, DEFAULT_TASK_TITLE } from "../utility/utilities";
 
@@ -29,6 +29,10 @@ function login(email: string, password: string) {
         },
         [responseStatus.unauthorized]
     )
+}
+
+function logout() {
+    return fetchPostRequest(logoutUrl)
 }
 
 function createTeacher(teacherData: teacherDataType) {
@@ -188,5 +192,5 @@ export {
     login, createTeacher, createStudent, createGroup,
     deleteGroups, changeGroupInitials, changeStudentName,
     deleteStudents, createTask, deleteTasks, changeTaskInitials,
-    changeTaskMaxMark, changeTaskDate, createMark, changeTaskStudentMark
+    changeTaskMaxMark, changeTaskDate, createMark, changeTaskStudentMark, logout
 }
