@@ -81,22 +81,30 @@ interface FinalMarksTableProps {
 
 function getFinalMarks() {
     const tasksTable = document.getElementsByClassName('table__tasks')[0] as HTMLTableElement
-    let finalMarks, tasksMaxMark = []
-    let studentSumMark, maxMarkSum = 0
-    for (let i = tasksTable.rows.length - 1; i > 0; i--) {
+    
+    let taskMaxMark = [], taskMaxMarks = [], studentMarkSum = 0, delta = 0, maxMarkSum = 0
+
+    for (let j = 0; j < tasksTable.rows[tasksTable.rows.length - 1].cells.length; j++) {
+        let cell = (tasksTable.rows[tasksTable.rows.length - 1].cells[j].firstElementChild as HTMLInputElement).value
+            maxMarkSum += parseInt(cell, 10)
+            taskMaxMarks[j] = parseInt(cell)
+    }
+    console.log(maxMarkSum)
+
+    for (let i = tasksTable.rows.length - 2; i > 0; i--) {
+        delta = maxMarkSum
         for (let j = 0; j < tasksTable.rows[i].cells.length; j++) {
-            let cellEl = tasksTable.rows[i].cells[j].firstElementChild as HTMLInputElement
-            if (cellEl !== null) {
-                let cellElValue = cellEl.value
-                if (i === tasksTable.rows.length - 1) {
-                    maxMarkSum += parseInt(cellElValue, 10)
-                    tasksMaxMark[j] = parseInt(cellElValue, 10)
-                }
-                console.log(cellElValue, maxMarkSum)
+            let cell = tasksTable.rows[i].cells[j].firstElementChild as HTMLInputElement
+            if (cell.value === '' || cell.value === 'Н') {
+                delta -= taskMaxMarks[j]
+            } else {
+                studentMarkSum += parseInt(cell.value)
             }
         }
+        maxMarkSum -= delta
     }
-}
+
+} 
 
 const FinalMarksTable = (props: FinalMarksTableProps) => {
     let finalMarks: Array<JSX.Element> = []
