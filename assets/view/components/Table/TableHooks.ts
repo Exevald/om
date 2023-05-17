@@ -1,9 +1,10 @@
 import React from "react"
 import { Task } from "../../../utility/types"
-import {changeTaskInitials, changeTaskMaxMark, createMark, createTask, deleteTasks} from "../../../api/requests"
+import {changeTaskInitials, changeTaskMaxMark, changeTaskStudentMark, createMark, createTask, deleteTasks} from "../../../api/requests"
 import { fetchGetRequest } from "../../../utility/fetchRequest"
 import {getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
+import { hasOnlyNumbers } from "../../../utility/hooks"
 
 
 function addTask(
@@ -81,9 +82,6 @@ function changeTaskMaxMarkHandler(
         .catch(err => console.log(`${err} from updating max mark of ${id} task`))
 }
 
-function validateMark(mark: string) {
-    mark
-}
 
 function addMark(
     taskId: number,
@@ -101,21 +99,86 @@ function addMark(
             mark = -2
             break
         default:
-            // тут будет проверка на валидность
-            mark = parseInt(el.value)
+            if(hasOnlyNumbers(el.value)) {
+                mark = convertMarkToDatabase(el.value)
+            }
     }
-    console.log(taskId, studentId)
-    createMark(taskId, studentId, mark)
-        .then(() =>
-            fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => setTasks(response.tasks))
-        )
-        .catch(err => console.log(err + ' from adding new mark'))
-        .finally(() => el.blur())
+    if (mark === undefined) {
+        // тост об ошибке
+        console.log('ошибка, неправильно введены данные')
+        el.blur()
+    } else {
+        createMark(taskId, studentId, mark)
+            .then(() =>
+                fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
+                    .then(response => setTasks(response.tasks))
+            )
+            .catch(err => console.log(err + ' from adding new mark'))
+            .finally(() => el.blur())
+    }
+}
+
+
+function updateMark(
+    markId: number,
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
+    groupId: string
+) {
+    const el = document.getElementById('mark' + markId) as HTMLInputElement
+    let mark: number
+    switch (el.value) {
+        case 'Н':
+            mark = -1
+            break
+        case 'Н0':
+            mark = -2
+            break
+        default:
+            if(hasOnlyNumbers(el.value)) {
+                mark = convertMarkToDatabase(el.value)
+            }
+    }
+    if (mark === undefined) {
+        // тост об ошибке
+        console.log('ошибка, неправильно введены данные')
+        el.blur()
+    } else {
+        changeTaskStudentMark(markId, mark)
+            .then(() =>
+                fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
+                    .then(response => setTasks(response.tasks))
+            )
+            .catch(err => console.log(err + ' from adding new mark'))
+            .finally(() => el.blur())
+    }
+}
+
+
+
+function convertMarkToTable(mark: number): string {
+    switch (mark) {
+        case -2:
+            return 'Н0'
+        case -1:
+            return 'Н'
+        default:
+            return mark.toString()
+    }
+}
+
+function convertMarkToDatabase(mark: string): number {
+    switch (mark) {
+        case 'Н0':
+            return -2
+        case 'Н':
+            return -1
+        default:
+            return parseInt(mark, 10)
+    }
 }
 
 
 export {
     addTask, removeTasks, setTaskInitials, changeTaskMaxMarkHandler,
-    addMark
+    addMark, convertMarkToTable, updateMark
 }

@@ -20,4 +20,13 @@ function sortStudentsByInitials(a: Student, b: Student): number {
 }
 
 
-export { sortStudentsByInitials }
+function hasOnlyNumbers(str: string): boolean {
+    if( isNaN(Number(str)) ) {
+        return false
+    } else  {
+        return true 
+    }
+}
+
+
+export { sortStudentsByInitials, hasOnlyNumbers }

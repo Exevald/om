@@ -88,8 +88,7 @@ class GroupController extends AbstractController
             'groupId' => $group->getId(),
             'groupTitle' => $group->getTitle(),
             'groupSubject' => $group->getSubject(),
-            'studentsIdList' => $serializer->normalize($group->getStudentsIdList()),
-            'tasksList' => $serializer->normalize($group->getTasksIdList())
+            'studentsIdList' => $serializer->normalize($group->getStudentsIdList())
         ];
 
         $response = new Response;

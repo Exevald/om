@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 import Table from "../../components/Table/Table";
 import Button from "../../components/Button/Button";
 import {createRoot} from "react-dom/client";
-import {Group} from "../../../utility/types";
+import {Group, Task} from "../../../utility/types";
 import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {editGroupUrl, getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities";
@@ -80,7 +80,7 @@ interface GroupTableProps {
 
 const GroupTable = (props: GroupTableProps) => {
     const [state, setState] = useState<TableState>(TableState.default);
-    const [tasks, setTasks] = useState(props.group.tasksList)
+    const [tasks, setTasks] = useState<Task[]>(props.group.tasksList)
     const [students, setStudents] = useState(
         props.group.studentsList.sort((a, b) => sortStudentsByInitials(a, b))
     );

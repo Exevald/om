@@ -51,7 +51,7 @@ const TasksTable = (props: TasksTableProps) => {
         props.studentsIds, props.tasks, context.setTasks, context.groupId
     )
     const tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
-        props.tasks, context.state, context.setTasks, context.groupId
+        props.tasks, context.setTasks, context.groupId
     )
     
     useEffect(() => {

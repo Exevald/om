@@ -26,7 +26,7 @@ type StudentFrontData = {
 type Mark = {
     id: number,
     studentId: number,
-    studentMark: string
+    studentMark: number
 }
 
 type Task = {
@@ -35,7 +35,7 @@ type Task = {
     description: string,
     date: Date,
     maxMark: number,
-    marks: Array<Mark>
+    marksList: Array<Mark>
 }
 
 type TaskFrontData = {

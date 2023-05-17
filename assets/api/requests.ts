@@ -174,11 +174,11 @@ function createMark(taskId: number, studentId: number, studentMark: number) {
     )
 }
 
-function changeTaskStudentMark(markId: string, studentMark: number) {
+function changeTaskStudentMark(markId: number, studentMark: number) {
     return fetchPostRequest(
         changeTaskStudentMarkUrl,
         {
-            markId: parseInt(markId, 10),
+            markId: markId,
             studentMark: studentMark
         }
     )
