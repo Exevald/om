@@ -63,7 +63,7 @@ function generateTaskBody(
             }
 
         })
-        marksRow.push(<td key={-1} className="table__markPlug"></td>)
+        marksRow.push(<td key={-1} className="table__markPlug"> 󠇮</td>)
         tasksBody.push(
             <tr key={studentId}>
                 {marksRow}
@@ -111,9 +111,6 @@ function generateTaskHead(tasks: Array<Task>, state: number) {
                 <TaskPreview key={task.id} id={task.id} date={task.date}/>
             )
         )
-    }
-    if(tasksHead.length === 0) {
-        tasksHead.push(<p></p>)
     }
     //заглушка на оставшееся место
     tasksHead.push(

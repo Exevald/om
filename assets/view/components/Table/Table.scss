@@ -10,10 +10,11 @@ $tasksTableWidth: 936px;
 
     }
     &plug {
-        width: 100%;
+        width: 100vh;
         border: none;
     }
     &markPlug {
+        height: 52px;
         width: 100%;
         border-left: none;
         border-right: none;
