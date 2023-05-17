@@ -81,6 +81,10 @@ function changeTaskMaxMarkHandler(
         .catch(err => console.log(`${err} from updating max mark of ${id} task`))
 }
 
+function addMark() {
+
+}
+
 
 export {
     addTask, removeTasks, setTaskInitials, changeTaskMaxMarkHandler

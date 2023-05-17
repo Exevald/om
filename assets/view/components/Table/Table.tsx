@@ -47,7 +47,7 @@ interface TasksTableProps {
 const TasksTable = (props: TasksTableProps) => {
     const context = useContext(TableGroupContext)
     let     tasksHead: Array<JSX.Element>     = generateTaskHead(props.tasks, context.state)
-    const   tasksBody: Array<JSX.Element>     = generateTaskBody(props.studentsIds, props.tasks.map(task => task.id)), 
+    const   tasksBody: Array<JSX.Element>     = generateTaskBody(props.studentsIds, props.tasks),
             tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
                 props.tasks, context.state, context.setTasks, context.groupId
             )
@@ -118,7 +118,9 @@ const Table = (props: TableProps) => {
         <div className="table__tables">
             <DropDownList tasks={props.tasks}/>
             <StudentsTable subject={props.subject} students={props.students}/>
-            <TasksTable tasks={props.tasks} studentsIds={props.students.map(student => parseInt(student.id))}/>
+            <TasksTable tasks={props.tasks}
+                        studentsIds={props.students.map(student => parseInt(student.id))}
+            />
             <FinalMarksTable tasks={props.tasks} countOfRows={props.students.length}/>
         </div>
     )

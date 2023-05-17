@@ -41,13 +41,6 @@ function createTeacher(teacherData: teacherDataType) {
             email: teacherData.email,
             encryptedPassword
         }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error()
-            }
-            return response
-        }
     )
 }
 
@@ -58,13 +51,6 @@ function createStudent(groupId: number) {
             groupId: groupId,
             firstName: DEFAULT_STUDENT_NAME,
             lastName: DEFAULT_STUDENT_SURNAME
-        }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error()
-            }
-            return response
         }
     )
 }
@@ -79,13 +65,6 @@ function createGroup(teacherId: number) {
             studentsList: [],
             tasksList: []
         }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error()
-            }
-            return response
-        }
     )
 }
 
@@ -95,13 +74,6 @@ function deleteGroups(groupIdList: Array<string>, teacherId: string) {
         {
             groupIdList: groupIdList.map(id => parseInt(id, 10)),
             teacherId: parseInt(teacherId, 10)
-        }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error();
-            }
-            return response;
         }
     )
 }
@@ -135,13 +107,6 @@ function deleteStudents(groupId: string, studentsIdList: Array<string>) {
             groupId: parseInt(groupId, 10),
             studentsIdList: studentsIdList.map(id => parseInt(id, 10))
         }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error();
-            }
-            return response;
-        }
     )
 }
 
@@ -154,13 +119,6 @@ function createTask(groupId: string) {
             description: DEFAULT_TASK_DESCRIPTION,
             maxMark: DEFAULT_TASK_MAXMARK
         }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error()
-            }
-            return response
-        }
     )
 }
 
@@ -170,13 +128,6 @@ function deleteTasks(groupId: string, tasksIdsList: Array<number>) {
         {
             groupId: parseInt(groupId, 10),
             tasksIdList: tasksIdsList
-        }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error();
-            }
-            return response;
         }
     )
 }
@@ -219,13 +170,6 @@ function createMark(taskId: string, studentId: string, studentMark: number) {
             taskId: parseInt(taskId, 10),
             studentId: parseInt(studentId, 10),
             studentMark: studentMark
-        }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error();
-            }
-            return response;
         }
     )
 }

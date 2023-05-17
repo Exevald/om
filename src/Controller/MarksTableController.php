@@ -59,7 +59,7 @@ class MarksTableController extends AbstractController
                 'description' => $task->getDescription(),
                 'date' => $task->getDate()->format('Y-m-d'),
                 'maxMark' => $task->getMaxMark(),
-                'marksIdList' => $task->getMarksList()
+                'marksList' => $task->getMarksList()
             ];
         }
         return $responseContent;

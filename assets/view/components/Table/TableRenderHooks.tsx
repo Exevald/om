@@ -1,24 +1,44 @@
-import { Task } from "../../../utility/types"
+import {Task} from "../../../utility/types"
 import { TableState } from "../../pages/MarksTable/MarksTable"
 import InputArea from "../InputArea/InputArea"
 import TaskPreview from "../TaskPreview/TaskPreview"
 import { changeTaskMaxMarkHandler } from "./TableHooks"
+import React from "react";
 
-function generateTaskBody(studentsIds: Array<number>, tasksIds: Array<number>) {
+function generateTaskBody(studentsIds: Array<number>, tasks: Array<Task>) {
     const tasksBody: Array<JSX.Element> = []
     let marksRow: Array<JSX.Element> = []
     studentsIds.forEach(studentId => {
-        tasksIds.forEach(taskId => {
-            marksRow.push(
-                    <td key={taskId + ' ' + studentId}>
-                        <InputArea key={taskId + ' ' + studentId} 
-                            id={taskId + ' ' + studentId} 
-                            type="mark" 
-                            value={'0'}/>
+
+        tasks.forEach(task => {
+            if(task.marks) {
+                task.marks?.forEach(mark => {
+                    let inputValue = ''
+                    if(mark.studentId === studentId) {
+                        inputValue = mark.studentMark.toString()
+                    }
+                    marksRow.push(
+                        <td key={task.id + ' ' + studentId}>
+                            <InputArea key={task.id + ' ' + studentId}
+                                       id={task.id + ' ' + studentId}
+                                       type="mark"
+                                       value={inputValue}/>
+                        </td>
+                    )
+                })
+            } else {
+                marksRow.push(
+                    <td key={task.id + ' ' + studentId}>
+                        <InputArea key={task.id + ' ' + studentId}
+                                   id={task.id + ' ' + studentId}
+                                   type="mark"
+                                   value={''}/>
                     </td>
-            )
+                )
+            }
+
         })
-        marksRow.push(<td key={-1 * marksRow.length} className="table__markPlug"></td>)
+        marksRow.push(<td key={-1} className="table__markPlug"></td>)
         tasksBody.push(
             <tr key={studentId}>
                 {marksRow}
