@@ -7,6 +7,7 @@ import {getGroupsListPageUrl} from "../../../api/pageUrls";
 import {deleteGroups} from "../../../api/requests";
 import {fetchGetRequest} from '../../../utility/fetchRequest';
 import {groupsListUrlApi} from "../../../api/utilities";
+import { showToast } from "../../components/Toast/Toast";
 
 
 const GroupsListContext = React.createContext(null);
@@ -25,7 +26,10 @@ function addGroup(
     createGroup(teacherId)
         .then(() =>
             fetchGetRequest(groupsListUrlApi)
-                .then(response => setGroups(JSON.parse(response.groups)))
+                .then(response => {
+                    setGroups(JSON.parse(response.groups))
+                    showToast('Успешно сохранено', 3000)
+                })
         )
         .catch(err => console.log(err + ' from adding new group'))
 }
@@ -45,7 +49,10 @@ function setGroupById(
         changeGroupInitials(groupForEditId, groupNameInput.value, groupSubjectInput.value)
             .then(() =>
                 fetchGetRequest(groupsListUrlApi)
-                    .then(response => setGroups(JSON.parse(response.groups)))
+                    .then(response => {
+                        showToast('Успешно сохранено', 3000)
+                        setGroups(JSON.parse(response.groups)) 
+                    })
             )
             .catch(err => console.log(err + ' from changing group title'))
             .finally(() => {
@@ -72,7 +79,10 @@ function removeGroups(
     deleteGroups(groupsIdsForDelete, teacherId)
         .then(() =>
             fetchGetRequest(groupsListUrlApi)
-                .then(response => setGroups(JSON.parse(response.groups)))
+                .then(response => {
+                    showToast('Успешно сохранено', 3000)
+                    setGroups(JSON.parse(response.groups)) 
+                })
             )
         .catch(err => console.log(err + ' from deleting groups'))
         .finally(() => setState(GroupsListState.default))

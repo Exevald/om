@@ -8,6 +8,7 @@ import {
 } from "../../../api/requests";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {getGroupDataByIdUrl} from "../../../api/utilities";
+import { showToast } from "../../components/Toast/Toast";
 
 
 const GroupContext = React.createContext(null);
@@ -26,7 +27,10 @@ function addStudent(
     createStudent(parseInt(groupId, 10))
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => setStudents(response.studentsIdList))
+                .then(response => {
+                    showToast('Успешно сохранено', 3000)
+                    setStudents(response.studentsIdList)
+                })
         )
         .catch(err => console.log(err + ' from adding student'))
 }
@@ -46,7 +50,10 @@ function setStudentById(
     changeStudentName(studentIdForEdit, studentFirstNameInput.value, studentLastNameInput.value)
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => setStudents(response.studentsIdList))
+                .then(response => {
+                    showToast('Успешно сохранено', 3000)
+                    setStudents(response.studentsIdList)
+                })
         )
         .catch(err => console.log(err + ' from setting student initials'))
         .finally(() => setActiveStudentId(-1))
@@ -69,7 +76,10 @@ function removeStudents(
     deleteStudents(groupId, studentsIdsForDelete)
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => setStudents(response.studentsIdList))
+                .then(response => {
+                    showToast('Успешно сохранено', 3000)
+                    setStudents(response.studentsIdList)
+                })
         )
         .catch(err => console.log(err + ' from removing students'))
         .finally(() => setState(GroupState.default))
@@ -88,9 +98,10 @@ function saveGroupChanges(
     changeGroupInitials(groupId, groupNameInput.value, groupSubjectInput.value)
         .then(() =>
             fetchGetRequest(getUrlApi)
-                .then(response =>
+                .then(response => {
+                    showToast('Успешно сохранено', 3000)
                     setGroup({name: response.groupTitle, subject: response.groupSubject})
-                )
+                })
         )
         .catch(err => console.log(err + ' from saving group changes'))
         .finally(() => setState(GroupState.default))
