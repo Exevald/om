@@ -6,6 +6,8 @@ import { Task } from "../../../utility/types"
 import { TableGroupContext } from "../../pages/MarksTable/MarksTable"
 import { setTaskInitials } from "../Table/TableHooks"
 import { DROPDOWN_ANIMATION_TIME } from "../../../utility/utilities"
+import { logout } from "../../../api/requests"
+import { titleUrl } from "../../../api/utilities"
 
 interface DropDownProps {
     taskId: number,
@@ -47,6 +49,33 @@ const DropDown = (props: DropDownProps) => {
 }
 
 
+const DropDownLogOut = () => {
+    function closeLogOutDropDownListener(e: MouseEvent) {
+        const path = e.composedPath()
+        const dropdown = document.getElementById('dropdownlogOut') as HTMLElement
+        if (!path.includes(dropdown) && dropdown.classList.contains('dropdown__show')) {
+            dropdown.classList.remove('dropdown__open')
+            setTimeout(() => dropdown.classList.remove('dropdown__show'), DROPDOWN_ANIMATION_TIME)
+        }
+    }
+    useEffect(() => {
+        document.body.addEventListener('click', closeLogOutDropDownListener)
+        return () => document.body.removeEventListener('click', closeLogOutDropDownListener) 
+    })
+
+    return (
+        <div id='dropdownlogOut' className="dropdown__wrapper dropdown__logout">
+            <div className="dropdown__logoutContent" onClick={() => {
+                logout()
+                window.location.href = titleUrl
+            }}>
+                <p>Выйти</p>
+            </div>
+        </div>
+    )
+}
+
+
 interface DropDownListProps {
     tasks: Array<Task>
 }
@@ -58,7 +87,7 @@ const DropDownList = (props: DropDownListProps) => {
     function closeDropDownsByTasksIdsListener(e: MouseEvent) {
         const path = e.composedPath()
         props.tasks.forEach(task => {
-            const dropdown = document.getElementById('dropdown' + task.id) as HTMLInputElement
+            const dropdown = document.getElementById('dropdown' + task.id) as HTMLElement
             if (!path.includes(dropdown) && dropdown.classList.contains('dropdown__show')) {
                 dropdown.classList.remove('dropdown__open')
                 setTimeout(() => dropdown.classList.remove('dropdown__show'), DROPDOWN_ANIMATION_TIME)
@@ -79,4 +108,4 @@ const DropDownList = (props: DropDownListProps) => {
 
 
 export default DropDown
-export { DropDownList }
+export { DropDownList, DropDownLogOut }

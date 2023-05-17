@@ -17,6 +17,21 @@ $dropDownAnimationTime: 220ms;
             font: var(--text-text-normal-regular)
         }
     }
+    &logout {
+        transform-origin: top;
+    }
+    &logoutContent {
+        height: 30px;
+        width: 80px;
+
+        border: 1px solid var(--ash-default);
+        border-radius: 10px;
+        background-color: white;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     &content {
         min-height: 60px;
         min-width: 211px;
