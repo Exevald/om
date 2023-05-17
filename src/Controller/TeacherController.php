@@ -47,6 +47,13 @@ class TeacherController extends AbstractController
         return $response;
     }
 
+    public function logoutApi(): Response
+    {
+        $response = new Response();
+        $response->headers->clearCookie("token");
+        return $response;
+    }
+
     public function createTeacherApi(Request $request): Response
     {
         $response = new Response();
