@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import {useContext, useEffect} from "react";
 import {Student, Task} from "../../../utility/types";
-import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
-import { generateTaskHead, generateTaskBody, generateTaskMaxMarks } from "./TableRenderHooks";
-import { DropDownList } from "../DropDown/DropDown";
+import {TableGroupContext} from "../../pages/MarksTable/MarksTable";
+import {generateTaskHead, generateTaskBody, generateTaskMaxMarks} from "./TableRenderHooks";
+import {DropDownList} from "../DropDown/DropDown";
 
 import './Table.scss'
 
@@ -46,14 +46,14 @@ interface TasksTableProps {
 
 const TasksTable = (props: TasksTableProps) => {
     const context = useContext(TableGroupContext)
-    let   tasksHead: Array<JSX.Element>     = generateTaskHead(props.tasks, context.state)
-    const tasksBody: Array<JSX.Element>     = generateTaskBody(
+    let tasksHead: Array<JSX.Element> = generateTaskHead(props.tasks, context.state)
+    const tasksBody: Array<JSX.Element> = generateTaskBody(
         props.studentsIds, props.tasks, context.setTasks, context.groupId
     )
     const tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
         props.tasks, context.setTasks, context.groupId
     )
-    
+
     useEffect(() => {
         tasksHead = generateTaskHead(props.tasks, context.state)
     }, [context.state])
@@ -64,10 +64,10 @@ const TasksTable = (props: TasksTableProps) => {
             <tr>{tasksHead}</tr>
             </thead>
             <tbody>
-                {tasksBody}
-                <tr>
-                    {tasksMaxMarks}
-                </tr>
+            {tasksBody}
+            <tr>
+                {tasksMaxMarks}
+            </tr>
             </tbody>
         </table>
     )
@@ -77,6 +77,25 @@ const TasksTable = (props: TasksTableProps) => {
 interface FinalMarksTableProps {
     tasks: Array<Task>,
     countOfRows: number
+}
+
+function getFinalMarks() {
+    const tasksTable = document.getElementsByClassName('table__tasks')[0] as HTMLTableElement
+    let finalMarks, tasksMaxMark = []
+    let studentSumMark, maxMarkSum = 0
+    for (let i = tasksTable.rows.length - 1; i > 0; i--) {
+        for (let j = 0; j < tasksTable.rows[i].cells.length; j++) {
+            let cellEl = tasksTable.rows[i].cells[j].firstElementChild as HTMLInputElement
+            if (cellEl !== null) {
+                let cellElValue = cellEl.value
+                if (i === tasksTable.rows.length - 1) {
+                    maxMarkSum += parseInt(cellElValue, 10)
+                    tasksMaxMark[j] = parseInt(cellElValue, 10)
+                }
+                console.log(cellElValue, maxMarkSum)
+            }
+        }
+    }
 }
 
 const FinalMarksTable = (props: FinalMarksTableProps) => {
@@ -94,6 +113,7 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
             <td>100</td>
         </tr>
     )
+    useEffect(() => getFinalMarks(), [props.tasks])
     return (
         <table className="table__wrapper table__finalMarks">
             <thead>
@@ -102,7 +122,7 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
             </tr>
             </thead>
             <tbody>
-                {finalMarks}
+            {finalMarks}
             </tbody>
         </table>
     )
