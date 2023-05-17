@@ -163,12 +163,12 @@ function changeTaskMaxMark(taskId: string, maxMark: number) {
     )
 }
 
-function createMark(taskId: string, studentId: string, studentMark: number) {
+function createMark(taskId: number, studentId: number, studentMark: number) {
     return fetchPostRequest(
         createMarkUrl,
         {
-            taskId: parseInt(taskId, 10),
-            studentId: parseInt(studentId, 10),
+            taskId: taskId,
+            studentId: studentId,
             studentMark: studentMark
         }
     )

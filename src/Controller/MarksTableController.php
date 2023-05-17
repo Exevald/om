@@ -9,6 +9,10 @@ use App\Om\Api\ApiInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
+
 class MarksTableController extends AbstractController
 {
     public function __construct(
@@ -24,6 +28,9 @@ class MarksTableController extends AbstractController
 
     public function getMarksTablePageApi(Request $request): Response
     {
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer([$normalizer]);
+
         $token = $request->cookies->get("token");
         if (empty($token)) {
             $response = $this->redirectToRoute("loginPage");
@@ -38,8 +45,7 @@ class MarksTableController extends AbstractController
             'teacherId' => $teacher->getId(),
             'userFirstName' => $teacher->getFirstName(),
             'userLastName' => $teacher->getLastName(),
-            'tasks' => $this->getAllTasks($groupId),
-            'marks' => $this->getAllMarks($groupId)
+            'tasks' => $serializer->normalize($this->getAllTasks($groupId))
         ];
 
         $response = new Response();

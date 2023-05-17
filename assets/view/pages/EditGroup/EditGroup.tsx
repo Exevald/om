@@ -189,8 +189,6 @@ const Students = (props: StudentsProps) => {
                 <div className="editGroup__checkboxArea">{checkboxes}</div>
             }{
             students.length !== 0 && <ol>{students}</ol>
-        }{
-            students.length === 0 && <h5>Вы ещё не добавили новых учеников</h5>
         }
         </div>
     )

@@ -45,7 +45,7 @@ const ButtonList = () => {
             {
                 context.state === TableState.default &&
                 <>
-                    <Button type="transparent" data="?"/>
+                    {/*<Button type="transparent" data="?"/>*/}
                     <Button type="transparent" data="Добавить работу" iconType="add"
                             onClick={() => addTask(context.groupId, context.setTasks)}/>
                     <Button type="transparent" data="Удалить работу" iconType="minus"

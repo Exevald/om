@@ -46,11 +46,13 @@ interface TasksTableProps {
 
 const TasksTable = (props: TasksTableProps) => {
     const context = useContext(TableGroupContext)
-    let     tasksHead: Array<JSX.Element>     = generateTaskHead(props.tasks, context.state)
-    const   tasksBody: Array<JSX.Element>     = generateTaskBody(props.studentsIds, props.tasks),
-            tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
-                props.tasks, context.state, context.setTasks, context.groupId
-            )
+    let   tasksHead: Array<JSX.Element>     = generateTaskHead(props.tasks, context.state)
+    const tasksBody: Array<JSX.Element>     = generateTaskBody(
+        props.studentsIds, props.tasks, context.setTasks, context.groupId
+    )
+    const tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
+        props.tasks, context.state, context.setTasks, context.groupId
+    )
     
     useEffect(() => {
         tasksHead = generateTaskHead(props.tasks, context.state)

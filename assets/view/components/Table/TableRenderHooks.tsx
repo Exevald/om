@@ -2,33 +2,61 @@ import {Task} from "../../../utility/types"
 import { TableState } from "../../pages/MarksTable/MarksTable"
 import InputArea from "../InputArea/InputArea"
 import TaskPreview from "../TaskPreview/TaskPreview"
-import { changeTaskMaxMarkHandler } from "./TableHooks"
+import {addMark, changeTaskMaxMarkHandler} from "./TableHooks"
 import React from "react";
 
-function generateTaskBody(studentsIds: Array<number>, tasks: Array<Task>) {
+function generateTaskBody(
+    studentsIds: Array<number>,
+    tasks: Array<Task>,
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
+    groupId: string
+) {
     const tasksBody: Array<JSX.Element> = []
     let marksRow: Array<JSX.Element> = []
     studentsIds.forEach(studentId => {
 
         tasks.forEach(task => {
             if(task.marks) {
-                task.marks?.forEach(mark => {
-                    let inputValue = ''
-                    if(mark.studentId === studentId) {
-                        inputValue = mark.studentMark.toString()
+
+                let hasMark = false
+
+                for(let i = 0; task.marks.length; i++) {
+                    if(task.marks[i].studentId === studentId) {
+                        hasMark = true
+                        marksRow.push(
+                            <td key={task.id + ' ' + studentId} onKeyDown={
+                                (e) => e.key === 'Enter' && console.log('изменение оценки')}
+                            >
+                                <InputArea key={task.id + ' ' + studentId}
+                                           id={task.id + ' ' + studentId}
+                                           type="mark"
+                                           value={task.marks[i].studentMark.toString()}
+                                />
+                            </td>
+                        )
+                        break
                     }
+                }
+
+                if (!hasMark) {
                     marksRow.push(
-                        <td key={task.id + ' ' + studentId}>
+                        <td key={task.id + ' ' + studentId} onKeyDown={(e) => e.key === 'Enter' &&
+                            addMark(task.id, studentId, setTasks, groupId)}
+                        >
                             <InputArea key={task.id + ' ' + studentId}
                                        id={task.id + ' ' + studentId}
                                        type="mark"
-                                       value={inputValue}/>
+                                       value={''}
+                            />
                         </td>
                     )
-                })
+                }
+
             } else {
                 marksRow.push(
-                    <td key={task.id + ' ' + studentId}>
+                    <td key={task.id + ' ' + studentId} onKeyDown={(e) => e.key === 'Enter' &&
+                            addMark(task.id, studentId, setTasks, groupId)}
+                    >
                         <InputArea key={task.id + ' ' + studentId}
                                    id={task.id + ' ' + studentId}
                                    type="mark"

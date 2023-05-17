@@ -17,6 +17,9 @@ $tasksTableWidth: 936px;
         width: 100%;
         border-left: none;
         border-right: none;
+        &:active {
+            background-color: white!important;
+        }
     }
     &wrapper {
         text-align: center;

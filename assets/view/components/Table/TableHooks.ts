@@ -1,8 +1,8 @@
-import React, { useContext } from "react"
+import React from "react"
 import { Task } from "../../../utility/types"
-import { changeTaskInitials, changeTaskMaxMark, createTask, deleteTasks } from "../../../api/requests"
+import {changeTaskInitials, changeTaskMaxMark, createMark, createTask, deleteTasks} from "../../../api/requests"
 import { fetchGetRequest } from "../../../utility/fetchRequest"
-import { marksTableUrlApi } from "../../../api/utilities"
+import {getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
 
 
@@ -81,11 +81,41 @@ function changeTaskMaxMarkHandler(
         .catch(err => console.log(`${err} from updating max mark of ${id} task`))
 }
 
-function addMark() {
+function validateMark(mark: string) {
+    mark
+}
 
+function addMark(
+    taskId: number,
+    studentId: number,
+    setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
+    groupId: string
+) {
+    const el = document.getElementById(taskId + ' ' + studentId) as HTMLInputElement
+    let mark: number
+    switch (el.value) {
+        case 'Н':
+            mark = -1
+            break
+        case 'Н0':
+            mark = -2
+            break
+        default:
+            // тут будет проверка на валидность
+            mark = parseInt(el.value)
+    }
+    console.log(taskId, studentId)
+    createMark(taskId, studentId, mark)
+        .then(() =>
+            fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
+                .then(response => setTasks(response.tasks))
+        )
+        .catch(err => console.log(err + ' from adding new mark'))
+        .finally(() => el.blur())
 }
 
 
 export {
-    addTask, removeTasks, setTaskInitials, changeTaskMaxMarkHandler
+    addTask, removeTasks, setTaskInitials, changeTaskMaxMarkHandler,
+    addMark
 }
