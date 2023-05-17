@@ -59,7 +59,7 @@ class MarkRepository extends ServiceEntityRepository implements MarkRepositoryIn
         $ORMMark = $this->find($mark->getId());
         $entityManager = $this->getEntityManager();
 
-        $ORMMark->setStudentId($mark->getStudentMark());
+        $ORMMark->setStudentId($mark->getStudentId());
         $ORMMark->setStudentMark($mark->getStudentMark());
 
         $entityManager->flush();
