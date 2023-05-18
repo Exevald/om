@@ -88,7 +88,7 @@ const GroupTable = (props: GroupTableProps) => {
         setStudents(
             students.sort((a, b) => sortStudentsByInitials(a, b))
         )
-        updateTableMargins(state)
+        setTimeout(() => updateTableMargins(state), 20)
     }, [state, students])
     const groupId = props.group.id;
     const groupName = props.group.name;
@@ -124,7 +124,7 @@ const MarksTable = (props: MarksTableProps) => {
     return (
         <div className="marksTable__wrapper">
             <Header title="Журнал" userData={user}/>
-            <GroupTable group={props.group} />
+            <GroupTable group={props.group}/>
         </div>
     )
 }

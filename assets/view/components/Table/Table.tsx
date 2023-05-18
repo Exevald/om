@@ -1,4 +1,4 @@
-import {useContext, useEffect} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {Student, Task} from "../../../utility/types";
 import {TableGroupContext} from "../../pages/MarksTable/MarksTable";
 import {generateTaskHead, generateTaskBody, generateTaskMaxMarks, generateFinalMarks} from "./TableRenderHooks";
@@ -107,27 +107,33 @@ function getFinalMarks(): Array<number> {
         }
         studentFinalMarks.push(Math.ceil(studentMarkSum / delta * 100))
     }
-    console.log(studentFinalMarks)
+    // console.log(studentFinalMarks)
     return studentFinalMarks
 }
 
 const FinalMarksTable = (props: FinalMarksTableProps) => {
-    let finalMarks: Array<JSX.Element> = []
-    let finalMarksList: Array<number> = []
-    
-    for (let i = 0; i < props.countOfRows; i++) {
-        // здесь рендер финальной оценки
-        finalMarks.push(
-            <tr key={i}>
-                <td><strong>{i}</strong></td>
-            </tr>
-        )
-    }
+    const [finalMarks, setFinalMarks] = useState([])
+    let finalMarksList: number[] = []
 
     useEffect(() => {
-        finalMarksList = getFinalMarks()
-        finalMarks = generateFinalMarks(finalMarksList)
+        getFinalMarksElems()
     }, [props.tasks])
+
+    const getFinalMarksElems = () => {
+        console.log('render')
+        finalMarksList = getFinalMarks().reverse()
+        const marks: JSX.Element[] = []
+        for (let i = 0; i < props.countOfRows; i++) {
+            // здесь рендер финальной оценки
+            console.log(finalMarksList[i])
+            marks.push(
+                <tr key={i}>
+                    <td><strong>{finalMarksList[i]}</strong></td>
+                </tr>
+            )
+        }
+        setFinalMarks(finalMarks => marks)
+    }
 
     return (
         <table className="table__wrapper table__finalMarks">
@@ -167,3 +173,4 @@ const Table = (props: TableProps) => {
 }
 
 export default Table
+export {getFinalMarks}

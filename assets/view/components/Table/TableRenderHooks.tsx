@@ -1,5 +1,5 @@
 import {Task} from "../../../utility/types"
-import { TableState } from "../../pages/MarksTable/MarksTable"
+import {TableState} from "../../pages/MarksTable/MarksTable"
 import InputArea from "../InputArea/InputArea"
 import TaskPreview from "../TaskPreview/TaskPreview"
 import {addMark, changeTaskMaxMarkHandler, convertMarkToTable, updateMark} from "./TableHooks"
@@ -16,21 +16,21 @@ function generateTaskBody(
     studentsIds.forEach(studentId => {
 
         tasks.forEach(task => {
-            if(task.marksList) {
+            if (task.marksList) {
 
                 let hasMark = false
 
-                for(let i = 0; i < task.marksList.length; i++) {
-                    if(task.marksList[i].studentId === studentId) {
+                for (let i = 0; i < task.marksList.length; i++) {
+                    if (task.marksList[i].studentId === studentId) {
                         hasMark = true
                         const mark = convertMarkToTable(task.marksList[i].studentMark)
                         marksRow.push(
                             <td key={task.id + ' ' + studentId} onKeyDown={
                                 (e) => e.key === 'Enter' && updateMark(task.marksList[i].id, setTasks, groupId)}>
                                 <InputArea key={task.id + ' ' + studentId}
-                                    id={'mark' + task.marksList[i].id}
-                                    type="mark"
-                                    value={mark}/>
+                                           id={'mark' + task.marksList[i].id}
+                                           type="mark"
+                                           value={mark}/>
                             </td>
                         )
                         break
@@ -42,9 +42,9 @@ function generateTaskBody(
                         <td key={task.id + ' ' + studentId} onKeyDown={(e) => e.key === 'Enter' &&
                             addMark(task.id, studentId, setTasks, groupId)}>
                             <InputArea key={task.id + ' ' + studentId}
-                                id={task.id + ' ' + studentId}
-                                type="mark"
-                                value={''}/>
+                                       id={task.id + ' ' + studentId}
+                                       type="mark"
+                                       value={''}/>
                         </td>
                     )
                 }
@@ -52,12 +52,12 @@ function generateTaskBody(
             } else {
                 marksRow.push(
                     <td key={task.id + ' ' + studentId} onKeyDown={(e) => e.key === 'Enter' &&
-                            addMark(task.id, studentId, setTasks, groupId)}
+                        addMark(task.id, studentId, setTasks, groupId)}
                     >
                         <InputArea key={task.id + ' ' + studentId}
-                            id={task.id + ' ' + studentId}
-                            type="mark"
-                            value={''}/>
+                                   id={task.id + ' ' + studentId}
+                                   type="mark"
+                                   value={''}/>
                     </td>
                 )
             }
@@ -81,15 +81,15 @@ function generateTaskMaxMarks(
     groupId: string
 ) {
     const tasksMaxMarks: Array<JSX.Element> = []
-    tasks.forEach(task => 
+    tasks.forEach(task =>
         tasksMaxMarks.push(
             <td key={task.id} onKeyDown={(e) => e.key === 'Enter' &&
                 changeTaskMaxMarkHandler(task.id, setTasks, groupId)
             }>
-                <InputArea key={task.id} 
-                    id={'maxMark' + task.id} 
-                    type="mark" 
-                    value={task.maxMark.toString()}/>
+                <InputArea key={task.id}
+                           id={'maxMark' + task.id}
+                           type="mark"
+                           value={task.maxMark.toString()}/>
             </td>
         )
     )
@@ -100,13 +100,13 @@ function generateTaskMaxMarks(
 function generateTaskHead(tasks: Array<Task>, state: number) {
     const tasksHead: Array<JSX.Element> = []
     if (state === TableState.delete) {
-        tasks.forEach(task => 
+        tasks.forEach(task =>
             tasksHead.push(
                 <TaskPreview key={task.id} id={task.id} date={task.date} onDelete/>
             )
         )
     } else {
-        tasks.forEach(task => 
+        tasks.forEach(task =>
             tasksHead.push(
                 <TaskPreview key={task.id} id={task.id} date={task.date}/>
             )
@@ -121,7 +121,7 @@ function generateTaskHead(tasks: Array<Task>, state: number) {
 
 
 function generateFinalMarks(finalMarks: Array<number>) {
-    return finalMarks.map(mark => 
+    return finalMarks.map(mark =>
         <tr key={Math.random()}>
             <td><strong>{mark}</strong></td>
         </tr>)
