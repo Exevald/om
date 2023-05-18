@@ -120,6 +120,14 @@ function generateTaskHead(tasks: Array<Task>, state: number) {
 }
 
 
+function generateFinalMarks(finalMarks: Array<number>) {
+    return finalMarks.map(mark => 
+        <tr key={Math.random()}>
+            <td><strong>{mark}</strong></td>
+        </tr>)
+}
+
+
 function updateTableMargins(state: TableState) {
     const table = document.querySelector('.table__tables') as HTMLTableElement
     const tableStudents = document.querySelector('.table__students') as HTMLTableElement
@@ -137,4 +145,4 @@ function updateTableMargins(state: TableState) {
 }
 
 
-export {generateTaskBody, generateTaskHead, generateTaskMaxMarks, updateTableMargins}
+export {generateTaskBody, generateTaskHead, generateTaskMaxMarks, updateTableMargins, generateFinalMarks}

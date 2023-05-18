@@ -1,7 +1,7 @@
 import {useContext, useEffect} from "react";
 import {Student, Task} from "../../../utility/types";
 import {TableGroupContext} from "../../pages/MarksTable/MarksTable";
-import {generateTaskHead, generateTaskBody, generateTaskMaxMarks} from "./TableRenderHooks";
+import {generateTaskHead, generateTaskBody, generateTaskMaxMarks, generateFinalMarks} from "./TableRenderHooks";
 import {DropDownList} from "../DropDown/DropDown";
 
 import './Table.scss'
@@ -113,6 +113,8 @@ function getFinalMarks(): Array<number> {
 
 const FinalMarksTable = (props: FinalMarksTableProps) => {
     let finalMarks: Array<JSX.Element> = []
+    let finalMarksList: Array<number> = []
+    
     for (let i = 0; i < props.countOfRows; i++) {
         // здесь рендер финальной оценки
         finalMarks.push(
@@ -121,16 +123,12 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
             </tr>
         )
     }
-    finalMarks.push(
-        <tr key={finalMarks.length + 1}>
-            <td>100</td>
-        </tr>
-    )
-    let finalMarksList: Array<number> = []
+
     useEffect(() => {
         finalMarksList = getFinalMarks()
-        console.log(finalMarksList)
+        finalMarks = generateFinalMarks(finalMarksList)
     }, [props.tasks])
+
     return (
         <table className="table__wrapper table__finalMarks">
             <thead>
@@ -140,6 +138,9 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
             </thead>
             <tbody>
             {finalMarks}
+            <tr>
+                <td>100</td>
+            </tr>
             </tbody>
         </table>
     )
