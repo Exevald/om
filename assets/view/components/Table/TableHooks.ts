@@ -57,7 +57,10 @@ function setTaskInitials(
     changeTaskInitials(taskId, topic.value, description.value)
         .then(() =>
             fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
-                .then(response => setTasks(response.tasks))
+                .then(response => {
+                    setTasks(response.tasks)
+                    showToast('Успешно сохранено', 3000)
+                })
         )
         .catch(err => console.log(err + ' from setting task initials'))
         .finally(() => {
@@ -71,13 +74,14 @@ function changeTaskMaxMarkHandler(
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
     groupId: string
 ) {
-    const maxMark = (document.getElementById('maxMark' + id) as HTMLInputElement).value
-    changeTaskMaxMark(id.toString(), parseInt(maxMark))
+    const maxMark = document.getElementById('maxMark' + id) as HTMLInputElement
+    changeTaskMaxMark(id.toString(), parseInt(maxMark.value))
         .then(() =>
             fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
                 .then(response => {
                     setTasks(response.tasks)
-                    document.getElementById('maxMark' + id).blur()
+                    showToast('Успешно сохранено', 3000)
+                    maxMark.blur()
                 })
         )
         .catch(err => console.log(`${err} from updating max mark of ${id} task`))

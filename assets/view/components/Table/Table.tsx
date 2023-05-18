@@ -74,20 +74,19 @@ const TasksTable = (props: TasksTableProps) => {
 }
 
 
-interface FinalMarksTableProps {
-    tasks: Array<Task>,
-    countOfRows: number
-}
-
-function getFinalMarks(): Array<number> {
+function getFinalMarks(): Array<number | string> {
     const tasksTable = document.getElementsByClassName('table__tasks')[0] as HTMLTableElement
 
-    let taskMaxMarks = [], studentMarkSum = 0, delta = 0, maxMarkSum = 0, studentFinalMarks = []
+
+    let taskMaxMarks = [], studentMarkSum = 0, delta = 0, maxMarkSum = 0
+    let studentFinalMarks = []
+
 
     for (let j = 0; j < tasksTable.rows[tasksTable.rows.length - 1].cells.length; j++) {
         let cell = (tasksTable.rows[tasksTable.rows.length - 1].cells[j].firstElementChild as HTMLInputElement).value
         maxMarkSum += parseInt(cell, 10)
         taskMaxMarks[j] = parseInt(cell)
+        studentFinalMarks[j] = 0
     }
 
     for (let i = tasksTable.rows.length - 2; i > 0; i--) {
@@ -105,15 +104,25 @@ function getFinalMarks(): Array<number> {
                 }
             }
         }
-        studentFinalMarks.push(Math.ceil(studentMarkSum / delta * 100))
+        const final = Math.ceil(studentMarkSum / delta * 100)
+        if(isNaN(final)) {
+            studentFinalMarks.push("")
+        } else {
+            studentFinalMarks.push(final)
+        }
     }
     // console.log(studentFinalMarks)
     return studentFinalMarks
 }
 
+
+interface FinalMarksTableProps {
+    tasks: Array<Task>,
+    countOfRows: number
+}
 const FinalMarksTable = (props: FinalMarksTableProps) => {
     const [finalMarks, setFinalMarks] = useState([])
-    let finalMarksList: number[] = []
+    let finalMarksList: Array<number | string> = []
 
     useEffect(() => {
         getFinalMarksElems()
