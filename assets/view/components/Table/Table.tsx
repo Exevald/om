@@ -79,32 +79,37 @@ interface FinalMarksTableProps {
     countOfRows: number
 }
 
-function getFinalMarks() {
+function getFinalMarks(): Array<number> {
     const tasksTable = document.getElementsByClassName('table__tasks')[0] as HTMLTableElement
-    
-    let taskMaxMark = [], taskMaxMarks = [], studentMarkSum = 0, delta = 0, maxMarkSum = 0
+
+    let taskMaxMarks = [], studentMarkSum = 0, delta = 0, maxMarkSum = 0, studentFinalMarks = []
 
     for (let j = 0; j < tasksTable.rows[tasksTable.rows.length - 1].cells.length; j++) {
         let cell = (tasksTable.rows[tasksTable.rows.length - 1].cells[j].firstElementChild as HTMLInputElement).value
-            maxMarkSum += parseInt(cell, 10)
-            taskMaxMarks[j] = parseInt(cell)
+        maxMarkSum += parseInt(cell, 10)
+        taskMaxMarks[j] = parseInt(cell)
     }
-    console.log(maxMarkSum)
 
     for (let i = tasksTable.rows.length - 2; i > 0; i--) {
         delta = maxMarkSum
+        studentMarkSum = 0
         for (let j = 0; j < tasksTable.rows[i].cells.length; j++) {
             let cell = tasksTable.rows[i].cells[j].firstElementChild as HTMLInputElement
-            if (cell.value === '' || cell.value === 'Н') {
-                delta -= taskMaxMarks[j]
-            } else {
-                studentMarkSum += parseInt(cell.value)
+            if (cell) {
+                if (cell.value === '' || cell.value === 'Н') {
+                    delta -= taskMaxMarks[j]
+                } else {
+                    if (cell.value !== 'Н0') {
+                        studentMarkSum += parseInt(cell.value)
+                    }
+                }
             }
         }
-        maxMarkSum -= delta
+        studentFinalMarks.push(Math.ceil(studentMarkSum / delta * 100))
     }
-
-} 
+    console.log(studentFinalMarks)
+    return studentFinalMarks
+}
 
 const FinalMarksTable = (props: FinalMarksTableProps) => {
     let finalMarks: Array<JSX.Element> = []
@@ -121,7 +126,11 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
             <td>100</td>
         </tr>
     )
-    useEffect(() => getFinalMarks(), [props.tasks])
+    let finalMarksList: Array<number> = []
+    useEffect(() => {
+        finalMarksList = getFinalMarks()
+        console.log(finalMarksList)
+    }, [props.tasks])
     return (
         <table className="table__wrapper table__finalMarks">
             <thead>
