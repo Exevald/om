@@ -2,27 +2,27 @@
 
 titlePage:
   path: /
-  controller: App\Shared\Infrastructure\Controller\TeacherController::titlePage
+  controller: App\Shared\Infrastructure\Controller\DefaultRendererController::defaultRenderer
 
 loginPage:
   path: /login
-  controller: App\Shared\Infrastructure\Controller\TeacherController::loginPage
+  controller: App\Shared\Infrastructure\Controller\DefaultRendererController::defaultRenderer
 
 onboardingPage:
   path: /onboarding
-  controller: App\Shared\Infrastructure\Controller\TeacherController::onboardingPage
+  controller: App\Shared\Infrastructure\Controller\DefaultRendererController::defaultRenderer
 
 groupsListPage:
   path: /groups/list
-  controller: App\Shared\Infrastructure\Controller\GroupsListController::groupsListPage
+  controller: App\Shared\Infrastructure\Controller\DefaultRendererController::defaultRenderer
 
 editGroupPage:
   path: /groups/edit
-  controller: App\Shared\Infrastructure\Controller\EditGroupController::editGroupPage
+  controller: App\Shared\Infrastructure\Controller\DefaultRendererController::defaultRenderer
 
 marksTablePage:
   path: /table
-  controller: App\Shared\Infrastructure\Controller\MarksTableController::marksTablePage
+  controller: App\Shared\Infrastructure\Controller\DefaultRendererController::defaultRenderer
 
 # Page data API routes
 

@@ -14,12 +14,6 @@ class GroupsListController extends AbstractController
     )
     {
     }
-
-    public function groupsListPage(): Response
-    {
-        return $this->render('default.html.twig');
-    }
-    
     public function getGroupsListPageApi(Request $request): Response
     {
         $token = $request->cookies->get("token");

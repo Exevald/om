@@ -17,22 +17,6 @@ class TeacherController extends AbstractController
     )
     {
     }
-
-    public function titlePage(): Response
-    {
-        return $this->render('default.html.twig');
-    }
-
-    public function loginPage(): Response
-    {
-        return $this->render('default.html.twig');
-    }
-
-    public function onboardingPage(): Response
-    {
-        return $this->render('default.html.twig');
-    }
-
     public function authorizeApi(Request $request): Response
     {
         $response = new Response();

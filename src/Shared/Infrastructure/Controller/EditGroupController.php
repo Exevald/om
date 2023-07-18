@@ -12,11 +12,6 @@ class EditGroupController extends AbstractController
     public function __construct(private readonly ApiInterface $api)
     {
     }
-
-    public function editGroupPage(): Response
-    {
-        return $this->render('default.html.twig');
-    }
     public function getEditGroupPageApi(Request $request): Response
     {
         $token = $request->cookies->get("token");

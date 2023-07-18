@@ -1,9 +1,6 @@
 import React from "react";
-import {Group, Student} from "../../../utility/types";
-import {DEFAULT_GROUP_NAME, DEFAULT_SUBJECT_NAME} from "../../../utility/utilities";
-import {groupDataType} from "./getGroupData";
+import {Group} from "../../../utility/types";
 import {changeGroupInitials, createGroup} from "../../../api/requests";
-import {getGroupsListPageUrl} from "../../../api/pageUrls";
 import {deleteGroups} from "../../../api/requests";
 import {fetchGetRequest} from '../../../utility/fetchRequest';
 import {groupsListUrlApi} from "../../../api/utilities";

@@ -20,11 +20,6 @@ class MarksTableController extends AbstractController
     {
     }
 
-    public function marksTablePage(): Response
-    {
-        return $this->render('default.html.twig');
-    }
-
     public function getMarksTablePageApi(Request $request): Response
     {
         $normalizer = new ObjectNormalizer();
