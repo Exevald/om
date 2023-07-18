@@ -2,14 +2,14 @@
 
 namespace App\Om\Infrastructure\Repositories\Repository;
 
-use App\Common\ErrorType;
 use App\Om\Domain\Entity\Teacher;
 use App\Om\Domain\Entity\TeacherRepositoryInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Generator\AccessKeyGenerator;
+use App\Om\Infrastructure\Hydrator\Hydrator;
 use App\Om\Infrastructure\Repositories\Entity\Group;
 use App\Om\Infrastructure\Repositories\Entity\Teacher as ORMTeacher;
 use App\Om\Infrastructure\Repositories\Entity\TeacherGroup as ORMTeacherGroup;
-use App\Om\Infrastructure\Hydrator\Hydrator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;

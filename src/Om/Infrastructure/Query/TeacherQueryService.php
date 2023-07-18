@@ -2,12 +2,12 @@
 
 namespace App\Om\Infrastructure\Query;
 
-use App\Common\ErrorType;
 use App\Om\App\Query\Data\Teacher;
 use App\Om\App\Query\TeacherQueryServiceInterface;
+use App\Om\Domain\ErrorType\ErrorType;
+use App\Om\Infrastructure\Hydrator\Hydrator;
 use App\Om\Infrastructure\Repositories\Entity\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use App\Om\Infrastructure\Hydrator\Hydrator;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 

@@ -2,7 +2,7 @@
 
 namespace App\Om\Domain\Entity;
 
-use App\Common\ErrorType;
+use App\Om\Domain\ErrorType\ErrorType;
 use Exception;
 
 class UserDataValidator

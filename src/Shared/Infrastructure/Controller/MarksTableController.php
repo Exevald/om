@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Shared\Infrastructure\Controller;
 
-use App\Common\ErrorType;
+use App\Om\Api\ApiInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Om\Api\ApiInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 

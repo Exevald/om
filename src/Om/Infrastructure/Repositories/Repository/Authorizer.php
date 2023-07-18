@@ -2,8 +2,8 @@
 
 namespace App\Om\Infrastructure\Repositories\Repository;
 
-use App\Common\ErrorType;
 use App\Om\App\Auth\AuthorizerInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Generator\AccessKeyGenerator;
 use App\Om\Infrastructure\Repositories\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

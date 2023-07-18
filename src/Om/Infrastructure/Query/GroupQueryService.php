@@ -2,9 +2,9 @@
 
 namespace App\Om\Infrastructure\Query;
 
-use App\Common\ErrorType;
 use App\Om\App\Query\Data\Group;
 use App\Om\App\Query\GroupQueryServiceInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Hydrator\Hydrator;
 use App\Om\Infrastructure\Repositories\Entity\Student;
 use App\Om\Infrastructure\Repositories\Entity\Task;

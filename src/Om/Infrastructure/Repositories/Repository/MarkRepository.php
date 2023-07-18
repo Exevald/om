@@ -2,13 +2,13 @@
 
 namespace App\Om\Infrastructure\Repositories\Repository;
 
-use App\Common\ErrorType;
+use App\Om\Domain\Entity\Mark;
 use App\Om\Domain\Entity\MarkRepositoryInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Hydrator\Hydrator;
 use App\Om\Infrastructure\Repositories\Entity\Mark as ORMMark;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Om\Domain\Entity\Mark;
 use Exception;
 
 /**

@@ -2,116 +2,116 @@
 
 titlePage:
   path: /
-  controller: App\Controller\TeacherController::titlePage
+  controller: App\Shared\Infrastructure\Controller\TeacherController::titlePage
 
 loginPage:
   path: /login
-  controller: App\Controller\TeacherController::loginPage
+  controller: App\Shared\Infrastructure\Controller\TeacherController::loginPage
 
 onboardingPage:
   path: /onboarding
-  controller: App\Controller\TeacherController::onboardingPage
+  controller: App\Shared\Infrastructure\Controller\TeacherController::onboardingPage
 
 groupsListPage:
   path: /groups/list
-  controller: App\Controller\GroupsListController::groupsListPage
+  controller: App\Shared\Infrastructure\Controller\GroupsListController::groupsListPage
 
 editGroupPage:
   path: /groups/edit
-  controller: App\Controller\EditGroupController::editGroupPage
+  controller: App\Shared\Infrastructure\Controller\EditGroupController::editGroupPage
 
 marksTablePage:
   path: /table
-  controller: App\Controller\MarksTableController::marksTablePage
+  controller: App\Shared\Infrastructure\Controller\MarksTableController::marksTablePage
 
 # Page data API routes
 
 editGroupPageApi:
   path: /api/v1/groups/edit
-  controller: App\Controller\EditGroupController::getEditGroupPageApi
+  controller: App\Shared\Infrastructure\Controller\EditGroupController::getEditGroupPageApi
 
 groupsListPageApi:
   path: /api/v1/groups/get
-  controller: App\Controller\GroupsListController::getGroupsListPageApi
+  controller: App\Shared\Infrastructure\Controller\GroupsListController::getGroupsListPageApi
 
 marksTablePageApi:
   path: /api/v1/table/get/{groupId}
-  controller: App\Controller\MarksTableController::getMarksTablePageApi
+  controller: App\Shared\Infrastructure\Controller\MarksTableController::getMarksTablePageApi
 
 # API routes
 
 createTeacherApi:
   path: /api/v1/teacher/create
-  controller: App\Controller\TeacherController::createTeacherApi
+  controller: App\Shared\Infrastructure\Controller\TeacherController::createTeacherApi
 
 authorizeApi:
   path: /api/v1/authorize
-  controller: App\Controller\TeacherController::authorizeApi
+  controller: App\Shared\Infrastructure\Controller\TeacherController::authorizeApi
 
 logoutApi:
   path: /api/v1/logout
-  controller: App\Controller\TeacherController::logoutApi
+  controller: App\Shared\Infrastructure\Controller\TeacherController::logoutApi
 
 createGroupApi:
   path: /api/v1/group/create
-  controller: App\Controller\GroupController::createGroupApi
+  controller: App\Shared\Infrastructure\Controller\GroupController::createGroupApi
 
 deleteGroupsApi:
   path: /api/v1/group/delete
-  controller: App\Controller\GroupController::deleteGroupsApi
+  controller: App\Shared\Infrastructure\Controller\GroupController::deleteGroupsApi
 
 changeGroupNameApi:
   path: /api/v1/group/name/change
-  controller: App\Controller\GroupController::changeGroupNameApi
+  controller: App\Shared\Infrastructure\Controller\GroupController::changeGroupNameApi
 
 getGroupDataByIdApi:
   path: /api/v1/group/get/{groupId}
-  controller: App\Controller\GroupController::getGroupDataByIdApi
+  controller: App\Shared\Infrastructure\Controller\GroupController::getGroupDataByIdApi
 
 createStudentApi:
   path: /api/v1/student/create
-  controller: App\Controller\StudentController::createStudentApi
+  controller: App\Shared\Infrastructure\Controller\StudentController::createStudentApi
 
 changeStudentNameApi:
   path: /api/v1/student/name/change
-  controller: App\Controller\StudentController::changeStudentNameApi
+  controller: App\Shared\Infrastructure\Controller\StudentController::changeStudentNameApi
 
 deleteStudentsApi:
   path: /api/v1/student/delete
-  controller: App\Controller\StudentController::deleteStudentsApi
+  controller: App\Shared\Infrastructure\Controller\StudentController::deleteStudentsApi
 
 getTaskDataByIdApi:
   path: /api/v1/task/get/{taskId}
-  controller: App\Controller\TaskController::getTaskDataByIdApi
+  controller: App\Shared\Infrastructure\Controller\TaskController::getTaskDataByIdApi
 
 createTaskApi:
   path: /api/v1/task/create
-  controller: App\Controller\TaskController::createTaskApi
+  controller: App\Shared\Infrastructure\Controller\TaskController::createTaskApi
 
 deleteTasksApi:
   path: /api/v1/task/delete
-  controller: App\Controller\TaskController::deleteTasksApi
+  controller: App\Shared\Infrastructure\Controller\TaskController::deleteTasksApi
 
 changeTaskInitialsApi:
   path: /api/v1/task/initials/change
-  controller: App\Controller\TaskController::changeTaskInitialsApi
+  controller: App\Shared\Infrastructure\Controller\TaskController::changeTaskInitialsApi
 
 changeTaskDateApi:
   path: /api/v1/task/date/change
-  controller: App\Controller\TaskController::changeTaskDateApi
+  controller: App\Shared\Infrastructure\Controller\TaskController::changeTaskDateApi
 
 changeTaskMaxMarkApi:
   path: /api/v1/task/max_mark/change
-  controller: App\Controller\TaskController::changeTaskMaxMarkApi
+  controller: App\Shared\Infrastructure\Controller\TaskController::changeTaskMaxMarkApi
 
 createMarkApi:
   path: /api/v1/mark/create
-  controller: App\Controller\MarkController::createMarkApi
+  controller: App\Shared\Infrastructure\Controller\MarkController::createMarkApi
 
 changeTaskStudentMarkApi:
   path: /api/v1/mark/student_mark/change
-  controller: App\Controller\MarkController::changeTaskStudentMarkApi
+  controller: App\Shared\Infrastructure\Controller\MarkController::changeTaskStudentMarkApi
 
 deleteMarkApi:
   path: /api/v1/mark/delete
-  controller: App\Controller\MarkController::deleteMarkApi
+  controller: App\Shared\Infrastructure\Controller\MarkController::deleteMarkApi

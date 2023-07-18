@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Framework\Infrastructure\Jwt;
+namespace App\Shared\Infrastructure\Jwt;
 
-use App\Common\Util\Jwt\JwtServiceInterface;
-use App\Common\Util\Jwt\JwtTokenBuilderInterface;
+use App\Shared\Domain\Jwt\JwtServiceInterface;
+use App\Shared\Domain\Jwt\JwtTokenBuilderInterface;
 
 class JwtTokenBuilder implements JwtTokenBuilderInterface
 {

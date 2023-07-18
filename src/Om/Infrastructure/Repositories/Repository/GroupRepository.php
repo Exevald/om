@@ -2,17 +2,17 @@
 
 namespace App\Om\Infrastructure\Repositories\Repository;
 
-use App\Common\ErrorType;
 use App\Om\Domain\Entity\Group;
-use App\Om\Infrastructure\Repositories\Entity\Group as ORMGroup;
 use App\Om\Domain\Entity\GroupRepositoryInterface;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use App\Om\Infrastructure\Repositories\Entity\Student;
-use Exception;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Hydrator\Hydrator;
+use App\Om\Infrastructure\Repositories\Entity\Group as ORMGroup;
 use App\Om\Infrastructure\Repositories\Entity\GroupStudent as ORMGroupStudent;
 use App\Om\Infrastructure\Repositories\Entity\GroupTask as ORMGroupTask;
+use App\Om\Infrastructure\Repositories\Entity\Student;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 /**
  * @extends ServiceEntityRepository<ORMGroup>
