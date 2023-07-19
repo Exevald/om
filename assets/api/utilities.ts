@@ -15,6 +15,11 @@ const groupsListUrlApi = '/api/v1/groups/get'
 const groupEditUrlApi = '/api/v1/groups/edit'
 const marksTableUrlApi = '/api/v1/table/get/GROUP_ID'
 
+type Response = {
+    StatusCode: number,
+    Data: string | null,
+    Description: string | null
+}
 /**
  * API routes
  */

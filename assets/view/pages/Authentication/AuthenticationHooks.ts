@@ -1,6 +1,9 @@
 import { getGroupsListPageUrl, getOnboardingPageUrl } from "../../../api/pageUrls"
 import { createTeacher, login } from "../../../api/requests"
 import { teacherDataType, getRegisterTeacherData, getLoginTeacherData } from "./getTeacherData"
+import {showToast} from "../../components/Toast/Toast";
+import ToastManager from "../../components/ToastManager/ToastManager";
+import toastManager from "../../components/ToastManager/ToastManager";
 
 
 function registerPerson() {
@@ -41,10 +44,17 @@ function loginPerson() {
         const onLoginButtonAction = () => {
             getLoginTeacherData(emailInput, passwordInput, teacherData)
             login(teacherData.email, teacherData.password).then(
-                () => {
+                (response) => {
+                    if (!response.ok) {
+                        throw new Error('Error occurred!')
+                    }
                     window.location.href = getGroupsListPageUrl()
                 }
             )
+                .catch((err) => {
+                    console.log('toast')
+                    ToastManager.add('Не все обязательные поля заполнены', 3000)
+                })
         }
         onLoginButtonAction()
     }
