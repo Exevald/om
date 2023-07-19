@@ -1,4 +1,4 @@
-import {StudentFrontData} from "../../../utility/types";
+import {StudentFrontData} from "../../../core/types";
 
 type groupDataType = {
     teacherId: number,

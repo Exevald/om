@@ -1,5 +1,5 @@
 import { changeTaskDate } from "../../../api/requests";
-import { Task } from "../../../utility/types";
+import { Task } from "../../../core/types";
 
 
 function handleKeyDown(

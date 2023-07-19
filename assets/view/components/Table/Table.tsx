@@ -1,5 +1,5 @@
 import {useCallback, useContext, useEffect, useState} from "react";
-import {Student, Task} from "../../../utility/types";
+import {Student, Task} from "../../../core/types";
 import {TableGroupContext} from "../../pages/MarksTable/MarksTable";
 import {generateTaskHead, generateTaskBody, generateTaskMaxMarks, generateFinalMarks} from "./TableRenderHooks";
 import {DropDownList} from "../DropDown/DropDown";

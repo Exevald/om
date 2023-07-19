@@ -1,5 +1,5 @@
 import React from "react";
-import {Group} from "../../../utility/types";
+import {Group} from "../../../core/types";
 import {changeGroupInitials, createGroup} from "../../../api/requests";
 import {deleteGroups} from "../../../api/requests";
 import {fetchGetRequest} from '../../../utility/fetchRequest';
