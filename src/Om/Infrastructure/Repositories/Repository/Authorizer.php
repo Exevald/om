@@ -35,8 +35,8 @@ class Authorizer extends ServiceEntityRepository implements AuthorizerInterface
         if ($ORMTeacher->getPassword() !== $password) {
             throw new Exception("Password is wrong", ErrorType::UNAUTHORIZED->value);
         }
-        $generator = new AccessKeyGenerator();
-        $token = $generator->generateAccessKey();
+
+        $token = AccessKeyGenerator::generateAccessKey();
         $ORMTeacher->setLoginKey($token);
 
         $entityManager->persist($ORMTeacher);
