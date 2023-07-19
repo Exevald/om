@@ -33,6 +33,7 @@ abstract class ToastManager {
             document.body.removeChild(this.node)
             console.log('remove')
             this.init()
+            clearTimeout(this.timer)
         }, TOAST_ANIMATION_TIME)
     }
 }
