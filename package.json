@@ -33,6 +33,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@reatom/core": "^3.5.0",
         "js-base64": "^3.7.5",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",

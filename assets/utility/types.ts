@@ -45,4 +45,10 @@ type TaskFrontData = {
     maxMark: number
 }
 
-export { Group, GroupFrontData, Student, StudentFrontData, Mark, Task, TaskFrontData }
+type User = {
+    id: string,
+    username: string,
+    lastname: string
+}
+
+export { Group, GroupFrontData, Student, StudentFrontData, Mark, Task, TaskFrontData, User }
