@@ -5,7 +5,7 @@ import { fetchGetRequest } from "../../../utility/fetchRequest"
 import {getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
 import { hasOnlyNumbers } from "../../../utility/hooks"
-import { showToast } from "../Toast/Toast"
+import ToastManager from "../ToastManager/ToastManager";
 
 
 function addTask(
@@ -59,7 +59,7 @@ function setTaskInitials(
             fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
                 .then(response => {
                     setTasks(response.tasks)
-                    showToast('Успешно сохранено', 3000)
+                    ToastManager.add('Успешно сохранено', 3000)
                 })
         )
         .catch(err => console.log(err + ' from setting task initials'))
@@ -80,7 +80,7 @@ function changeTaskMaxMarkHandler(
             fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
                 .then(response => {
                     setTasks(response.tasks)
-                    showToast('Успешно сохранено', 3000)
+                    ToastManager.add('Успешно сохранено', 3000)
                     maxMark.blur()
                 })
         )
@@ -153,7 +153,7 @@ function updateMark(
                 fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
                     .then(response => {
                         setTasks(response.tasks)
-                        showToast('Успешно сохранено', 3000)
+                        ToastManager.add('Успешно сохранено', 3000)
                     })
             )
             .catch(err => console.log(err + ' from adding new mark'))

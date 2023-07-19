@@ -19,13 +19,13 @@ interface AuthenticationProps {
 }
 
 const Authentication = (props: AuthenticationProps) => {
-    let isReistered = false
+    let isRegistered = false
     if (props.path === 1) {
-        isReistered = true
+        isRegistered = true
     }
     return (
         <>{
-            isReistered ?
+            isRegistered ?
             <div className="auth__main-wrapper" onKeyDown={(e) => e.key === 'Enter' && registerPerson()}>
                 <h2 className="auth__header">Регистрация</h2>
                 <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>

@@ -1,9 +1,7 @@
 import { getGroupsListPageUrl, getOnboardingPageUrl } from "../../../api/pageUrls"
 import { createTeacher, login } from "../../../api/requests"
 import { teacherDataType, getRegisterTeacherData, getLoginTeacherData } from "./getTeacherData"
-import {showToast} from "../../components/Toast/Toast";
 import ToastManager from "../../components/ToastManager/ToastManager";
-import toastManager from "../../components/ToastManager/ToastManager";
 
 
 function registerPerson() {
@@ -52,7 +50,6 @@ function loginPerson() {
                 }
             )
                 .catch((err) => {
-                    console.log('toast')
                     ToastManager.add('Не все обязательные поля заполнены', 3000)
                 })
         }

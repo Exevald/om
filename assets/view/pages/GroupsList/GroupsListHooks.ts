@@ -4,7 +4,7 @@ import {changeGroupInitials, createGroup} from "../../../api/requests";
 import {deleteGroups} from "../../../api/requests";
 import {fetchGetRequest} from '../../../utility/fetchRequest';
 import {groupsListUrlApi} from "../../../api/utilities";
-import { showToast } from "../../components/Toast/Toast";
+import ToastManager from "../../components/ToastManager/ToastManager";
 
 
 const GroupsListContext = React.createContext(null);
@@ -25,7 +25,7 @@ function addGroup(
             fetchGetRequest(groupsListUrlApi)
                 .then(response => {
                     setGroups(JSON.parse(response.groups))
-                    showToast('Успешно сохранено', 3000)
+                    ToastManager.add('Успешно сохранено', 3000)
                 })
         )
         .catch(err => console.log(err + ' from adding new group'))
@@ -47,7 +47,7 @@ function setGroupById(
             .then(() =>
                 fetchGetRequest(groupsListUrlApi)
                     .then(response => {
-                        showToast('Успешно сохранено', 3000)
+                        ToastManager.add('Успешно сохранено', 3000)
                         setGroups(JSON.parse(response.groups)) 
                     })
             )
@@ -77,7 +77,7 @@ function removeGroups(
         .then(() =>
             fetchGetRequest(groupsListUrlApi)
                 .then(response => {
-                    showToast('Успешно сохранено', 3000)
+                    ToastManager.add('Успешно сохранено', 3000)
                     setGroups(JSON.parse(response.groups)) 
                 })
             )
