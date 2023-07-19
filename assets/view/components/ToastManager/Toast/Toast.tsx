@@ -1,24 +1,31 @@
-import { createRoot } from 'react-dom/client'
-import { TOAST_ANIMATION_TIME } from '../../../../utility/utilities'
+import React, {useEffect} from "react";
 
-import './Toast.scss'
+import './Toast.scss';
+
+// @ts-ignore
+import close from "./close.svg"
 import ToastManager from "../ToastManager";
-
 
 interface ToastProps {
     notification: string
 }
 const Toast = (props: ToastProps) => {
+    useEffect(() => {
+        const toast = document.getElementById('toast')
+        toast.classList.add('toast__show')
+        setTimeout(() => toast.classList.add('toast__open'), 10);
+    })
     return (
         <div id='toast' className='toast__wrapper'>
             <div className='toast__content'>
-                <p>{props.notification}</p>
+                <p className='toast__text'>{props.notification}</p>
+                <div className='toast__cross' onClick={ToastManager.removeCallback}>
+                    <img src = {close} alt = "close-button"/>
+                </div>
             </div>
-            <p onClick={() => ToastManager.remove()} >x</p>
         </div>
     )
 }
 
 
 export default Toast
-export { ToastProps }

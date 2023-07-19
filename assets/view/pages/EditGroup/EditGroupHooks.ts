@@ -8,7 +8,7 @@ import {
 } from "../../../api/requests";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {getGroupDataByIdUrl} from "../../../api/utilities";
-import { showToast } from "../../components/Toast/Toast";
+import ToastManager from "../../components/ToastManager/ToastManager";
 
 
 const GroupContext = React.createContext(null);
@@ -28,7 +28,7 @@ function addStudent(
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => {
-                    showToast('Успешно сохранено', 3000)
+                    ToastManager.add('Успешно сохранено', 3000)
                     setStudents(response.studentsIdList)
                 })
         )
@@ -51,7 +51,7 @@ function setStudentById(
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => {
-                    showToast('Успешно сохранено', 3000)
+                    ToastManager.add('Успешно сохранено', 3000)
                     setStudents(response.studentsIdList)
                 })
         )
@@ -77,7 +77,7 @@ function removeStudents(
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
                 .then(response => {
-                    showToast('Успешно сохранено', 3000)
+                    ToastManager.add('Успешно сохранено', 3000)
                     setStudents(response.studentsIdList)
                 })
         )
@@ -99,7 +99,7 @@ function saveGroupChanges(
         .then(() =>
             fetchGetRequest(getUrlApi)
                 .then(response => {
-                    showToast('Успешно сохранено', 3000)
+                    ToastManager.add('Успешно сохранено', 3000)
                     setGroup({name: response.groupTitle, subject: response.groupSubject})
                 })
         )
