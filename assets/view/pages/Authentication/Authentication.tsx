@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import './Authentication.scss'
 
@@ -19,13 +19,13 @@ interface AuthenticationProps {
 }
 
 const Authentication = (props: AuthenticationProps) => {
-    let register = false
+    let isReistered = false
     if (props.path === 1) {
-        register = true
+        isReistered = true
     }
     return (
         <>{
-            register ?
+            isReistered ?
             <div className="auth__main-wrapper" onKeyDown={(e) => e.key === 'Enter' && registerPerson()}>
                 <h2 className="auth__header">Регистрация</h2>
                 <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
