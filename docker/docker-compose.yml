@@ -1,5 +1,10 @@
 version: "3.8"
 
+
+networks:
+  electronic_journal_om:
+
+
 services:
   php-fpm:
     container_name: php-fpm
@@ -11,10 +16,15 @@ services:
         - PGID=${PGID}
         - INSTALL_XDEBUG=${INSTALL_XDEBUG}
     environment:
-      PHP_IDE_CONFIG: "serverName=Docker"
+      PHP_IDE_CONFIG: "serverName=om-docker"
+    #depends_on:
+    #  mariadb:
+    #    condition: service_healthy
     volumes:
       - /var/www/vendor/
       - ./../:/var/www/
+    networks:
+      - electronic_journal_om
 
   nginx:
     container_name: nginx
@@ -26,3 +36,24 @@ services:
       - ..:/var/www:rw
     depends_on:
       - php-fpm
+    networks:
+      - electronic_journal_om
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:11
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MYSQL_USER: ${MARIADB_USER}
+      MYSQL_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    #healthcheck:
+    #  test: [ "CMD" ]
+    #  timeout: 10s
+    #  retries: 10
+    ports:
+      - "${MARIADB_PORT}:3306"
+    networks:
+      - electronic_journal_om
+    #volumes:
+    #  - "/var/lib/mysql:/var/lib/mysql"
