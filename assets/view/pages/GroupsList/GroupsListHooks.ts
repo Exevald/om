@@ -56,7 +56,7 @@ function setGroupById(
                 setActiveGroupId(-1);
                 setState(GroupsListState.default)
         })
-    }
+    } else setState(GroupsListState.default)
 }
 
 
