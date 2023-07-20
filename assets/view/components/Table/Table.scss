@@ -51,13 +51,21 @@ $tasksTableWidth: 936px;
         }
     }
     &students {
+
         thead {
             tr {
                 th {
                     text-align: left;
                     border-left: none;
-                    padding-bottom: 9px; 
+                    padding-bottom: 9px;
                     width: 339px;
+                    max-width: 339px;
+
+
+                    text-overflow: ellipsis;
+
+                    white-space: nowrap;
+                    overflow: hidden;
                 }
             }
         }
@@ -67,6 +75,13 @@ $tasksTableWidth: 936px;
                     height: 52px;
                     text-align: left;
                     border-left: none;
+                    width: 339px;
+                    max-width: 339px;
+
+                    text-overflow: ellipsis;
+
+                    white-space: nowrap;
+                    overflow: hidden;
                 }
                 &:last-child {
                     td {
