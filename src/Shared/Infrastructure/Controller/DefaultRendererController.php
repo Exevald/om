@@ -8,6 +8,6 @@ class DefaultRendererController extends \Symfony\Bundle\FrameworkBundle\Controll
 {
     public function defaultRenderer(): Response
     {
-        return $this->render('default.html.twig');
+        return $this->render('base.html.twig');
     }
 }

@@ -2,7 +2,12 @@ FROM php:8.2.8-fpm-alpine
 
 # Install packages
 RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash
-RUN docker-php-ext-install opcache zip xml mbstring
+RUN docker-php-ext-install opcache
+
+# Xdebug
+RUN apk add --update linux-headers
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
 
 # Xdebug
 # COPY ./docker/php-fpm/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
