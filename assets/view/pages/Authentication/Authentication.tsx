@@ -85,14 +85,20 @@ const Authentication = (props: AuthenticationProps) => {
             <div className="auth__main-wrapper" onKeyDown={(e) => e.key === 'Enter' && registerPerson()}>
                 <h2 className="auth__header">Регистрация</h2>
                 <div className='auth__input-wrapper'>
-                <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
-                <div className="auth__info-input">
-                    <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
-                    <InfoPopover header='Требования к паролю'
-                                 mainText='Пароль должен содержать буквы латиницы (строчные и заглавные), цифры и специальные символы.'
-                    />
+                    <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
+                    <div className="auth__info-input">
+                        <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
+                        <InfoPopover header='Требования к паролю'
+                                     mainText='Пароль должен содержать буквы латиницы (строчные и заглавные), цифры и специальные символы.'
+                        />
+                    </div>
+                    <InputArea id="fullName" header="Имя, Фамилия" type="text" placeholder="Иван Иванов"/>
                 </div>
-                <InputArea id="fullName" header="Имя, Фамилия" type="text" placeholder="Иван Иванов"/>
+                <div className="auth__registerArea">
+                    <p>Уже есть аккаунт?</p>
+                    <p onClick={() => window.location.href = getLoginPageUrl().replace("PATH", "login")}>
+                        Войти
+                    </p>
                 </div>
                 <Button id="loginSubmit" type="submit" data="Зарегистрироваться" onClick={() => registerPerson()} />
             </div>

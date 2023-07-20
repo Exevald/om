@@ -31,7 +31,6 @@ abstract class ToastManager {
         setTimeout(()=>{
             this.root.unmount()
             document.body.removeChild(this.node)
-            console.log('remove')
             this.init()
             clearTimeout(this.timer)
         }, TOAST_ANIMATION_TIME)
