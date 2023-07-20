@@ -20,7 +20,11 @@
     }
     &groupHeader {
         h4 {
-            font: var(--text-header-normal)
+            font: var(--text-header-normal);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 1000px;
         }
         p {
             text-decoration: underline;

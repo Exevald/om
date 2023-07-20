@@ -16,12 +16,34 @@
     &group {
         cursor: pointer;
         list-style-type: none;
+        display: flex;
+        align-items: baseline;
+        gap: 30px;
+        max-width: 1364px;
+        & span{
+          text-overflow: ellipsis;
+
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
         & >:first-child {
           font: var(--text-header-large);
         }
+
+        span:first-child {
+          display: block;
+          max-width: 1191px;
+          flex: 0 0 auto;
+        }
+
         & >:last-child {
           font: var(--text-header-small);
           color: var(--ash-light);
+        }
+
+        span:last-child {
+          display: block;
         }
     }
     &groupArea {
@@ -37,7 +59,7 @@
         padding: 18px 0 13px 0;
         display: flex;
         align-items: baseline;
-    
+        flex-wrap: wrap;
         & input:first-child {
           margin-right: 20.5px;
           font: var(--text-header-large)!important;
