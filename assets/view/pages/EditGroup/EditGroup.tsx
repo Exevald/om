@@ -89,7 +89,7 @@ const GroupHeader = () => {
 
     function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
         if (e.key === 'Enter')
-            saveGroupChanges(value.groupId, value.setGroup, value.setState)
+            saveGroupChanges(value.groupId, value.setGroup, value.setStudents, value.setState)
     }
 
     return (

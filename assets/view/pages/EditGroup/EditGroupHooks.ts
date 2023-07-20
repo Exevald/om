@@ -39,24 +39,19 @@ function addStudent(
 function setStudentById(
     groupId: string,
     students: Array<Student>,
-    setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
     id: number,
     setActiveStudentId: React.Dispatch<React.SetStateAction<number>>
-) {
+): boolean {
+    let err = false;
     let studentIdForEdit = String(students[id].id)
     const studentLastNameInput = document.getElementById('surname' + id) as HTMLInputElement;
     const studentFirstNameInput = document.getElementById('name' + id) as HTMLInputElement;
 
     changeStudentName(studentIdForEdit, studentFirstNameInput.value, studentLastNameInput.value)
-        .then(() =>
-            fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => {
-                    ToastManager.add('Успешно сохранено', 3000)
-                    setStudents(response.studentsIdList)
-                })
-        )
-        .catch(err => ToastManager.add(err + 'ошибка при вводе инициалов студента', 3000))
+        .then(() => ToastManager.add('КРАЙНЕ УСПЕШНО сохранено', 3000))
+        .catch(() => err = true)
         .finally(() => setActiveStudentId(-1))
+    return err
 }
 
 
@@ -89,7 +84,8 @@ function removeStudents(
 function saveGroupChanges(
     groupId: string,
     setGroup: React.Dispatch<React.SetStateAction<GroupFrontData>>,
-    setState: React.Dispatch<React.SetStateAction<GroupState>>,
+    setStudents: React.Dispatch<React.SetStateAction<Student[]>>,
+    setState: React.Dispatch<React.SetStateAction<GroupState>>
 ) {
     const groupNameInput = document.getElementById('group') as HTMLInputElement;
     const groupSubjectInput = document.getElementById('subject') as HTMLInputElement;
@@ -100,6 +96,7 @@ function saveGroupChanges(
             fetchGetRequest(getUrlApi)
                 .then(response => {
                     ToastManager.add('Успешно сохранено', 3000)
+                    setStudents(response.studentsIdList)
                     setGroup({name: response.groupTitle, subject: response.groupSubject})
                 })
         )
@@ -117,10 +114,15 @@ function saveAllChanges(
     activeStudentId: number,
     setActiveStudentId: React.Dispatch<React.SetStateAction<number>>
 ) {
+    let err: boolean = false
     if (activeStudentId !== -1) {
-        setStudentById(groupId, students, setStudents, activeStudentId, setActiveStudentId)
+        err = setStudentById(groupId, students, activeStudentId, setActiveStudentId)
     }
-    saveGroupChanges(groupId, setGroup, setState);
+    saveGroupChanges(groupId, setGroup, setStudents, setState);
+    setTimeout(() => {
+        if(err) ToastManager.add(err + 'ошибка при вводе инициалов студента', 3000)
+    },50)
+
 }
 
 
