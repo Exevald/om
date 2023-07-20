@@ -3,7 +3,7 @@ $toastAnimationTime: 220ms;
 .toast__ {
     &wrapper {
         display: none;
-        position: absolute;
+        position: fixed;
         z-index: 6;
 
         top: 85%;

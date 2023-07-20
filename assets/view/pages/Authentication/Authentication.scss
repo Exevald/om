@@ -9,9 +9,11 @@
         justify-content: center;
         font: var(--text-text-normal-regular)
     }
+
     &main-wrapper > div {
         margin-bottom: 22px;
     }
+
     &header {
         font: var(--text-header-normal);
         color: var(--electric-default);
@@ -39,6 +41,7 @@
         flex-direction: column;
         justify-content: center;
         width: 446px;
+        gap: 10px;
     }
 }
 
