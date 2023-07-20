@@ -8,9 +8,7 @@ RUN docker-php-ext-install opcache
 RUN apk add --update linux-headers
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
-
-# Xdebug
-# COPY ./docker/php-fpm/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+COPY ./docker/php-fpm/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Configure non-root user.
 ARG PUID=1000
