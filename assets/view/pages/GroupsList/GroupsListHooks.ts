@@ -28,7 +28,7 @@ function addGroup(
                     ToastManager.add('Успешно сохранено', 3000)
                 })
         )
-        .catch(err => console.log(err + ' from adding new group'))
+        .catch(err => ToastManager.add(err + 'ошибка при создании группы', 3000))
 }
 
 
@@ -51,7 +51,7 @@ function setGroupById(
                         setGroups(JSON.parse(response.groups)) 
                     })
             )
-            .catch(err => console.log(err + ' from changing group title'))
+            .catch(err => ToastManager.add(err + 'ошибка при изменении названия группы', 3000))
             .finally(() => {
                 setActiveGroupId(-1);
                 setState(GroupsListState.default)
@@ -81,7 +81,7 @@ function removeGroups(
                     setGroups(JSON.parse(response.groups)) 
                 })
             )
-        .catch(err => console.log(err + ' from deleting groups'))
+        .catch(err => ToastManager.add(err + 'ошибка при удалении группы',3000))
         .finally(() => setState(GroupsListState.default))
 }
 

@@ -19,10 +19,15 @@ function registerPerson() {
         const onRegisterButtonAction = () => {
             getRegisterTeacherData(nameInput, emailInput, passwordInput, teacherData)
             createTeacher(teacherData).then(
-                () => {
+                (response) => {
+                    if (!response.ok) {
+                        throw new Error('Error occurred!')
+                    }
                     window.location.href = getOnboardingPageUrl()
                 }
-            )
+            ).catch((err) => {
+                ToastManager.add('Введены некорректные данные', 3000)
+            })
         }
         onRegisterButtonAction()
     }
@@ -50,7 +55,7 @@ function loginPerson() {
                 }
             )
                 .catch((err) => {
-                    ToastManager.add('Не все обязательные поля заполнены', 3000)
+                    ToastManager.add('Заполните поля', 3000)
                 })
         }
         onLoginButtonAction()

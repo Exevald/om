@@ -32,7 +32,7 @@ function addStudent(
                     setStudents(response.studentsIdList)
                 })
         )
-        .catch(err => console.log(err + ' from adding student'))
+        .catch(err => ToastManager.add(err + 'ошибка при добавлении студента', 3000))
 }
 
 
@@ -55,7 +55,7 @@ function setStudentById(
                     setStudents(response.studentsIdList)
                 })
         )
-        .catch(err => console.log(err + ' from setting student initials'))
+        .catch(err => ToastManager.add(err + 'ошибка при вводе инициалов студента', 3000))
         .finally(() => setActiveStudentId(-1))
 }
 
@@ -81,7 +81,7 @@ function removeStudents(
                     setStudents(response.studentsIdList)
                 })
         )
-        .catch(err => console.log(err + ' from removing students'))
+        .catch(err => ToastManager.add(err + 'ошибка при удалении студента', 3000))
         .finally(() => setState(GroupState.default))
 }
 
@@ -103,7 +103,7 @@ function saveGroupChanges(
                     setGroup({name: response.groupTitle, subject: response.groupSubject})
                 })
         )
-        .catch(err => console.log(err + ' from saving group changes'))
+        .catch(err => ToastManager.add(err + 'ошибка при сохранении изменений группы', 3000))
         .finally(() => setState(GroupState.default))
 
 }
