@@ -6,6 +6,9 @@
         width: fit-content;
         padding: 0 6px 0 6px;
         color: var(--ash-default);
+        &_error{
+            color: var(--rose-default);
+        }
     }
     &input {
         width: 423px;
@@ -13,6 +16,12 @@
         border-radius: 6px;
         border-color: var(--ash-default);
         padding-left: 23px;
+        border: 2px solid var(--ash-default);
+        &_error{
+            background: var(--rose-lighter);
+            color: var(--rose-default);
+            border: 2px solid var(--rose-default);
+        }
     }
     &group, &subject, &taskTopic, &taskDescription,
     &studentName, &studentSurname {
@@ -70,4 +79,5 @@
     &taskTopic {
         font: var(--text-text-normal-bold)
     }
+
 }
