@@ -3,12 +3,14 @@ import React from "react";
 import add from './Icons/add.svg'; import checkbox from './Icons/checkbox.svg'; import close from './Icons/close.svg'; 
 // @ts-ignore
 import minus from './Icons/minus.svg'; import more from './Icons/more.svg'; import checkboxOutline from './Icons/checkboxOutline.svg';
+// @ts-ignore
+import minusTransparent from './Icons/minusTransparent.svg'
 
 import './ButtonIcon.scss';
 
 interface ButtonIconProps {
     id?: string,
-    type: 'close' | 'add' | 'more' | 'minus' | 'checkbox' | 'checkboxOutline'
+    type: 'close' | 'add' | 'more' | 'minus' | 'checkbox' | 'checkboxOutline' | 'minusTransparent'
 }
 const ButtonIcon = (props: ButtonIconProps) => {
     let src = '';
@@ -25,6 +27,9 @@ const ButtonIcon = (props: ButtonIconProps) => {
         case "minus":
             src = minus;
             break;
+        case "minusTransparent":
+            src = minusTransparent;
+            break
         case "checkbox":
             src = checkbox;
             break;

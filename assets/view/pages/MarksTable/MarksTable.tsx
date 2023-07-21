@@ -48,8 +48,13 @@ const ButtonList = () => {
                     {/*<Button type="transparent" data="?"/>*/}
                     <Button type="transparent" data="Добавить работу" iconType="add"
                             onClick={() => addTask(context.groupId, context.setTasks)}/>
+                    {
+                        context.tasks.length > 0 ?
                     <Button type="transparent" data="Удалить работу" iconType="minus"
                             onClick={() => context.setState(TableState.delete)}/>
+                    :
+                        <Button type="transparentDisabled" data="Удалить работу" iconType="minusTransparent"/>
+                    }
                 </>
             }{
             context.state === TableState.delete &&

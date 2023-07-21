@@ -8,7 +8,7 @@ interface ButtonProps {
             'filled' | 'transparent' |
             'filledNoColor' | 'transparentNoColor' |
             'transparentDisabled',
-    iconType?: 'add' | 'minus' | 'more',
+    iconType?: 'add' | 'minus' | 'more' | 'minusTransparent',
     onClick?: () => void,
     data: string;
 }

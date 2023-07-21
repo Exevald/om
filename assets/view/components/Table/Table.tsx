@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Student, Task} from "../../../utility/types";
 import {TableGroupContext} from "../../pages/MarksTable/MarksTable";
 import {generateTaskHead, generateTaskBody, generateTaskMaxMarks, generateFinalMarks} from "./TableRenderHooks";
