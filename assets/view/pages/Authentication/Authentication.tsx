@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 
 import './Authentication.scss'
 
@@ -9,10 +9,7 @@ import {createRoot} from "react-dom/client";
 import { loginPerson, registerPerson } from "./AuthenticationHooks";
 import {getLoginPageUrl} from "../../../api/pageUrls";
 
-//@ts-ignore
-import info from "./info.svg"
-import {useToggle} from "../../../utility/hooks";
-import {DROPDOWN_ANIMATION_TIME} from "../../../utility/utilities";
+import Popover from "../../components/Popover/Popover";
 
 
 enum AuthenticationPath {
@@ -24,56 +21,6 @@ interface AuthenticationProps {
     path: AuthenticationPath
 }
 
-interface PopoverProps {
-    header: string,
-    mainText: string
-}
-
-
-
-
-const InfoPopover = (props: PopoverProps) => {
-    const [hasTip, setHasTip] = useState(false)
-
-    function closePopoverByListener(e: MouseEvent) {
-        const path = e.composedPath()
-        const popoverWrapper = document.querySelector('.popover__wrapper') as HTMLElement
-        if (!path.includes(popoverWrapper) && popoverWrapper.classList.contains('popover__wrapper_opened')) {
-            popoverWrapper.classList.remove('popover__wrapper_opened')
-            setTimeout(() => {
-                popoverWrapper.classList.remove('popover__wrapper_opened')
-                setHasTip(false)
-            }, DROPDOWN_ANIMATION_TIME)
-        }
-    }
-
-    useEffect(()=> {
-        if(hasTip) {
-            let popoverWrapper= document.querySelector('.popover__wrapper')
-            setTimeout(()=> popoverWrapper.classList.add("popover__wrapper_opened"), 10)
-            document.body.addEventListener('click', closePopoverByListener)
-            return () => document.body.removeEventListener('click', closePopoverByListener)
-        }
-    })
-    return(
-        <div id = 'password-popover' className='popover'>
-            <div className='popover__icon' onClick={() => setHasTip(true)}>
-                <img className = 'popover__image' src = {info} alt = "info-icon"/>
-            </div>
-            { hasTip &&
-                <div className='popover__wrapper'>
-                    <h3 className='popover__header'>
-                        {props.header}
-                    </h3>
-                    <p className='popover__main-text'>
-                        {props.mainText}
-                    </p>
-                </div>
-            }
-
-        </div>
-    )
-}
 const Authentication = (props: AuthenticationProps) => {
     let isRegistered = false
     if (props.path === 1) {
@@ -88,7 +35,7 @@ const Authentication = (props: AuthenticationProps) => {
                     <InputArea id="email" header="Электронная почта" type="email" placeholder="example@example.com"/>
                     <div className="auth__info-input">
                         <InputArea id="password" header="Пароль" type="password" placeholder="****************"/>
-                        <InfoPopover header='Требования к паролю'
+                        <Popover header='Требования к паролю'
                                      mainText='Пароль должен содержать буквы латиницы (строчные и заглавные), цифры и специальные символы.'
                         />
                     </div>

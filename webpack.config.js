@@ -55,6 +55,10 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader()
+    .configureCssLoader((options => {
+        options.modules = {
+            auto: /\.module\.\w+$/i
+        }}))
 
     // uncomment if you use TypeScript
     .enableTypeScriptLoader()
