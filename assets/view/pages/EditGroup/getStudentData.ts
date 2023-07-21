@@ -1,4 +1,4 @@
-import { StudentFrontData } from "../../../utility/types"
+import { StudentFrontData } from "../../../core/types"
 
 function getCreateTeacherData(lastNameInput: HTMLInputElement,
     firstNameInput: HTMLInputElement,

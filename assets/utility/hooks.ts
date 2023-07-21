@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Student } from "./types";
+import { Student } from "../core/types";
 
 function useToggle(initialState: any) {
     const [isToggled, setIsToggled] = useState(initialState);

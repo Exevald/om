@@ -33,6 +33,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@reduxjs/toolkit": "^1.9.5",
         "js-base64": "^3.7.5",
         "prop-types": "^15.8.1",
         "react": "^18.2.0",

@@ -1,4 +1,4 @@
-import {Task} from "../../../utility/types"
+import {Task} from "../../../core/types"
 import {TableState} from "../../pages/MarksTable/MarksTable"
 import InputArea from "../InputArea/InputArea"
 import TaskPreview from "../TaskPreview/TaskPreview"

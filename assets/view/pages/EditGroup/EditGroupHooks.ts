@@ -1,5 +1,5 @@
 import React from "react";
-import {GroupFrontData, Student} from "../../../utility/types";
+import {GroupFrontData, Student} from "../../../core/types";
 import {
     changeGroupInitials,
     changeStudentName,

@@ -16,7 +16,7 @@ import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {groupsListUrlApi} from "../../../api/utilities";
 import {getEditGroupPageUrl} from "../../../api/pageUrls";
 import {getEncryptedText} from "../../../utility/scrambler";
-import { Group } from "../../../utility/types";
+import { Group } from "../../../core/types";
 
 
 interface GroupsListPageProps {

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import InputArea from "../InputArea/InputArea"
 
 import './DropDown.scss'
-import { Task } from "../../../utility/types"
+import { Task } from "../../../core/types"
 import { TableGroupContext } from "../../pages/MarksTable/MarksTable"
 import { setTaskInitials } from "../Table/TableHooks"
 import { DROPDOWN_ANIMATION_TIME } from "../../../utility/utilities"

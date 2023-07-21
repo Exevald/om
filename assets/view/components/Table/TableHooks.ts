@@ -1,5 +1,5 @@
 import React from "react"
-import { Task } from "../../../utility/types"
+import { Task } from "../../../core/types"
 import {changeTaskInitials, changeTaskMaxMark, changeTaskStudentMark, createMark, createTask, deleteTasks} from "../../../api/requests"
 import { fetchGetRequest } from "../../../utility/fetchRequest"
 import {getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities"

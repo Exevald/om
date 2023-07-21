@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 import Table from "../../components/Table/Table";
 import Button from "../../components/Button/Button";
 import {createRoot} from "react-dom/client";
-import {Group, Task} from "../../../utility/types";
+import {Group, Task} from "../../../core/types";
 import {getDecryptedText, getEncryptedText} from "../../../utility/scrambler";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {editGroupUrl, getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities";
