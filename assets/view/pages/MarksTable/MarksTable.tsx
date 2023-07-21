@@ -93,7 +93,7 @@ const GroupTable = (props: GroupTableProps) => {
         setStudents(
             students.sort((a, b) => sortStudentsByInitials(a, b))
         )
-        setTimeout(() => updateTableMargins(state), 20)
+        updateTableMargins(state)
     }, [state, students])
     const groupId = props.group.id;
     const groupName = props.group.name;
@@ -141,7 +141,7 @@ const renderMarksTable = () => {
     fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId)).then(pageResponse => {
         fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
             root.render(
-                <React.StrictMode>
+                // <React.StrictMode>
                     <MarksTable teacherId={pageResponse.teacherId}
                                 userFirstName={pageResponse.userFirstName}
                                 userLastName={pageResponse.userLastName}
@@ -153,7 +153,7 @@ const renderMarksTable = () => {
                                     tasksList: pageResponse.tasks
                                 }}
                     />
-                </React.StrictMode>
+                ///</React.StrictMode>
             )
         })
     })

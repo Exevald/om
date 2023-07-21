@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useLayoutEffect, useState} from "react";
 import {Student, Task} from "../../../utility/types";
 import {TableGroupContext} from "../../pages/MarksTable/MarksTable";
 import {generateTaskHead, generateTaskBody, generateTaskMaxMarks, generateFinalMarks} from "./TableRenderHooks";
@@ -53,10 +53,6 @@ const TasksTable = (props: TasksTableProps) => {
     const tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
         props.tasks, context.setTasks, context.groupId
     )
-
-    useEffect(() => {
-        tasksHead = generateTaskHead(props.tasks, context.state)
-    }, [context.state])
 
     return (
         <table className="table__wrapper table__tasks">
