@@ -1,38 +1,22 @@
+import {createRoot} from "react-dom/client";
+import React from "react";
 import './index.css';
+import {Provider} from "react-redux";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import store from "./core/store";
+import TitleScreen from "./view/pages/TitleScreen/TitleScreen";
+import Authentication from "./view/pages/Authentication/Authentication";
 
 
-import {renderTitleScreen} from "./view/pages/TitleScreen/TitleScreen";
-import {renderAuthenticationPage} from "./view/pages/Authentication/Authentication";
-import {renderOnboardingScreen} from "./view/pages/Onboarding/Onboarding";
-import {renderEditGroupPage} from "./view/pages/EditGroup/EditGroup";
-import {renderGroupsListPage} from "./view/pages/GroupsList/GroupsList";
-import {renderMarksTable} from "./view/pages/MarksTable/MarksTable";
-
-
-let loc = location.pathname
-switch (loc) {
-    case "/login": {
-        renderAuthenticationPage()
-        break
-    }
-    case "/onboarding": {
-        renderOnboardingScreen()
-        break
-    }
-    case "/groups/list": {
-        renderGroupsListPage()
-        break
-    }
-    case "/groups/edit": {
-        renderEditGroupPage()
-        break
-    }
-    case  "/table": {
-        renderMarksTable()
-        break
-    }
-    default: {
-        renderTitleScreen()
-        break
-    }
-}
+createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        {/*<Provider store={store}>*/}
+            <BrowserRouter>
+                <Routes>
+                    <Route path={'/'} element={<TitleScreen/>}/>
+                    <Route path={'/login'} element={<Authentication/>}/>
+                </Routes>
+            </BrowserRouter>
+        {/*</Provider>*/}
+    </React.StrictMode>
+)

@@ -40,14 +40,5 @@ const TitleScreen = () => {
     )
 }
 
-function renderTitleScreen() {
-    const root = createRoot(document.getElementById('root'))
 
-    root.render(
-        <React.StrictMode>
-            <TitleScreen/>
-        </React.StrictMode>
-    )
-}
-
-export {TitleScreen, renderTitleScreen}
+export default TitleScreen

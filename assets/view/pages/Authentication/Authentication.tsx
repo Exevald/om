@@ -12,18 +12,10 @@ import {getLoginPageUrl} from "../../../api/pageUrls";
 import Popover from "../../components/Popover/Popover";
 
 
-enum AuthenticationPath {
-    login,
-    register
-}
-
-interface AuthenticationProps {
-    path: AuthenticationPath
-}
-
-const Authentication = (props: AuthenticationProps) => {
+const Authentication = () => {
+    const loc = location.search;
     let isRegistered = false
-    if (props.path === 1) {
+    if (loc === "?path=register") {
         isRegistered = true
     }
     return (
@@ -67,22 +59,4 @@ const Authentication = (props: AuthenticationProps) => {
     )
 }
 
-
-function renderAuthenticationPage() {
-    const loc = location.search;
-    const root = createRoot(document.getElementById('root'))
-    let path: AuthenticationPath;
-    if (loc === "?path=register") {
-        path = AuthenticationPath.register
-    }
-    if (loc === "?path=login") {
-        path = AuthenticationPath.login
-    }
-    root.render(
-        <React.StrictMode>
-            <Authentication path={path}/>
-        </React.StrictMode>
-    )
-}
-
-export {Authentication, renderAuthenticationPage}
+export default Authentication
