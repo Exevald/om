@@ -20,8 +20,10 @@ class StudentController extends AbstractController
     public function createStudentApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
-            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        if (empty($token))
+        {
+            $response = $this->redirectToRoute("loginPage");
+            $response->send();
         }
         $body = json_decode($request->getContent(), true);
         $groupId = $body["groupId"];

@@ -22,14 +22,15 @@ class MarksTableController extends AbstractController
 
     public function getMarksTablePageApi(Request $request): Response
     {
-        $normalizer = new ObjectNormalizer();
-        $serializer = new Serializer([$normalizer]);
-
         $token = $request->cookies->get("token");
         if (empty($token)) {
             $response = $this->redirectToRoute("loginPage");
             $response->send();
         }
+
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer([$normalizer]);
+
         $groupId = $request->attributes->get("groupId");
         if (empty($groupId)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);

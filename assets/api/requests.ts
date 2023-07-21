@@ -32,7 +32,7 @@ function login(email: string, password: string) {
 }
 
 function logout() {
-    return fetchPostRequest(logoutUrl)
+    return fetchPostRequest(logoutUrl, {})
 }
 
 function createTeacher(teacherData: teacherDataType) {
