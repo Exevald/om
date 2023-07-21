@@ -73,14 +73,11 @@
     margin-right: 30px;
     display: flex;
     flex-direction: column;
-
-    input {
+    gap: 15px;
+    label {
       height: 24px;
       display: flex;
       align-items: center;
-      &:not(:first-child) {
-        margin-top: 15px;
-      }
     }
   }
 

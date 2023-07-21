@@ -1,3 +1,7 @@
+.inputArea__label-checkbox{
+
+}
+
 .inputArea__ {
     &header {
         position: relative;
@@ -48,9 +52,13 @@
     &checkbox {
         width: 18px; height: 18px;
         border-color: var(--ash-default);
-        &:checked {
-            color: white;
-            background: var(--ash-default);
+        display: none;
+        & + label{
+            width: 18px;
+            background: url("./Icons/checkboxOutline.svg") no-repeat center;
+        }
+        &:checked + label{
+            background: url("./Icons/checkbox.svg") no-repeat center;
         }
     }
     &mark {
@@ -82,3 +90,4 @@
     }
 
 }
+
