@@ -141,7 +141,7 @@ const renderMarksTable = () => {
     fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId)).then(pageResponse => {
         fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId)).then(groupResponse => {
             root.render(
-                // <React.StrictMode>
+                <React.StrictMode>
                     <MarksTable teacherId={pageResponse.teacherId}
                                 userFirstName={pageResponse.userFirstName}
                                 userLastName={pageResponse.userLastName}
@@ -153,7 +153,7 @@ const renderMarksTable = () => {
                                     tasksList: pageResponse.tasks
                                 }}
                     />
-                ///</React.StrictMode>
+                </React.StrictMode>
             )
         })
     })

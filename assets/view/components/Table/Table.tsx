@@ -1,7 +1,8 @@
-import {useContext, useEffect, useLayoutEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Student, Task} from "../../../utility/types";
 import {TableGroupContext} from "../../pages/MarksTable/MarksTable";
-import {generateTaskHead, generateTaskBody, generateTaskMaxMarks, generateFinalMarks} from "./TableRenderHooks";
+import {getFinalMarks} from './TableHooks'
+import {generateTaskHead, generateTaskBody, generateTaskMaxMarks} from "./TableRenderHooks";
 import {DropDownList} from "../DropDown/DropDown";
 
 import './Table.scss'
@@ -70,48 +71,6 @@ const TasksTable = (props: TasksTableProps) => {
 }
 
 
-function getFinalMarks(): Array<number | string> {
-    const tasksTable = document.getElementsByClassName('table__tasks')[0] as HTMLTableElement
-
-
-    let taskMaxMarks = [], studentMarkSum = 0, delta = 0, maxMarkSum = 0
-    let studentFinalMarks = []
-
-
-    for (let j = 0; j < tasksTable.rows[tasksTable.rows.length - 1].cells.length; j++) {
-        let cell = (tasksTable.rows[tasksTable.rows.length - 1].cells[j].firstElementChild as HTMLInputElement).value
-        maxMarkSum += parseInt(cell, 10)
-        taskMaxMarks[j] = parseInt(cell)
-        studentFinalMarks[j] = 0
-    }
-
-    for (let i = tasksTable.rows.length - 2; i > 0; i--) {
-        delta = maxMarkSum
-        studentMarkSum = 0
-        for (let j = 0; j < tasksTable.rows[i].cells.length; j++) {
-            let cell = tasksTable.rows[i].cells[j].firstElementChild as HTMLInputElement
-            if (cell) {
-                if (cell.value === '' || cell.value === 'Н') {
-                    delta -= taskMaxMarks[j]
-                } else {
-                    if (cell.value !== 'Н0') {
-                        studentMarkSum += parseInt(cell.value)
-                    }
-                }
-            }
-        }
-        const final = Math.ceil(studentMarkSum / delta * 100)
-        if(isNaN(final)) {
-            studentFinalMarks.push("")
-        } else {
-            studentFinalMarks.push(final)
-        }
-    }
-    // console.log(studentFinalMarks)
-    return studentFinalMarks
-}
-
-
 interface FinalMarksTableProps {
     tasks: Array<Task>,
     countOfRows: number
@@ -125,19 +84,17 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
     }, [props.tasks])
 
     const getFinalMarksElems = () => {
-        console.log('render')
         finalMarksList = getFinalMarks().reverse()
         const marks: JSX.Element[] = []
         for (let i = 0; i < props.countOfRows; i++) {
             // здесь рендер финальной оценки
-            console.log(finalMarksList[i])
             marks.push(
                 <tr key={i}>
                     <td><strong>{finalMarksList[i]}</strong></td>
                 </tr>
             )
         }
-        setFinalMarks(finalMarks => marks)
+        setFinalMarks(marks)
     }
 
     return (

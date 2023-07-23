@@ -145,7 +145,7 @@ function updateMark(
     }
     if (mark === undefined) {
         // тост об ошибке
-        console.log('ошибка, неправильно введены данные')
+        ToastManager.add('ошибка, неправильно введены данные', 2000)
         el.blur()
     } else {
         changeTaskStudentMark(markId, mark)
@@ -156,7 +156,7 @@ function updateMark(
                         ToastManager.add('Успешно сохранено', 3000)
                     })
             )
-            .catch(err => console.log(err + ' from adding new mark'))
+            .catch(() => ToastManager.add('Ошибка при изменении оценки', 3000))
             .finally(() => el.blur())
     }
 }
@@ -186,7 +186,48 @@ function convertMarkToDatabase(mark: string): number {
 }
 
 
+function getFinalMarks(): Array<number | string> {
+    const tasksTable = document.getElementsByClassName('table__tasks')[0] as HTMLTableElement
+
+
+    let taskMaxMarks = [], studentMarkSum = 0, delta = 0, maxMarkSum = 0
+    let studentFinalMarks = []
+
+
+    for (let j = 0; j < tasksTable.rows[tasksTable.rows.length - 1].cells.length; j++) {
+        let cell = (tasksTable.rows[tasksTable.rows.length - 1].cells[j].firstElementChild as HTMLInputElement).value
+        maxMarkSum += parseInt(cell, 10)
+        taskMaxMarks[j] = parseInt(cell)
+        studentFinalMarks[j] = 0
+    }
+
+    for (let i = tasksTable.rows.length - 2; i > 0; i--) {
+        delta = maxMarkSum
+        studentMarkSum = 0
+        for (let j = 0; j < tasksTable.rows[i].cells.length; j++) {
+            let cell = tasksTable.rows[i].cells[j].firstElementChild as HTMLInputElement
+            if (cell) {
+                if (cell.value === '' || cell.value === 'Н') {
+                    delta -= taskMaxMarks[j]
+                } else {
+                    if (cell.value !== 'Н0') {
+                        studentMarkSum += parseInt(cell.value)
+                    }
+                }
+            }
+        }
+        const final = Math.ceil(studentMarkSum / delta * 100)
+        if(isNaN(final)) {
+            studentFinalMarks.push("")
+        } else {
+            studentFinalMarks.push(final)
+        }
+    }
+    return studentFinalMarks
+}
+
+
 export {
     addTask, removeTasks, setTaskInitials, changeTaskMaxMarkHandler,
-    addMark, convertMarkToTable, updateMark
+    addMark, convertMarkToTable, updateMark, getFinalMarks
 }
