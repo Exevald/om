@@ -19,8 +19,7 @@ class GroupsListController extends AbstractController
         $token = $request->cookies->get("token");
         if (!isset($token))
         {
-            $response = $this->redirectToRoute("loginPage");
-            $response->send();
+            return $this->redirectToRoute("loginPage");
         }
         $teacher = $this->api->getTeacherByToken($token);
 
