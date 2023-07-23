@@ -20,7 +20,7 @@ const DropDown = (props: DropDownProps) => {
     const [isInitialsOnChange, setIsInitialsOnChange] = useState(false)
     return (
         <div id={'dropdown' + props.taskId} className="dropdown__wrapper">
-            <div className="dropdown__content"onKeyDown={(e) => e.key === 'Enter' &&
+            <div className="dropdown__content" onKeyDown={(e) => e.key === 'Enter' &&
                     setTaskInitials(props.taskId, context.groupId, context.setTasks, setIsInitialsOnChange)
             }>
                 { 
@@ -66,8 +66,7 @@ const DropDownLogOut = () => {
     return (
         <div id='dropdownlogOut' className="dropdown__wrapper dropdown__logout">
             <div className="dropdown__logoutContent" onClick={() => {
-                logout()
-                window.location.href = titleUrl
+                logout().then(() => window.location.href = titleUrl)
             }}>
                 <p>Выйти</p>
             </div>

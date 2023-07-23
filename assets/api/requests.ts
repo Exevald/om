@@ -147,12 +147,12 @@ function changeTaskInitials(taskId: number, topic: string, description: string) 
     )
 }
 
-function changeTaskDate(taskId: string, date: Date) {
+function changeTaskDate(taskId: string, strDate: string) {
     return fetchPostRequest(
         changeTaskDateUrl,
         {
             taskId: parseInt(taskId, 10),
-            date: date
+            date: strDate
         }
     )
 }

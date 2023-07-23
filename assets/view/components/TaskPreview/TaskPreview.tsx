@@ -28,11 +28,10 @@ const TaskPreview = (props: TaskPreviewProps) => {
     }
     const finalDate = date + "." + month
 
-    /*onDoubleClick={() => setIsOnChange(true)}*/
     return (
         <th className="taskLabel__wrapper"
-            onClick={(e) => context.state === TableState.default && showDropDownByTaskId(props.id, e)}
-            onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, setIsOnChange, context.setTasks)}
+            onDoubleClick={() => setIsOnChange(true)}
+            onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, context.groupId, setIsOnChange, context.setTasks)}
         >
             {
                 props.onDelete &&
@@ -48,6 +47,7 @@ const TaskPreview = (props: TaskPreviewProps) => {
                         <span>{finalDate}</span>
                 }
                 <img className="taskIcon"
+                     onClick={(e) => context.state === TableState.default && showDropDownByTaskId(props.id, e)}
                     src={taskIcon}
                     alt="Подробнее"
                 />

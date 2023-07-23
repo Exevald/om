@@ -79,9 +79,10 @@ class TaskController extends AbstractController
         $body = json_decode($request->getContent(), true);
         $taskId = $body["taskId"];
         $date = $body["date"];
-        if (!isset($taskId) || $date($date)) {
-            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        if (!isset($taskId) || \DateTime::createFromFormat('d.m', $date) === false) {
+            throw new Exception('Введена несуществующая дата', ErrorType::INCORRECT_INPUT_DATA->value);
         }
+        $date = \DateTime::createFromFormat('d.m', $date);
         $this->api->changeTaskDate($token, $taskId, $date);
         return new Response();
     }

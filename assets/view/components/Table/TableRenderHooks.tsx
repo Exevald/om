@@ -97,7 +97,7 @@ function generateTaskMaxMarks(
 }
 
 
-function generateTaskHead(tasks: Array<Task>, state: number) {
+function generateTaskHead(tasks: Array<Task>, state: TableState) {
     const tasksHead: Array<JSX.Element> = []
     if (state === TableState.delete) {
         tasks.forEach(task =>
