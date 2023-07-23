@@ -23,7 +23,7 @@ class TeacherController extends AbstractController
         $body = json_decode($request->getContent(), true);
         $email = $body["email"];
         $password = $body["password"];
-        if (empty($email) || empty($password)) {
+        if (!isset($email) || !isset($password)) {
             return $response->setStatusCode(401);
         }
         $authToken = $this->api->login($email, $password);
@@ -55,14 +55,14 @@ class TeacherController extends AbstractController
     public function changeTeacherNameApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $teacherId = $body["teacherId"];
         $firstName = $body["firstName"];
         $lastName = $body["lastName"];
-        if (empty($teacherId) || empty($firstName) || empty($lastName)) {
+        if (!isset($teacherId) || !isset($firstName) || !isset($lastName)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeTeacherName($token, $teacherId, $firstName, $lastName);
@@ -72,13 +72,13 @@ class TeacherController extends AbstractController
     public function changeTeacherEmailApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $teacherId = $body["teacherId"];
         $email = $body["email"];
-        if (empty($teacherId) || empty($email)) {
+        if (!isset($teacherId) || !isset($email)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeTeacherEmail($token, $teacherId, $email);
@@ -88,13 +88,13 @@ class TeacherController extends AbstractController
     public function changeTeacherPasswordApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $teacherId = $body["teacherId"];
         $password = $body["password"];
-        if (empty($teacherId) || empty($password)) {
+        if (!isset($teacherId) || !isset($password)) {
             throw  new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeTeacherPassword($token, $teacherId, $password);

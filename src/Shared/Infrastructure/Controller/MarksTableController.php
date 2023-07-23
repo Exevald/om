@@ -23,7 +23,7 @@ class MarksTableController extends AbstractController
     public function getMarksTablePageApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             $response = $this->redirectToRoute("loginPage");
             $response->send();
         }
@@ -32,7 +32,7 @@ class MarksTableController extends AbstractController
         $serializer = new Serializer([$normalizer]);
 
         $groupId = $request->attributes->get("groupId");
-        if (empty($groupId)) {
+        if (!isset($groupId)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $teacher = $this->api->getTeacherByToken($token);

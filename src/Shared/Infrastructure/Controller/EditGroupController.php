@@ -15,7 +15,7 @@ class EditGroupController extends AbstractController
     public function getEditGroupPageApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token))
+        if (!isset($token))
         {
             $response = $this->redirectToRoute("loginPage");
             $response->send();

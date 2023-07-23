@@ -20,7 +20,7 @@ class StudentController extends AbstractController
     public function createStudentApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token))
+        if (!isset($token))
         {
             $response = $this->redirectToRoute("loginPage");
             $response->send();
@@ -29,7 +29,7 @@ class StudentController extends AbstractController
         $groupId = $body["groupId"];
         $firstName = $body["firstName"];
         $lastName = $body["lastName"];
-        if (empty($groupId) || empty($firstName) || empty($lastName)) {
+        if (!isset($groupId) || !isset($firstName) || !isset($lastName)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->createStudent($token, $firstName, $lastName, $groupId);
@@ -39,14 +39,14 @@ class StudentController extends AbstractController
     public function changeStudentNameApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $studentId = $body["studentId"];
         $firstName = $body["firstName"];
         $lastName = $body["lastName"];
-        if (empty($studentId) || empty($firstName) || empty($lastName)) {
+        if (!isset($studentId) || !isset($firstName) || !isset($lastName)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeStudentName($token, $studentId, $firstName, $lastName);
@@ -57,13 +57,13 @@ class StudentController extends AbstractController
     {
         var_dump("here delete");
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $groupId = $body["groupId"];
         $studentsIdList = $body["studentsIdList"];
-        if (empty($groupId) || empty($studentsIdList)) {
+        if (!isset($groupId) || !isset($studentsIdList)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->deleteStudentsFromGroup($token, $groupId, $studentsIdList);
@@ -73,11 +73,11 @@ class StudentController extends AbstractController
     public function getStudentDataByIdApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $studentId = $request->attributes->get("studentId");
-        if (empty($studentId)) {
+        if (!isset($studentId)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $student = $this->api->getStudentById($studentId);

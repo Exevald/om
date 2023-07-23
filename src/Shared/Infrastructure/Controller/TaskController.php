@@ -22,7 +22,7 @@ class TaskController extends AbstractController
     public function createTaskApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
@@ -30,7 +30,7 @@ class TaskController extends AbstractController
         $topic = $body["topic"];
         $description = $body["description"];
         $maxMark = $body["maxMark"];
-        if (empty($groupId) || empty($topic) || empty($description) || empty($maxMark)) {
+        if (!isset($groupId) || !isset($topic) || !isset($description) || !isset($maxMark)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->createTask($token, $topic, $description, $maxMark, $groupId);
@@ -40,13 +40,13 @@ class TaskController extends AbstractController
     public function deleteTasksApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $groupId = $body["groupId"];
         $tasksIdList = $body["tasksIdList"];
-        if (empty($groupId) || empty($tasksIdList)) {
+        if (!isset($groupId) || !isset($tasksIdList)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->deleteTasksFromGroup($token, $groupId, $tasksIdList);
@@ -56,14 +56,14 @@ class TaskController extends AbstractController
     public function changeTaskInitialsApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $taskId = $body["taskId"];
         $topic = $body["topic"];
         $description = $body["description"];
-        if (empty($taskId) || empty($topic) || empty($description)) {
+        if (!isset($taskId) || !isset($topic) || !isset($description)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeTaskInitials($token, $taskId, $topic, $description);
@@ -73,13 +73,13 @@ class TaskController extends AbstractController
     public function changeTaskDateApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $taskId = $body["taskId"];
         $date = $body["date"];
-        if (empty($taskId) || $date($date)) {
+        if (!isset($taskId) || $date($date)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeTaskDate($token, $taskId, $date);
@@ -89,13 +89,13 @@ class TaskController extends AbstractController
     public function changeTaskMaxMarkApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $taskId = $body["taskId"];
         $maxMark = $body["maxMark"];
-        if (empty($taskId) || empty($maxMark)) {
+        if (!isset($taskId) || !isset($maxMark)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeTaskMaxMark($token, $taskId, $maxMark);
@@ -104,15 +104,14 @@ class TaskController extends AbstractController
 
     public function getTaskDataByIdApi(Request $request): Response
     {
-        $normalizer = new ObjectNormalizer();
-        $serializer = new Serializer([$normalizer]);
+        $serializer = new Serializer([new ObjectNormalizer()]);
 
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $taskId = $request->attributes->get("taskId");
-        if (empty($taskId)) {
+        if (!isset($taskId)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $task = $this->api->getTaskById($taskId);

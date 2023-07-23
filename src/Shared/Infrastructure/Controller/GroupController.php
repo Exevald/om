@@ -22,14 +22,14 @@ class GroupController extends AbstractController
     public function createGroupApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $title = $body["title"];
         $subject = $body["subject"];
         $teacherId = $body["teacherId"];
-        if (empty($title) || empty($subject) || empty($teacherId)) {
+        if (!isset($title) || !isset($subject) || !isset($teacherId)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->createGroup($token, $title, $subject, $teacherId);
@@ -39,14 +39,14 @@ class GroupController extends AbstractController
     public function changeGroupNameApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $groupId = $body["groupId"];
         $title = $body["title"];
         $subject = $body["subject"];
-        if (empty($groupId) || empty($title) || empty($subject)) {
+        if (!isset($groupId) || !isset($title) || !isset($subject)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeGroupInitials($token, $groupId, $title, $subject);
@@ -56,13 +56,13 @@ class GroupController extends AbstractController
     public function deleteGroupsApi(Request $request): Response
     {
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $body = json_decode($request->getContent(), true);
         $teacherId = $body["teacherId"];
         $groupIdList = $body["groupIdList"];
-        if (empty($teacherId) || empty($groupIdList)) {
+        if (!isset($teacherId) || !isset($groupIdList)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->deleteGroups($token, $teacherId, $groupIdList);
@@ -75,11 +75,11 @@ class GroupController extends AbstractController
         $serializer = new Serializer([$normalizer]);
 
         $token = $request->cookies->get("token");
-        if (empty($token)) {
+        if (!isset($token)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $groupId = $request->attributes->get("groupId");
-        if (empty($groupId)) {
+        if (!isset($groupId)) {
             throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $group = $this->api->getGroupById($groupId);
