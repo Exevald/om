@@ -4,6 +4,7 @@ namespace App\Shared\Infrastructure\Controller;
 
 use App\Om\Api\ApiInterface;
 use App\Om\Domain\ErrorType\ErrorType;
+use App\Shared\Domain\DateValidator\DateValidator;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +14,7 @@ use Symfony\Component\Serializer\Serializer;
 
 class TaskController extends AbstractController
 {
+    private const dateRegExpr = 'd.m';
     public function __construct(
         private readonly ApiInterface $api
     )
@@ -78,11 +80,12 @@ class TaskController extends AbstractController
         }
         $body = json_decode($request->getContent(), true);
         $taskId = $body["taskId"];
-        $date = $body["date"];
-        if (!isset($taskId) || \DateTime::createFromFormat('d.m', $date) === false) {
-            throw new Exception('Введена несуществующая дата', ErrorType::INCORRECT_INPUT_DATA->value);
+        $strDate = $body["date"];
+
+        if (!isset($taskId) || DateValidator::validate($strDate, self::dateRegExpr) === false) {
+            throw new Exception('Введены неправильные данные', ErrorType::INCORRECT_INPUT_DATA->value);
         }
-        $date = \DateTime::createFromFormat('d.m', $date);
+        $date = \DateTime::createFromFormat(self::dateRegExpr, $strDate);
         $this->api->changeTaskDate($token, $taskId, $date);
         return new Response();
     }
