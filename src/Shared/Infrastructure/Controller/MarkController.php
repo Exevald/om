@@ -27,8 +27,8 @@ class MarkController extends AbstractController
         $taskId = $body["taskId"];
         $studentId = $body["studentId"];
         $studentMark = $body["studentMark"];
-        if (!isset($taskId) || !isset($studentId) || !isset($studentMark)) {
-            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        if (!isset($taskId) || !isset($studentId) || !isset($studentMark) || $studentMark < -2 || $studentMark === '') {
+            throw new Exception('Введены неправильные данные', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->createMark($token, $studentId, $studentMark, $taskId);
         return new Response();
@@ -43,8 +43,8 @@ class MarkController extends AbstractController
         $body = json_decode($request->getContent(), true);
         $markId = $body["markId"];
         $studentMark = $body["studentMark"];
-        if (!isset($markId) || !isset($studentMark)) {
-            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        if (!isset($markId) || !isset($studentMark) || $studentMark < -2 || $studentMark === '') {
+            throw new Exception('Введены неправильные данные', ErrorType::INCORRECT_INPUT_DATA->value);
         }
         $this->api->changeTaskStudentMark($token, $markId, $studentMark);
         return new Response();
