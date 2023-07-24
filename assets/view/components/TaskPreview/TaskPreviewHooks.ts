@@ -25,7 +25,10 @@ function handleKeyDown(
                     .finally(() => setIsOnChange(false))
             }
             )
-            .catch((err) => ToastManager.add('Ошиибка в изменении даты', 3000))
+            .catch(() => {
+                setIsOnChange(false)
+                ToastManager.add('Введены неправильные данные', 3000)
+            })
 
     }
 }
