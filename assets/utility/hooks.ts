@@ -19,14 +19,25 @@ function sortStudentsByInitials(a: Student, b: Student): number {
     } else return -1
 }
 
-
-function hasOnlyNumbers(str: string): boolean {
-    if( isNaN(Number(str)) ) {
+function isStrNonNegative(str: string): boolean {
+    if(Number(str) >= 0){
+        return true
+    }
+    else{
         return false
-    } else  {
-        return true 
     }
 }
 
+function hasOnlyNumbers(str: string): boolean {
+    if(str !== ""){
+        if(isNaN(Number(str))) {
+            return false
+        } else  {
+            return true
+        }
+    }
+    else return  false
+}
 
-export { sortStudentsByInitials, hasOnlyNumbers }
+
+export { sortStudentsByInitials, hasOnlyNumbers, isStrNonNegative }

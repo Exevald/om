@@ -4,7 +4,7 @@ import {changeTaskInitials, changeTaskMaxMark, changeTaskStudentMark, createMark
 import { fetchGetRequest } from "../../../utility/fetchRequest"
 import {getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
-import { hasOnlyNumbers } from "../../../utility/hooks"
+import { hasOnlyNumbers, isStrNonNegative } from "../../../utility/hooks"
 import ToastManager from "../ToastManager/ToastManager";
 
 
@@ -96,29 +96,43 @@ function addMark(
 ) {
     const el = document.getElementById(taskId + ' ' + studentId) as HTMLInputElement
     let mark: number
+    if(el.value === '-2'){
+        el.value = 'Н0'
+    }
+    else if(el.value === '-1'){
+        el.value = 'Н'
+    }
     switch (el.value) {
-        case 'Н':
+        case 'Н': {
             mark = -1
             break
-        case 'Н0':
+        }
+        case 'Н0':{
             mark = -2
             break
+        }
         default:
             if(hasOnlyNumbers(el.value)) {
-                mark = convertMarkToDatabase(el.value)
+                if(isStrNonNegative(el.value)){
+                    mark = convertMarkToDatabase(el.value)
+                }
             }
     }
     if (mark === undefined) {
         // тост об ошибке
-        console.log('ошибка, неправильно введены данные')
+        ToastManager.add('ошибка, неправильно введены данные', 2000)
+        el.value = ''
         el.blur()
     } else {
         createMark(taskId, studentId, mark)
             .then(() =>
                 fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
-                    .then(response => setTasks(response.tasks))
+                    .then(response => {
+                        setTasks(response.tasks)
+                        ToastManager.add('Успешно сохранено', 3000)
+                    })
             )
-            .catch(err => console.log(err + ' from adding new mark'))
+            .catch(err => ToastManager.add('Ошибка при изменении оценки', 3000))
             .finally(() => el.blur())
     }
 }
@@ -130,22 +144,37 @@ function updateMark(
     groupId: string
 ) {
     const el = document.getElementById('mark' + markId) as HTMLInputElement
-    let mark: number
+    let mark: number = undefined;
+    if(el.value === '-2'){
+        el.value = 'Н0'
+    }
+    else if(el.value === '-1'){
+        el.value = 'Н'
+    }
     switch (el.value) {
-        case 'Н':
+        case 'Н': {
             mark = -1
             break
+        }
         case 'Н0':
             mark = -2
             break
-        default:
+        case '':
+            mark = -3
+            break
+        default: {
             if(hasOnlyNumbers(el.value)) {
-                mark = convertMarkToDatabase(el.value)
+                if(isStrNonNegative(el.value)){
+                    mark = convertMarkToDatabase(el.value)
+                }
             }
+        }
     }
+    console.log(mark)
     if (mark === undefined) {
         // тост об ошибке
         ToastManager.add('ошибка, неправильно введены данные', 2000)
+        el.value = ''
         el.blur()
     } else {
         changeTaskStudentMark(markId, mark)

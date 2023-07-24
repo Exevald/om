@@ -82,27 +82,35 @@ const InputArea = (props: InputAreaProps) => {
                         placeholder={props.placeholder} />
                     }
                 </div>
-             :
+                :
                 <>
                     {
-                        props.widthChangeable ?
+                        props.widthChangeable &&
                         <input id={props.id} className={styles} defaultValue={props.value} type={props.type}
                         onChange={() => changeWidth(props.id, props.type, props.widthChangeable)}
                         placeholder={props.placeholder}
                         onClick={props.onKeyDown} />
-                    :
-                        props.type === "checkbox" ?
+                    }
+                    {
+                        props.type === "checkbox" &&
                             <>
                                 <input id={props.id} className={styles} defaultValue={props.value} type={props.type}
                                        placeholder={props.placeholder}
                                        onClick={props.onKeyDown} />
                                 <label htmlFor={props.id} ></label>
                             </>
+                    }
+                    {
+                        props.type === 'mark' ?
+                            <input id={props.id} className={styles} defaultValue={props.value} type={'text'}
+                                   
+                                   />
                             :
                             <input id={props.id} className={styles} defaultValue={props.value} type={props.type}
                            placeholder={props.placeholder}
                            onClick={props.onKeyDown} />
-                    } 
+                    }
+
                 </>
             }      
         </>
