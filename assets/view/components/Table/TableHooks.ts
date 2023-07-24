@@ -1,6 +1,14 @@
 import React from "react"
 import { Task } from "../../../utility/types"
-import {changeTaskInitials, changeTaskMaxMark, changeTaskStudentMark, createMark, createTask, deleteTasks} from "../../../api/requests"
+import {
+    changeTaskInitials,
+    changeTaskMaxMark,
+    changeTaskStudentMark,
+    createMark,
+    createTask,
+    deleteMark,
+    deleteTasks
+} from "../../../api/requests"
 import { fetchGetRequest } from "../../../utility/fetchRequest"
 import {getGroupDataByIdUrl, marksTableUrlApi} from "../../../api/utilities"
 import { TableState } from "../../pages/MarksTable/MarksTable"
@@ -139,18 +147,13 @@ function addMark(
 
 
 function updateMark(
+    taskId: number,
     markId: number,
     setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
     groupId: string
 ) {
-    const el = document.getElementById('mark' + markId) as HTMLInputElement
+    const el = document.getElementById(`${taskId} ${markId}`) as HTMLInputElement
     let mark: number = undefined;
-    if(el.value === '-2'){
-        el.value = 'Н0'
-    }
-    else if(el.value === '-1'){
-        el.value = 'Н'
-    }
     switch (el.value) {
         case 'Н': {
             mark = -1
@@ -160,8 +163,16 @@ function updateMark(
             mark = -2
             break
         case '':
-            mark = -3
-            break
+            deleteMark(taskId, markId)
+                .then(() =>
+                    fetchGetRequest(marksTableUrlApi.replace("GROUP_ID", groupId))
+                        .then(response => {
+                            setTasks(response.tasks)
+                            ToastManager.add('Успешно сохранено', 3000)
+                        })
+                )
+                .catch(() => ToastManager.add('Ошибка при удалении оценки', 3000))
+            return ;
         default: {
             if(hasOnlyNumbers(el.value)) {
                 if(isStrNonNegative(el.value)){
@@ -170,11 +181,9 @@ function updateMark(
             }
         }
     }
-    console.log(mark)
     if (mark === undefined) {
         // тост об ошибке
-        ToastManager.add('ошибка, неправильно введены данные', 2000)
-        el.value = ''
+        ToastManager.add('Введены неверные данные', 2000)
         el.blur()
     } else {
         changeTaskStudentMark(markId, mark)

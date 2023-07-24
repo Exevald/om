@@ -26,9 +26,11 @@ function generateTaskBody(
                         const mark = convertMarkToTable(task.marksList[i].studentMark)
                         marksRow.push(
                             <td key={task.id + ' ' + studentId} onKeyDown={
-                                (e) => e.key === 'Enter' && updateMark(task.marksList[i].id, setTasks, groupId)}>
+                                (e) => e.key === 'Enter' &&
+                                    updateMark(task.id, task.marksList[i].id, setTasks, groupId)}
+                            >
                                 <InputArea key={task.id + ' ' + studentId}
-                                           id={'mark' + task.marksList[i].id}
+                                           id={`${task.id} ${task.marksList[i].id}`}
                                            type="mark"
                                            value={mark}/>
                             </td>

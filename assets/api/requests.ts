@@ -13,7 +13,7 @@ import {
     createStudentUrl,
     createTaskUrl,
     createTeacherUrl,
-    deleteGroupsUrl,
+    deleteGroupsUrl, deleteMarkUrl,
     deleteStudentsUrl,
     deleteTasksUrl, logoutUrl
 } from "./utilities";
@@ -188,9 +188,18 @@ function changeTaskStudentMark(markId: number, studentMark: number) {
     )
 }
 
+function deleteMark(taskId: number, markId: number) {
+    return fetchPostRequest(deleteMarkUrl,
+        {
+            taskId: taskId,
+            markId: markId
+        })
+}
+
 export {
     login, createTeacher, createStudent, createGroup,
     deleteGroups, changeGroupInitials, changeStudentName,
     deleteStudents, createTask, deleteTasks, changeTaskInitials,
-    changeTaskMaxMark, changeTaskDate, createMark, changeTaskStudentMark, logout
+    changeTaskMaxMark, changeTaskDate, createMark, changeTaskStudentMark, deleteMark,
+    logout
 }
