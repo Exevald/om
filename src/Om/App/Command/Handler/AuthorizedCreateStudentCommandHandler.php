@@ -8,6 +8,7 @@ use App\Om\Domain\Service\GroupService;
 use App\Om\Domain\Service\StudentService;
 use App\Om\Infrastructure\Repositories\Repository\StudentRepository;
 use App\Om\Infrastructure\Repositories\Repository\GroupRepository;
+use App\Om\Infrastructure\Repositories\Repository\TaskRepository;
 
 class AuthorizedCreateStudentCommandHandler
 {
@@ -17,13 +18,14 @@ class AuthorizedCreateStudentCommandHandler
 
     public function __construct(
         AuthorizerInterface $authorizer,
-        StudentRepository $studentRepository,
-        GroupRepository   $groupRepository
+        StudentRepository   $studentRepository,
+        GroupRepository     $groupRepository,
+        TaskRepository      $taskRepository
     )
     {
         $this->authorizer = $authorizer;
         $this->studentService = new StudentService($studentRepository);
-        $this->groupService = new GroupService($groupRepository, $studentRepository);
+        $this->groupService = new GroupService($groupRepository, $studentRepository, $taskRepository);
     }
 
     public function handle(AuthorizedCreateStudentCommand $command): int

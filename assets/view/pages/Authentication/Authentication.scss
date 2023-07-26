@@ -9,9 +9,11 @@
         justify-content: center;
         font: var(--text-text-normal-regular)
     }
+
     &main-wrapper > div {
         margin-bottom: 22px;
     }
+
     &header {
         font: var(--text-header-normal);
         color: var(--electric-default);
@@ -27,5 +29,18 @@
         text-decoration: underline;
         cursor: pointer;
         font: var(--text-text-normal-medium);
+    }
+    &info-input{
+        display: flex;
+        align-items: center;
+        position: relative;
+        gap: 7px;
+    }
+    &input-wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 446px;
+        gap: 10px;
     }
 }

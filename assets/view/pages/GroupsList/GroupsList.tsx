@@ -45,8 +45,8 @@ const ButtonList = () => {
                     <Button type={"filled"} data={"Сохранить"}
                             onClick={() => 
                                 setGroupById(
-                                value.setState, value.groups, value.setGroups, 
-                                value.activeGroupId, value.setActiveGroupId
+                                    value.setState, value.groups, value.setGroups,
+                                    value.activeGroupId, value.setActiveGroupId
                             )}/>
                 </>
             }{
@@ -129,9 +129,6 @@ const Groups = () => {
             }
             {
                 groups.length > 0 && <ol>{groups}</ol>
-            }
-            {
-                groups.length === 0 && <h5>Вы ещё не добавили ни одной группы</h5>
             }
         </div>
     )

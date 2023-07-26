@@ -13,9 +13,9 @@ import {
     createStudentUrl,
     createTaskUrl,
     createTeacherUrl,
-    deleteGroupsUrl,
+    deleteGroupsUrl, deleteMarkUrl,
     deleteStudentsUrl,
-    deleteTasksUrl
+    deleteTasksUrl, logoutUrl
 } from "./utilities";
 import { DEFAULT_GROUP_NAME, DEFAULT_STUDENT_NAME, DEFAULT_STUDENT_SURNAME, DEFAULT_SUBJECT_NAME, DEFAULT_TASK_DESCRIPTION, DEFAULT_TASK_MAXMARK, DEFAULT_TASK_TITLE } from "../utility/utilities";
 
@@ -31,6 +31,10 @@ function login(email: string, password: string) {
     )
 }
 
+function logout() {
+    return fetchPostRequest(logoutUrl, {})
+}
+
 function createTeacher(teacherData: teacherDataType) {
     const encryptedPassword = getEncryptedText(teacherData.password);
     return fetchPostRequest(
@@ -40,13 +44,6 @@ function createTeacher(teacherData: teacherDataType) {
             lastName: teacherData.lastName,
             email: teacherData.email,
             encryptedPassword
-        }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error()
-            }
-            return response
         }
     )
 }
@@ -58,13 +55,6 @@ function createStudent(groupId: number) {
             groupId: groupId,
             firstName: DEFAULT_STUDENT_NAME,
             lastName: DEFAULT_STUDENT_SURNAME
-        }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error()
-            }
-            return response
         }
     )
 }
@@ -79,13 +69,6 @@ function createGroup(teacherId: number) {
             studentsList: [],
             tasksList: []
         }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error()
-            }
-            return response
-        }
     )
 }
 
@@ -95,13 +78,6 @@ function deleteGroups(groupIdList: Array<string>, teacherId: string) {
         {
             groupIdList: groupIdList.map(id => parseInt(id, 10)),
             teacherId: parseInt(teacherId, 10)
-        }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error();
-            }
-            return response;
         }
     )
 }
@@ -135,13 +111,6 @@ function deleteStudents(groupId: string, studentsIdList: Array<string>) {
             groupId: parseInt(groupId, 10),
             studentsIdList: studentsIdList.map(id => parseInt(id, 10))
         }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error();
-            }
-            return response;
-        }
     )
 }
 
@@ -154,13 +123,6 @@ function createTask(groupId: string) {
             description: DEFAULT_TASK_DESCRIPTION,
             maxMark: DEFAULT_TASK_MAXMARK
         }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error()
-            }
-            return response
-        }
     )
 }
 
@@ -171,33 +133,26 @@ function deleteTasks(groupId: string, tasksIdsList: Array<number>) {
             groupId: parseInt(groupId, 10),
             tasksIdList: tasksIdsList
         }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error();
-            }
-            return response;
-        }
     )
 }
 
-function changeTaskInitials(taskId: string, topic: string, description: string) {
+function changeTaskInitials(taskId: number, topic: string, description: string) {
     return fetchPostRequest(
         changeTaskInitialsUrl,
         {
-            taskId: parseInt(taskId, 10),
+            taskId: taskId,
             topic: topic,
             description: description
         }
     )
 }
 
-function changeTaskDate(taskId: string, date: Date) {
+function changeTaskDate(taskId: string, strDate: string) {
     return fetchPostRequest(
         changeTaskDateUrl,
         {
             taskId: parseInt(taskId, 10),
-            date: date
+            date: strDate
         }
     )
 }
@@ -212,37 +167,39 @@ function changeTaskMaxMark(taskId: string, maxMark: number) {
     )
 }
 
-function createMark(taskId: string, studentId: string, studentMark: number) {
+function createMark(taskId: number, studentId: number, studentMark: number) {
     return fetchPostRequest(
         createMarkUrl,
         {
-            taskId: parseInt(taskId, 10),
-            studentId: parseInt(studentId, 10),
+            taskId: taskId,
+            studentId: studentId,
             studentMark: studentMark
-        }
-    ).then(
-        response => {
-            if (!response.ok || response.status === 409) {
-                throw new Error();
-            }
-            return response;
         }
     )
 }
 
-function changeTaskStudentMark(markId: string, studentMark: number) {
+function changeTaskStudentMark(markId: number, studentMark: number) {
     return fetchPostRequest(
         changeTaskStudentMarkUrl,
         {
-            markId: parseInt(markId, 10),
+            markId: markId,
             studentMark: studentMark
         }
     )
+}
+
+function deleteMark(taskId: number, markId: number) {
+    return fetchPostRequest(deleteMarkUrl,
+        {
+            taskId: taskId,
+            markId: markId
+        })
 }
 
 export {
     login, createTeacher, createStudent, createGroup,
     deleteGroups, changeGroupInitials, changeStudentName,
     deleteStudents, createTask, deleteTasks, changeTaskInitials,
-    changeTaskMaxMark, changeTaskDate, createMark, changeTaskStudentMark
+    changeTaskMaxMark, changeTaskDate, createMark, changeTaskStudentMark, deleteMark,
+    logout
 }

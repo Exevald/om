@@ -3,9 +3,10 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        p {
+        & > p {
             margin-right: 13px;
         }
+        cursor: pointer;
     }
     &photo {
         width: 40px;

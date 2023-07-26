@@ -5,9 +5,6 @@
         flex-direction: column;
         width: 1358px;
         margin: 130px auto 0 auto;
-        table {
-            margin-top: 93px;
-        }
     }
     &header {
         display: flex;
@@ -23,7 +20,11 @@
     }
     &groupHeader {
         h4 {
-            font: var(--text-header-normal)
+            font: var(--text-header-normal);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 1000px;
         }
         p {
             text-decoration: underline;

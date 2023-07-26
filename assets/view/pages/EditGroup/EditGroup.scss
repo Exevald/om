@@ -10,11 +10,8 @@
     height: 126px;
     display: flex;
     align-items: baseline;
+    gap: 26px;
     margin-bottom: 59px; // поменятб
-    :first-child {
-      margin-right: 26px; // поменятб
-    }
-
     input {
       margin-top: 18px;
     }
@@ -38,15 +35,25 @@
   &subject {
     font: var(--text-header-small);
     color: var(--ash-light);
-    margin-top: 35px;
-    max-width: 200px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
     overflow: hidden;
   }
 
   &group {
     font: var(--text-header-large);
     color: var(--ash);
-    max-width: 1100px;
+    min-width: auto;
+    max-width: 1142px;
+
+    flex: 0 0 auto;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   &studentArea {
@@ -66,14 +73,11 @@
     margin-right: 30px;
     display: flex;
     flex-direction: column;
-
-    input {
+    gap: 15px;
+    label {
       height: 24px;
       display: flex;
       align-items: center;
-      &:not(:first-child) {
-        margin-top: 15px;
-      }
     }
   }
 

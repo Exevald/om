@@ -1,8 +1,16 @@
-.taskLabel {
-    cursor: pointer;
+.taskLabel__wrapper {
     min-width: 80px;
     color: var(--ash-light);
     font: var(--text-text-normal-regular);
+    & label{
+        margin: 0 auto 0 auto;
+        display: block;
+        width: 100%;
+        height: 64px;
+    }
+}
+.taskLabel {
+    cursor: pointer;
     span {
         margin-right: 5px;
     }

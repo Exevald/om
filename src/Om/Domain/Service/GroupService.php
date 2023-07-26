@@ -2,12 +2,11 @@
 
 namespace App\Om\Domain\Service;
 
-use App\Common\ErrorType;
 use App\Om\Domain\Entity\Group;
 use App\Om\Domain\Entity\GroupRepositoryInterface;
 use App\Om\Domain\Entity\StudentRepositoryInterface;
 use App\Om\Domain\Entity\TaskRepositoryInterface;
-use App\Om\Infrastructure\Repositories\Repository\TaskRepository;
+use App\Om\Domain\ErrorType\ErrorType;
 use Exception;
 
 class GroupService

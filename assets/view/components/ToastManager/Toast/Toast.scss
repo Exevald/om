@@ -1,0 +1,45 @@
+$toastAnimationTime: 220ms;
+
+.toast__ {
+    &wrapper {
+        display: none;
+        position: fixed;
+        z-index: 6;
+
+        top: 85%;
+        left: calc((100% - 424px) / 2);
+
+        transform: scale(1, 0);
+        transform-origin: left;
+        transition: $toastAnimationTime;
+
+        font: var(--text-text-normal-regular);
+    }
+    &show {
+        display: block;
+    }
+    &open {
+        transform: scale(1);
+    }
+    &content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid var(--ash-default);
+        border-radius: 20px;
+        background-color: white;
+        width: 347px;
+        padding: 28px 32px 28px 45px;
+    }
+
+    &text{
+        max-width: 300px;
+        text-align: left;
+    }
+
+    &cross {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+}

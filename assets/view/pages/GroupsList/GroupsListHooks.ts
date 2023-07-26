@@ -1,12 +1,10 @@
 import React from "react";
-import {Group, Student} from "../../../utility/types";
-import {DEFAULT_GROUP_NAME, DEFAULT_SUBJECT_NAME} from "../../../utility/utilities";
-import {groupDataType} from "./getGroupData";
+import {Group} from "../../../utility/types";
 import {changeGroupInitials, createGroup} from "../../../api/requests";
-import {getGroupsListPageUrl} from "../../../api/pageUrls";
 import {deleteGroups} from "../../../api/requests";
 import {fetchGetRequest} from '../../../utility/fetchRequest';
 import {groupsListUrlApi} from "../../../api/utilities";
+import ToastManager from "../../components/ToastManager/ToastManager";
 
 
 const GroupsListContext = React.createContext(null);
@@ -25,9 +23,12 @@ function addGroup(
     createGroup(teacherId)
         .then(() =>
             fetchGetRequest(groupsListUrlApi)
-                .then(response => setGroups(JSON.parse(response.groups)))
-                .catch(err => console.log(err + ' from adding new group'))
+                .then(response => {
+                    setGroups(JSON.parse(response.groups))
+                    ToastManager.add('Успешно сохранено', 3000)
+                })
         )
+        .catch(err => ToastManager.add(err + 'ошибка при создании группы', 3000))
 }
 
 
@@ -45,13 +46,17 @@ function setGroupById(
         changeGroupInitials(groupForEditId, groupNameInput.value, groupSubjectInput.value)
             .then(() =>
                 fetchGetRequest(groupsListUrlApi)
-                    .then(response => setGroups(JSON.parse(response.groups)))
-                    .catch(err => console.log(err + ' from changing group title'))
-            ).finally(() => {
+                    .then(response => {
+                        ToastManager.add('Успешно сохранено', 3000)
+                        setGroups(JSON.parse(response.groups)) 
+                    })
+            )
+            .catch(err => ToastManager.add(err + 'ошибка при изменении названия группы', 3000))
+            .finally(() => {
                 setActiveGroupId(-1);
                 setState(GroupsListState.default)
         })
-    }
+    } else setState(GroupsListState.default)
 }
 
 
@@ -71,9 +76,12 @@ function removeGroups(
     deleteGroups(groupsIdsForDelete, teacherId)
         .then(() =>
             fetchGetRequest(groupsListUrlApi)
-                .then(response => setGroups(JSON.parse(response.groups)))
-                .catch(err => console.log(err + ' from deleting groups'))
-        )
+                .then(response => {
+                    ToastManager.add('Успешно сохранено', 3000)
+                    setGroups(JSON.parse(response.groups)) 
+                })
+            )
+        .catch(err => ToastManager.add(err + 'ошибка при удалении группы',3000))
         .finally(() => setState(GroupsListState.default))
 }
 

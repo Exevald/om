@@ -4,11 +4,11 @@ namespace App\Om\Infrastructure\Query;
 
 use App\Om\App\Query\Data\Mark;
 use App\Om\App\Query\MarkQueryServiceInterface;
+use App\Om\Domain\ErrorType\ErrorType;
+use App\Om\Infrastructure\Hydrator\Hydrator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use App\Common\ErrorType;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
-use App\Om\Infrastructure\Hydrator\Hydrator;
 
 class MarkQueryService extends ServiceEntityRepository implements MarkQueryServiceInterface
 {

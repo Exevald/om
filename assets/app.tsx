@@ -1,4 +1,4 @@
-import './index.scss';
+import './index.css';
 
 
 import {renderTitleScreen} from "./view/pages/TitleScreen/TitleScreen";

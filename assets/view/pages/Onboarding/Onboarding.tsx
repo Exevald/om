@@ -99,7 +99,7 @@ const Onboarding = () => {
                 step === 2 &&
                 <>
                     <SecondImage/>
-                    <h1>Создавайте группы</h1>
+                    <h1>Ставьте оценки</h1>
                     <div className="intro__textarea">
                         <PrevArrow onClick={() => setStep(1)}/>
                         <p className="intro__secondText">

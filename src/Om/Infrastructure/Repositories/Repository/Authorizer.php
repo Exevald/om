@@ -2,8 +2,8 @@
 
 namespace App\Om\Infrastructure\Repositories\Repository;
 
-use App\Common\ErrorType;
 use App\Om\App\Auth\AuthorizerInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Generator\AccessKeyGenerator;
 use App\Om\Infrastructure\Repositories\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -35,8 +35,8 @@ class Authorizer extends ServiceEntityRepository implements AuthorizerInterface
         if ($ORMTeacher->getPassword() !== $password) {
             throw new Exception("Password is wrong", ErrorType::UNAUTHORIZED->value);
         }
-        $generator = new AccessKeyGenerator();
-        $token = $generator->generateAccessKey();
+
+        $token = AccessKeyGenerator::generateAccessKey();
         $ORMTeacher->setLoginKey($token);
 
         $entityManager->persist($ORMTeacher);

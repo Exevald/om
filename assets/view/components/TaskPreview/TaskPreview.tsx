@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import InputArea from "../InputArea/InputArea";
-import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
+import { TableGroupContext, TableState } from "../../pages/MarksTable/MarksTable";
 import { handleKeyDown } from "./TaskPreviewHooks";
 // @ts-ignore
 import taskIcon from './Icons/taskIcon.svg'
@@ -12,7 +12,6 @@ import { showDropDownByTaskId } from "../DropDown/DropDownHooks";
 interface TaskPreviewProps {
     id: number,
     date: Date,
-    onClick?: () => void,
     onDelete?: boolean
 }
 const TaskPreview = (props: TaskPreviewProps) => {
@@ -30,10 +29,9 @@ const TaskPreview = (props: TaskPreviewProps) => {
     const finalDate = date + "." + month
 
     return (
-        <th className="taskLabel"
-            onClick={props.onClick}
+        <th className="taskLabel__wrapper"
             onDoubleClick={() => setIsOnChange(true)}
-            onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, setIsOnChange, context.setTasks)}
+            onKeyDown={(e) => e.key === 'Enter' && handleKeyDown(e, props.id, context.groupId, setIsOnChange, context.setTasks)}
         >
             {
                 props.onDelete &&
@@ -41,17 +39,19 @@ const TaskPreview = (props: TaskPreviewProps) => {
                         id={'checkbox' + props.id}
                         type="checkbox"/>
             }
-            {
-                isOnChange ?
-                    <InputArea id={"taskLabel" + props.id} type='taskLabel' value={finalDate}/>
-                :
-                    <span>{finalDate}</span>
-            }
-            <img className="taskIcon"
-                 src={taskIcon}
-                 alt="Подробнее"
-                 onClick={(e) => showDropDownByTaskId(props.id, e)}
-                 />
+            <div className="taskLabel">
+                {
+                    isOnChange ?
+                        <InputArea id={"taskLabel" + props.id} type='taskLabel' value={finalDate}/>
+                    :
+                        <span>{finalDate}</span>
+                }
+                <img className="taskIcon"
+                     onClick={(e) => context.state === TableState.default && showDropDownByTaskId(props.id, e)}
+                    src={taskIcon}
+                    alt="Подробнее"
+                />
+            </div>
         </th>
     )
 }

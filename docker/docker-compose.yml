@@ -1,0 +1,52 @@
+version: "3.8"
+
+
+networks:
+  electronic_journal_om:
+
+
+services:
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: ./../
+      dockerfile: ./docker/php-fpm/Dockerfile
+      args:
+        - PUID=${PUID}
+        - PGID=${PGID}
+        - INSTALL_XDEBUG=${INSTALL_XDEBUG}
+    environment:
+      PHP_IDE_CONFIG: "serverName=om-docker"
+    volumes:
+      - /var/www/vendor/
+      - ./../:/var/www/
+    networks:
+      - electronic_journal_om
+
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+    ports:
+      - ${NGINX_HOST_HTTP_PORT}:80
+    volumes:
+      - ..:/var/www:rw
+    depends_on:
+      - php-fpm
+    networks:
+      - electronic_journal_om
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:11
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MYSQL_USER: ${MARIADB_USER}
+      MYSQL_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    ports:
+      - "${MARIADB_PORT}:3306"
+    networks:
+      - electronic_journal_om
+    volumes:
+      - "./db_data:/var/lib/mysql"

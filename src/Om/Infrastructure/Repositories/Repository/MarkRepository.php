@@ -2,13 +2,13 @@
 
 namespace App\Om\Infrastructure\Repositories\Repository;
 
-use App\Common\ErrorType;
+use App\Om\Domain\Entity\Mark;
 use App\Om\Domain\Entity\MarkRepositoryInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Hydrator\Hydrator;
 use App\Om\Infrastructure\Repositories\Entity\Mark as ORMMark;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Om\Domain\Entity\Mark;
 use Exception;
 
 /**
@@ -34,8 +34,8 @@ class MarkRepository extends ServiceEntityRepository implements MarkRepositoryIn
         }
         $hydrator = new Hydrator();
         return $hydrator->hydrate(Mark::class, [
-                "student_id" => $ORMMark->getStudentId(),
-                "student_mark" => $ORMMark->getStudentMark(),
+                "studentId" => $ORMMark->getStudentId(),
+                "studentMark" => $ORMMark->getStudentMark(),
                 "id" => $ORMMark->getId(),
             ]
         );
@@ -59,7 +59,7 @@ class MarkRepository extends ServiceEntityRepository implements MarkRepositoryIn
         $ORMMark = $this->find($mark->getId());
         $entityManager = $this->getEntityManager();
 
-        $ORMMark->setStudentId($mark->getStudentMark());
+        $ORMMark->setStudentId($mark->getStudentId());
         $ORMMark->setStudentMark($mark->getStudentMark());
 
         $entityManager->flush();

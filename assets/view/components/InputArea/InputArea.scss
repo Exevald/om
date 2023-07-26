@@ -1,3 +1,7 @@
+.inputArea__label-checkbox{
+
+}
+
 .inputArea__ {
     &header {
         position: relative;
@@ -6,6 +10,9 @@
         width: fit-content;
         padding: 0 6px 0 6px;
         color: var(--ash-default);
+        &_error{
+            color: var(--rose-default);
+        }
     }
     &input {
         width: 423px;
@@ -13,8 +20,14 @@
         border-radius: 6px;
         border-color: var(--ash-default);
         padding-left: 23px;
+        border: 2px solid var(--ash-default);
+        &_error{
+            background: var(--rose-lighter);
+            color: var(--rose-default);
+            border: 2px solid var(--rose-default);
+        }
     }
-    &group, &subject,
+    &group, &subject, &taskTopic, &taskDescription,
     &studentName, &studentSurname {
         border: none;
         border-radius: 0px;
@@ -39,15 +52,22 @@
     &checkbox {
         width: 18px; height: 18px;
         border-color: var(--ash-default);
-        &:checked {
-            color: white;
-            background: var(--ash-default);
+        display: none;
+        & + label{
+            width: 18px;
+            background: url("./Icons/checkboxOutline.svg") no-repeat center;
+        }
+        &:checked + label{
+            background: url("./Icons/checkbox.svg") no-repeat center;
         }
     }
     &mark {
+        background: none;
         border: none;
-        width: 25px;
-        height: 18px;
+        border-radius: 0;
+
+        width: 85px;
+        height: 52px;
         margin: 0;
         padding: 0;
         text-align: center;
@@ -59,4 +79,15 @@
         margin: 0;
         padding: 0;
     }
+    &taskTopic, &taskDescription {
+        padding: 0;
+        height: 22px;
+        margin-bottom: 6px;
+        max-width: 100%;
+    }
+    &taskTopic {
+        font: var(--text-text-normal-bold)
+    }
+
 }
+

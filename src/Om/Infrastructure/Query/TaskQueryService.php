@@ -2,11 +2,11 @@
 
 namespace App\Om\Infrastructure\Query;
 
-use App\Common\ErrorType;
 use App\Om\App\Query\Data\Task;
-use App\Om\Infrastructure\Repositories\Entity\Mark;
 use App\Om\App\Query\TaskQueryServiceInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Hydrator\Hydrator;
+use App\Om\Infrastructure\Repositories\Entity\Mark;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;

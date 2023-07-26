@@ -8,6 +8,7 @@ import {
 } from "../../../api/requests";
 import {fetchGetRequest} from "../../../utility/fetchRequest";
 import {getGroupDataByIdUrl} from "../../../api/utilities";
+import ToastManager from "../../components/ToastManager/ToastManager";
 
 
 const GroupContext = React.createContext(null);
@@ -26,9 +27,12 @@ function addStudent(
     createStudent(parseInt(groupId, 10))
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => setStudents(response.studentsIdList))
-                .catch(err => console.log(err + ' from adding student'))
+                .then(response => {
+                    ToastManager.add('Успешно сохранено', 3000)
+                    setStudents(response.studentsIdList)
+                })
         )
+        .catch(err => ToastManager.add(err + 'ошибка при добавлении студента', 3000))
 }
 
 
@@ -46,9 +50,12 @@ function setStudentById(
     changeStudentName(studentIdForEdit, studentFirstNameInput.value, studentLastNameInput.value)
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => setStudents(response.studentsIdList))
-                .catch(err => console.log(err + ' from setting student initials'))
+                .then(response => {
+                    ToastManager.add('Успешно сохранено', 3000)
+                    setStudents(response.studentsIdList)
+                })
         )
+        .catch(err => ToastManager.add(err + 'ошибка при вводе инициалов студента', 3000))
         .finally(() => setActiveStudentId(-1))
 }
 
@@ -69,9 +76,12 @@ function removeStudents(
     deleteStudents(groupId, studentsIdsForDelete)
         .then(() =>
             fetchGetRequest(getGroupDataByIdUrl.replace("GROUP_ID", groupId))
-                .then(response => setStudents(response.studentsIdList))
-                .catch(err => console.log(err + ' from removing students'))
+                .then(response => {
+                    ToastManager.add('Успешно сохранено', 3000)
+                    setStudents(response.studentsIdList)
+                })
         )
+        .catch(err => ToastManager.add(err + 'ошибка при удалении студента', 3000))
         .finally(() => setState(GroupState.default))
 }
 
@@ -88,12 +98,13 @@ function saveGroupChanges(
     changeGroupInitials(groupId, groupNameInput.value, groupSubjectInput.value)
         .then(() =>
             fetchGetRequest(getUrlApi)
-                .then(response =>
+                .then(response => {
+                    ToastManager.add('Успешно сохранено', 3000)
                     setGroup({name: response.groupTitle, subject: response.groupSubject})
-                )
-                .catch(err => console.log(err + ' from saving group changes'))
-                .finally(() => setState(GroupState.default))
+                })
         )
+        .catch(err => ToastManager.add(err + 'ошибка при сохранении изменений группы', 3000))
+        .finally(() => setState(GroupState.default))
 
 }
 

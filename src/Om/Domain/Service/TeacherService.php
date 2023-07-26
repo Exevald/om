@@ -2,9 +2,9 @@
 
 namespace App\Om\Domain\Service;
 
-use App\Common\ErrorType;
 use App\Om\Domain\Entity\Teacher;
 use App\Om\Domain\Entity\TeacherRepositoryInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use Exception;
 
 class TeacherService

@@ -6,16 +6,21 @@ $tasksTableWidth: 936px;
         width: 100%;
         height: 100%;
         display: flex;
+        margin-top: 93px;
 
     }
     &plug {
-        width: 100%;
+        width: 100vh;
         border: none;
     }
     &markPlug {
+        height: 52px;
         width: 100%;
         border-left: none;
         border-right: none;
+        &:active {
+            background-color: white!important;
+        }
     }
     &wrapper {
         text-align: center;
@@ -23,11 +28,10 @@ $tasksTableWidth: 936px;
         border-collapse: collapse;
         tr {
             th, td {
-                border: 1px black solid;
+                border: 1px solid var(--ash-default);
             }
             td {
                 text-align: center;
-                padding: 20px 0 8px 0;
             }
         }
         thead {
@@ -47,21 +51,37 @@ $tasksTableWidth: 936px;
         }
     }
     &students {
+
         thead {
             tr {
                 th {
                     text-align: left;
                     border-left: none;
-                    padding-bottom: 9px; 
+                    padding-bottom: 9px;
                     width: 339px;
+                    max-width: 339px;
+
+
+                    text-overflow: ellipsis;
+
+                    white-space: nowrap;
+                    overflow: hidden;
                 }
             }
         }
         tbody {
             tr {
                 td {
+                    height: 52px;
                     text-align: left;
                     border-left: none;
+                    width: 339px;
+                    max-width: 339px;
+
+                    text-overflow: ellipsis;
+
+                    white-space: nowrap;
+                    overflow: hidden;
                 }
                 &:last-child {
                     td {
@@ -73,7 +93,7 @@ $tasksTableWidth: 936px;
     }
     &tasks {
         display: block;
-        overflow-x: initial;
+        overflow-x: auto;
         margin: 0 -1px 0 -1px;
         min-width: $tasksTableWidth;
         thead {
@@ -105,6 +125,7 @@ $tasksTableWidth: 936px;
         tbody {
             tr {
                 td {
+                    height: 52px;
                     border-right: none;
                 }
                 &:last-child {

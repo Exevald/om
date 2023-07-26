@@ -1,30 +1,30 @@
 const MIN_LABEL_DEFAULT_SIZE = 100;   // px
 const MAX_LABEL_DEFAULT_SIZE = 1500;    // px
 
-const MIN_LABEL_GROUP_SIZE = 300;   // px
-const MAX_LABEL_GROUP_SIZE = 1200;    // px
+const MIN_LABEL_GROUP_SIZE = 300;               // px
+const MAX_LABEL_GROUP_SIZE = 1200;              // px
 
-const MIN_LABEL_SUBJECT_SIZE = 150;   // px
-const MAX_LABEL_SUBJECT_SIZE = 1500;    // px
+const MIN_LABEL_SUBJECT_SIZE = 150;             // px
+const MAX_LABEL_SUBJECT_SIZE = 1500;            // px
 
-const MIN_LABEL_STUDENT_NAME_SIZE = 50;   // px
-const MAX_LABEL_STUDENT_NAME_SIZE = 1300;    // px
+const MIN_LABEL_STUDENT_NAME_SIZE = 50;         // px
+const MAX_LABEL_STUDENT_NAME_SIZE = 1300;       // px
 
-const MIN_LABEL_STUDENT_SURNAME_SIZE = 100;    // px
+const MIN_LABEL_STUDENT_SURNAME_SIZE = 100;     // px
 const MAX_LABEL_STUDENT_SURNAME_SIZE = 1400;    // px
 
 
-const DEFAULT_STUDENT_NAME = 'Имя';
-const DEFAULT_STUDENT_SURNAME = 'Фамилия';
-const DEFAULT_GROUP_NAME = 'Название';
-const DEFAULT_SUBJECT_NAME = 'Предмет';
+const DEFAULT_STUDENT_NAME      = 'Имя';
+const DEFAULT_STUDENT_SURNAME   = 'Фамилия';
+const DEFAULT_GROUP_NAME        = 'Название';
+const DEFAULT_SUBJECT_NAME      = 'Предмет';
 
 const DEFAULT_TASK_TITLE        = 'Работа'
 const DEFAULT_TASK_DESCRIPTION  = 'Описание'
 const DEFAULT_TASK_MAXMARK      = '10'
 
-
-const DEFAULT_TASKTABLE_WIDTH = 936//px
+const DROPDOWN_ANIMATION_TIME = 220             //ms
+const TOAST_ANIMATION_TIME = 220                //ms
 
 export { 
     MIN_LABEL_DEFAULT_SIZE, MAX_LABEL_DEFAULT_SIZE,
@@ -41,5 +41,9 @@ export {
 
     DEFAULT_GROUP_NAME, DEFAULT_SUBJECT_NAME,
 
-    DEFAULT_TASK_TITLE, DEFAULT_TASK_DESCRIPTION, DEFAULT_TASK_MAXMARK, DEFAULT_TASKTABLE_WIDTH
+    DEFAULT_TASK_TITLE, DEFAULT_TASK_DESCRIPTION, DEFAULT_TASK_MAXMARK,
+
+    DROPDOWN_ANIMATION_TIME,
+
+    TOAST_ANIMATION_TIME
 }

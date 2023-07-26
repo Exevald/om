@@ -2,9 +2,9 @@
 
 namespace App\Om\Infrastructure\Query;
 
-use App\Common\ErrorType;
 use App\Om\App\Query\Data\Student;
 use App\Om\App\Query\StudentQueryServiceInterface;
+use App\Om\Domain\ErrorType\ErrorType;
 use App\Om\Infrastructure\Hydrator\Hydrator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

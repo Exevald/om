@@ -15,10 +15,16 @@ const groupsListUrlApi = '/api/v1/groups/get'
 const groupEditUrlApi = '/api/v1/groups/edit'
 const marksTableUrlApi = '/api/v1/table/get/GROUP_ID'
 
+type Response = {
+    StatusCode: number,
+    Data: string | null,
+    Description: string | null
+}
 /**
  * API routes
  */
 const authorizeUrl = 'api/v1/authorize'
+const logoutUrl = '/api/v1/logout'
 const createTeacherUrl = 'api/v1/teacher/create'
 const createGroupUrl = '/api/v1/group/create'
 const createStudentUrl = '/api/v1/student/create'
@@ -45,5 +51,5 @@ export {
     changeStudentNameUrl, deleteStudentsUrl,
     marksTableUrl, getTaskDataByIdUrl, createTaskUrl, deleteTasksUrl, changeTaskInitialsUrl,
     changeTaskDateUrl, changeTaskMaxMarkUrl, marksTableUrlApi, createMarkUrl,
-    changeTaskStudentMarkUrl, deleteMarkUrl
+    changeTaskStudentMarkUrl, deleteMarkUrl, logoutUrl
 }

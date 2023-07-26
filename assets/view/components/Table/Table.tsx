@@ -1,10 +1,11 @@
-import { useContext, useEffect } from "react";
+import {useContext, useEffect, useState} from "react";
 import {Student, Task} from "../../../utility/types";
+import {TableGroupContext} from "../../pages/MarksTable/MarksTable";
+import {getFinalMarks} from './TableHooks'
+import {generateTaskHead, generateTaskBody, generateTaskMaxMarks} from "./TableRenderHooks";
+import {DropDownList} from "../DropDown/DropDown";
 
 import './Table.scss'
-import { TableGroupContext } from "../../pages/MarksTable/MarksTable";
-import { generateTaskHead, generateTaskBody, generateTaskMaxMarks, setTableOverflowOptional } from "./TableRenderHooks";
-import { DropDownList } from "../DropDown/DropDown";
 
 
 interface StudentTableProps {
@@ -46,16 +47,13 @@ interface TasksTableProps {
 
 const TasksTable = (props: TasksTableProps) => {
     const context = useContext(TableGroupContext)
-    let     tasksHead: Array<JSX.Element>     = generateTaskHead(props.tasks, context.state)
-    const   tasksBody: Array<JSX.Element>     = generateTaskBody(props.studentsIds, props.tasks.map(task => task.id)), 
-            tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
-                props.tasks, context.state, context.setTasks, context.groupId
-            )
-    
-    useEffect(() => {
-        tasksHead = generateTaskHead(props.tasks, context.state)
-        setTableOverflowOptional()
-    }, [context.state, props.tasks])
+    let tasksHead: Array<JSX.Element> = generateTaskHead(props.tasks, context.state)
+    const tasksBody: Array<JSX.Element> = generateTaskBody(
+        props.studentsIds, props.tasks, context.setTasks, context.groupId
+    )
+    const tasksMaxMarks: Array<JSX.Element> = generateTaskMaxMarks(
+        props.tasks, context.setTasks, context.groupId
+    )
 
     return (
         <table className="table__wrapper table__tasks">
@@ -63,10 +61,10 @@ const TasksTable = (props: TasksTableProps) => {
             <tr>{tasksHead}</tr>
             </thead>
             <tbody>
-                {tasksBody}
-                <tr>
-                    {tasksMaxMarks}
-                </tr>
+            {tasksBody}
+            <tr>
+                {tasksMaxMarks}
+            </tr>
             </tbody>
         </table>
     )
@@ -77,22 +75,28 @@ interface FinalMarksTableProps {
     tasks: Array<Task>,
     countOfRows: number
 }
-
 const FinalMarksTable = (props: FinalMarksTableProps) => {
-    let finalMarks: Array<JSX.Element> = []
-    for (let i = 0; i < props.countOfRows; i++) {
-        // здесь рендер финальной оценки
-        finalMarks.push(
-            <tr key={i}>
-                <td><strong>{i}</strong></td>
-            </tr>
-        )
+    const [finalMarks, setFinalMarks] = useState([])
+    let finalMarksList: Array<number | string> = []
+
+    useEffect(() => {
+        getFinalMarksElems()
+    }, [props.tasks])
+
+    const getFinalMarksElems = () => {
+        finalMarksList = getFinalMarks().reverse()
+        const marks: JSX.Element[] = []
+        for (let i = 0; i < props.countOfRows; i++) {
+            // здесь рендер финальной оценки
+            marks.push(
+                <tr key={i}>
+                    <td><strong>{finalMarksList[i]}</strong></td>
+                </tr>
+            )
+        }
+        setFinalMarks(marks)
     }
-    finalMarks.push(
-        <tr key={finalMarks.length + 1}>
-            <td>100</td>
-        </tr>
-    )
+
     return (
         <table className="table__wrapper table__finalMarks">
             <thead>
@@ -102,6 +106,9 @@ const FinalMarksTable = (props: FinalMarksTableProps) => {
             </thead>
             <tbody>
             {finalMarks}
+            <tr>
+                <td>100</td>
+            </tr>
             </tbody>
         </table>
     )
@@ -119,10 +126,13 @@ const Table = (props: TableProps) => {
         <div className="table__tables">
             <DropDownList tasks={props.tasks}/>
             <StudentsTable subject={props.subject} students={props.students}/>
-            <TasksTable tasks={props.tasks} studentsIds={props.students.map(student => parseInt(student.id))}/>
+            <TasksTable tasks={props.tasks}
+                        studentsIds={props.students.map(student => parseInt(student.id))}
+            />
             <FinalMarksTable tasks={props.tasks} countOfRows={props.students.length}/>
         </div>
     )
 }
 
 export default Table
+export {getFinalMarks}

@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Shared\Infrastructure\Controller;
+
+use App\Om\Api\ApiInterface;
+use App\Om\Domain\ErrorType\ErrorType;
+use Exception;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
+
+class MarksTableController extends AbstractController
+{
+    public function __construct(
+        private readonly ApiInterface $api
+    )
+    {
+    }
+
+    public function getMarksTablePageApi(Request $request): Response
+    {
+        $token = $request->cookies->get("token");
+        if (!isset($token)) {
+            $response = $this->redirectToRoute("loginPage");
+            $response->send();
+        }
+
+        $normalizer = new ObjectNormalizer();
+        $serializer = new Serializer([$normalizer]);
+
+        $groupId = $request->attributes->get("groupId");
+        if (!isset($groupId)) {
+            throw new Exception('', ErrorType::INCORRECT_INPUT_DATA->value);
+        }
+        $teacher = $this->api->getTeacherByToken($token);
+        $returnData = [
+            'teacherId' => $teacher->getId(),
+            'userFirstName' => $teacher->getFirstName(),
+            'userLastName' => $teacher->getLastName(),
+            'tasks' => $serializer->normalize($this->getAllTasks($groupId))
+        ];
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setContent(json_encode($returnData));
+
+        return $response;
+    }
+
+    private function getAllTasks(int $groupId): array
+    {
+        $responseContent = [];
+        foreach ($this->api->getTasksByGroupId($groupId) as $task) {
+            $responseContent[] = [
+                'id' => $task->getId(),
+                'topic' => $task->getTopic(),
+                'description' => $task->getDescription(),
+                'date' => $task->getDate()->format('Y-m-d'),
+                'maxMark' => $task->getMaxMark(),
+                'marksList' => $task->getMarksList()
+            ];
+        }
+        return $responseContent;
+    }
+
+    private function getAllMarks(int $groupId): array
+    {
+        $responseContent = [];
+        foreach ($this->api->getTasksByGroupId($groupId) as $task) {
+            $taskId = $task->getId();
+            foreach ($this->api->getMarksByTaskId($taskId) as $mark) {
+                $responseContent[] = [
+                    'id' => $mark->getId(),
+                    'studentId' => $mark->getStudentId(),
+                    'studentMark' => $mark->getStudentMark()
+                ];
+            }
+        }
+        return $responseContent;
+    }
+
+
+}

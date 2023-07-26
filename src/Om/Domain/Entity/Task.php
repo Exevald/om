@@ -93,8 +93,7 @@ class Task
         if (!in_array($markId, $this->marksList)) {
             throw new Exception("Mark with id " . $markId . " does not exist in this task");
         }
-        unset($this->marksList, $markId);
-        $this->marksList = array_values($this->marksList);
+        $this->marksList = array_diff($this->marksList, [$markId]);
     }
 
 }
