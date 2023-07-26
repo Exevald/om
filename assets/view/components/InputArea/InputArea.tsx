@@ -101,16 +101,9 @@ const InputArea = (props: InputAreaProps) => {
                             </>
                     }
                     {
-                        props.type === 'mark' ?
-                            <input id={props.id} className={styles} defaultValue={props.value} type={'text'}
-                                   
-                                   />
-                            :
-                            <input id={props.id} className={styles} defaultValue={props.value} type={props.type}
-                           placeholder={props.placeholder}
-                           onClick={props.onKeyDown} />
+                        props.type === 'mark' &&
+                            <input id={props.id} className={styles} defaultValue={props.value} type={'text'}/>
                     }
-
                 </>
             }      
         </>
