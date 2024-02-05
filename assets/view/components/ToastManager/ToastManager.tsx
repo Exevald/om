@@ -16,6 +16,7 @@ abstract class ToastManager {
             this.init()
         } else if (this.node.childElementCount > 0) {
             // если уже есть, то удаляем прошлый и ставим позже новый
+            // @ts-ignore
             clearTimeout(this.timer)
         }
         this.timer = setTimeout(this.removeCallback, expTime)
@@ -32,6 +33,7 @@ abstract class ToastManager {
             this.root.unmount()
             document.body.removeChild(this.node)
             this.init()
+            // @ts-ignore
             clearTimeout(this.timer)
         }, TOAST_ANIMATION_TIME)
     }
